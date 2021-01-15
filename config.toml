@@ -1,0 +1,32 @@
+baseURL = "https://n9e.github.io/"
+# include content marked as draft
+buildDrafts = false
+# include content with publishdate in the future
+buildFuture = false
+# include content already expired
+buildExpired = false
+# enable this to make all relative URLs relative to content root. Note that this does not affect absolute URLs.
+relativeURLs = true
+disableRSS = true
+enableRobotsTXT = true
+editor = "nano"
+languageCode = "en"
+language = "en"
+theme = "vncnt-hugo"
+title = "Nightingale"
+
+[permalinks]
+  fixed = ":title/"
+  posts = "posts/:slug/"
+
+[params]
+  author = "Nightingale"
+  email = "obsuite@didiglobal.com"
+  description = "Nightingale is a distributed and high-performance monitoring system for hybrid cloud"
+  bio = "A Distributed and High-Performance Monitoring System \n for Hybrid Cloud"
+  avatar = "img/logo.jpg"
+  favicon = "img/favicon.png"
+  error404 = "There is no such page."
+
+  [params.contact]
+    github = "https://github.com/didi/nightingale"
