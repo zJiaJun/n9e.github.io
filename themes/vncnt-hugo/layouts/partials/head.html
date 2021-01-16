@@ -5,5 +5,5 @@
   {{ with .Site.Params.author }}<meta name="author" content="{{.}}">{{end}}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {{partial "includes" . }}{{partial "scripts" . }}
-  {{ with .Site.Params.favicon }}<link rel="shortcut icon" href="/{{.}}">{{ end }}
+  {{ with .Site.Params.favicon }}<link rel="shortcut icon" href="{{.}}">{{ end }}
 </head>
