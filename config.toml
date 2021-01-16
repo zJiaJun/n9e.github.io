@@ -25,7 +25,7 @@ title = "Nightingale"
   description = "Nightingale is a distributed and high-performance monitoring system for hybrid cloud"
   bio = "A Distributed and High-Performance Monitoring System \n for Hybrid Cloud."
   avatar = "https://s3-gz01.didistatic.com/n9e-pub/image/obsuite-wx.jpg"
-  favicon = "img/favicon.png"
+  favicon = "https://s3-gz01.didistatic.com/n9e-pub/image/obsuite/favicon.png"
   error404 = "There is no such page."
 
   [params.contact]
