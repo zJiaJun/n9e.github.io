@@ -24,7 +24,7 @@ title = "Nightingale"
   email = "obsuite@didiglobal.com"
   description = "Nightingale is a distributed and high-performance monitoring system for hybrid cloud"
   bio = "A Distributed and High-Performance Monitoring System \n for Hybrid Cloud."
-  avatar = "img/logo.jpg"
+  avatar = "https://s3-gz01.didistatic.com/n9e-pub/image/obsuite-wx.jpg"
   favicon = "img/favicon.png"
   error404 = "There is no such page."
 
