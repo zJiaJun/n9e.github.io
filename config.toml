@@ -13,7 +13,7 @@ publishDir = "docs"
   disableLandingPageButton = true
   disableMermaid = false
   titleSeparator = "::"
-  themeVariant = ""
+  themeVariant = "blue"
   disableSeoHiddenPages = true
 
 [outputs]

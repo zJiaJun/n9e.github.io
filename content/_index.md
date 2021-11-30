@@ -9,7 +9,7 @@ title = "夜莺手册"
 
 Nightingale在2020.3.20发布v1版本，目前是v5.1版本，从这个版本开始，与Prometheus、VictoriaMetrics、Grafana、Telegraf等生态做了协同集成，力争打造国内最好用的开源运维监控系统。
 
-## 与Open-Falcon的区别
+#### 与Open-Falcon的区别
 
 因为开发Open-Falcon和Nightingale的是一拨人，所以很多社区伙伴会比较好奇，为何要新做一个监控开源软件。核心点是Open-Falcon和Nightingale的差异点实在是太大了，Nightingale并非是Open-Falcon设计逻辑的一个延续，就看做两个不同的软件就好。
 
@@ -17,7 +17,7 @@ Open-Falcon是14年开发的，当时是想解决Zabbix的一些容量问题，�
 
 Nightingale直接支持PromQL，支持Prometheus、M3DB、VictoriaMetrics多种时序库，支持Telegraf做监控数据采集，支持Grafana看图，整个设计更加云原生，虽然也保留了机器归组的逻辑以应对物理机时代的需求，但是设计上，更倾向于使用标签来分组，而不是HostGroup或者树形结构。
 
-## 与Prometheus的区别
+#### 与Prometheus的区别
 
 Nightingale可以简单看做是Prometheus的一个企业级版本，把Prometheus当做Nightingale的一个内部组件-时序库，当然，也不是必须的，时序库除了Prometheus，还可以使用VictoriaMetrics、M3DB等。各种Exporter也可以继续使用，不过我们更推荐使用All-in-one的Telegraf，运维代价会更小一些。
 
