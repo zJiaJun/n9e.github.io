@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.89.3" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>当前告警活跃事件 :: N9E</title>
+    <link href="/css/nucleus.css?1638239196" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1638239196" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1638239196" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1638239196" rel="stylesheet">
+    <link href="/css/auto-complete.css?1638239196" rel="stylesheet">
+    <link href="/css/theme.css?1638239196" rel="stylesheet">
+    <link href="/css/print.css?1638239196" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1638239196"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/usage/alert-cur-event/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+<a href="/"><img src="/logo.png" width="132"></a>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1638239196"></script>
+        <script src="/js/auto-complete.js?1638239196"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1638239196"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="快速开始" class="dd-item"><a href="/quickstart/">快速开始<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker Compose快速部署" class="dd-item"><a href="/quickstart/compose/">使用Docker Compose快速部署<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="快速在生产环境部署启动单机版" class="dd-item"><a href="/quickstart/standalone/">快速在生产环境部署启动单机版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/best-practice/" title="最佳实践" class="dd-item"><a href="/best-practice/">最佳实践<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势" class="dd-item"><a href="/best-practice/fccloud-usage/">使用夜莺的的几种实践姿势<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/busi-group-design/" title="探讨业务组的设计和最佳实践" class="dd-item"><a href="/best-practice/busi-group-design/">探讨业务组的设计和最佳实践<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/data-collection/" title="数据采集" class="dd-item"><a href="/data-collection/">数据采集<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/data-collection/snmp/" title="使用SNMP采集网络设备的指标" class="dd-item"><a href="/data-collection/snmp/">使用SNMP采集网络设备的指标<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/promapm/" title="内嵌Prometheus SDK做APM" class="dd-item"><a href="/data-collection/promapm/">内嵌Prometheus SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/statsd/" title="内嵌Statsd SDK做APM" class="dd-item"><a href="/data-collection/statsd/">内嵌Statsd SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/middleware/" title="使用Telegraf和Exporter监控中间件" class="dd-item"><a href="/data-collection/middleware/">使用Telegraf和Exporter监控中间件<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item parent"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/alert-rule/" title="告警规则" class="dd-item"><a href="/usage/alert-rule/">告警规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-rule-json/" title="告警规则-常用规则JSON" class="dd-item"><a href="/usage/alert-rule-json/">告警规则-常用规则JSON<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-mute/" title="屏蔽规则" class="dd-item"><a href="/usage/alert-mute/">屏蔽规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-subscribe/" title="订阅规则" class="dd-item"><a href="/usage/alert-subscribe/">订阅规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-notify/" title="多种告警通知媒介的支持" class="dd-item"><a href="/usage/alert-notify/">多种告警通知媒介的支持<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-cur-event/" title="当前告警活跃事件" class="dd-item active"><a href="/usage/alert-cur-event/">当前告警活跃事件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-his-event/" title="全部历史告警事件" class="dd-item"><a href="/usage/alert-his-event/">全部历史告警事件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/selfhealing/" title="告警自愈" class="dd-item"><a href="/usage/selfhealing/">告警自愈<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> GitHub repo</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/main/content/usage/alert-cur-event.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/usage/"><span itemprop="name">功能介绍</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/usage/alert-cur-event/" aria-disabled="true"><span itemprop="name">当前告警活跃事件</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents"></nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>当前告警活跃事件</h1>
+
+<p>本节并无太多要讲的内容，菜单里的【活跃告警】，就是列出了当前所有的未恢复活跃告警，如果某个告警恢复了，就会自动从这个列表中删除，这个页面还是蛮重要的，可以作为日常巡检的一项，每天上下班的时候都看一下，看看哪些事件还没恢复，漏了处理。</p>
+<p>活跃告警可以删除，这个操作比较危险，一定要弄明白原理。通常情况下，我们是无需手工删除的，比如cpu_usage_idle告警了，会自动创建一条告警事件，当cpu_usage_idle的值恢复了，即这条告警变成恢复状态了，系统就会自动从活跃告警中删除，所以，通常情况下，就让系统自动处理就好了。</p>
+<p>但是，如果某个指标的标签发生变化，或者机器下线，相关的告警就再也无法恢复了，这个不好理解，详细解释一下：</p>
+<p><strong>指标标签发生变化</strong></p>
+<p>比如这个告警规则：<code>cpu_usage_idle{cpu=&quot;cpu-total&quot;} &lt; 25</code>，拿着这个promql去promdash查询，得到的结果可以看到，有cpu和ident两个标签，ident表示的监控对象，此时，如果我们去对象管理页面，修改这个监控对象的标签，后面新上报的监控数据，就会自动打上新标签，继续拿着刚才的promql去promdash查询，会发现表格里很快会出现新的记录，和之前的记录并存，从时序库的角度来看，就是多了一条新的series。</p>
+<p>就相当于：之前有个series告警了，还没恢复呢，又来了一个新的series，老的series不再上报监控数据，所以老的告警事件就永远都不会恢复了。当然，我们可以调整一下这个promql，忽略掉其他的额外的标签，比如<code>avg(cpu_usage_idle{cpu=&quot;cpu-total&quot;}) by (ident)</code>，这样一来，即使在监控对象的页面修改了标签，这个新的promql永远都只有ident这一个标签，因为这个新的promql是根据ident做了聚合。虽然标签稳定了，但是本人不推荐大家这么做，这样做了之后，<code>cpu=&quot;cpu-total&quot;</code>这个标签就丢了。</p>
+<p><strong>机器下线</strong></p>
+<p>比如某个机器的某个指标报警了，比如内存利用率的一个指标，还没恢复呢，这个机器下线了，上面的客户端也不再上报监控数据了，那这个告警事件就永远都不会消失了，这种情况，我们知道是怎么回事，就可以手工删除对应的告警事件。省的放那没用，还碍眼。</p>
+<hr>
+<p>另外，左侧的业务组旁边，带有一个数字徽章，表示的是这个业务组下的活跃告警数量，这种方式可以让我们快速知道哪个业务组下的告警规则触发了及其活跃事件数量。</p>
+
+          <footer class="footline">
+          </footer>
+        </main>
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/usage/alert-notify/" title="多种告警通知媒介的支持"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/usage/alert-his-event/" title="全部历史告警事件"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1638239196"></script>
+    <script src="/js/perfect-scrollbar.min.js?1638239196"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1638239196"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1638239196"></script>
+    <script src="/js/featherlight.min.js?1638239196"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1638239196"></script>
+    <script src="/js/mermaid.min.js?1638239196"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1638239196"></script>
+  </body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.89.3" />
+    <link rel="alternate" type="application/rss&#43;xml" href="/usage/index.xml" title="N9E" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>功能介绍 :: N9E</title>
+    <link href="/css/nucleus.css?1638239196" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1638239196" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1638239196" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1638239196" rel="stylesheet">
+    <link href="/css/auto-complete.css?1638239196" rel="stylesheet">
+    <link href="/css/theme.css?1638239196" rel="stylesheet">
+    <link href="/css/print.css?1638239196" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1638239196"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/usage/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+<a href="/"><img src="/logo.png" width="132"></a>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1638239196"></script>
+        <script src="/js/auto-complete.js?1638239196"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1638239196"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="快速开始" class="dd-item"><a href="/quickstart/">快速开始<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker Compose快速部署" class="dd-item"><a href="/quickstart/compose/">使用Docker Compose快速部署<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="快速在生产环境部署启动单机版" class="dd-item"><a href="/quickstart/standalone/">快速在生产环境部署启动单机版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/best-practice/" title="最佳实践" class="dd-item"><a href="/best-practice/">最佳实践<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势" class="dd-item"><a href="/best-practice/fccloud-usage/">使用夜莺的的几种实践姿势<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/busi-group-design/" title="探讨业务组的设计和最佳实践" class="dd-item"><a href="/best-practice/busi-group-design/">探讨业务组的设计和最佳实践<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/data-collection/" title="数据采集" class="dd-item"><a href="/data-collection/">数据采集<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/data-collection/snmp/" title="使用SNMP采集网络设备的指标" class="dd-item"><a href="/data-collection/snmp/">使用SNMP采集网络设备的指标<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/promapm/" title="内嵌Prometheus SDK做APM" class="dd-item"><a href="/data-collection/promapm/">内嵌Prometheus SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/statsd/" title="内嵌Statsd SDK做APM" class="dd-item"><a href="/data-collection/statsd/">内嵌Statsd SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/middleware/" title="使用Telegraf和Exporter监控中间件" class="dd-item"><a href="/data-collection/middleware/">使用Telegraf和Exporter监控中间件<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item active parent"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/alert-rule/" title="告警规则" class="dd-item"><a href="/usage/alert-rule/">告警规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-rule-json/" title="告警规则-常用规则JSON" class="dd-item"><a href="/usage/alert-rule-json/">告警规则-常用规则JSON<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-mute/" title="屏蔽规则" class="dd-item"><a href="/usage/alert-mute/">屏蔽规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-subscribe/" title="订阅规则" class="dd-item"><a href="/usage/alert-subscribe/">订阅规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-notify/" title="多种告警通知媒介的支持" class="dd-item"><a href="/usage/alert-notify/">多种告警通知媒介的支持<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-cur-event/" title="当前告警活跃事件" class="dd-item"><a href="/usage/alert-cur-event/">当前告警活跃事件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-his-event/" title="全部历史告警事件" class="dd-item"><a href="/usage/alert-his-event/">全部历史告警事件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/selfhealing/" title="告警自愈" class="dd-item"><a href="/usage/selfhealing/">告警自愈<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> GitHub repo</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/main/content/usage/_index.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/usage/" aria-disabled="true"><span itemprop="name">功能介绍</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#人员组织">人员组织</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#对象管理">对象管理</a></li>
+    <li><a href="#监控看图">监控看图</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#告警管理">告警管理</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>功能介绍</h1>
+
+<h2 id="人员组织">人员组织</h2>
+<p>虽然人员组织这个菜单是放到了最后，但是文档里还是要先讲一下，绝大部分功能都依赖<strong>业务组</strong>这个概念。不过一旦业务组创建完成，就基本不怎么变动操作了，所以菜单放到了后面。</p>
+<h4 id="用户管理">用户管理</h4>
+<p>简单，就是管理系统中的所有用户，系统默认会初始化进去一个root账号，这个root账号是个管理角色，可以创建其他普通用户、修改其他用户的信息。用户认证也可以对接LDAP，这样就无需管理员去创建用户了，LDAP的配置在webapi.conf中。</p>
+<h4 id="团队管理">团队管理</h4>
+<p>团队就是用户组，包含多个用户。主要有两个作用：1、作为告警接收组，配置告警规则的时候，可以通过指定告警接收组的方式告诉系统当发生告警的时候通知哪些人；2、管理业务组，业务组下可以有多个团队，有的团队是ro权限，即只读，有的是rw权限，即读写权限。</p>
+<h4 id="业务组管理">业务组管理</h4>
+<p>业务组相当于一个namespace，下面可以包含用户组、监控对象、告警规则、订阅规则、屏蔽规则、监控大盘、自愈脚本等，是一个可以自闭环的组织，类似一个BU，或者大的业务线。当然，一些小的组织，如果管理（主要是指管理监控对象、告警规则等）上可以自闭环（无需假手其他团队，自己这个团队就能搞定），也可以创建一个单独的业务组。比如夜莺研发团队，管理了100台机器，部署了夜莺的服务，这些机器、这些服务/机器的告警规则都是夜莺研发团队自己搞，那完全可以创建一个夜莺的业务组自己去管理。</p>
+<h2 id="对象管理">对象管理</h2>
+<p>对象管理主要是针对机器和网络设备的管理，如果监控数据推送给n9e-server，n9e-server会从监控数据结构中解析出监控对象的标识信息（标签中的ident或host字段），然后把监控对象信息写入数据库，之后，用户可以在对象管理页面，对监控对象做管理：包括分配这些对象给指定的业务组、给这些监控对象设置标签、修改备注等。</p>
+<p>这个版本的夜莺，取消了之前版本的树状结构，主要是靠业务组+标签的方式来配合解决机器分组的问题，关于这块的设计，有一篇文章来专门探讨：《<a href="/best-practice/busi-group-design/">探讨业务组的设计和最佳实践</a>》</p>
+<h2 id="监控看图">监控看图</h2>
+<p>为了让大家尽量用一个平台搞定监控告警的所有事情，夜莺中内置了查看监控数据的能力，包括即时查询（就是类似PromDash的看图能力）、监控大盘（是类似Grafana的Dashboard配置，不过图表类型支持较少）、对象视角看图（是一个先选择监控对象再看相关监控数据的特殊视角，运维工程师会很喜欢）</p>
+<h4 id="即时查询">即时查询</h4>
+<p>解决以下问题：</p>
+<ul>
+<li>检查某个监控数据是否在正常上报</li>
+<li>测试promql，测试好的promql用于配置告警规则</li>
+<li>生产环境故障，临时查一些监控指标的数据</li>
+</ul>
+<h4 id="监控大盘">监控大盘</h4>
+<p>解决以下问题：</p>
+<ul>
+<li>日常巡检</li>
+<li>知识传递，由专业的人做好大盘，新同事看这些大盘能更便于理解和达成监控目标</li>
+<li>生产环境故障，查看监控数据</li>
+</ul>
+<h4 id="对象视角">对象视角</h4>
+<p>在夜莺系统里，认为监控对象是个很关键的概念，值得赋予一定的管理功能。比如很多监控数据都隶属于某个监控对象，比如某个机器的磁盘利用率，或者某个交换机的某个网口的流量，那在查看这些监控数据的时候，我们会倾向于先找到对应的监控对象，再根据监控对象查找相关监控指标。对象视角的看图方式，就是为此而生。</p>
+<p>什么样的监控数据认为是隶属于某个监控对象的？就看监控数据中是否有ident这个tag，如果有，就认为ident指定的是监控对象的标识，就认为这条监控数据是关联到某个监控对象的，当然，Telegraf采集的监控数据，会打上host标签，标识这个监控数据是来自哪个机器，host这个标签会被夜莺rename成ident。</p>
+<h2 id="告警管理">告警管理</h2>
+<p>夜莺对告警的处理，分为3个规则的管理：告警规则、屏蔽规则、订阅规则；活跃告警和历史告警的展示；以及告警自愈。</p>
+<h4 id="告警规则">告警规则</h4>
+<p>最主要用的是告警规则，用于配置告警阈值，有些监控数据可能不想告警，比如有规划的维护周期，可以配置屏蔽规则，某个告警除了某个组的人关心，可能其他人也关心，就配置订阅规则，比如K8S平台的运维人员要作为告警接收人来接收所有K8S的告警，但是K8S的一些重大网络故障会影响整个K8S集群，上层业务也会关心这类告警，此时业务方就可以订阅K8S集群的部分重大告警。</p>
+<p>对于订阅规则，还有一种场景，比如运维团队管理了公司所有的告警规则，比如内存利用率的告警，不同业务线的人只关心自己的，那不同业务线的人就可以通过订阅规则，只订阅自己业务线的机器的告警。只需简单的为这批机器打上业务线标签，就可以通过这些标签做过滤。</p>
+<h4 id="告警事件">告警事件</h4>
+<p>活跃告警，即当前未恢复的告警，这个信息很关键，通常每天都要巡检，甚至投到作战大屏上，时刻关注；历史告警，就是所有历史告警，包括报警消息和恢复消息，算是一个存档。</p>
+<h4 id="告警自愈">告警自愈</h4>
+<p>告警自愈是类似夜莺v4里边的job平台，可以在告警发生的时候，自动触发某个脚本的执行，比如某个宿主机报警说硬盘不够用，可以自动跑个脚本清理一下无用的数据，比如K8S宿主机的话，可以清理一些没用的镜像。</p>
+
+          <footer class=" footline">
+          </footer>
+        </main>
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/data-collection/middleware/" title="使用Telegraf和Exporter监控中间件"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/usage/alert-rule/" title="告警规则"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1638239196"></script>
+    <script src="/js/perfect-scrollbar.min.js?1638239196"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1638239196"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1638239196"></script>
+    <script src="/js/featherlight.min.js?1638239196"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1638239196"></script>
+    <script src="/js/mermaid.min.js?1638239196"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1638239196"></script>
+  </body>
+</html>

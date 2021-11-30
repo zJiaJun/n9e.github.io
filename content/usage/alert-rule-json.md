@@ -1,0 +1,376 @@
+---
+weight: 2
+title: "告警规则-常用规则JSON"
+---
+
+本节整理一些常用的告警策略，这些告警策略都是导出的JSON文件，大家可以在告警规则管理页面，直接导入这些告警规则JSON，省去了自己的配置，具体操作路径：告警规则->选择要放置规则的业务组->右上角更多操作->导入告警规则->选择生效的集群->填入JSON即可。
+
+## OS常规监控
+
+采集器：[Telegraf]({{%relref "quickstart/telegraf" %}})
+
+```json
+[
+  {
+    "name": "有地址PING不通，请注意",
+    "note": "",
+    "severity": 1,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "ping_result_code != 0",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
+  {
+    "name": "有端口探测失败，请注意",
+    "note": "",
+    "severity": 1,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "net_response_result_code != 0",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
+  {
+    "name": "机器负载-CPU较高，请关注",
+    "note": "",
+    "severity": 3,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "cpu_usage_idle{cpu=\"cpu-total\"} < 25",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
+  {
+    "name": "机器负载-内存较高，请关注",
+    "note": "",
+    "severity": 2,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "mem_available_percent < 25",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
+  {
+    "name": "硬盘-IO非常繁忙",
+    "note": "",
+    "severity": 2,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "rate(diskio_io_time[1m])/10 > 99",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
+  {
+    "name": "硬盘-预计再有4小时写满",
+    "note": "",
+    "severity": 1,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "predict_linear(disk_free[1h], 4*3600) < 0",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
+  {
+    "name": "网卡-入向有丢包",
+    "note": "",
+    "severity": 3,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "net_drop_in > 0",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
+  {
+    "name": "网卡-出向有丢包",
+    "note": "",
+    "severity": 3,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "net_drop_out > 0",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
+  {
+    "name": "网络连接-TME_WAIT数量超过2万",
+    "note": "",
+    "severity": 2,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "netstat_tcp_time_wait > 20000",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
+  {
+    "name": "进程监控-有进程数为0，某进程可能挂了",
+    "note": "",
+    "severity": 1,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "procstat_lookup_running == 0",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
+  {
+    "name": "进程监控-进程句柄限制过小",
+    "note": "可能是ulimit没配好，systemd托管的进程可能是LimitNOFILE没配好",
+    "severity": 3,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "procstat_rlimit_num_fds_soft < 2048",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
+  {
+    "name": "进程监控-采集失败",
+    "note": "",
+    "severity": 1,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "procstat_lookup_result_code != 0",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  }
+]
+```
+

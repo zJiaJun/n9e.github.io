@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>功能介绍 on N9E</title>
+    <link>https://n9e.github.io/usage/</link>
+    <description>Recent content in 功能介绍 on N9E</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language><atom:link href="https://n9e.github.io/usage/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>告警规则</title>
+      <link>https://n9e.github.io/usage/alert-rule/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/usage/alert-rule/</guid>
+      <description>从夜莺5.1版本开始，摒弃了之前数据PUSH型的告警规则，完全使用PromQL来触发告警，相比之前确实灵活了很多，不过学习成本会略高一丢丢，权衡之下，我们认为这是值得的。下面用几条简单的PromQL来入门一下PromQL的用法，至于更多使用知识，请参考Prometheus官网
+需求1：客户端失联告警
+target_up == 0 target_up是夜莺自动生成的一个监控指标，用于监控采集客户端是否存活，如果采集客户端在持续上报监控数据，target_up的值就是1，如果采集客户端不再上报监控数据了，这个指标的值就变成0了，所以，PromQL如上配置，即可在监控客户端失联的时候告警，为了防止网络抖动的情况，或临时restart进程，告警规则里，持续时长一般配置为60秒，给出一定的容错周期。
+监控数据和监控客户端是如何关联的呢？就看监控数据中的ident标签，或host标签，如果有这俩标签中的一个，系统就认为这个监控数据是跟某个监控客户端相关的，就认为在这一时刻，监控客户端是活着的。
+需求2：对整机的CPU空闲率告警
+CPU空闲率的指标是cpu_usage_idle，我们直接用promql查询这个指标，可以看到，有很多Label，比如：cpu=&amp;quot;cpu0&amp;quot;说明这个监控指标标识的是0号cpu的数据，我们要处理整机的CPU空闲率，应该用这个Label：cpu=&amp;quot;cpu-total&amp;quot;
+cpu_usage_idle{cpu=&amp;quot;cpu-total&amp;quot;} &amp;lt; 25 上面的promql只是指定了cpu=&amp;quot;cpu-total&amp;quot;这一个标签，没有指定是哪个机器，那就表示对所有机器生效，任何一台机器的CPU空闲率小于25就告警。
+ 简单的PromQL一般就是指定metric，然后在{}中指定筛选标签，和之前夜莺的告警配置规则是一个道理，但是PromQL远不止可以做这些，还可以做很多更复杂的表达式计算，更多知识请参考：Prometheus官网
+ 下面是一条Prometheus的告警规则，对照这条规则，咱们看一下是怎么对应到夜莺的功能的。
+groups: - name: example # 报警规则组的名字 rules: - alert: InstanceDown # 检测job的状态，持续1分钟metrices不能访问会发给altermanager进行报警 expr: up == 0 for: 1m # 持续时间，表示持续一分钟获取不到信息，则触发报警 labels: severity: danger # 自定义标签 annotations: summary: &amp;#34;Instance {{ $labels.instance }} down&amp;#34; # 自定义摘要  description: &amp;#34;{{ $labels.instance }} of job {{ $labels.job }} has been down for more than  groups.name，报警规则组的名称，有点像是夜莺里的业务组的概念 alert，表示告警规则名称，和夜莺里的规则名称类似 expr，是一条promql表达式，和夜莺的告警规则里的promql对应 for，对应夜莺告警规则里的持续时长 labels，对应夜莺告警规则里的附加标签 annotations，夜莺没有这个概念，夜莺在处理发送内容时，会有统一的几个模板来生成告警内容 evaluation_interval，这个是在Prometheus的global段的配置，表示规则执行频率，对应夜莺规则里的执行频率  当然，夜莺的告警规则还有一些其他配置，比如：</description>
+    </item>
+    <item>
+      <title>告警规则-常用规则JSON</title>
+      <link>https://n9e.github.io/usage/alert-rule-json/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/usage/alert-rule-json/</guid>
+      <description>本节整理一些常用的告警策略，这些告警策略都是导出的JSON文件，大家可以在告警规则管理页面，直接导入这些告警规则JSON，省去了自己的配置，具体操作路径：告警规则-&amp;gt;选择要放置规则的业务组-&amp;gt;右上角更多操作-&amp;gt;导入告警规则-&amp;gt;选择生效的集群-&amp;gt;填入JSON即可。
+OS常规监控 采集器：Telegraf
+[ { &amp;#34;name&amp;#34;: &amp;#34;有地址PING不通，请注意&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 1, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;ping_result_code != 0&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] }, { &amp;#34;name&amp;#34;: &amp;#34;有端口探测失败，请注意&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 1, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;net_response_result_code != 0&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] }, { &amp;#34;name&amp;#34;: &amp;#34;机器负载-CPU较高，请关注&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 3, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;cpu_usage_idle{cpu=\&amp;#34;cpu-total\&amp;#34;} &amp;lt; 25&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] }, { &amp;#34;name&amp;#34;: &amp;#34;机器负载-内存较高，请关注&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 2, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;mem_available_percent &amp;lt; 25&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] }, { &amp;#34;name&amp;#34;: &amp;#34;硬盘-IO非常繁忙&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 2, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;rate(diskio_io_time[1m])/10 &amp;gt; 99&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] }, { &amp;#34;name&amp;#34;: &amp;#34;硬盘-预计再有4小时写满&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 1, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;predict_linear(disk_free[1h], 4*3600) &amp;lt; 0&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] }, { &amp;#34;name&amp;#34;: &amp;#34;网卡-入向有丢包&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 3, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;net_drop_in &amp;gt; 0&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] }, { &amp;#34;name&amp;#34;: &amp;#34;网卡-出向有丢包&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 3, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;net_drop_out &amp;gt; 0&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] }, { &amp;#34;name&amp;#34;: &amp;#34;网络连接-TME_WAIT数量超过2万&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 2, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;netstat_tcp_time_wait &amp;gt; 20000&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] }, { &amp;#34;name&amp;#34;: &amp;#34;进程监控-有进程数为0，某进程可能挂了&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 1, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;procstat_lookup_running == 0&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] }, { &amp;#34;name&amp;#34;: &amp;#34;进程监控-进程句柄限制过小&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;可能是ulimit没配好，systemd托管的进程可能是LimitNOFILE没配好&amp;#34;, &amp;#34;severity&amp;#34;: 3, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;procstat_rlimit_num_fds_soft &amp;lt; 2048&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] }, { &amp;#34;name&amp;#34;: &amp;#34;进程监控-采集失败&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 1, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;procstat_lookup_result_code !</description>
+    </item>
+    <item>
+      <title>屏蔽规则</title>
+      <link>https://n9e.github.io/usage/alert-mute/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/usage/alert-mute/</guid>
+      <description>临时屏蔽部分告警通知 屏蔽规则，是针对告警事件的，大家在生成的告警事件中可以看到每个事件有很多标签，屏蔽规则就是针对这些标签配置过滤规则，满足过滤规则的，就不生成告警事件了。
+比如，我想屏蔽所有设备失联的告警，把标签key配置为：__name__，运算符：==，标签value：target_up即可。运算符=~表示正则，针对标签value，可以填写正则表达式，匹配一批的告警事件。运算符in表示数组包含的关系，即value可以配置多个。
+系统整体维护关掉所有通知 比如在某个时间段，全公司要做整体维护，预知会生成大量告警事件，就想把所有告警都先不发送，就只生成事件便于后面留档排查。这种情况不好做屏蔽规则，毕竟，不同的告警事件，标签很多都不一样。提供一个简单办法，把notify.py临时改个名字，这样n9e-server发送的时候就找不到这个脚本了，于是就没法发送了，此时页面上仍然可以看到告警事件。</description>
+    </item>
+    <item>
+      <title>订阅规则</title>
+      <link>https://n9e.github.io/usage/alert-subscribe/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/usage/alert-subscribe/</guid>
+      <description>某个告警除了某个组的人关心，可能其他人也关心，就配置订阅规则，比如K8S平台的运维人员要作为告警接收人来接收所有K8S的告警，但是K8S的一些重大网络故障会影响整个K8S集群上面的业务方，上层业务也会关心这类告警，此时业务方就可以订阅K8S集群的部分重大告警。
+对于订阅规则，还有一种场景，比如运维团队管理了公司所有的告警规则，比如内存利用率的告警，不同业务线的人只关心自己的，那不同业务线的人就可以通过订阅规则，只订阅自己业务线的机器的告警。只需简单的为这批机器打上业务线标签，就可以通过这些标签做过滤。
+当然，有的公司推行DevOps文化，自己的狗粮自己吃，自己的服务自己运维，我这个业务线关心哪些告警，就自己创建一个业务组，配置相关策略，跟别的业务线没有任何关系，也不需要由特定的某个团队帮我配置，这样也是可以的，不同公司文化不同，组织架构职能分工不同，大家就根据自己的公司情况来规划即可。
+不过，从性能上讲，建议多使用订阅规则，让整体的告警规则变少，因为告警规则每次判断，都要查询时序库，如果告警规则量很大，对时序库的压力是很大的。当然，对性能的影响也没有那么夸张，把这个信息透传给大家，大家自行把握就好。</description>
+    </item>
+    <item>
+      <title>多种告警通知媒介的支持</title>
+      <link>https://n9e.github.io/usage/alert-notify/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/usage/alert-notify/</guid>
+      <description>告警通知媒介，是说发告警的时候，发送邮件、钉钉、企微之类的，夜莺默认提供的就是这三种，在告警规则配置的时候，可以勾选想通过什么方式发送。页面上的选项，来自webapi.conf的配置文件，NotifyChannels这个配置项，所以，如果想扩展一种新的通知媒介，就要修改这个配置了。比如我们加上一个新的发送方式，叫feishu，即，把NotifyChannels设置为：NotifyChannels = [ &amp;quot;email&amp;quot;, &amp;quot;dingtalk&amp;quot;, &amp;quot;wecom&amp;quot;, &amp;quot;feishu&amp;quot; ]，页面上就能看到feishu这个选项了。
+虽然这里加了新的通知媒介，用户可以勾选了，但是没有具体的处理逻辑也没有用，为了便于扩展，夜莺在etc/script目录下放置了一个notify.py，告警通知最终都是通过这个脚本发送的，如果我们想加入feishu的发送逻辑，那就要修改这个脚本。这个脚本总共不超过200行，还是比较容易理解的。
+原理上来讲，告警判断是n9e-server这个模块负责的，n9e-server生成告警事件之后，会把告警事件序列化为JSON，然后调用notify.py，调用脚本的时候，会把告警事件那个大JSON，传给这个notify.py的标准输入，作为脚本的一个输入信息。剩下的就交由这个脚本了。如果夜莺处理过告警发送了，会在夜莺的启动目录下找到一个.payload的隐藏文件，这个文件的内容就是n9e-server序列化的JSON内容，相当于n9e-server先生成了.payload文件，然后调用 ./etc/script/notify.py &amp;lt; .payload 所以，如果大家发现脚本工作不正常，可以用这个命令做测试。
+这种方式，大家可以修改notify.py，非常非常灵活，想加入一些新的通知媒介，或者想和自己的系统做一些打通工作，都非常简单。这个设计其实从夜莺5.0版本就引入了，反馈最多的几个问题如下，这里也做一一解答：
+1. n9e-server报错找不到这个文件
+通常是因为启动路径不对，要去夜莺的etc目录的同级目录启动n9e-server，如果是用systemd托管的就要把WorkingDirectory配对。
+2. python找不到requests库
+在5.0版本的时候，调用微信、钉钉的接口，都是用的requests这个库，所以需要手工提前安装一下。不过从5.1开始，就不用这个库了，用了内置的urllib2，减少外部依赖。
+3. python找不到bottle库
+在5.0版本的时候，告警事件作为JSON传给notify.py，notify.py要发送邮件、钉钉等，需要拼接发送的内容，拼接发送内容的过程中，用到了模板库，bottle是个模板库，为了减少外部依赖，5.1版本做了新的设计，发送内容的拼接不再放在notify.py里了，由n9e-server来做。etc/template目录下放置了多个模板文件（大家想扩展新的模板的话，直接在这个目录下新增即可，以.tpl作为文件后缀），每次n9e-server调用notify.py的时候，都会调用这些模板文件，把告警事件的各个字段传入，拼成具体的通知消息。这些通知消息也会放到序列化的那个大JSON中传给notify.py。我们在notify.py中可以看到这么一行代码：mail_body = payload.get(&#39;tpls&#39;).get(&amp;quot;mailbody.tpl&amp;quot;, &amp;quot;mailbody.tpl not found&amp;quot;)，这就是从JSON中获取n9e-server提前拼好的邮件内容。</description>
+    </item>
+    <item>
+      <title>当前告警活跃事件</title>
+      <link>https://n9e.github.io/usage/alert-cur-event/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/usage/alert-cur-event/</guid>
+      <description>本节并无太多要讲的内容，菜单里的【活跃告警】，就是列出了当前所有的未恢复活跃告警，如果某个告警恢复了，就会自动从这个列表中删除，这个页面还是蛮重要的，可以作为日常巡检的一项，每天上下班的时候都看一下，看看哪些事件还没恢复，漏了处理。
+活跃告警可以删除，这个操作比较危险，一定要弄明白原理。通常情况下，我们是无需手工删除的，比如cpu_usage_idle告警了，会自动创建一条告警事件，当cpu_usage_idle的值恢复了，即这条告警变成恢复状态了，系统就会自动从活跃告警中删除，所以，通常情况下，就让系统自动处理就好了。
+但是，如果某个指标的标签发生变化，或者机器下线，相关的告警就再也无法恢复了，这个不好理解，详细解释一下：
+指标标签发生变化
+比如这个告警规则：cpu_usage_idle{cpu=&amp;quot;cpu-total&amp;quot;} &amp;lt; 25，拿着这个promql去promdash查询，得到的结果可以看到，有cpu和ident两个标签，ident表示的监控对象，此时，如果我们去对象管理页面，修改这个监控对象的标签，后面新上报的监控数据，就会自动打上新标签，继续拿着刚才的promql去promdash查询，会发现表格里很快会出现新的记录，和之前的记录并存，从时序库的角度来看，就是多了一条新的series。
+就相当于：之前有个series告警了，还没恢复呢，又来了一个新的series，老的series不再上报监控数据，所以老的告警事件就永远都不会恢复了。当然，我们可以调整一下这个promql，忽略掉其他的额外的标签，比如avg(cpu_usage_idle{cpu=&amp;quot;cpu-total&amp;quot;}) by (ident)，这样一来，即使在监控对象的页面修改了标签，这个新的promql永远都只有ident这一个标签，因为这个新的promql是根据ident做了聚合。虽然标签稳定了，但是本人不推荐大家这么做，这样做了之后，cpu=&amp;quot;cpu-total&amp;quot;这个标签就丢了。
+机器下线
+比如某个机器的某个指标报警了，比如内存利用率的一个指标，还没恢复呢，这个机器下线了，上面的客户端也不再上报监控数据了，那这个告警事件就永远都不会消失了，这种情况，我们知道是怎么回事，就可以手工删除对应的告警事件。省的放那没用，还碍眼。
+ 另外，左侧的业务组旁边，带有一个数字徽章，表示的是这个业务组下的活跃告警数量，这种方式可以让我们快速知道哪个业务组下的告警规则触发了及其活跃事件数量。</description>
+    </item>
+    <item>
+      <title>全部历史告警事件</title>
+      <link>https://n9e.github.io/usage/alert-his-event/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/usage/alert-his-event/</guid>
+      <description>相比【活跃告警】，【历史告警】数量更多，会把恢复状态的消息也存档展示，用处不是很大，主要是留档查问题用的，这个表的数量增加会比较快，大家要经常关注一下，如果表的数量很多，比如超过100万，建议做一下清理，量太大的话会影响告警处理的速度，因为每一条告警事件都要往这个表里插入。</description>
+    </item>
+    <item>
+      <title>告警自愈</title>
+      <link>https://n9e.github.io/usage/selfhealing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/usage/selfhealing/</guid>
+      <description>所谓的告警自愈，主要是靠告警规则中配置webhook，即在告警和恢复的时候，自动调用指定的webhook地址，在这个webhook中写自动处理的逻辑。这个功能大部分监控系统都支持，不过对于运维人员，这个门槛可能稍高。夜莺和ibex（类似之前v3版本中的job模块）整合，可以做到告警的时候自动执行某个脚本，运维人员只需要写脚本即可，这个门槛会低一些。
+自愈脚本 在这个页面提前准备好一些自愈脚本，python、perl、ruby都行，只要机器上有对应的运行环境，系统会为每个自愈脚本生成一个ID，这个ID后面用于配置到告警规则那里形成联动。
+执行历史 保存了所有告警自愈的调用历史，可以查看执行结果，包括脚本的stdout和stderr等
+告警规则关联自愈脚本 告警规则中可以配置回调地址，比如${ibex}/11就表示这个回调是个特殊的回调，是要和告警自愈脚本打通，11表示的是自愈脚本的编号。如果我想在某个告警规则触发告警的时候，执行第22号脚本，就配置为：${ibex}/22，告警规则和自愈脚本都是要归属某个业务组的，规则关联的脚本只能是同业务组的。
+默认情况下，脚本的执行是去告警的那个机器执行，如果想把脚本放在特定的机器执行，可以这么配置：${ibex}/11/c3-center01.bj，c3-center01.bj表示希望脚本放到这个机器执行，这个机器需要和告警规则隶属于相同的业务组。典型的是这个机器是这个业务组的中控机，在中控机上跑一些自愈逻辑。
+额外说明 对于告警回调的处理，这里额外交代一下，默认情况下，不管是告警消息还是恢复消息，都会调用webhook，有时，webhook只需要在告警的时候才做处理，在恢复的时候啥都不做，此时，webhook逻辑要去看IsRecovered这个字段，这个字段如果是1就表示是恢复消息，如果这个字段是0就表示是告警消息。如果是${ibex}这种回调，系统会自动判断，只在告警的时候才触发，恢复的时候不触发，这点也请注意。因为从使用角度，自愈脚本只需要在告警的时候运行，恢复的时候，脚本是无需执行的。</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.89.3" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>快速在生产环境部署启动单机版 :: N9E</title>
+    <link href="/css/nucleus.css?1638239196" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1638239196" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1638239196" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1638239196" rel="stylesheet">
+    <link href="/css/auto-complete.css?1638239196" rel="stylesheet">
+    <link href="/css/theme.css?1638239196" rel="stylesheet">
+    <link href="/css/print.css?1638239196" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1638239196"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/quickstart/standalone/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+<a href="/"><img src="/logo.png" width="132"></a>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1638239196"></script>
+        <script src="/js/auto-complete.js?1638239196"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1638239196"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="快速开始" class="dd-item parent"><a href="/quickstart/">快速开始<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker Compose快速部署" class="dd-item"><a href="/quickstart/compose/">使用Docker Compose快速部署<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="快速在生产环境部署启动单机版" class="dd-item active"><a href="/quickstart/standalone/">快速在生产环境部署启动单机版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/best-practice/" title="最佳实践" class="dd-item"><a href="/best-practice/">最佳实践<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势" class="dd-item"><a href="/best-practice/fccloud-usage/">使用夜莺的的几种实践姿势<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/busi-group-design/" title="探讨业务组的设计和最佳实践" class="dd-item"><a href="/best-practice/busi-group-design/">探讨业务组的设计和最佳实践<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/data-collection/" title="数据采集" class="dd-item"><a href="/data-collection/">数据采集<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/data-collection/snmp/" title="使用SNMP采集网络设备的指标" class="dd-item"><a href="/data-collection/snmp/">使用SNMP采集网络设备的指标<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/promapm/" title="内嵌Prometheus SDK做APM" class="dd-item"><a href="/data-collection/promapm/">内嵌Prometheus SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/statsd/" title="内嵌Statsd SDK做APM" class="dd-item"><a href="/data-collection/statsd/">内嵌Statsd SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/middleware/" title="使用Telegraf和Exporter监控中间件" class="dd-item"><a href="/data-collection/middleware/">使用Telegraf和Exporter监控中间件<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/alert-rule/" title="告警规则" class="dd-item"><a href="/usage/alert-rule/">告警规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-rule-json/" title="告警规则-常用规则JSON" class="dd-item"><a href="/usage/alert-rule-json/">告警规则-常用规则JSON<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-mute/" title="屏蔽规则" class="dd-item"><a href="/usage/alert-mute/">屏蔽规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-subscribe/" title="订阅规则" class="dd-item"><a href="/usage/alert-subscribe/">订阅规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-notify/" title="多种告警通知媒介的支持" class="dd-item"><a href="/usage/alert-notify/">多种告警通知媒介的支持<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-cur-event/" title="当前告警活跃事件" class="dd-item"><a href="/usage/alert-cur-event/">当前告警活跃事件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-his-event/" title="全部历史告警事件" class="dd-item"><a href="/usage/alert-his-event/">全部历史告警事件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/selfhealing/" title="告警自愈" class="dd-item"><a href="/usage/selfhealing/">告警自愈<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> GitHub repo</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/main/content/quickstart/standalone.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/quickstart/"><span itemprop="name">快速开始</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/quickstart/standalone/" aria-disabled="true"><span itemprop="name">快速在生产环境部署启动单机版</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#环境准备">环境准备</a></li>
+    <li><a href="#安装夜莺组件">安装夜莺组件</a></li>
+  </ul>
+</nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>快速在生产环境部署启动单机版</h1>
+
+<blockquote>
+<p>本节讲述如何部署单机版，单机版对于很多中小公司足够用了，简单高效、快速直接，建议使用云主机，性能不够了直接升配，可以应对每秒上报的数据点小于100万的情形，如果只是监控机器（每台机器每个周期大概采集200个数据点）采集周期频率设置10秒的话，支撑上限是5万台</p>
+</blockquote>
+<p>如果仅仅是为了快速测试，Docker部署方式是最快的，不过很多朋友未必有Docker环境，另外为了减少引入更多技术栈，增强生产环境稳定性，有些朋友可能也不愿意用Docker，那本篇就来讲解如何快速部署单机版，单机版的配套时序库是使用Prometheus。如果要监控的机器有几千台，服务有几百个，单机版的容量无法满足，可以上集群版，集群版的时序库建议使用VictoriaMetrics，也可以使用M3DB，不过M3DB的架构更复杂，很多朋友无法搞定，选择简单的VictoriaMetrics，对大部分公司来讲，足够用了。我们先来看一下服务端架构：</p>
+<p><img src="/n9e-arch-server.png" alt="夜莺服务端架构"></p>
+<ul>
+<li>核心模块server：server是用来做告警的，会从数据库中同步告警规则，然后读取Prometheus的数据做告警判断。server也可以接收监控数据上报，然后通过remote write协议写入多个时序库。server也依赖redis，用redis存储了server本身以及监控对象的心跳信息</li>
+<li>核心模块webapi：提供restful api，用于和前端JavaScript交互，把一些用户配置类的信息写入mysql，鉴权采用jwt，jwt的token使用redis存储，在单机部署的方式下，server的redis和webapi的redis可以复用</li>
+</ul>
+<h2 id="环境准备">环境准备</h2>
+<p>依赖的组件有：mysql、redis、prometheus，这三个组件都是开源软件，请大家自行安装，其中prometheus在启动的时候要注意开启 <code>--enable-feature=remote-write-receiver</code> 这里也提供一个小脚本来安装这3个组件，大家可以参考：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#78787e"># install prometheus</span>
+mkdir -p /opt/prometheus
+wget https://s3-gz01.didistatic.com/n9e-pub/prome/prometheus-2.28.0.linux-amd64.tar.gz -O prometheus-2.28.0.linux-amd64.tar.gz
+tar xf prometheus-2.28.0.linux-amd64.tar.gz
+cp -far prometheus-2.28.0.linux-amd64/*  /opt/prometheus/
+
+<span style="color:#78787e"># service </span>
+cat <span style="color:#5af78e">&lt;&lt;EOF &gt;/etc/systemd/system/prometheus.service
+</span><span style="color:#5af78e">[Unit]
+</span><span style="color:#5af78e">Description=&#34;prometheus&#34;
+</span><span style="color:#5af78e">Documentation=https://prometheus.io/
+</span><span style="color:#5af78e">After=network.target
+</span><span style="color:#5af78e">
+</span><span style="color:#5af78e">[Service]
+</span><span style="color:#5af78e">Type=simple
+</span><span style="color:#5af78e">
+</span><span style="color:#5af78e">ExecStart=/opt/prometheus/prometheus  --config.file=/opt/prometheus/prometheus.yml --storage.tsdb.path=/opt/prometheus/data --web.enable-lifecycle --enable-feature=remote-write-receiver --query.lookback-delta=2m 
+</span><span style="color:#5af78e">
+</span><span style="color:#5af78e">Restart=on-failure
+</span><span style="color:#5af78e">SuccessExitStatus=0
+</span><span style="color:#5af78e">LimitNOFILE=65536
+</span><span style="color:#5af78e">StandardOutput=syslog
+</span><span style="color:#5af78e">StandardError=syslog
+</span><span style="color:#5af78e">SyslogIdentifier=prometheus
+</span><span style="color:#5af78e">
+</span><span style="color:#5af78e">
+</span><span style="color:#5af78e">[Install]
+</span><span style="color:#5af78e">WantedBy=multi-user.target
+</span><span style="color:#5af78e">EOF</span>
+
+systemctl daemon-reload
+systemctl <span style="color:#ff5c57">enable</span> prometheus
+systemctl restart prometheus
+systemctl status prometheus
+
+<span style="color:#78787e"># install mysql</span>
+yum -y install mariadb*
+systemctl <span style="color:#ff5c57">enable</span> mariadb
+systemctl restart mariadb
+mysql -e <span style="color:#5af78e">&#34;SET PASSWORD FOR &#39;root&#39;@&#39;localhost&#39; = PASSWORD(&#39;1234&#39;);&#34;</span>
+
+<span style="color:#78787e"># install redis</span>
+yum install -y redis
+systemctl <span style="color:#ff5c57">enable</span> redis
+systemctl restart redis
+</code></pre></div><p>上例中mysql的root密码设置为了1234，建议维持这个不变，后续就省去了修改配置文件的麻烦。</p>
+<h2 id="安装夜莺组件">安装夜莺组件</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">TODO
+wget
+import sql
+start service
+</code></pre></div><p>配置文件etc/server.conf和etc/webapi.conf中都含有mysql的连接地址配置，检查一下用户名和密码，prometheus如果使用上面的脚本安装，默认会监听本机9090端口，server.conf和webapi.conf中的prometheus相关地址都不用修改就是对的。</p>
+<p>好了，浏览器访问webapi的端口（默认是18000）就可以体验相关功能了，默认用户是<code>root</code>，密码是<code>root.2020</code>。如果安装过程出现问题，可以参考视频教程：<a href="#">TODO</a></p>
+<p>接下来，你可能需要：</p>
+<ul>
+<li><a href="/quickstart/telegraf/">安装Telegraf采集更多监控数据</a></li>
+</ul>
+
+          <footer class="footline">
+          </footer>
+        </main>
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/quickstart/compose/" title="使用Docker Compose快速部署"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/quickstart/telegraf/" title="使用Telegraf采集监控数据"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1638239196"></script>
+    <script src="/js/perfect-scrollbar.min.js?1638239196"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1638239196"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1638239196"></script>
+    <script src="/js/featherlight.min.js?1638239196"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1638239196"></script>
+    <script src="/js/mermaid.min.js?1638239196"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1638239196"></script>
+  </body>
+</html>

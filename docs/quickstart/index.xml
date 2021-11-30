@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>快速开始 on N9E</title>
+    <link>https://n9e.github.io/quickstart/</link>
+    <description>Recent content in 快速开始 on N9E</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language><atom:link href="https://n9e.github.io/quickstart/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用Docker Compose快速部署</title>
+      <link>https://n9e.github.io/quickstart/compose/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/quickstart/compose/</guid>
+      <description>采用Docker Compose做编排，用于单机快速启动环境做测试，包含了MySQL、Redis、Prometheus、Ibex、Nightingale、Telegraf
+ 从Github下载夜莺的源码，进入docker目录，执行docker-compose up -d即可，docker-compose会自动拉取镜像并启动，查看各个容器启动状态，使用命令docker-compose ps，都是Up状态则表示启动成功，如果ibex、nserver、nwebapi等模块一直在Restarting，可能是数据库容器启动太慢了没有准备好，可以执行docker-compose down停掉再重新尝试启动测试：
+ulric@mac.home:~/workspace/gopath/src/n9e/docker$ docker-compose up -d Creating network &amp;#34;docker_nightingale&amp;#34; with driver &amp;#34;bridge&amp;#34; Creating mysql ... done Creating redis ... done Creating prometheus ... done Creating ibex ... done Creating agentd ... done Creating nwebapi ... done Creating nserver ... done Creating telegraf ... done ulric@mac.home:~/workspace/gopath/src/n9e/docker$ docker-compose ps Name Command State Ports ---------------------------------------------------------------------------------------------------------------------------- agentd /app/ibex agentd Up 10090/tcp, 20090/tcp ibex /app/ibex server Up 0.0.0.0:10090-&amp;gt;10090/tcp, 0.</description>
+    </item>
+    <item>
+      <title>快速在生产环境部署启动单机版</title>
+      <link>https://n9e.github.io/quickstart/standalone/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/quickstart/standalone/</guid>
+      <description>本节讲述如何部署单机版，单机版对于很多中小公司足够用了，简单高效、快速直接，建议使用云主机，性能不够了直接升配，可以应对每秒上报的数据点小于100万的情形，如果只是监控机器（每台机器每个周期大概采集200个数据点）采集周期频率设置10秒的话，支撑上限是5万台
+ 如果仅仅是为了快速测试，Docker部署方式是最快的，不过很多朋友未必有Docker环境，另外为了减少引入更多技术栈，增强生产环境稳定性，有些朋友可能也不愿意用Docker，那本篇就来讲解如何快速部署单机版，单机版的配套时序库是使用Prometheus。如果要监控的机器有几千台，服务有几百个，单机版的容量无法满足，可以上集群版，集群版的时序库建议使用VictoriaMetrics，也可以使用M3DB，不过M3DB的架构更复杂，很多朋友无法搞定，选择简单的VictoriaMetrics，对大部分公司来讲，足够用了。我们先来看一下服务端架构：
+ 核心模块server：server是用来做告警的，会从数据库中同步告警规则，然后读取Prometheus的数据做告警判断。server也可以接收监控数据上报，然后通过remote write协议写入多个时序库。server也依赖redis，用redis存储了server本身以及监控对象的心跳信息 核心模块webapi：提供restful api，用于和前端JavaScript交互，把一些用户配置类的信息写入mysql，鉴权采用jwt，jwt的token使用redis存储，在单机部署的方式下，server的redis和webapi的redis可以复用  环境准备 依赖的组件有：mysql、redis、prometheus，这三个组件都是开源软件，请大家自行安装，其中prometheus在启动的时候要注意开启 --enable-feature=remote-write-receiver 这里也提供一个小脚本来安装这3个组件，大家可以参考：
+# install prometheus mkdir -p /opt/prometheus wget https://s3-gz01.didistatic.com/n9e-pub/prome/prometheus-2.28.0.linux-amd64.tar.gz -O prometheus-2.28.0.linux-amd64.tar.gz tar xf prometheus-2.28.0.linux-amd64.tar.gz cp -far prometheus-2.28.0.linux-amd64/* /opt/prometheus/ # service  cat &amp;lt;&amp;lt;EOF &amp;gt;/etc/systemd/system/prometheus.service [Unit] Description=&amp;#34;prometheus&amp;#34; Documentation=https://prometheus.io/ After=network.target [Service] Type=simple ExecStart=/opt/prometheus/prometheus --config.file=/opt/prometheus/prometheus.yml --storage.tsdb.path=/opt/prometheus/data --web.enable-lifecycle --enable-feature=remote-write-receiver --query.lookback-delta=2m Restart=on-failure SuccessExitStatus=0 LimitNOFILE=65536 StandardOutput=syslog StandardError=syslog SyslogIdentifier=prometheus [Install] WantedBy=multi-user.target EOF systemctl daemon-reload systemctl enable prometheus systemctl restart prometheus systemctl status prometheus # install mysql yum -y install mariadb* systemctl enable mariadb systemctl restart mariadb mysql -e &amp;#34;SET PASSWORD FOR &amp;#39;root&amp;#39;@&amp;#39;localhost&amp;#39; = PASSWORD(&amp;#39;1234&amp;#39;);&amp;#34; # install redis yum install -y redis systemctl enable redis systemctl restart redis 上例中mysql的root密码设置为了1234，建议维持这个不变，后续就省去了修改配置文件的麻烦。</description>
+    </item>
+    <item>
+      <title>使用Telegraf采集监控数据</title>
+      <link>https://n9e.github.io/quickstart/telegraf/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/quickstart/telegraf/</guid>
+      <description>Telegraf 是 InfluxData 开源的一款采集器，可以采集操作系统、各种中间件的监控指标，采集目标列表，看起来是非常丰富，Telegraf是一个大一统的设计，即一个二进制可以采集CPU、内存、mysql、mongodb、redis、snmp等，不像Prometheus的exporter，每个监控对象一个exporter，管理起来略麻烦。一个二进制分发起来确实比较方便。
+ 这里提供快速安装的教程，Telegraf的更多知识，请参考Telegraf官网，笔者之前也写了一个Telegraf调研笔记，大家亦可参考。
+Telegraf下载地址在这里，根据自己的平台选择对应的二进制下载即可。笔者的环境是CentOS，下面是安装脚本，/opt/telegraf/telegraf.conf 是一个经过删减的干净的配置文件，指定了opentsdb output plugin，这个plugin的写入地址配置的是n9e-server，所以，Telegraf采集的数据会被推送给n9e-server，二者贯通：
+#!/bin/sh  version=1.20.4 tarball=telegraf-${version}_linux_amd64.tar.gz wget https://dl.influxdata.com/telegraf/releases/$tarball tar xzvf $tarball mkdir -p /opt/telegraf cp -far telegraf-${version}/usr/bin/telegraf /opt/telegraf cat &amp;lt;&amp;lt;EOF &amp;gt; /opt/telegraf/telegraf.conf [global_tags] [agent] interval = &amp;#34;10s&amp;#34; round_interval = true metric_batch_size = 1000 metric_buffer_limit = 10000 collection_jitter = &amp;#34;0s&amp;#34; flush_interval = &amp;#34;10s&amp;#34; flush_jitter = &amp;#34;0s&amp;#34; precision = &amp;#34;&amp;#34; hostname = &amp;#34;&amp;#34; omit_hostname = false [[outputs.opentsdb]] host = &amp;#34;http://127.0.0.1&amp;#34; port = 19000 http_batch_size = 50 http_path = &amp;#34;/opentsdb/put&amp;#34; debug = false separator = &amp;#34;_&amp;#34; [[inputs.</description>
+    </item>
+    <item>
+      <title>使用VictoriaMetrics作为时序库</title>
+      <link>https://n9e.github.io/quickstart/victoriametrics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/quickstart/victoriametrics/</guid>
+      <description>VictoriaMetrics 架构简单，可靠性高，在性能，成本，可扩展性方面表现出色，社区活跃，且和 Prometheus 生态绑定紧密。夜莺推荐您在生产环境中使用 VictoriaMetrics 作为时序数据库。
+ VictoriaMetrics 提供单机版和集群版。如果您的每秒写入数据点数小于100万，VictoriaMetrics 官方默认推荐您使用单机版，单机版可以通过增加服务器的CPU核心数，增加内存，增加IOPS来获得线性的性能提升。且单机版易于配置和运维。
+接下来的文章，介绍在夜莺中，以 VictoriaMetrics 集群版本作为时序数据库为例，完整的安装和配置过程。
+vmstorage、vminsert、vmselect 三者组合构成 VictoriaMetrics 的集群功能，三者都可以通过启动多个实例来分担承载流量。
+ vmstorage 是数据存储模块：
+  其数据保存在-storageDataPath指定的目录中，默认为./vmstorage-data/，vmstorage 是有状态模块，删除 storage node 会丢失约 1/N的历史数据（N 为集群中 vmstorage node 的节点数量）。增加 storage node，则需要同步修改 vminsert 和 vmselect 的启动参数，将新加入的storage node节点地址通过命令行参数 -storageNode传入给vminsert和vmselect。 vmstorage 启动后，会监听三个端口，分别是 -httpListenAddr :8482、-vminsertAddr :8400、-vmselectAddr :8401。端口8400负责接收来自 vminsert 的写入请求，端口8401负责接收来自 vmselect 的数据查询请求，端口8482则是 vmstorage 自身提供的 http api 接口。   vminsert 接收来自客户端的数据写入请求，并负责转发到选定的vmstorage：
+  vminsert 接收到数据写入请求后，按照 jump consistent hash 算法，将数据转发到选定的某个vmstorage node 上。vminsert 本身是无状态模块，可以增加或者删除一个或多个实例，而不会造成数据的损失。vminsert 模块通过启动时的参数 -storageNode xxx,yyy,zzz 来感知到整个 vmstorage 集群的完整 node 地址列表。 vminsert 启动后，会监听一个端口-httpListenAddr :8480。该端口实现了 prometheus remote_write协议，因此可以接收和解析通过 remote_write 协议写入的数据。不过要注意，VictoriaMetrics 集群版本具有多租户功能，因此租户ID会以如下形式出现在 API URL 中: http://vminsert:8480/insert/&amp;lt;account_id&amp;gt;/prometheus/api/v1/write。 更多 URL Format 可以参考 VictoriaMetrics官网。   vmselect 接收来自客户端的数据查询请求，并负责转发到所有的 vmstorage 查询结果并合并：</description>
+    </item>
+    <item>
+      <title>接入多个Prom/VM/M3DB集群</title>
+      <link>https://n9e.github.io/quickstart/multitsdb/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/quickstart/multitsdb/</guid>
+      <description>由于Prometheus没有集群版本，受限于容量问题，很多公司会搭建多套Prometheus，比如按照业务拆分，不同的业务使用不同的Prometheus集群，或者按照地域拆分，不同的地域使用不同的Prometheus集群。这里是以Prometheus来举例，VictoriaMetrics、M3DB都有集群版本，不过有时为了不相互干扰和地域网络问题，也会拆成多个集群。对于多集群的协同，需要在夜莺里做一些配置，架构图如下：
+比如，我们有两个时序库，在北京搭建了一个Prometheus，在广州搭建了一个VictoriaMetrics，n9e-webapi会把这两个时序库作为DataSource，所以在n9e-webapi的配置文件中，要配置上这俩存储的地址，举例：
+[[Clusters]] # cluster name Name = &amp;#34;Prom-Beijing&amp;#34; # Prometheus APIs base url Prom = &amp;#34;http://10.2.3.4:9090&amp;#34; # Basic auth username BasicAuthUser = &amp;#34;&amp;#34; # Basic auth password BasicAuthPass = &amp;#34;&amp;#34; # timeout settings, unit: ms Timeout = 30000 DialTimeout = 10000 TLSHandshakeTimeout = 30000 ExpectContinueTimeout = 1000 IdleConnTimeout = 90000 # time duration, unit: ms KeepAlive = 30000 MaxConnsPerHost = 0 MaxIdleConns = 100 MaxIdleConnsPerHost = 100 [[Clusters]] # cluster name Name = &amp;#34;VM-Guangzhou&amp;#34; # Prometheus APIs base url Prom = &amp;#34;http://172.</description>
+    </item>
+    <item>
+      <title>生产环境部署高可用集群版</title>
+      <link>https://n9e.github.io/quickstart/clusters/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/quickstart/clusters/</guid>
+      <description>对于规模相对较小的公司，比如几百台机器这个体量，个人认为单机版足够用了，使用云主机部署，性能不足可以直接升配，存储使用云存储保证，硬件故障云平台也会自动把虚拟机热迁移走，非常省心。那如果咱们体量确实比较大，或者没有云主机这种基础设施，这里会讲解集群版的部署方式。
+单中心，单集群，接入公司所有数据 首先，来讲解一种普适性比较高的架构方式，就是单中心大集群模式。比如某公司，虽然有3个机房，但是相互之间有专线打通，链路很好，为了便于维护，倾向于在中心搭建一套监控集群，其他机房的机器上只需要部署监控客户端（推荐Telegraf）即可，架构图如下：
+图中时序库使用Prometheus表示，当然，也可以选用VictoriaMetrics或者M3DB等，n9e-server部署了3台机器，n9e-webapi也部署了3台机器，当然，可以混部，即一台机器上既部署n9e-server，也部署n9e-webapi，监控客户端Telegraf要上报监控数据所以要调用n9e-server的接口，为了高可用，可以在n9e-server前面架设负载均衡，比如LVS，Telegraf的output plugin配置vip即可。负责与前端交互的n9e-webapi也部署了多个，为了高可用也是在前面架设负载均衡，这样终端用户访问的时候，也是访问vip，某个n9e-webapi如果挂掉，负载均衡可以自动感知并摘除，用户无感。
+图中redis画了两个，n9e-webapi依赖一个redis，n9e-server也依赖一个redis，在单中心、单集群模式下，可以复用一个redis。redis采用的是标准版，非集群版、非Sentinel版，这点大家要注意。
+多套存储，多套server集群，单套webapi集群 在接入多个Prom/VM/M3DB集群一节中，介绍了夜莺可以接入多个时序库，在夜莺的架构中，时序库和n9e-server是一一对应的，每接入一套时序库，就一定要部署一套n9e-server，所谓的这一套n9e-server，可以是单实例模式，也可以是多实例模式。
+比如在北京机房部署了一套Prometheus时序库，就需要在北京机房部署一套n9e-server，在广州机房部署了一套VictoriaMetrics，就需要在广州机房也部署一套n9e-server，每套n9e-server都要对应一个redis，此时，ne9-server的redis不建议与n9e-webapi的redis复用（虽然从原理上也支持），建议n9e-server的redis部署到n9e-server所在的机房，避免机房割裂时n9e-server连不上redis。</description>
+    </item>
+    <item>
+      <title>告警自愈依赖的脚本下发执行模块</title>
+      <link>https://n9e.github.io/quickstart/ibex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/quickstart/ibex/</guid>
+      <description>概述 所谓的告警自愈，典型手段是在告警触发时自动回调某个webhook地址，在这个webhook里写告警自愈的逻辑，夜莺默认支持这种方式。另外，夜莺还可以更进一步，配合ibex这个模块，在告警触发的时候，自动去告警的机器执行某个脚本，这种机制可以大幅简化构建运维自愈链路的工作量，毕竟，不是所有的运维人员都擅长写http server，但所有的运维人员，都擅长写脚本。这种方式是典型的物理机时代的产物，希望各位朋友用不到这个工具（说明贵司的IT技术已经走得非常靠前了）。
+架构 ibex模块，类似之前夜莺v3版本中的job模块，可以批量执行脚本，其架构非常简单，包括server和agentd两个模块，agentd周期性调用server的rpc接口，询问有哪些任务要执行，如果有分配给自己的任务，就从server拿到任务脚本信息，在本地fork一个进程运行，然后将结果上报给服务端。为了简化部署，server和agentd融合成了一个二进制，就是ibex，通过传入不同的参数来启动不同的角色。ibex架构图如下：
+项目地址  Git仓库：https://gitee.com/cnperl/ibex Linux安装包：http://49.233.250.79/ibex-1.0.0.tar.gz 其他环境的包需要自行编译，编译方法参考这里  安装启动 下载安装包之后，解压缩，在etc下可以找到服务端和客户端的配置文件，在sql目录下可以找到初始化sql脚本。
+初始化sql mysql &amp;lt; sql/ibex.sql 启动server server的配置文件是etc/server.conf，注意修改里边的mysql连接地址，配置正确的mysql用户名和密码。然后就可以直接启动了：
+nohup ./ibex server &amp;amp;&amp;gt; server.log &amp;amp; ibex没有web页面，只提供api接口，鉴权方式是http basic auth，basic auth的用户名和密码默认都是ibex，在etc/server.conf中可以找到，如果ibex部署在互联网，一定要修改默认用户名和密码，当然，因为n9e要调用ibex，所以n9e的server.conf和webapi.conf中也配置了ibex的basic auth账号信息，要改就要一起改啦。
+启动agentd 客户端的配置非常非常简单，agentd.conf内容如下：
+# debug, release RunMode = &amp;#34;release&amp;#34; # task meta storage dir MetaDir = &amp;#34;./meta&amp;#34; [HTTP] Enable = true # http listening address Host = &amp;#34;0.0.0.0&amp;#34; # http listening port Port = 2090 # https cert file path CertFile = &amp;#34;&amp;#34; # https key file path KeyFile = &amp;#34;&amp;#34; # whether print access log PrintAccessLog = true # whether enable pprof PProf = false # http graceful shutdown timeout, unit: s ShutdownTimeout = 30 # max content length: 64M MaxContentLength = 67108864 # http server read timeout, unit: s ReadTimeout = 20 # http server write timeout, unit: s WriteTimeout = 40 # http server idle timeout, unit: s IdleTimeout = 120 [Heartbeat] # unit: ms Interval = 1000 # rpc servers Servers = [&amp;#34;10.</description>
+    </item>
+    <item>
+      <title>源码编译夜莺前后端及告警自愈模块</title>
+      <link>https://n9e.github.io/quickstart/compile/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/quickstart/compile/</guid>
+      <description> 本节讲述Nightingale的源码编译方式，分前后端两部分。另外，如果用到告警自愈模块，会用到ibex这个模块，本节也会一并讲解ibex模块的编译方法
+ 后端 Nightingale后端采用Go语言编写，编译的前置条件就是配置Go的开发环境。
+配置Go环境 到Go官网选择对应的版本下载，我的环境是Linux，选择的go1.17.3.linux-amd64.tar.gz，直接下载到/root目录下了，然后解压缩，即Go的内容都放到了/root/go目录下了。同时准备gopath目录，如下：
+cd /root &amp;amp;&amp;amp; mkdir -p gopath/src echo &amp;#34;GOROOT=/root/go&amp;#34; &amp;gt;&amp;gt; .bash_profile echo &amp;#34;GOPATH=/root/gopath&amp;#34; &amp;gt;&amp;gt; .bash_profile echo &amp;#39;export PATH=$GOROOT/bin:$GOPATH/bin:$PATH&amp;#39; &amp;gt;&amp;gt; .bash_profile source .bash_profile 编译n9e git clone https://gitee.com/n9e/n9e.git # 国内配置一下代理，可以加速编译 export GOPROXY=https://goproxy.cn # 执行编译 cd n9e &amp;amp;&amp;amp; make 编译完成之后如果生成二进制：n9e，就表示编译成功！想要快速入门Go语言？可以参考GOCN的资料！
+编译ibex 如果需要告警自愈能力，夜莺依赖ibex做命令下发执行，ibex的编译和n9e几乎一模一样，如下：
+git clone https://gitee.com/cnperl/ibex.git # 国内配置一下代理，可以加速编译 export GOPROXY=https://goproxy.cn # 执行编译 cd ibex &amp;amp;&amp;amp; make 编译完成之后如果生成二进制：ibex，就表示编译成功！
+前端 git clone https://github.com/n9e/fe-v5.git cd fe-v5 npm run build </description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.89.3" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>接入多个Prom/VM/M3DB集群 :: N9E</title>
+    <link href="/css/nucleus.css?1638239196" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1638239196" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1638239196" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1638239196" rel="stylesheet">
+    <link href="/css/auto-complete.css?1638239196" rel="stylesheet">
+    <link href="/css/theme.css?1638239196" rel="stylesheet">
+    <link href="/css/print.css?1638239196" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1638239196"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/quickstart/multitsdb/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+<a href="/"><img src="/logo.png" width="132"></a>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1638239196"></script>
+        <script src="/js/auto-complete.js?1638239196"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1638239196"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="快速开始" class="dd-item parent"><a href="/quickstart/">快速开始<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker Compose快速部署" class="dd-item"><a href="/quickstart/compose/">使用Docker Compose快速部署<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="快速在生产环境部署启动单机版" class="dd-item"><a href="/quickstart/standalone/">快速在生产环境部署启动单机版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item active"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/best-practice/" title="最佳实践" class="dd-item"><a href="/best-practice/">最佳实践<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势" class="dd-item"><a href="/best-practice/fccloud-usage/">使用夜莺的的几种实践姿势<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/busi-group-design/" title="探讨业务组的设计和最佳实践" class="dd-item"><a href="/best-practice/busi-group-design/">探讨业务组的设计和最佳实践<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/data-collection/" title="数据采集" class="dd-item"><a href="/data-collection/">数据采集<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/data-collection/snmp/" title="使用SNMP采集网络设备的指标" class="dd-item"><a href="/data-collection/snmp/">使用SNMP采集网络设备的指标<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/promapm/" title="内嵌Prometheus SDK做APM" class="dd-item"><a href="/data-collection/promapm/">内嵌Prometheus SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/statsd/" title="内嵌Statsd SDK做APM" class="dd-item"><a href="/data-collection/statsd/">内嵌Statsd SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/middleware/" title="使用Telegraf和Exporter监控中间件" class="dd-item"><a href="/data-collection/middleware/">使用Telegraf和Exporter监控中间件<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/alert-rule/" title="告警规则" class="dd-item"><a href="/usage/alert-rule/">告警规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-rule-json/" title="告警规则-常用规则JSON" class="dd-item"><a href="/usage/alert-rule-json/">告警规则-常用规则JSON<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-mute/" title="屏蔽规则" class="dd-item"><a href="/usage/alert-mute/">屏蔽规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-subscribe/" title="订阅规则" class="dd-item"><a href="/usage/alert-subscribe/">订阅规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-notify/" title="多种告警通知媒介的支持" class="dd-item"><a href="/usage/alert-notify/">多种告警通知媒介的支持<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-cur-event/" title="当前告警活跃事件" class="dd-item"><a href="/usage/alert-cur-event/">当前告警活跃事件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-his-event/" title="全部历史告警事件" class="dd-item"><a href="/usage/alert-his-event/">全部历史告警事件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/selfhealing/" title="告警自愈" class="dd-item"><a href="/usage/selfhealing/">告警自愈<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> GitHub repo</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/main/content/quickstart/multitsdb.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/quickstart/"><span itemprop="name">快速开始</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/quickstart/multitsdb/" aria-disabled="true"><span itemprop="name">接入多个Prom/VM/M3DB集群</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents"></nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>接入多个Prom/VM/M3DB集群</h1>
+
+<p>由于Prometheus没有集群版本，受限于容量问题，很多公司会搭建多套Prometheus，比如按照业务拆分，不同的业务使用不同的Prometheus集群，或者按照地域拆分，不同的地域使用不同的Prometheus集群。这里是以Prometheus来举例，VictoriaMetrics、M3DB都有集群版本，不过有时为了不相互干扰和地域网络问题，也会拆成多个集群。对于多集群的协同，需要在夜莺里做一些配置，架构图如下：</p>
+<p><img src="/n9e-multi-cluster.png" alt="夜莺读取多个时序库"></p>
+<p>比如，我们有两个时序库，在北京搭建了一个Prometheus，在广州搭建了一个VictoriaMetrics，n9e-webapi会把这两个时序库作为DataSource，所以在n9e-webapi的配置文件中，要配置上这俩存储的地址，举例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[[Clusters]]
+<span style="color:#78787e"># cluster name</span>
+Name = <span style="color:#5af78e">&#34;Prom-Beijing&#34;</span>
+<span style="color:#78787e"># Prometheus APIs base url</span>
+Prom = <span style="color:#5af78e">&#34;http://10.2.3.4:9090&#34;</span>
+<span style="color:#78787e"># Basic auth username</span>
+BasicAuthUser = <span style="color:#5af78e">&#34;&#34;</span>
+<span style="color:#78787e"># Basic auth password</span>
+BasicAuthPass = <span style="color:#5af78e">&#34;&#34;</span>
+<span style="color:#78787e"># timeout settings, unit: ms</span>
+Timeout = <span style="color:#ff9f43">30000</span>
+DialTimeout = <span style="color:#ff9f43">10000</span>
+TLSHandshakeTimeout = <span style="color:#ff9f43">30000</span>
+ExpectContinueTimeout = <span style="color:#ff9f43">1000</span>
+IdleConnTimeout = <span style="color:#ff9f43">90000</span>
+<span style="color:#78787e"># time duration, unit: ms</span>
+KeepAlive = <span style="color:#ff9f43">30000</span>
+MaxConnsPerHost = <span style="color:#ff9f43">0</span>
+MaxIdleConns = <span style="color:#ff9f43">100</span>
+MaxIdleConnsPerHost = <span style="color:#ff9f43">100</span>
+
+[[Clusters]]
+<span style="color:#78787e"># cluster name</span>
+Name = <span style="color:#5af78e">&#34;VM-Guangzhou&#34;</span>
+<span style="color:#78787e"># Prometheus APIs base url</span>
+Prom = <span style="color:#5af78e">&#34;http://172.21.0.8:8481/select/0/prometheus&#34;</span>
+<span style="color:#78787e"># Basic auth username</span>
+BasicAuthUser = <span style="color:#5af78e">&#34;&#34;</span>
+<span style="color:#78787e"># Basic auth password</span>
+BasicAuthPass = <span style="color:#5af78e">&#34;&#34;</span>
+<span style="color:#78787e"># timeout settings, unit: ms</span>
+Timeout = <span style="color:#ff9f43">30000</span>
+DialTimeout = <span style="color:#ff9f43">10000</span>
+TLSHandshakeTimeout = <span style="color:#ff9f43">30000</span>
+ExpectContinueTimeout = <span style="color:#ff9f43">1000</span>
+IdleConnTimeout = <span style="color:#ff9f43">90000</span>
+<span style="color:#78787e"># time duration, unit: ms</span>
+KeepAlive = <span style="color:#ff9f43">30000</span>
+MaxConnsPerHost = <span style="color:#ff9f43">0</span>
+MaxIdleConns = <span style="color:#ff9f43">100</span>
+MaxIdleConnsPerHost = <span style="color:#ff9f43">100</span>
+</code></pre></div><p>另外图上也可以看出，一个n9e-server对应一个时序库，所以在n9e-server的配置文件中，也需要配置对应的时序库的地址，比如北京的server，配置如下，Writers下面的Url配置的是remote write的地址，而Reader下面配置的Url是实现Prometheus原生查询接口的BaseUrl</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[Reader]
+<span style="color:#78787e"># prometheus base url</span>
+Url = <span style="color:#5af78e">&#34;http://127.0.0.1:9090&#34;</span>
+<span style="color:#78787e"># Basic auth username</span>
+BasicAuthUser = <span style="color:#5af78e">&#34;&#34;</span>
+<span style="color:#78787e"># Basic auth password</span>
+BasicAuthPass = <span style="color:#5af78e">&#34;&#34;</span>
+<span style="color:#78787e"># timeout settings, unit: ms</span>
+Timeout = <span style="color:#ff9f43">30000</span>
+DialTimeout = <span style="color:#ff9f43">10000</span>
+TLSHandshakeTimeout = <span style="color:#ff9f43">30000</span>
+ExpectContinueTimeout = <span style="color:#ff9f43">1000</span>
+IdleConnTimeout = <span style="color:#ff9f43">90000</span>
+<span style="color:#78787e"># time duration, unit: ms</span>
+KeepAlive = <span style="color:#ff9f43">30000</span>
+MaxConnsPerHost = <span style="color:#ff9f43">0</span>
+MaxIdleConns = <span style="color:#ff9f43">100</span>
+MaxIdleConnsPerHost = <span style="color:#ff9f43">10</span>
+
+[[Writers]]
+Name = <span style="color:#5af78e">&#34;prom&#34;</span>
+Url = <span style="color:#5af78e">&#34;http://127.0.0.1:9090/api/v1/write&#34;</span>
+<span style="color:#78787e"># Basic auth username</span>
+BasicAuthUser = <span style="color:#5af78e">&#34;&#34;</span>
+<span style="color:#78787e"># Basic auth password</span>
+BasicAuthPass = <span style="color:#5af78e">&#34;&#34;</span>
+<span style="color:#78787e"># timeout settings, unit: ms</span>
+Timeout = <span style="color:#ff9f43">30000</span>
+DialTimeout = <span style="color:#ff9f43">10000</span>
+TLSHandshakeTimeout = <span style="color:#ff9f43">30000</span>
+ExpectContinueTimeout = <span style="color:#ff9f43">1000</span>
+IdleConnTimeout = <span style="color:#ff9f43">90000</span>
+<span style="color:#78787e"># time duration, unit: ms</span>
+KeepAlive = <span style="color:#ff9f43">30000</span>
+MaxConnsPerHost = <span style="color:#ff9f43">0</span>
+MaxIdleConns = <span style="color:#ff9f43">100</span>
+MaxIdleConnsPerHost = <span style="color:#ff9f43">100</span>
+</code></pre></div><p>上海区域用的是VictoriaMetrics，所以Url略有不同，配置如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[Reader]
+<span style="color:#78787e"># prometheus base url</span>
+Url = <span style="color:#5af78e">&#34;http://127.0.0.1:8481/select/0/prometheus&#34;</span>
+<span style="color:#78787e"># Basic auth username</span>
+BasicAuthUser = <span style="color:#5af78e">&#34;&#34;</span>
+<span style="color:#78787e"># Basic auth password</span>
+BasicAuthPass = <span style="color:#5af78e">&#34;&#34;</span>
+<span style="color:#78787e"># timeout settings, unit: ms</span>
+Timeout = <span style="color:#ff9f43">30000</span>
+DialTimeout = <span style="color:#ff9f43">10000</span>
+TLSHandshakeTimeout = <span style="color:#ff9f43">30000</span>
+ExpectContinueTimeout = <span style="color:#ff9f43">1000</span>
+IdleConnTimeout = <span style="color:#ff9f43">90000</span>
+<span style="color:#78787e"># time duration, unit: ms</span>
+KeepAlive = <span style="color:#ff9f43">30000</span>
+MaxConnsPerHost = <span style="color:#ff9f43">0</span>
+MaxIdleConns = <span style="color:#ff9f43">100</span>
+MaxIdleConnsPerHost = <span style="color:#ff9f43">10</span>
+
+[[Writers]]
+Name = <span style="color:#5af78e">&#34;vm&#34;</span>
+Url = <span style="color:#5af78e">&#34;http://127.0.0.1:8480/insert/0/prometheus/api/v1/write&#34;</span>
+<span style="color:#78787e"># Basic auth username</span>
+BasicAuthUser = <span style="color:#5af78e">&#34;&#34;</span>
+<span style="color:#78787e"># Basic auth password</span>
+BasicAuthPass = <span style="color:#5af78e">&#34;&#34;</span>
+<span style="color:#78787e"># timeout settings, unit: ms</span>
+Timeout = <span style="color:#ff9f43">30000</span>
+DialTimeout = <span style="color:#ff9f43">10000</span>
+TLSHandshakeTimeout = <span style="color:#ff9f43">30000</span>
+ExpectContinueTimeout = <span style="color:#ff9f43">1000</span>
+IdleConnTimeout = <span style="color:#ff9f43">90000</span>
+<span style="color:#78787e"># time duration, unit: ms</span>
+KeepAlive = <span style="color:#ff9f43">30000</span>
+MaxConnsPerHost = <span style="color:#ff9f43">0</span>
+MaxIdleConns = <span style="color:#ff9f43">100</span>
+MaxIdleConnsPerHost = <span style="color:#ff9f43">100</span>
+</code></pre></div><p>n9e-webapi是要响应前端ajax请求的，前端会从n9e-webapi查询监控数据，n9e-webapi自身不存储监控数据，而是仅仅做了一个代理，把请求代理给后端的时序库，前端读取数据时会调用Prometheus的那些原生接口，即：<code>/api/v1/query</code> <code>/api/v1/query_range</code> <code>/api/v1/labels</code> 这种接口，所以注意啦，n9e-webapi中配置的Clusters下面的Url，都是要支持Prometheus原生接口的BaseUrl。</p>
+<p>对于n9e-server，有两个重要作用，一个是接收监控数据，然后转发给后端多个Writer，所以，Writer可以配置多个，配置文件是toml格式，<code>[[Writers]]</code>双中括号这种就表示数组，数据写给后端存储，走的协议是Prometheus的Remote Write，所以，所有支持Remote Write的存储，都可以使用。n9e-server的另一个重要作用，是做告警判断，会周期性从mysql同步告警规则，然后根据用户配置的Promeql调用时序库的 <code>query</code> 接口，所以n9e-server的Reader下面的Url，也是要配置支持Prometheus原生接口的BaseUrl。另外注意，Writer可以配置多个，但是Reader只能配置一个。比如监控数据可以写一份到Prometheus存储近期数据用于告警判断，再写一份到OpenTSDB存储长期数据，Writer就可以配置为Prometheus和OpenTSDB这两个，而Reader只配置Prometheus即可。</p>
+
+          <footer class="footline">
+          </footer>
+        </main>
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/quickstart/clusters/" title="生产环境部署高可用集群版"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1638239196"></script>
+    <script src="/js/perfect-scrollbar.min.js?1638239196"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1638239196"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1638239196"></script>
+    <script src="/js/featherlight.min.js?1638239196"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1638239196"></script>
+    <script src="/js/mermaid.min.js?1638239196"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1638239196"></script>
+  </body>
+</html>

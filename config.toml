@@ -1,32 +1,48 @@
-baseURL = "https://n9e.github.io/"
-# include content marked as draft
-buildDrafts = false
-# include content with publishdate in the future
-buildFuture = false
-# include content already expired
-buildExpired = false
-# enable this to make all relative URLs relative to content root. Note that this does not affect absolute URLs.
-relativeURLs = true
-disableRSS = true
-enableRobotsTXT = true
-editor = "nano"
-languageCode = "en"
-language = "en"
-theme = "vncnt-hugo"
-title = "Nightingale"
-
-[permalinks]
-  fixed = ":title/"
-  posts = "posts/:slug/"
+baseURL = 'https://n9e.github.io/'
+languageCode = 'en'
+title = '夜莺手册'
+theme = "relearn"
+publishDir = "docs"
 
 [params]
-  author = "Nightingale"
-  email = "obsuite@didiglobal.com"
-  description = "Nightingale is a distributed and high-performance monitoring system for hybrid cloud"
-  bio = "A Distributed and High-Performance Monitoring System \n for Hybrid Cloud."
-  avatar = "https://s3-gz01.didistatic.com/n9e-pub/image/obsuite-wx.jpg"
-  favicon = "https://s3-gz01.didistatic.com/n9e-pub/image/obsuite/favicon.png"
-  error404 = "There is no such page."
+  editURL = "https://github.com/n9e/n9e.github.io/tree/main/content/"
+  description = "Documentation for nightingale"
+  showVisitedLinks = true
+  disableBreadcrumb = false
+  disableNextPrev = false
+  disableLandingPageButton = true
+  disableMermaid = false
+  titleSeparator = "::"
+  themeVariant = ""
+  disableSeoHiddenPages = true
 
-  [params.contact]
-    github = "https://github.com/didi/nightingale"
+[outputs]
+  home = ["HTML", "RSS", "JSON"] # add JSON to the home page to support lunr search
+
+[markup]
+  [markup.highlight]
+    style = "base16-snazzy" # choose a color theme or create your own
+    guessSyntax = false     # if set to true, avoid unstyled code if no language was given but mermaid code fences will not work anymore
+
+[markup.goldmark.renderer]
+  unsafe= true
+
+[Languages]
+  [Languages.en]
+    title = "N9E"
+    weight = 1
+    languageName = "English"
+    landingPageURL = "/"
+    landingPageName = "<i class='fas fa-home'></i> Home"
+
+  [[Languages.en.menu.shortcuts]]
+    name = "<i class='fab fa-fw fa-github'></i> GitHub repo"
+    identifier = "ds"
+    url = "https://github.com/didi/nightingale"
+    weight = 10
+
+#  [[Languages.en.menu.shortcuts]]
+#    name = "<i class='fas fa-fw fa-bookmark'></i> Hugo Documentation"
+#    identifier = "hugodoc"
+#    url = "https://gohugo.io/"
+#    weight = 20

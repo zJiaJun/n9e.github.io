@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.89.3" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>探讨业务组的设计和最佳实践 :: N9E</title>
+    <link href="/css/nucleus.css?1638239196" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1638239196" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1638239196" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1638239196" rel="stylesheet">
+    <link href="/css/auto-complete.css?1638239196" rel="stylesheet">
+    <link href="/css/theme.css?1638239196" rel="stylesheet">
+    <link href="/css/print.css?1638239196" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1638239196"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/best-practice/busi-group-design/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+<a href="/"><img src="/logo.png" width="132"></a>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1638239196"></script>
+        <script src="/js/auto-complete.js?1638239196"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1638239196"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="快速开始" class="dd-item"><a href="/quickstart/">快速开始<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker Compose快速部署" class="dd-item"><a href="/quickstart/compose/">使用Docker Compose快速部署<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="快速在生产环境部署启动单机版" class="dd-item"><a href="/quickstart/standalone/">快速在生产环境部署启动单机版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/best-practice/" title="最佳实践" class="dd-item parent"><a href="/best-practice/">最佳实践<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势" class="dd-item"><a href="/best-practice/fccloud-usage/">使用夜莺的的几种实践姿势<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/busi-group-design/" title="探讨业务组的设计和最佳实践" class="dd-item active"><a href="/best-practice/busi-group-design/">探讨业务组的设计和最佳实践<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/data-collection/" title="数据采集" class="dd-item"><a href="/data-collection/">数据采集<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/data-collection/snmp/" title="使用SNMP采集网络设备的指标" class="dd-item"><a href="/data-collection/snmp/">使用SNMP采集网络设备的指标<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/promapm/" title="内嵌Prometheus SDK做APM" class="dd-item"><a href="/data-collection/promapm/">内嵌Prometheus SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/statsd/" title="内嵌Statsd SDK做APM" class="dd-item"><a href="/data-collection/statsd/">内嵌Statsd SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/data-collection/middleware/" title="使用Telegraf和Exporter监控中间件" class="dd-item"><a href="/data-collection/middleware/">使用Telegraf和Exporter监控中间件<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/alert-rule/" title="告警规则" class="dd-item"><a href="/usage/alert-rule/">告警规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-rule-json/" title="告警规则-常用规则JSON" class="dd-item"><a href="/usage/alert-rule-json/">告警规则-常用规则JSON<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-mute/" title="屏蔽规则" class="dd-item"><a href="/usage/alert-mute/">屏蔽规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-subscribe/" title="订阅规则" class="dd-item"><a href="/usage/alert-subscribe/">订阅规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-notify/" title="多种告警通知媒介的支持" class="dd-item"><a href="/usage/alert-notify/">多种告警通知媒介的支持<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-cur-event/" title="当前告警活跃事件" class="dd-item"><a href="/usage/alert-cur-event/">当前告警活跃事件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-his-event/" title="全部历史告警事件" class="dd-item"><a href="/usage/alert-his-event/">全部历史告警事件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/selfhealing/" title="告警自愈" class="dd-item"><a href="/usage/selfhealing/">告警自愈<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> GitHub repo</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/main/content/best-practice/busi-group-design.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/best-practice/"><span itemprop="name">最佳实践</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/best-practice/busi-group-design/" aria-disabled="true"><span itemprop="name">探讨业务组的设计和最佳实践</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents"></nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>探讨业务组的设计和最佳实践</h1>
+
+<p>要说业务组这个概念，可能要先聊聊机器分组的设计，之前为此专门写过一篇公众号文章《<a href="https://mp.weixin.qq.com/s/2ZlLwaBd-uqLJ_GlK0rxyA">设计篇-监控系统机器分组设计，你是我的知音么？</a>》，建议感兴趣的朋友读一读。反正最终，以现在的认知来看，用标签来做机器分组是最合适的，虽然标签没有那么直观，但是足够灵活，再佐以业务组这个设计，做相关筛选的时候，先用业务组做第一层筛选，后面再用标签来筛，标签不够直观这个缺点可以被大大的规避。</p>
+<p>再说各种规则，比如告警规则、屏蔽规则、订阅规则，这些规则如果没有一种归组管理方式，就是全公司的规则都平铺到一个表格里，会显得非常混乱。比如我是某个业务线的研发人员，我肯定就关心自己业务线的那些规则，才不想看到别的业务线的规则呢。所以我们需要一个规则分组机制，类似一个namespace的东西，来对这些规则分个组。</p>
+<p>再就是权限，这些告警规则、监控对象、自愈脚本等，谁可以修改维护？总得关联到具体的一些人上。对于某个产品的相关规则、监控对象等，是由一批相同的人来维护的，所以抽象一个业务组这样的概念，把这些资产都归到这个业务组里，也方便配置权限。另外就是告警自愈以及机器上跑脚本，这个动作比较危险，要好好控制权限，机器隶属业务组，业务组有管理人员，这种管理模式相对比较简单清晰。</p>
+<p>综上，我们设计了业务组这个概念，夜莺中的各种实体大都是归到业务组的，比如监控对象、各类规则、自愈脚本等，业务组一般是一个自闭环的组织，他们自己管理自己的机器设备，自己管理自己的告警规则，跟其他的业务组没什么交集。举个例子，比如公司的DBA团队，管理了公司的所有mysql数据库以及相关的机器，这种就可以单独建立一个业务组；再比如基础网络的同学，管理了公司所有的网络设备，跟其他业务线关系不大，就可以建立一个专门的业务组，放置网络设备监控对象，以及相关的告警规则。</p>
+<p>当然了，公司也可能有个统一的运维团队，管理所有的告警规则，普通研发人员都不会去创建告警规则，这种情况，这个统一的运维团队可以创建一个业务组，比如叫infra，放置公司所有的监控对象，配置告警规则。其他各个团队，可以创建自己的业务组，然后订阅infra的告警规则（订阅可以跨业务组订阅），每个业务团队创建的业务组里只有订阅规则，与其他业务组隔离，比较清晰较为容易管理。</p>
+<hr>
+<p>对于监控对象，只要有监控数据上报，n9e-server就会自动从监控对象中解析到ident标签，取其值当做监控对象，注册到mysql监控对象这个表里。刚注册上来的监控对象是未归组的，此时应该由Admin角色的人去把这些监控对象做分配，分配给不同的业务组，分完之后，各个业务组的人就自己玩自己的就好了。</p>
+<p>业务组的人，对于刚刚分配过来的监控对象设备，建议首先做的事情，就是打上一个bg的标签，比如<code>bg=cloud</code>表示相关的监控对象都隶属cloud这个Business Group。未来这些监控对象告警了，告警事件中会自动带上<code>bg=cloud</code>这个标签，收报警的人就可以立刻知道这是哪个bg的监控对象。</p>
+
+          <footer class="footline">
+          </footer>
+        </main>
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/data-collection/" title="数据采集"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1638239196"></script>
+    <script src="/js/perfect-scrollbar.min.js?1638239196"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1638239196"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1638239196"></script>
+    <script src="/js/featherlight.min.js?1638239196"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1638239196"></script>
+    <script src="/js/mermaid.min.js?1638239196"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1638239196"></script>
+  </body>
+</html>
