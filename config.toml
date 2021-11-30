@@ -5,7 +5,7 @@ theme = "relearn"
 publishDir = "docs"
 
 [params]
-  editURL = "https://github.com/n9e/n9e.github.io/tree/main/content/"
+  editURL = "https://github.com/n9e/n9e.github.io/tree/master/content/"
   description = "Documentation for nightingale"
   showVisitedLinks = true
   disableBreadcrumb = false
