@@ -6,7 +6,7 @@
     <meta name="generator" content="Hugo 0.89.4" />
     <meta name="description" content="Documentation for nightingale">
     
-    <title>使用Telegraf采集监控数据 :: N9E</title>
+    <title>监控大盘-导入大盘JSON :: N9E</title>
     <link href="/css/nucleus.css?1638711417" rel="stylesheet">
     <link href="/css/fontawesome-all.min.css?1638711417" rel="stylesheet">
     <link href="/css/featherlight.min.css?1638711417" rel="stylesheet">
@@ -23,7 +23,7 @@
       }
     </style>
   </head>
-  <body class="" data-url="/quickstart/telegraf/">
+  <body class="" data-url="/usage/dashboards-json/">
     <script>
       var index_url="/index.json";
       var root_url="/";
@@ -47,10 +47,10 @@
       </div>
       <div class="highlightable">
         <ul class="topics">
-          <li data-nav-id="/quickstart/" title="快速开始" class="dd-item parent"><a href="/quickstart/">快速开始<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/" title="快速开始" class="dd-item"><a href="/quickstart/">快速开始<i class="fas fa-check read-icon"></i></a><ul>
           <li data-nav-id="/quickstart/compose/" title="使用Docker Compose快速部署" class="dd-item"><a href="/quickstart/compose/">使用Docker Compose快速部署<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/standalone/" title="快速在生产环境部署启动单机版" class="dd-item"><a href="/quickstart/standalone/">快速在生产环境部署启动单机版<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item active"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
@@ -64,8 +64,8 @@
           <li data-nav-id="/data-collection/promapm/" title="内嵌Prometheus SDK做APM" class="dd-item"><a href="/data-collection/promapm/">内嵌Prometheus SDK做APM<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/data-collection/statsd/" title="内嵌Statsd SDK做APM" class="dd-item"><a href="/data-collection/statsd/">内嵌Statsd SDK做APM<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/data-collection/middleware/" title="使用Telegraf和Exporter监控中间件" class="dd-item"><a href="/data-collection/middleware/">使用Telegraf和Exporter监控中间件<i class="fas fa-check read-icon"></i></a></li></ul></li>
-          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
-          <li data-nav-id="/usage/dashboards-json/" title="监控大盘-导入大盘JSON" class="dd-item"><a href="/usage/dashboards-json/">监控大盘-导入大盘JSON<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item parent"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/dashboards-json/" title="监控大盘-导入大盘JSON" class="dd-item active"><a href="/usage/dashboards-json/">监控大盘-导入大盘JSON<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-rule/" title="告警规则" class="dd-item"><a href="/usage/alert-rule/">告警规则<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-rule-json/" title="告警规则-常用规则JSON" class="dd-item"><a href="/usage/alert-rule-json/">告警规则-常用规则JSON<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-mute/" title="屏蔽规则" class="dd-item"><a href="/usage/alert-mute/">屏蔽规则<i class="fas fa-check read-icon"></i></a></li>
@@ -102,7 +102,7 @@
       <div class="padding highlightable">
         <div id="top-bar">
           <div id="top-github-link">
-            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/quickstart/telegraf.md" target="blank">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/usage/dashboards-json.md" target="blank">
               <i class="fas fa-code-branch"></i>
               <span id="top-github-link-text">Edit this page</span>
             </a>
@@ -117,124 +117,74 @@
             <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
               <meta itemprop="itemListOrder" content="Descending" />
                 <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/quickstart/"><span itemprop="name">快速开始</span></a> > </li>
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/quickstart/telegraf/" aria-disabled="true"><span itemprop="name">使用Telegraf采集监控数据</span></a></li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/usage/"><span itemprop="name">功能介绍</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/usage/dashboards-json/" aria-disabled="true"><span itemprop="name">监控大盘-导入大盘JSON</span></a></li>
             </ol>
           </div>
             <div class="progress">
               <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#机器指标大盘">机器指标大盘</a></li>
+  </ul>
+</nav>
               </div>
             </div>
         </div>
         <div id="head-tags">
         </div>
         <main id="body-inner">
-          <h1>使用Telegraf采集监控数据</h1>
+          <h1>监控大盘-导入大盘JSON</h1>
 
-<blockquote>
-<p>Telegraf 是 InfluxData 开源的一款采集器，可以采集操作系统、各种中间件的监控指标，采集<a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs">目标列表</a>，看起来是非常丰富，Telegraf是一个大一统的设计，即一个二进制可以采集CPU、内存、mysql、mongodb、redis、snmp等，不像Prometheus的exporter，每个监控对象一个exporter，管理起来略麻烦。一个二进制分发起来确实比较方便。</p>
-</blockquote>
-<p>这里提供快速安装的教程，Telegraf的更多知识，请参考<a href="https://github.com/influxdata/telegraf">Telegraf官网</a>，笔者之前也写了一个<a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU3ODAxNTIzMQ==&amp;action=getalbum&amp;album_id=2124352687600205826&amp;scene=173&amp;from_msgid=2247484223&amp;from_itemidx=1&amp;count=3&amp;nolastread=1">Telegraf调研笔记</a>，大家亦可参考。</p>
-<p>Telegraf下载地址在<a href="https://github.com/influxdata/telegraf/releases">这里</a>，根据自己的平台选择对应的二进制下载即可。笔者的环境是CentOS，下面是安装脚本，/opt/telegraf/telegraf.conf 是一个经过删减的干净的配置文件，指定了opentsdb output plugin，这个plugin的写入地址配置的是n9e-server，所以，Telegraf采集的数据会被推送给n9e-server，二者贯通：</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#78787e">#!/bin/sh
-</span><span style="color:#78787e"></span>
-<span style="color:#ff5c57">version</span><span style="color:#ff6ac1">=</span>1.20.4
-<span style="color:#ff5c57">tarball</span><span style="color:#ff6ac1">=</span>telegraf-<span style="color:#5af78e">${</span><span style="color:#ff5c57">version</span><span style="color:#5af78e">}</span>_linux_amd64.tar.gz
-wget https://dl.influxdata.com/telegraf/releases/<span style="color:#ff5c57">$tarball</span>
-tar xzvf <span style="color:#ff5c57">$tarball</span>
-
-mkdir -p /opt/telegraf
-cp -far telegraf-<span style="color:#5af78e">${</span><span style="color:#ff5c57">version</span><span style="color:#5af78e">}</span>/usr/bin/telegraf /opt/telegraf
-
-cat <span style="color:#5af78e">&lt;&lt;EOF &gt; /opt/telegraf/telegraf.conf
-</span><span style="color:#5af78e">[global_tags]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[agent]
-</span><span style="color:#5af78e">  interval = &#34;10s&#34;
-</span><span style="color:#5af78e">  round_interval = true
-</span><span style="color:#5af78e">  metric_batch_size = 1000
-</span><span style="color:#5af78e">  metric_buffer_limit = 10000
-</span><span style="color:#5af78e">  collection_jitter = &#34;0s&#34;
-</span><span style="color:#5af78e">  flush_interval = &#34;10s&#34;
-</span><span style="color:#5af78e">  flush_jitter = &#34;0s&#34;
-</span><span style="color:#5af78e">  precision = &#34;&#34;
-</span><span style="color:#5af78e">  hostname = &#34;&#34;
-</span><span style="color:#5af78e">  omit_hostname = false
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[outputs.opentsdb]]
-</span><span style="color:#5af78e">  host = &#34;http://127.0.0.1&#34;
-</span><span style="color:#5af78e">  port = 19000
-</span><span style="color:#5af78e">  http_batch_size = 50
-</span><span style="color:#5af78e">  http_path = &#34;/opentsdb/put&#34;
-</span><span style="color:#5af78e">  debug = false
-</span><span style="color:#5af78e">  separator = &#34;_&#34;
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.cpu]]
-</span><span style="color:#5af78e">  percpu = true
-</span><span style="color:#5af78e">  totalcpu = true
-</span><span style="color:#5af78e">  collect_cpu_time = false
-</span><span style="color:#5af78e">  report_active = true
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.disk]]
-</span><span style="color:#5af78e">  ignore_fs = [&#34;tmpfs&#34;, &#34;devtmpfs&#34;, &#34;devfs&#34;, &#34;iso9660&#34;, &#34;overlay&#34;, &#34;aufs&#34;, &#34;squashfs&#34;]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.diskio]]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.kernel]]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.mem]]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.processes]]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.system]]
-</span><span style="color:#5af78e">  fielddrop = [&#34;uptime_format&#34;]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.net]]
-</span><span style="color:#5af78e">  ignore_protocol_stats = true
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">EOF</span>
-
-cat <span style="color:#5af78e">&lt;&lt;EOF &gt; /etc/systemd/system/telegraf.service
-</span><span style="color:#5af78e">[Unit]
-</span><span style="color:#5af78e">Description=&#34;telegraf&#34;
-</span><span style="color:#5af78e">After=network.target
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[Service]
-</span><span style="color:#5af78e">Type=simple
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">ExecStart=/opt/telegraf/telegraf --config telegraf.conf
-</span><span style="color:#5af78e">WorkingDirectory=/opt/telegraf
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">Restart=on-failure
-</span><span style="color:#5af78e">SuccessExitStatus=0
-</span><span style="color:#5af78e">LimitNOFILE=65536
-</span><span style="color:#5af78e">StandardOutput=syslog
-</span><span style="color:#5af78e">StandardError=syslog
-</span><span style="color:#5af78e">SyslogIdentifier=telegraf
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[Install]
-</span><span style="color:#5af78e">WantedBy=multi-user.target
-</span><span style="color:#5af78e">EOF</span>
-
-systemctl daemon-reload
-systemctl <span style="color:#ff5c57">enable</span> telegraf
-systemctl restart telegraf
-systemctl status telegraf
+<p>监控大盘有个导入导出功能，这里提供一些常见的监控大盘模板，大家可以直接导入使用</p>
+<h2 id="机器指标大盘">机器指标大盘</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
+  {
+    <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;机器监控数据&#34;</span>,
+    <span style="color:#ff6ac1">&#34;tags&#34;</span>: <span style="color:#5af78e">&#34;HOST&#34;</span>,
+    <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;var\&#34;:[{\&#34;name\&#34;:\&#34;host\&#34;,\&#34;selected\&#34;:\&#34;10-255-0-34\&#34;,\&#34;definition\&#34;:\&#34;label_values(cpu_usage_idle, ident)\&#34;}]}&#34;</span>,
+    <span style="color:#ff6ac1">&#34;chart_groups&#34;</span>: [
+      {
+        <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;Default chart group&#34;</span>,
+        <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>,
+        <span style="color:#ff6ac1">&#34;charts&#34;</span>: [
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;整机CPU空闲率(%)\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;cpu_usage_idle{cpu=\\\&#34;cpu-total\\\&#34;, ident=\\\&#34;$host\\\&#34;}\&#34;}],\&#34;yplotline1\&#34;:35,\&#34;yplotline2\&#34;:15,\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;asc\&#34;,\&#34;precision\&#34;:\&#34;origin\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:0,\&#34;y\&#34;:0,\&#34;i\&#34;:\&#34;0\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;内存可用率(%)\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;mem_available_percent{ident=\\\&#34;$host\\\&#34;}\&#34;}],\&#34;yplotline1\&#34;:30,\&#34;yplotline2\&#34;:15,\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;asc\&#34;,\&#34;precision\&#34;:\&#34;origin\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:8,\&#34;y\&#34;:0,\&#34;i\&#34;:\&#34;1\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;硬盘利用率(%)\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;disk_used_percent{ident=\\\&#34;$host\\\&#34;}\&#34;}],\&#34;yplotline1\&#34;:87,\&#34;yplotline2\&#34;:92,\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;origin\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:16,\&#34;y\&#34;:0,\&#34;i\&#34;:\&#34;2\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;IO.UTIL(%)\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;rate(diskio_io_time{ident=\\\&#34;$host\\\&#34;}[1m])/10\&#34;}],\&#34;yplotline1\&#34;:90,\&#34;yplotline2\&#34;:null,\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;origin\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:0,\&#34;y\&#34;:2,\&#34;i\&#34;:\&#34;3\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;网卡每分钟丢包数（个）\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;increase(net_drop_in{ident=\\\&#34;$host\\\&#34;}[1m])\&#34;,\&#34;Legend\&#34;:\&#34;net_drop_in ident:{{ident}} interface:{{interface}}\&#34;},{\&#34;PromQL\&#34;:\&#34;increase(net_drop_out{ident=\\\&#34;$host\\\&#34;}[1m])\&#34;,\&#34;Legend\&#34;:\&#34;net_drop_out ident:{{ident}} interface:{{interface}}\&#34;}],\&#34;yplotline1\&#34;:5,\&#34;yplotline2\&#34;:20,\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:8,\&#34;y\&#34;:2,\&#34;i\&#34;:\&#34;4\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;TCP_TIME_WAIT数量\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;netstat_tcp_time_wait\&#34;}],\&#34;yplotline1\&#34;:null,\&#34;yplotline2\&#34;:20000,\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:16,\&#34;y\&#34;:2,\&#34;i\&#34;:\&#34;5\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          }
+        ]
+      }
+    ]
+  }
+]
 </code></pre></div>
-<div class="notices warning">
-    <div class="label">Warning</div><p><code>/opt/telegraf/telegraf.conf</code>的内容是个删减版，只是为了让大家快速跑起来，如果要采集更多监控对象，比如mysql、redis、tomcat等，还是要仔细去阅读从tarball里解压出来的那个配置文件，那里有很详细的注释，也可以参考官方提供的各个采集插件下的<a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs">README</a></p>
-
-</div>
-
           <footer class="footline">
           </footer>
         </main>
       </div>
       <div id="navigation">
-        <a class="nav nav-prev" href="/quickstart/standalone/" title="快速在生产环境部署启动单机版"><i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/usage/" title="功能介绍"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/usage/alert-rule/" title="告警规则"><i class="fa fa-chevron-right"></i></a>
       </div>
     </div>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

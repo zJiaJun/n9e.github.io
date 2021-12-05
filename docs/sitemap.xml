@@ -7,12 +7,6 @@
     <loc>https://n9e.github.io/best-practice/fccloud-usage/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/usage/alert-rule/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/usage/alert-rule-json/</loc>
-  </url>
-  <url>
     <loc>https://n9e.github.io/quickstart/standalone/</loc>
   </url>
   <url>
@@ -22,19 +16,10 @@
     <loc>https://n9e.github.io/quickstart/telegraf/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/usage/alert-mute/</loc>
-  </url>
-  <url>
     <loc>https://n9e.github.io/best-practice/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/quickstart/victoriametrics/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/usage/alert-subscribe/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/usage/alert-notify/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/quickstart/multitsdb/</loc>
@@ -43,28 +28,46 @@
     <loc>https://n9e.github.io/quickstart/clusters/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/usage/alert-cur-event/</loc>
-  </url>
-  <url>
     <loc>https://n9e.github.io/best-practice/busi-group-design/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/usage/alert-his-event/</loc>
+    <loc>https://n9e.github.io/usage/dashboards-json/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/quickstart/ibex/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/usage/selfhealing/</loc>
+    <loc>https://n9e.github.io/quickstart/compile/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/quickstart/compile/</loc>
+    <loc>https://n9e.github.io/usage/alert-rule/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/usage/alert-rule-json/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/usage/alert-mute/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/usage/alert-subscribe/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/usage/alert-notify/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/data-collection/snmp/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/data-collection/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/usage/alert-cur-event/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/usage/alert-his-event/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/usage/selfhealing/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/data-collection/promapm/</loc>

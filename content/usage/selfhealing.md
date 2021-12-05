@@ -1,5 +1,5 @@
 ---
-weight: 20
+weight: 100
 title: "告警自愈"
 ---
 

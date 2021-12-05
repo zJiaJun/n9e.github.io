@@ -1,5 +1,5 @@
 ---
-weight: 2
+weight: 31
 title: "告警规则-常用规则JSON"
 ---
 
@@ -197,7 +197,7 @@ title: "告警规则-常用规则JSON"
     "severity": 3,
     "disabled": 0,
     "prom_for_duration": 60,
-    "prom_ql": "net_drop_in > 0",
+    "prom_ql": "increase(net_drop_in[1m]) > 0",
     "prom_eval_interval": 15,
     "enable_stime": "00:00",
     "enable_etime": "23:59",
@@ -227,7 +227,7 @@ title: "告警规则-常用规则JSON"
     "severity": 3,
     "disabled": 0,
     "prom_for_duration": 60,
-    "prom_ql": "net_drop_out > 0",
+    "prom_ql": "increase(net_drop_out[1m]) > 0",
     "prom_eval_interval": 15,
     "enable_stime": "00:00",
     "enable_etime": "23:59",
@@ -313,7 +313,7 @@ title: "告警规则-常用规则JSON"
   },
   {
     "name": "进程监控-进程句柄限制过小",
-    "note": "可能是ulimit没配好，systemd托管的进程可能是LimitNOFILE没配好",
+    "note": "",
     "severity": 3,
     "disabled": 0,
     "prom_for_duration": 60,

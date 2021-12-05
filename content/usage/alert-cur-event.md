@@ -1,5 +1,5 @@
 ---
-weight: 10
+weight: 70
 title: "当前告警活跃事件"
 ---
 

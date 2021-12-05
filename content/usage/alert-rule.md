@@ -1,5 +1,5 @@
 ---
-weight: 1
+weight: 30
 title: "告警规则"
 ---
 
