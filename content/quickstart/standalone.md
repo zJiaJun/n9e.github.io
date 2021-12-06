@@ -72,7 +72,7 @@ systemctl restart redis
 mkdir -p /opt/n9e && cd /opt/n9e
 
 tarball=n9e-5.0.0-ga-01.tar.gz
-wget http://49.233.250.79/${tarball} || exit 1
+wget https://s3-gz01.didistatic.com/n9e-pub/tgz/${tarball} || exit 1
 
 tar zxvf ${tarball}
 
