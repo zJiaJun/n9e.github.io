@@ -7,16 +7,16 @@
     <meta name="description" content="Documentation for nightingale">
     
     <title>监控大盘-导入大盘JSON :: N9E</title>
-    <link href="/css/nucleus.css?1638714051" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1638714051" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1638714051" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1638714051" rel="stylesheet">
-    <link href="/css/auto-complete.css?1638714051" rel="stylesheet">
-    <link href="/css/theme.css?1638714051" rel="stylesheet">
-    <link href="/css/theme-blue.css?1638714051" rel="stylesheet">
-    <link href="/css/variant.css?1638714051" rel="stylesheet">
-    <link href="/css/print.css?1638714051" rel="stylesheet" media="print">
-    <script src="/js/jquery.min.js?1638714051"></script>
+    <link href="/css/nucleus.css?1638753520" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1638753520" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1638753520" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1638753520" rel="stylesheet">
+    <link href="/css/auto-complete.css?1638753520" rel="stylesheet">
+    <link href="/css/theme.css?1638753520" rel="stylesheet">
+    <link href="/css/theme-blue.css?1638753520" rel="stylesheet">
+    <link href="/css/variant.css?1638753520" rel="stylesheet">
+    <link href="/css/print.css?1638753520" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1638753520"></script>
     <style>
       :root #header + #content > #left > #rlblock_left{
         display:none !important;
@@ -39,11 +39,11 @@
           <input data-search-input id="search-by" type="search" placeholder="Search...">
           <span data-search-clear=""><i class="fas fa-times"></i></span>
         </div>
-        <script src="/js/lunr.min.js?1638714051"></script>
-        <script src="/js/auto-complete.js?1638714051"></script>
+        <script src="/js/lunr.min.js?1638753520"></script>
+        <script src="/js/auto-complete.js?1638753520"></script>
         <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
         <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
-        <script src="/js/search.js?1638714051"></script>
+        <script src="/js/search.js?1638753520"></script>
       </div>
       <div class="highlightable">
         <ul class="topics">
@@ -142,7 +142,7 @@
   {
     <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;机器监控数据&#34;</span>,
     <span style="color:#ff6ac1">&#34;tags&#34;</span>: <span style="color:#5af78e">&#34;HOST&#34;</span>,
-    <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;var\&#34;:[{\&#34;name\&#34;:\&#34;host\&#34;,\&#34;selected\&#34;:\&#34;10-255-0-34\&#34;,\&#34;definition\&#34;:\&#34;label_values(cpu_usage_idle, ident)\&#34;}]}&#34;</span>,
+    <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;var\&#34;:[{\&#34;name\&#34;:\&#34;host\&#34;,\&#34;definition\&#34;:\&#34;label_values(cpu_usage_idle, ident)\&#34;}]}&#34;</span>,
     <span style="color:#ff6ac1">&#34;chart_groups&#34;</span>: [
       {
         <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;Default chart group&#34;</span>,
@@ -169,7 +169,7 @@
             <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
           },
           {
-            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;TCP_TIME_WAIT数量\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;netstat_tcp_time_wait\&#34;}],\&#34;yplotline1\&#34;:null,\&#34;yplotline2\&#34;:20000,\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:16,\&#34;y\&#34;:2,\&#34;i\&#34;:\&#34;5\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;TCP_TIME_WAIT数量\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;netstat_tcp_time_wait{ident=\\\&#34;$host\\\&#34;}\&#34;}],\&#34;yplotline1\&#34;:null,\&#34;yplotline2\&#34;:20000,\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:16,\&#34;y\&#34;:2,\&#34;i\&#34;:\&#34;5\&#34;}}&#34;</span>,
             <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
           }
         ]
@@ -190,18 +190,18 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1638714051"></script>
-    <script src="/js/perfect-scrollbar.min.js?1638714051"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1638714051"></script>
-    <script src="/js/jquery.svg.pan.zoom.js?1638714051"></script>
-    <script src="/js/featherlight.min.js?1638714051"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1638714051"></script>
-    <script src="/js/mermaid.min.js?1638714051"></script>
+    <script src="/js/clipboard.min.js?1638753520"></script>
+    <script src="/js/perfect-scrollbar.min.js?1638753520"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1638753520"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1638753520"></script>
+    <script src="/js/featherlight.min.js?1638753520"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1638753520"></script>
+    <script src="/js/mermaid.min.js?1638753520"></script>
     <script>
       if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
         mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
       }
     </script>
-    <script src="/js/relearn.js?1638714051"></script>
+    <script src="/js/relearn.js?1638753520"></script>
   </body>
 </html>

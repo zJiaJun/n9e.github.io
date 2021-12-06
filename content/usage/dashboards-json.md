@@ -12,7 +12,7 @@ title: "监控大盘-导入大盘JSON"
   {
     "name": "机器监控数据",
     "tags": "HOST",
-    "configs": "{\"var\":[{\"name\":\"host\",\"selected\":\"10-255-0-34\",\"definition\":\"label_values(cpu_usage_idle, ident)\"}]}",
+    "configs": "{\"var\":[{\"name\":\"host\",\"definition\":\"label_values(cpu_usage_idle, ident)\"}]}",
     "chart_groups": [
       {
         "name": "Default chart group",
@@ -39,7 +39,7 @@ title: "监控大盘-导入大盘JSON"
             "weight": 0
           },
           {
-            "configs": "{\"name\":\"TCP_TIME_WAIT数量\",\"QL\":[{\"PromQL\":\"netstat_tcp_time_wait\"}],\"yplotline1\":null,\"yplotline2\":20000,\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":8,\"x\":16,\"y\":2,\"i\":\"5\"}}",
+            "configs": "{\"name\":\"TCP_TIME_WAIT数量\",\"QL\":[{\"PromQL\":\"netstat_tcp_time_wait{ident=\\\"$host\\\"}\"}],\"yplotline1\":null,\"yplotline2\":20000,\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":8,\"x\":16,\"y\":2,\"i\":\"5\"}}",
             "weight": 0
           }
         ]
