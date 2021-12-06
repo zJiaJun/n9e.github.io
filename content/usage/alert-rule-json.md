@@ -42,6 +42,36 @@ title: "告警规则-常用规则JSON"
     "append_tags": []
   },
   {
+    "name": "有监控对象失联",
+    "note": "",
+    "severity": 1,
+    "disabled": 0,
+    "prom_for_duration": 60,
+    "prom_ql": "target_up != 1",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
+  {
     "name": "有端口探测失败，请注意",
     "note": "",
     "severity": 1,
