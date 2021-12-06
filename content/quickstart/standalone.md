@@ -90,10 +90,10 @@ nohup ./n9e webapi &> webapi.log &
 
 配置文件etc/server.conf和etc/webapi.conf中都含有mysql的连接地址配置，检查一下用户名和密码，prometheus如果使用上面的脚本安装，默认会监听本机9090端口，server.conf和webapi.conf中的prometheus相关地址都不用修改就是对的。
 
-好了，浏览器访问webapi的端口（默认是18000）就可以体验相关功能了，默认用户是`root`，密码是`root.2020`。如果安装过程出现问题，可以参考视频教程：[TODO](#) 
+好了，浏览器访问webapi的端口（默认是18000）就可以体验相关功能了，默认用户是`root`，密码是`root.2020`。如果安装过程出现问题，可以参考 [视频教程](https://www.bilibili.com/video/BV1HL4y1H7Yc/) 
 
 接下来，你可能需要：
 
-- [安装Telegraf采集更多监控数据]({{%relref "telegraf" %}})
+- [安装Telegraf采集更多监控数据]({{%relref "telegraf"%}})
 
 
