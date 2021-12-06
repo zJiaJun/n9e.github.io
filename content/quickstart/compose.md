@@ -37,4 +37,4 @@ telegraf     /entrypoint.sh telegraf          Up      0.0.0.0:8092->8092/udp, 0.
 启动成功之后，建议把initsql目录下的内容挪走，这样下次重启的时候，DB就不会重新初始化了。否则下次启动mysql还是会自动执行initsql下面的sql文件导致DB重新初始化，页面上创建的规则、用户等都会丢失
 {{% /notice %}}
 
-服务启动之后，浏览器访问nserver的端口，默认用户是`root`，密码是`root.2020`
+服务启动之后，浏览器访问nwebapi的端口，即18000，默认用户是`root`，密码是`root.2020`
