@@ -12,7 +12,7 @@ title: "监控大盘-导入大盘JSON"
   {
     "name": "机器监控数据",
     "tags": "HOST",
-    "configs": "{\"var\":[{\"name\":\"host\",\"definition\":\"label_values(cpu_usage_idle, ident)\"}]}",
+    "configs": "{\"var\":[{\"name\":\"host\",\"definition\":\"label_values(mem_free, ident)\"}]}",
     "chart_groups": [
       {
         "name": "Default chart group",
