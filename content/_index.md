@@ -7,7 +7,7 @@ title = "夜莺手册"
 
 ## 新版简介
 
-Nightingale在2020.3.20发布v1版本，目前是v5.1版本，从这个版本开始，与Prometheus、VictoriaMetrics、Grafana、Telegraf等生态做了协同集成，力争打造国内最好用的开源运维监控系统。
+Nightingale在2020.3.20发布v1版本，目前是v5.0版本，从这个版本开始，与Prometheus、VictoriaMetrics、Grafana、Telegraf等生态做了协同集成，力争打造国内最好用的开源运维监控系统。
 
 #### 与Open-Falcon的区别
 
