@@ -71,8 +71,8 @@ systemctl restart redis
 ```bash
 mkdir -p /opt/n9e && cd /opt/n9e
 
-tarball=n9e-5.0.0-ga-02.tar.gz
-wget https://s3-gz01.didistatic.com/n9e-pub/tgz/${tarball} || exit 1
+tarball=n9e-5.0.0-ga-04.tar.gz
+wget https://116.85.64.82/${tarball} || exit 1
 
 tar zxvf ${tarball}
 
