@@ -446,7 +446,9 @@ title: "监控Linux操作系统"
 ]
 ```
 
+## Grafana大盘
 
+笔者做了一个Grafana大盘：https://grafana.com/grafana/dashboards/15365 使用Telegraf做采集、Prometheus做数据源、Nightingale生成的target_up指标来标识机器是否up，欢迎试用
 
 
 
