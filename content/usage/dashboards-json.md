@@ -5,12 +5,12 @@ title: "监控大盘-导入大盘JSON"
 
 监控大盘有个导入导出功能，这里提供一些常见的监控大盘模板，大家可以直接导入使用
 
-## 机器指标大盘
+## Linux基本监控指标-Telegraf采集
 
 ```json
 [
   {
-    "name": "机器监控数据",
+    "name": "Linux基本监控指标-Telegraf采集",
     "tags": "HOST",
     "configs": "{\"var\":[{\"name\":\"host\",\"definition\":\"label_values(mem_free, ident)\"}]}",
     "chart_groups": [
