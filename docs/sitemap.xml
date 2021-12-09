@@ -7,16 +7,13 @@
     <loc>https://n9e.github.io/best-practice/fccloud-usage/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/quickstart/standalone/</loc>
-  </url>
-  <url>
     <loc>https://n9e.github.io/quickstart/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/quickstart/telegraf/</loc>
+    <loc>https://n9e.github.io/quickstart/standalone/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/best-practice/</loc>
+    <loc>https://n9e.github.io/quickstart/telegraf/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/quickstart/victoriametrics/</loc>
@@ -31,9 +28,6 @@
     <loc>https://n9e.github.io/best-practice/busi-group-design/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/usage/dashboards-json/</loc>
-  </url>
-  <url>
     <loc>https://n9e.github.io/quickstart/ibex/</loc>
   </url>
   <url>
@@ -41,9 +35,6 @@
   </url>
   <url>
     <loc>https://n9e.github.io/usage/alert-rule/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/usage/alert-rule-json/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/usage/alert-mute/</loc>
@@ -55,37 +46,37 @@
     <loc>https://n9e.github.io/usage/alert-notify/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/data-collection/snmp/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/data-collection/</loc>
-  </url>
-  <url>
     <loc>https://n9e.github.io/usage/alert-cur-event/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/usage/alert-his-event/</loc>
   </url>
   <url>
+    <loc>https://n9e.github.io/best-practice/linux_host/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/best-practice/snmp/</loc>
+  </url>
+  <url>
     <loc>https://n9e.github.io/usage/selfhealing/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/data-collection/promapm/</loc>
+    <loc>https://n9e.github.io/best-practice/promapm/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/data-collection/statsd/</loc>
+    <loc>https://n9e.github.io/best-practice/statsd/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/usage/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/data-collection/middleware/</loc>
+    <loc>https://n9e.github.io/best-practice/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/best-practice/middleware/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/api/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/faq/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/categories/</loc>

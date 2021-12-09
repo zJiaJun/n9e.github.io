@@ -100,3 +100,12 @@ systemctl status telegraf
 {{% notice warning %}}
 `/opt/telegraf/telegraf.conf`的内容是个删减版，只是为了让大家快速跑起来，如果要采集更多监控对象，比如mysql、redis、tomcat等，还是要仔细去阅读从tarball里解压出来的那个配置文件，那里有很详细的注释，也可以参考官方提供的各个采集插件下的[README](https://github.com/influxdata/telegraf/tree/master/plugins/inputs)
 {{% /notice %}}
+
+
+## 网友分享
+
+- [Telegraf的Linux版安装分享](https://t.zsxq.com/ba2Faqb)
+- [Telegraf的Windows版安装分享](https://t.zsxq.com/AAqFQJY)
+
+
+

@@ -6,7 +6,7 @@
     <meta name="generator" content="Hugo 0.89.3" />
     <meta name="description" content="Documentation for nightingale">
     
-    <title>屏蔽规则 :: N9E</title>
+    <title>内嵌Statsd SDK做APM :: N9E</title>
     <link href="/css/nucleus.css?1639057213" rel="stylesheet">
     <link href="/css/fontawesome-all.min.css?1639057213" rel="stylesheet">
     <link href="/css/featherlight.min.css?1639057213" rel="stylesheet">
@@ -23,7 +23,7 @@
       }
     </style>
   </head>
-  <body class="" data-url="/usage/alert-mute/">
+  <body class="" data-url="/best-practice/statsd/">
     <script>
       var index_url="/index.json";
       var root_url="/";
@@ -56,21 +56,21 @@
           <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
-          <li data-nav-id="/usage/" title="功能介绍" class="dd-item parent"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
           <li data-nav-id="/usage/alert-rule/" title="告警规则" class="dd-item"><a href="/usage/alert-rule/">告警规则<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/usage/alert-mute/" title="屏蔽规则" class="dd-item active"><a href="/usage/alert-mute/">屏蔽规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-mute/" title="屏蔽规则" class="dd-item"><a href="/usage/alert-mute/">屏蔽规则<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-subscribe/" title="订阅规则" class="dd-item"><a href="/usage/alert-subscribe/">订阅规则<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-notify/" title="多种告警通知媒介的支持" class="dd-item"><a href="/usage/alert-notify/">多种告警通知媒介的支持<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-cur-event/" title="当前告警活跃事件" class="dd-item"><a href="/usage/alert-cur-event/">当前告警活跃事件<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-his-event/" title="全部历史告警事件" class="dd-item"><a href="/usage/alert-his-event/">全部历史告警事件<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/selfhealing/" title="告警自愈" class="dd-item"><a href="/usage/selfhealing/">告警自愈<i class="fas fa-check read-icon"></i></a></li></ul></li>
-          <li data-nav-id="/best-practice/" title="理念实战" class="dd-item"><a href="/best-practice/">理念实战<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/best-practice/" title="理念实战" class="dd-item parent"><a href="/best-practice/">理念实战<i class="fas fa-check read-icon"></i></a><ul>
           <li data-nav-id="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势" class="dd-item"><a href="/best-practice/fccloud-usage/">使用夜莺的的几种实践姿势<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/busi-group-design/" title="探讨业务组的设计和最佳实践" class="dd-item"><a href="/best-practice/busi-group-design/">探讨业务组的设计和最佳实践<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/linux_host/" title="监控Linux操作系统" class="dd-item"><a href="/best-practice/linux_host/">监控Linux操作系统<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/snmp/" title="使用SNMP采集网络设备的指标" class="dd-item"><a href="/best-practice/snmp/">使用SNMP采集网络设备的指标<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/promapm/" title="内嵌Prometheus SDK做APM" class="dd-item"><a href="/best-practice/promapm/">内嵌Prometheus SDK做APM<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/statsd/" title="内嵌Statsd SDK做APM" class="dd-item"><a href="/best-practice/statsd/">内嵌Statsd SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/statsd/" title="内嵌Statsd SDK做APM" class="dd-item active"><a href="/best-practice/statsd/">内嵌Statsd SDK做APM<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/middleware/" title="使用Telegraf和Exporter监控中间件" class="dd-item"><a href="/best-practice/middleware/">使用Telegraf和Exporter监控中间件<i class="fas fa-check read-icon"></i></a></li></ul></li>
           <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
         </ul>
@@ -99,7 +99,7 @@
       <div class="padding highlightable">
         <div id="top-bar">
           <div id="top-github-link">
-            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/usage/alert-mute.md" target="blank">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/best-practice/statsd.md" target="blank">
               <i class="fas fa-code-branch"></i>
               <span id="top-github-link-text">Edit this page</span>
             </a>
@@ -114,16 +114,19 @@
             <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
               <meta itemprop="itemListOrder" content="Descending" />
                 <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/usage/"><span itemprop="name">功能介绍</span></a> > </li>
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/usage/alert-mute/" aria-disabled="true"><span itemprop="name">屏蔽规则</span></a></li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/best-practice/"><span itemprop="name">理念实战</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/best-practice/statsd/" aria-disabled="true"><span itemprop="name">内嵌Statsd SDK做APM</span></a></li>
             </ol>
           </div>
             <div class="progress">
               <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#临时屏蔽部分告警通知">临时屏蔽部分告警通知</a></li>
-    <li><a href="#系统整体维护关掉所有通知">系统整体维护关掉所有通知</a></li>
+    <li><a href="#statsdhttpsgithubcomstatsdstatsd简介"><a href="https://github.com/statsd/statsd">StatsD</a>简介</a></li>
+    <li><a href="#telegraf启用statsd">Telegraf启用StatsD</a></li>
+    <li><a href="#在业务程序中埋点">在业务程序中埋点</a></li>
+    <li><a href="#测试方法">测试方法</a></li>
+    <li><a href="#附录资料">附录资料</a></li>
   </ul>
 </nav>
               </div>
@@ -132,13 +135,76 @@
         <div id="head-tags">
         </div>
         <main id="body-inner">
-          <h1>屏蔽规则</h1>
+          <h1>内嵌Statsd SDK做APM</h1>
 
-<h2 id="临时屏蔽部分告警通知">临时屏蔽部分告警通知</h2>
-<p>屏蔽规则，是针对告警事件的，大家在生成的告警事件中可以看到每个事件有很多标签，屏蔽规则就是针对这些标签配置过滤规则，满足过滤规则的，就<strong>不生成告警事件</strong>了。</p>
-<p>比如，我想屏蔽所有设备失联的告警，把标签key配置为：<code>__name__</code>，运算符：<code>==</code>，标签value：<code>target_up</code>即可。运算符<code>=~</code>表示正则，针对标签value，可以填写正则表达式，匹配一批的告警事件。运算符<code>in</code>表示数组包含的关系，即value可以配置多个。</p>
-<h2 id="系统整体维护关掉所有通知">系统整体维护关掉所有通知</h2>
-<p>比如在某个时间段，全公司要做整体维护，预知会生成大量告警事件，就想把所有告警都先不发送，就只生成事件便于后面留档排查。这种情况不好做屏蔽规则，毕竟，不同的告警事件，标签很多都不一样。提供一个简单办法，把notify.py临时改个名字，这样n9e-server发送的时候就找不到这个脚本了，于是就没法发送了，此时<strong>页面上仍然可以看到告警事件</strong>。</p>
+<h2 id="statsdhttpsgithubcomstatsdstatsd简介"><a href="https://github.com/statsd/statsd">StatsD</a>简介</h2>
+<p>在<a href="/best-practice/promapm/">内嵌Prometheus SDK做APM</a>一节中，我们介绍了业务进程内嵌Prometheus的SDK做埋点，这种方式，会把监控数据聚合计算的逻辑放在业务进程中，比如一些平均值、分位值的计算，可能会对业务进程造成影响，本节要介绍的StatsD的方式，理念是把指标聚合计算的逻辑挪到业务进程之外，业务进程调用埋点函数的时候，通过UDP推送给StatsD，即使StatsD挂了，也不会对业务进程造成影响。</p>
+<p>StatsD的简介，网上一搜一大把，请大家自行Google，这里就不重复描述了。核心要理解一下StatsD的设计理念、协议、支持的各个语言的SDK（在附录里有）即可，下面直接拿一个小例子讲解如何利用Telegraf支持StatsD协议的数据，数据只要进了Telegraf了，就意味着可以推到夜莺了，夜莺就相当于支持了StatsD的埋点监控采集能力。</p>
+<h2 id="telegraf启用statsd">Telegraf启用StatsD</h2>
+<p>在Telegraf的配置文件中搜索inputs.statsd就能看到对应的section：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[[inputs.statsd]]
+protocol = <span style="color:#5af78e">&#34;udp&#34;</span>
+service_address = <span style="color:#5af78e">&#34;:8125&#34;</span>
+percentiles = [<span style="color:#ff9f43">50.0</span>, <span style="color:#ff9f43">90.0</span>, <span style="color:#ff9f43">99.0</span>, <span style="color:#ff9f43">99.9</span>, <span style="color:#ff9f43">99.95</span>, <span style="color:#ff9f43">100.0</span>]
+metric_separator = <span style="color:#5af78e">&#34;_&#34;</span>
+</code></pre></div><p>启用如上配置，percentiles略微有点多，可以配置的少一点，比如<code>percentiles = [50.0, 90.0, 99.0, 100.0]</code>，这样整体计算存储压力也会小一些。重启Telegraf，Telegraf就会在8125端口监听udp协议，接收业务埋点数据的上报。即，Telegraf实现了<a href="https://github.com/statsd/statsd">StatsD</a>的协议，可以作为StatsD的Server使用。</p>
+<h2 id="在业务程序中埋点">在业务程序中埋点</h2>
+<p>附录里罗列了一些客户端SDK，这里笔者使用Go语言的一个SDK来测试，实现了一个很小的web程序，代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#ff6ac1">package</span> main
+
+<span style="color:#ff6ac1">import</span> (
+	<span style="color:#5af78e">&#34;fmt&#34;</span>
+	<span style="color:#5af78e">&#34;math/rand&#34;</span>
+	<span style="color:#5af78e">&#34;net/http&#34;</span>
+	<span style="color:#5af78e">&#34;time&#34;</span>
+
+	<span style="color:#5af78e">&#34;github.com/smira/go-statsd&#34;</span>
+)
+
+<span style="color:#ff5c57">var</span> client <span style="color:#ff6ac1">*</span>statsd.Client
+
+<span style="color:#ff5c57">func</span> <span style="color:#57c7ff">homeHandler</span>(w http.ResponseWriter, r <span style="color:#ff6ac1">*</span>http.Request) {
+	start <span style="color:#ff6ac1">:=</span> time.<span style="color:#57c7ff">Now</span>()
+
+	<span style="color:#78787e">// random sleep
+</span><span style="color:#78787e"></span>	num <span style="color:#ff6ac1">:=</span> rand.<span style="color:#57c7ff">Int31n</span>(<span style="color:#ff9f43">100</span>)
+	time.<span style="color:#57c7ff">Sleep</span>(time.<span style="color:#57c7ff">Duration</span>(num) <span style="color:#ff6ac1">*</span> time.Millisecond)
+	fmt.<span style="color:#57c7ff">Fprintf</span>(w, <span style="color:#5af78e">&#34;duration: %d&#34;</span>, num)
+
+	client.<span style="color:#57c7ff">Incr</span>(<span style="color:#5af78e">&#34;requests.counter,page=home&#34;</span>, <span style="color:#ff9f43">1</span>)
+	client.<span style="color:#57c7ff">PrecisionTiming</span>(<span style="color:#5af78e">&#34;requests.latency,page=home&#34;</span>, time.<span style="color:#57c7ff">Since</span>(start))
+}
+
+<span style="color:#ff5c57">func</span> <span style="color:#57c7ff">main</span>() {
+	<span style="color:#78787e">// init client
+</span><span style="color:#78787e"></span>	client = statsd.<span style="color:#57c7ff">NewClient</span>(<span style="color:#5af78e">&#34;localhost:8125&#34;</span>,
+		statsd.<span style="color:#57c7ff">TagStyle</span>(statsd.TagFormatInfluxDB),
+		statsd.<span style="color:#57c7ff">MaxPacketSize</span>(<span style="color:#ff9f43">1400</span>),
+		statsd.<span style="color:#57c7ff">MetricPrefix</span>(<span style="color:#5af78e">&#34;http.&#34;</span>),
+		statsd.<span style="color:#57c7ff">DefaultTags</span>(statsd.<span style="color:#57c7ff">StringTag</span>(<span style="color:#5af78e">&#34;service&#34;</span>, <span style="color:#5af78e">&#34;n9e-webapi&#34;</span>), statsd.<span style="color:#57c7ff">StringTag</span>(<span style="color:#5af78e">&#34;region&#34;</span>, <span style="color:#5af78e">&#34;bj&#34;</span>)),
+	)
+
+	<span style="color:#ff6ac1">defer</span> client.<span style="color:#57c7ff">Close</span>()
+
+	http.<span style="color:#57c7ff">HandleFunc</span>(<span style="color:#5af78e">&#34;/&#34;</span>, homeHandler)
+	http.<span style="color:#57c7ff">ListenAndServe</span>(<span style="color:#5af78e">&#34;:8000&#34;</span>, <span style="color:#ff6ac1">nil</span>)
+}
+</code></pre></div><p>这个web服务只有一个根路径，逻辑也很简单，就是随机sleep几十个毫秒当做业务处理时间。整体逻辑是这样的：首先，我们要通过statsd.NewClient初始化一个statsd的客户端，参数中指定了StatsD的Server地址（在本例中就是Telegraf的8125），指定了所有监控指标的前缀是<code>http.</code>，还指定了两个全局Tag，一个是<code>service=n9e-webapi</code>，另一个是<code>region=bj</code>，通过TagStyle指定了要发送的是InfluxDB样式（因为数据是发给Telegraf的，Telegraf是InfluxDB生态的）的标签。然后，在请求的具体处理逻辑里上报了两个监控指标，一个是<code>requests.counter</code>，另一个是<code>requests.latency</code>，并且，为这俩指标指定了一个指标级别的标签<code>page=home</code>，整体看起来还是比较简单的。</p>
+<h2 id="测试方法">测试方法</h2>
+<p>上面的Go程序编译一下，启动，会作为一个web server监听在8000端口，然后周期性请求这个web server的地址做测试，这个web server接收到请求之后，就调用statsd的sdk，statsd的sdk的核心逻辑就是把数据发给Telegraf的8125，然后就是Telegraf处理聚合逻辑，聚合之后的数据每10s（默认flush频率）发给夜莺。</p>
+<p>在页面上，应该可以看到http_requests_latency和http_requests_counter打头的相关指标，比如http_requests_latency_mean这个指标，会看到这个指标有如下几个标签：</p>
+<ul>
+<li>ident: VM-0-4-centos 这个标签其实是Telegraf原始的host标签，夜莺的规范里叫ident，所以做了一下rename</li>
+<li>metric_type: timing 这个显然是把statsd的数据类型也做为标签了，其他数据类型还有gauge、counter、set等</li>
+<li>page: home 这是我们代码里附到监控指标后面的标签，Telegraf自动帮解析出来了</li>
+<li>service: n9e-webapi NewClient时候附加的全局默认标签</li>
+<li>region: bj NewClient时候附加的全局默认标签</li>
+</ul>
+<h2 id="附录资料">附录资料</h2>
+<ul>
+<li><a href="https://codeascraft.com/2011/02/15/measure-anything-measure-everything/">Measure Anything, Measure Everything</a></li>
+<li><a href="https://github.com/statsd/statsd/wiki#client-implementations">Statsd支持的的客户端SDK列表</a></li>
+</ul>
 
           <footer class="footline">
           </footer>
@@ -149,8 +215,8 @@
 
       </div>
       <div id="navigation">
-        <a class="nav nav-prev" href="/usage/alert-rule/" title="告警规则"><i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/usage/alert-subscribe/" title="订阅规则"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/best-practice/promapm/" title="内嵌Prometheus SDK做APM"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/best-practice/middleware/" title="使用Telegraf和Exporter监控中间件"><i class="fa fa-chevron-right"></i></a>
       </div>
     </div>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
