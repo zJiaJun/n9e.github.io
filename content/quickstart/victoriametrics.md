@@ -89,28 +89,16 @@ curl http://127.0.0.1:8481/metrics
 curl http://127.0.0.1:8480/metrics 
 ```
 
-- 修改您的prometheus 配置文件 /path/to/prometheus.yml，添加以下内容到其中：
-```bash
-remote_write:
-  - url: http://127.0.0.1:8480/insert/0/prometheus/api/v1/write
-    queue_config:
-      max_samples_per_send: 10000
-      capacity: 20000
-      max_shards: 30
+- n9e-server通过remote write接口写入时序库，vm作为时序库的一个选择，其remote write接口地址为：`http://127.0.0.1:8480/insert/0/prometheus/api/v1/write` 把这个地址配置到server.conf当中即可，配置完了重启n9e-server
+```toml
+[[Writers]]
+Name = "vm"
+Url = "http://172.21.0.8:8480/insert/0/prometheus/api/v1/write"
 ```
 
-然后，重新reload prometheus 进程，使得配置生效：
-```bash
-kill -HUP `pidof prometheus`
-```
-
-这样，prometheus 就会把 metrics 数据推送到 vminsert ，进而存入了 vmstorage。
-{{% notice info %}}
-prometheus 的安装、配置和启动，请参考 [这里](https://prometheus.io/docs/prometheus/latest/getting_started/)。
-{{% /notice %}}
 
 - 修改您的 n9e-webapi 的配置文件 ./etc/webapi.conf 如下：
-```bash
+```toml
 [[Clusters]]
 # Prometheus cluster name
 Name = "Default"
