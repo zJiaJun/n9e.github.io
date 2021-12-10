@@ -24,7 +24,7 @@ source .bash_profile
 ### 编译n9e
 
 ```bash
-git clone https://gitee.com/n9e/n9e.git
+git clone https://github.com/didi/nightingale.git
 
 # 国内配置一下代理，可以加速编译
 export GOPROXY=https://goproxy.cn
