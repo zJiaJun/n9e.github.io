@@ -77,7 +77,7 @@ wget $urlpath || exit 1
 
 tar zxvf ${tarball}
 
-mysql -uroot -p1234 < docker/initsql/n9e.sql
+mysql -uroot -p1234 < docker/initsql/a-n9e.sql
 
 nohup ./n9e server &> server.log &
 nohup ./n9e webapi &> webapi.log &

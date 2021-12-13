@@ -12,7 +12,7 @@ title: "监控Linux操作系统"
   {
     "name": "Linux基本监控指标-Telegraf采集",
     "tags": "HOST",
-    "configs": "{\"var\":[{\"name\":\"host\",\"definition\":\"label_values(mem_free, ident)\"}]}",
+    "configs": "{\"var\":[{\"name\":\"host\",\"definition\":\"label_values(mem_used_percent, ident)\"}]}",
     "chart_groups": [
       {
         "name": "Default chart group",
