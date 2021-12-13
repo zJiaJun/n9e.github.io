@@ -84,5 +84,16 @@ package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34
 数据采集有了Telegraf和Exporter，问题就不大了，但是，对于某一个具体的监控对象，比如MySQL，各个指标是什么意思？应该着重关注哪些指标？哪些指标应该配置告警规则？报警的时候应该如何处理？这就是非常专业的领域知识了，欢迎大家写博客分享，并把博客链接放到本节下面 :)
  MySQL监控分享 By xxx  </description>
     </item>
+    <item>
+      <title>监控URL</title>
+      <link>https://n9e.github.io/best-practice/http_response/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/best-practice/http_response/</guid>
+      <description>之前在写调研笔记的时候，测试了PING监控和TCP探测监控，调研笔记在 这里 这个章节主要给大家讲解域名URL探测。直接上测试配置：
+[[inputs.http_response]] urls = [&amp;#34;https://www.baidu.com&amp;#34;, &amp;#34;http://ulricqin.io/ping&amp;#34;] response_timeout = &amp;#34;5s&amp;#34; method = &amp;#34;GET&amp;#34; fielddrop = [&amp;#34;result_type&amp;#34;] tagexclude = [&amp;#34;result&amp;#34;, &amp;#34;status_code&amp;#34;] https://www.baidu.com 显然是通的，http://ulricqin.io/ping 这个是个假的URL，不通，我们测试一下输出的内容：
+[root@10-255-0-34 telegraf-1.20.3]# ./usr/bin/telegraf --config etc/telegraf/telegraf.conf --input-filter http_response --test 2021-12-13T04:16:43Z I! Starting Telegraf 1.20.3 &amp;gt; http_response,host=10-255-0-34,method=GET,server=https://www.baidu.com content_length=227i,http_response_code=200i,response_time=0.028757521,result_code=0i 1639369003000000000 &amp;gt; http_response,host=10-255-0-34,method=GET,server=http://ulricqin.io/ping result_code=5i 1639369003000000000 这里有个字段是result_code，用这个字段配置告警即可，正常可以访问的URL，result_code是0，不正常就是非0，告警规则里可以配置如下promql：
+http_response_result_code != 0 或者直接在夜莺的告警规则页面导入这条告警规则JSON：
+[ { &amp;#34;name&amp;#34;: &amp;#34;有URL探测失败，请注意&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 1, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;http_response_result_code != 0&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] } ] 如果想对域名返回的statuscode或者response body的内容做判断，Telegraf也是支持的，使用response_status_code和response_string_match这些字段配置，配置文件里有样例，大家可以自行参考下。</description>
+    </item>
   </channel>
 </rss>
