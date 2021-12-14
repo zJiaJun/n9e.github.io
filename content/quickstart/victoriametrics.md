@@ -93,7 +93,7 @@ curl http://127.0.0.1:8480/metrics
 ```toml
 # Reader部分修改Url
 [Reader]
-Url = "http://127.0.0.1:8481/select/0/prometheus"
+Url = "http://172.21.0.8:8481/select/0/prometheus"
 
 # Writers部分修改Url
 [[Writers]]
