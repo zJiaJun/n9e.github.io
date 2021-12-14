@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.89.3" />
+    <link rel="alternate" type="application/rss&#43;xml" href="/usecase/index.xml" title="N9E" />
     <meta name="description" content="Documentation for nightingale">
     
-    <title>使用Telegraf采集监控数据 :: N9E</title>
+    <title>社区用户实践分享 :: N9E</title>
     <link href="/css/nucleus.css?1639480026" rel="stylesheet">
     <link href="/css/fontawesome-all.min.css?1639480026" rel="stylesheet">
     <link href="/css/featherlight.min.css?1639480026" rel="stylesheet">
@@ -23,7 +24,7 @@
       }
     </style>
   </head>
-  <body class="" data-url="/quickstart/telegraf/">
+  <body class="" data-url="/usecase/">
     <script>
       var index_url="/index.json";
       var root_url="/";
@@ -47,10 +48,10 @@
       </div>
       <div class="highlightable">
         <ul class="topics">
-          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item parent"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
           <li data-nav-id="/quickstart/compose/" title="使用Docker Compose快速部署" class="dd-item"><a href="/quickstart/compose/">使用Docker Compose快速部署<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/standalone/" title="快速在生产环境部署启动单机版" class="dd-item"><a href="/quickstart/standalone/">快速在生产环境部署启动单机版<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item active"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
@@ -74,7 +75,7 @@
           <li data-nav-id="/best-practice/middleware/" title="使用Telegraf和Exporter监控中间件" class="dd-item"><a href="/best-practice/middleware/">使用Telegraf和Exporter监控中间件<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/http_response/" title="监控URL" class="dd-item"><a href="/best-practice/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li></ul></li>
           <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
-          <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item active parent"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
         </ul>
         <div id="shortcuts">
           <div class="nav-title">More</div>
@@ -102,7 +103,7 @@
       <div class="padding highlightable">
         <div id="top-bar">
           <div id="top-github-link">
-            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/quickstart/telegraf.md" target="blank">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/usecase/_index.md" target="blank">
               <i class="fas fa-code-branch"></i>
               <span id="top-github-link-text">Edit this page</span>
             </a>
@@ -116,136 +117,38 @@
             <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
             <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
               <meta itemprop="itemListOrder" content="Descending" />
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/quickstart/"><span itemprop="name">安装部署</span></a> > </li>
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/quickstart/telegraf/" aria-disabled="true"><span itemprop="name">使用Telegraf采集监控数据</span></a></li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/usecase/" aria-disabled="true"><span itemprop="name">社区用户实践分享</span></a></li>
             </ol>
           </div>
             <div class="progress">
               <div class="wrapper">
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#网友分享">网友分享</a></li>
-  </ul>
-</nav>
+<nav id="TableOfContents"></nav>
               </div>
             </div>
         </div>
         <div id="head-tags">
         </div>
         <main id="body-inner">
-          <h1>使用Telegraf采集监控数据</h1>
+          <h1>社区用户实践分享</h1>
 
-<blockquote>
-<p>Telegraf 是 InfluxData 开源的一款采集器，可以采集操作系统、各种中间件的监控指标，采集<a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs">目标列表</a>，看起来是非常丰富，Telegraf是一个大一统的设计，即一个二进制可以采集CPU、内存、mysql、mongodb、redis、snmp等，不像Prometheus的exporter，每个监控对象一个exporter，管理起来略麻烦。一个二进制分发起来确实比较方便。</p>
-</blockquote>
-<p>这里提供快速安装的教程，Telegraf的更多知识，请参考<a href="https://github.com/influxdata/telegraf">Telegraf官网</a>，笔者之前也写了一个<a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU3ODAxNTIzMQ==&amp;action=getalbum&amp;album_id=2124352687600205826&amp;scene=173&amp;from_msgid=2247484223&amp;from_itemidx=1&amp;count=3&amp;nolastread=1">Telegraf调研笔记</a>，大家亦可参考。</p>
-<p>Telegraf下载地址在<a href="https://github.com/influxdata/telegraf/releases">这里</a>，根据自己的平台选择对应的二进制下载即可。笔者的环境是CentOS，下面是安装脚本，/opt/telegraf/telegraf.conf 是一个经过删减的干净的配置文件，指定了opentsdb output plugin，这个plugin的写入地址配置的是n9e-server，所以，Telegraf采集的数据会被推送给n9e-server，二者贯通：</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#78787e">#!/bin/sh
-</span><span style="color:#78787e"></span>
-<span style="color:#ff5c57">version</span><span style="color:#ff6ac1">=</span>1.20.4
-<span style="color:#ff5c57">tarball</span><span style="color:#ff6ac1">=</span>telegraf-<span style="color:#5af78e">${</span><span style="color:#ff5c57">version</span><span style="color:#5af78e">}</span>_linux_amd64.tar.gz
-wget https://dl.influxdata.com/telegraf/releases/<span style="color:#ff5c57">$tarball</span>
-tar xzvf <span style="color:#ff5c57">$tarball</span>
-
-mkdir -p /opt/telegraf
-cp -far telegraf-<span style="color:#5af78e">${</span><span style="color:#ff5c57">version</span><span style="color:#5af78e">}</span>/usr/bin/telegraf /opt/telegraf
-
-cat <span style="color:#5af78e">&lt;&lt;EOF &gt; /opt/telegraf/telegraf.conf
-</span><span style="color:#5af78e">[global_tags]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[agent]
-</span><span style="color:#5af78e">  interval = &#34;10s&#34;
-</span><span style="color:#5af78e">  round_interval = true
-</span><span style="color:#5af78e">  metric_batch_size = 1000
-</span><span style="color:#5af78e">  metric_buffer_limit = 10000
-</span><span style="color:#5af78e">  collection_jitter = &#34;0s&#34;
-</span><span style="color:#5af78e">  flush_interval = &#34;10s&#34;
-</span><span style="color:#5af78e">  flush_jitter = &#34;0s&#34;
-</span><span style="color:#5af78e">  precision = &#34;&#34;
-</span><span style="color:#5af78e">  hostname = &#34;&#34;
-</span><span style="color:#5af78e">  omit_hostname = false
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[outputs.opentsdb]]
-</span><span style="color:#5af78e">  host = &#34;http://127.0.0.1&#34;
-</span><span style="color:#5af78e">  port = 19000
-</span><span style="color:#5af78e">  http_batch_size = 50
-</span><span style="color:#5af78e">  http_path = &#34;/opentsdb/put&#34;
-</span><span style="color:#5af78e">  debug = false
-</span><span style="color:#5af78e">  separator = &#34;_&#34;
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.cpu]]
-</span><span style="color:#5af78e">  percpu = true
-</span><span style="color:#5af78e">  totalcpu = true
-</span><span style="color:#5af78e">  collect_cpu_time = false
-</span><span style="color:#5af78e">  report_active = true
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.disk]]
-</span><span style="color:#5af78e">  ignore_fs = [&#34;tmpfs&#34;, &#34;devtmpfs&#34;, &#34;devfs&#34;, &#34;iso9660&#34;, &#34;overlay&#34;, &#34;aufs&#34;, &#34;squashfs&#34;]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.diskio]]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.kernel]]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.mem]]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.processes]]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.system]]
-</span><span style="color:#5af78e">  fielddrop = [&#34;uptime_format&#34;]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.net]]
-</span><span style="color:#5af78e">  ignore_protocol_stats = true
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">EOF</span>
-
-cat <span style="color:#5af78e">&lt;&lt;EOF &gt; /etc/systemd/system/telegraf.service
-</span><span style="color:#5af78e">[Unit]
-</span><span style="color:#5af78e">Description=&#34;telegraf&#34;
-</span><span style="color:#5af78e">After=network.target
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[Service]
-</span><span style="color:#5af78e">Type=simple
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">ExecStart=/opt/telegraf/telegraf --config telegraf.conf
-</span><span style="color:#5af78e">WorkingDirectory=/opt/telegraf
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">Restart=on-failure
-</span><span style="color:#5af78e">SuccessExitStatus=0
-</span><span style="color:#5af78e">LimitNOFILE=65536
-</span><span style="color:#5af78e">StandardOutput=syslog
-</span><span style="color:#5af78e">StandardError=syslog
-</span><span style="color:#5af78e">SyslogIdentifier=telegraf
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[Install]
-</span><span style="color:#5af78e">WantedBy=multi-user.target
-</span><span style="color:#5af78e">EOF</span>
-
-systemctl daemon-reload
-systemctl <span style="color:#ff5c57">enable</span> telegraf
-systemctl restart telegraf
-systemctl status telegraf
-</code></pre></div>
-<div class="notices warning">
-    <div class="label">Warning</div><p><code>/opt/telegraf/telegraf.conf</code>的内容是个删减版，只是为了让大家快速跑起来，如果要采集更多监控对象，比如mysql、redis、tomcat等，还是要仔细去阅读从tarball里解压出来的那个配置文件，那里有很详细的注释，也可以参考官方提供的各个采集插件下的<a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs">README</a></p>
-
-</div>
-<h2 id="网友分享">网友分享</h2>
 <ul>
-<li><a href="https://t.zsxq.com/ba2Faqb">Telegraf的Linux版安装分享</a></li>
-<li><a href="https://t.zsxq.com/AAqFQJY">Telegraf的Windows版安装分享</a></li>
+<li><a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU3ODAxNTIzMQ==&amp;action=getalbum&amp;album_id=2124352687600205826&amp;scene=173&amp;from_msgid=2247484223&amp;from_itemidx=1&amp;count=3&amp;nolastread=1">Telegraf入门调研笔记</a></li>
+<li><a href="https://t.zsxq.com/AAqFQJY">Telegraf Windows版本的安装，保姆级教程</a></li>
+<li><a href="https://t.zsxq.com/ba2Faqb">Telegraf Linux版本的安装，保姆级教程</a></li>
+<li><a href="https://t.zsxq.com/rrr7Iau">弃用Prometheus，搭建单机版本的VictoriaMetrics</a></li>
+<li><a href="https://mp.weixin.qq.com/s/-T4sSV0uSyrdzbhgzusCqg">使用Telegraf做夜莺5.0的数据采集，样例包含Linux基本信息采集、MySQL、Redis的采集</a></li>
+<li><a href="https://mp.weixin.qq.com/s/GPIQ4-8o1z7bNJq7M7IvXg">修改notify.py为夜莺增加短信通知能力</a></li>
 </ul>
 
-          <footer class="footline">
+          <footer class=" footline">
           </footer>
         </main>
 
 
       </div>
       <div id="navigation">
-        <a class="nav nav-prev" href="/quickstart/standalone/" title="快速在生产环境部署启动单机版"><i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/api/" title="API"><i class="fa fa-chevron-left"></i></a>
       </div>
     </div>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
