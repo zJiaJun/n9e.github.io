@@ -91,8 +91,12 @@ curl http://127.0.0.1:8480/metrics
 
 - n9e-server通过remote write接口写入时序库，vm作为时序库的一个选择，其remote write接口地址为：`http://127.0.0.1:8480/insert/0/prometheus/api/v1/write` 把这个地址配置到server.conf当中即可，配置完了重启n9e-server
 ```toml
+# Reader部分修改Url
+[Reader]
+Url = "http://127.0.0.1:8481/select/0/prometheus"
+
+# Writers部分修改Url
 [[Writers]]
-Name = "vm"
 Url = "http://172.21.0.8:8480/insert/0/prometheus/api/v1/write"
 ```
 
