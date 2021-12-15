@@ -48,6 +48,12 @@ title: "API"
 
 服务端会看第一个字符是否是`[`，来判断上报的是数组，还是单个对象，自动做相应的Decode。如果觉得上报的内容太过占用带宽，也可以做gzip压缩，此时上报的数据，要带有`Content-Encoding: gzip`的Header。
 
+{{% notice info %}}
+注意ident这个标签，ident是identity的缩写，表示设备的唯一标识，如果标签中有ident标签，n9e-server就认为这个监控数据是来自某个机器的，会自动获取ident的value，注册到监控对象的列表里，这样后续就可以在对象看图视角页面根据监控对象筛选指标了。
+
+如果没有ident这个标签，就没法在对象视角的看图页面筛选看图了，只能去即时查询页面通过promql查询。
+{{% /notice %}}
+
 OK，上面是推送监控数据的接口，至于查询监控数据，请大家直接调用后端时序库的接口，即Prometheus那些`/api/v1/query` `/api/v1/query_range`之类的接口。相关接口文档请参考：[Prometheus官网](https://prometheus.io/docs/prometheus/latest/querying/api/)
 
 ## 2.以个人身份模仿WEB操作

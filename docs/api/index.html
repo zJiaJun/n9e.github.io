@@ -8,16 +8,16 @@
     <meta name="description" content="Documentation for nightingale">
     
     <title>API :: N9E</title>
-    <link href="/css/nucleus.css?1639484912" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1639484912" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1639484912" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1639484912" rel="stylesheet">
-    <link href="/css/auto-complete.css?1639484912" rel="stylesheet">
-    <link href="/css/theme.css?1639484912" rel="stylesheet">
-    <link href="/css/theme-blue.css?1639484912" rel="stylesheet">
-    <link href="/css/variant.css?1639484912" rel="stylesheet">
-    <link href="/css/print.css?1639484912" rel="stylesheet" media="print">
-    <script src="/js/jquery.min.js?1639484912"></script>
+    <link href="/css/nucleus.css?1639547299" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1639547299" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1639547299" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1639547299" rel="stylesheet">
+    <link href="/css/auto-complete.css?1639547299" rel="stylesheet">
+    <link href="/css/theme.css?1639547299" rel="stylesheet">
+    <link href="/css/theme-blue.css?1639547299" rel="stylesheet">
+    <link href="/css/variant.css?1639547299" rel="stylesheet">
+    <link href="/css/print.css?1639547299" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1639547299"></script>
     <style>
       :root #header + #content > #left > #rlblock_left{
         display:none !important;
@@ -40,11 +40,11 @@
           <input data-search-input id="search-by" type="search" placeholder="Search...">
           <span data-search-clear=""><i class="fas fa-times"></i></span>
         </div>
-        <script src="/js/lunr.min.js?1639484912"></script>
-        <script src="/js/auto-complete.js?1639484912"></script>
+        <script src="/js/lunr.min.js?1639547299"></script>
+        <script src="/js/auto-complete.js?1639547299"></script>
         <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
         <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
-        <script src="/js/search.js?1639484912"></script>
+        <script src="/js/search.js?1639547299"></script>
       </div>
       <div class="highlightable">
         <ul class="topics">
@@ -172,6 +172,12 @@
 	<span style="color:#ff6ac1">&#34;value&#34;</span>: <span style="color:#ff9f43">30.5</span>
 }
 </code></pre></div><p>服务端会看第一个字符是否是<code>[</code>，来判断上报的是数组，还是单个对象，自动做相应的Decode。如果觉得上报的内容太过占用带宽，也可以做gzip压缩，此时上报的数据，要带有<code>Content-Encoding: gzip</code>的Header。</p>
+
+<div class="notices info">
+    <div class="label">Info</div><p>注意ident这个标签，ident是identity的缩写，表示设备的唯一标识，如果标签中有ident标签，n9e-server就认为这个监控数据是来自某个机器的，会自动获取ident的value，注册到监控对象的列表里，这样后续就可以在对象看图视角页面根据监控对象筛选指标了。</p>
+<p>如果没有ident这个标签，就没法在对象视角的看图页面筛选看图了，只能去即时查询页面通过promql查询。</p>
+
+</div>
 <p>OK，上面是推送监控数据的接口，至于查询监控数据，请大家直接调用后端时序库的接口，即Prometheus那些<code>/api/v1/query</code> <code>/api/v1/query_range</code>之类的接口。相关接口文档请参考：<a href="https://prometheus.io/docs/prometheus/latest/querying/api/">Prometheus官网</a></p>
 <h2 id="2以个人身份模仿web操作">2.以个人身份模仿WEB操作</h2>
 <p>这种方式，页面上JavaScript可以调用的所有接口，你都可以用程序调用，打开chrome的开发者工具，扒拉这些接口，还是非常容易的。当然，要先登录，登录调用webapi模块的<code>/api/n9e/auth/login</code>接口，系统使用jwt认证，如果登录成功，会返回access_token和refresh_token，每次调用的时候都要把access_token放到Header里，access_token差不多15分钟过期，之后可以重新调用登录接口换token，也可以调用<code>/api/n9e/auth/refresh</code>接口用refresh_token换一个新的access_token，当然，也会顺道返回一个新的refresh_token，举例：</p>
@@ -203,18 +209,18 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1639484912"></script>
-    <script src="/js/perfect-scrollbar.min.js?1639484912"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1639484912"></script>
-    <script src="/js/jquery.svg.pan.zoom.js?1639484912"></script>
-    <script src="/js/featherlight.min.js?1639484912"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1639484912"></script>
-    <script src="/js/mermaid.min.js?1639484912"></script>
+    <script src="/js/clipboard.min.js?1639547299"></script>
+    <script src="/js/perfect-scrollbar.min.js?1639547299"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1639547299"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1639547299"></script>
+    <script src="/js/featherlight.min.js?1639547299"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1639547299"></script>
+    <script src="/js/mermaid.min.js?1639547299"></script>
     <script>
       if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
         mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
       }
     </script>
-    <script src="/js/relearn.js?1639484912"></script>
+    <script src="/js/relearn.js?1639547299"></script>
   </body>
 </html>
