@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.89.3" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>监控MySQL :: N9E</title>
+    <link href="/css/nucleus.css?1639742856" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1639742856" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1639742856" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1639742856" rel="stylesheet">
+    <link href="/css/auto-complete.css?1639742856" rel="stylesheet">
+    <link href="/css/theme.css?1639742856" rel="stylesheet">
+    <link href="/css/theme-blue.css?1639742856" rel="stylesheet">
+    <link href="/css/variant.css?1639742856" rel="stylesheet">
+    <link href="/css/print.css?1639742856" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1639742856"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/best-practice/mysql/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+<a href="/"><img src="/logo-l.svg" width="180"></a>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1639742856"></script>
+        <script src="/js/auto-complete.js?1639742856"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1639742856"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker Compose快速部署" class="dd-item"><a href="/quickstart/compose/">使用Docker Compose快速部署<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="快速在生产环境部署启动单机版" class="dd-item"><a href="/quickstart/standalone/">快速在生产环境部署启动单机版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/alert-rule/" title="告警规则" class="dd-item"><a href="/usage/alert-rule/">告警规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-mute/" title="屏蔽规则" class="dd-item"><a href="/usage/alert-mute/">屏蔽规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-subscribe/" title="订阅规则" class="dd-item"><a href="/usage/alert-subscribe/">订阅规则<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-notify/" title="多种告警通知媒介的支持" class="dd-item"><a href="/usage/alert-notify/">多种告警通知媒介的支持<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-cur-event/" title="当前告警活跃事件" class="dd-item"><a href="/usage/alert-cur-event/">当前告警活跃事件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-his-event/" title="全部历史告警事件" class="dd-item"><a href="/usage/alert-his-event/">全部历史告警事件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/selfhealing/" title="告警自愈" class="dd-item"><a href="/usage/selfhealing/">告警自愈<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/best-practice/" title="理念实战" class="dd-item parent"><a href="/best-practice/">理念实战<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势" class="dd-item"><a href="/best-practice/fccloud-usage/">使用夜莺的的几种实践姿势<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/busi-group-design/" title="探讨业务组的设计和最佳实践" class="dd-item"><a href="/best-practice/busi-group-design/">探讨业务组的设计和最佳实践<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/linux_host/" title="监控Linux操作系统" class="dd-item"><a href="/best-practice/linux_host/">监控Linux操作系统<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/snmp/" title="使用SNMP采集网络设备的指标" class="dd-item"><a href="/best-practice/snmp/">使用SNMP采集网络设备的指标<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/promapm/" title="内嵌Prometheus SDK做APM" class="dd-item"><a href="/best-practice/promapm/">内嵌Prometheus SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/statsd/" title="内嵌Statsd SDK做APM" class="dd-item"><a href="/best-practice/statsd/">内嵌Statsd SDK做APM<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/middleware/" title="使用Telegraf和Exporter监控中间件" class="dd-item"><a href="/best-practice/middleware/">使用Telegraf和Exporter监控中间件<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/http_response/" title="监控URL" class="dd-item"><a href="/best-practice/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/mysql/" title="监控MySQL" class="dd-item active"><a href="/best-practice/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> GitHub repo</a></li>
+            <li><a class="padding" href="https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"><i class='fas fa-fw fa-book'></i> Video tutorial</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/best-practice/mysql.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/best-practice/"><span itemprop="name">理念实战</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/best-practice/mysql/" aria-disabled="true"><span itemprop="name">监控MySQL</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents"></nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>监控MySQL</h1>
+
+<p>使用Telegraf监控MySQL也较为简单，会采集很多指标，但是具体应该关注哪些指标，是个难点，本章会提供一些例子，欢迎大家补充最佳实践。</p>
+<p>Telegraf的配置为了便于管理，可以拆成多个文件，放到统一目录中，使用 <code>--config-directory</code> 参数指定具体的目录，举例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#78787e"># telegraf 启动命令：</span>
+./usr/bin/telegraf --config ./etc/telegraf/telegraf.conf --config-directory ./etc/telegraf.d
+
+<span style="color:#78787e"># 后面如果修改了telegraf.conf或者修改了telegraf.d下的配置，可以通过如下方式让Telegraf重新加载配置</span>
+<span style="color:#ff5c57">kill</span> -HUP <span style="color:#5af78e">`</span>pidof telegraf<span style="color:#5af78e">`</span>
+</code></pre></div><p>我们创建一个mysql.conf的配置放到telegraf.d下，内容如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[[inputs.mysql]]
+servers = [<span style="color:#5af78e">&#34;root:1234@tcp(localhost:3306)/?tls=false&#34;</span>]
+metric_version = <span style="color:#ff9f43">2</span>
+gather_global_variables = <span style="color:#ff6ac1">true</span>
+interval_slow = <span style="color:#5af78e">&#34;1m&#34;</span>
+tagexclude = [<span style="color:#5af78e">&#34;innodb_version&#34;</span>]
+</code></pre></div><p>mysql采集插件的具体使用方式，参考 <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/mysql">这里</a> 的文档。下面笔者整理了监控大盘和告警规则，供大家参考：</p>
+<p>大盘JSON：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
+  {
+    <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;MySQL关键指标 - by Telegraf&#34;</span>,
+    <span style="color:#ff6ac1">&#34;tags&#34;</span>: <span style="color:#5af78e">&#34;MySQL&#34;</span>,
+    <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;var\&#34;:[{\&#34;name\&#34;:\&#34;ident\&#34;,\&#34;selected\&#34;:\&#34;10-255-0-34\&#34;,\&#34;definition\&#34;:\&#34;label_values(mysql_uptime, ident)\&#34;},{\&#34;name\&#34;:\&#34;server\&#34;,\&#34;definition\&#34;:\&#34;label_values(mysql_uptime{ident=\\\&#34;$ident\\\&#34;}, server)\&#34;,\&#34;selected\&#34;:\&#34;localhost_3306\&#34;}]}&#34;</span>,
+    <span style="color:#ff6ac1">&#34;chart_groups&#34;</span>: [
+      {
+        <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;MySQL关键指标&#34;</span>,
+        <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>,
+        <span style="color:#ff6ac1">&#34;charts&#34;</span>: [
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;Connections\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;rate(mysql_aborted_connects{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}[5m])\&#34;,\&#34;Legend\&#34;:\&#34;aborted_connections - {{ident}} - {{server}}\&#34;},{\&#34;PromQL\&#34;:\&#34;mysql_variables_max_connections{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}\&#34;,\&#34;Legend\&#34;:\&#34;max_connections - {{ident}} - {{server}}\&#34;},{\&#34;PromQL\&#34;:\&#34;mysql_threads_connected{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}\&#34;,\&#34;Legend\&#34;:\&#34;threads_connected - {{ident}} - {{server}}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:0,\&#34;y\&#34;:0,\&#34;i\&#34;:\&#34;0\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;Slow Queries\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;rate(mysql_slow_queries{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}[5m])\&#34;,\&#34;Legend\&#34;:\&#34;slow_queries - {{ident}} - {{server}}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:8,\&#34;y\&#34;:0,\&#34;i\&#34;:\&#34;1\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;Open Files\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;mysql_variables_open_files_limit{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}\&#34;,\&#34;Legend\&#34;:\&#34;open_files_limit - {{ident}} - {{server}}\&#34;},{\&#34;PromQL\&#34;:\&#34;mysql_variables_innodb_open_files{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}\&#34;,\&#34;Legend\&#34;:\&#34;open_files_used - {{ident}} - {{server}}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:16,\&#34;y\&#34;:0,\&#34;i\&#34;:\&#34;2\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;Queries per second\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;rate(mysql_com_select{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}[1m])\&#34;,\&#34;Legend\&#34;:\&#34;command_select - {{ident}} - {{server}}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:0,\&#34;y\&#34;:2,\&#34;i\&#34;:\&#34;3\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;Writes per second\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;rate(mysql_com_insert{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}[1m])\&#34;,\&#34;Legend\&#34;:\&#34;command_insert - {{ident}} - {{server}}\&#34;},{\&#34;PromQL\&#34;:\&#34;rate(mysql_com_update{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}[1m])\&#34;,\&#34;Legend\&#34;:\&#34;command_update - {{ident}} - {{server}}\&#34;},{\&#34;PromQL\&#34;:\&#34;rate(mysql_com_delete{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}[1m])\&#34;,\&#34;Legend\&#34;:\&#34;command_delete - {{ident}} - {{server}}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:8,\&#34;y\&#34;:2,\&#34;i\&#34;:\&#34;4\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;Threads\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;mysql_threads_running{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}\&#34;,\&#34;Legend\&#34;:\&#34;threads_running - {{ident}} - {{server}}\&#34;},{\&#34;PromQL\&#34;:\&#34;mysql_threads_connected{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}\&#34;,\&#34;Legend\&#34;:\&#34;threads_connected - {{ident}} - {{server}}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:16,\&#34;y\&#34;:2,\&#34;i\&#34;:\&#34;5\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;Data Reads/Writes per second\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;rate(mysql_innodb_data_reads{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}[5m])\&#34;,\&#34;Legend\&#34;:\&#34;mysql_innodb_data_reads - {{ident}} - {{server}}\&#34;},{\&#34;PromQL\&#34;:\&#34;rate(mysql_innodb_data_writes{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}[5m])\&#34;,\&#34;Legend\&#34;:\&#34;mysql_innodb_data_writes - {{ident}} - {{server}}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:0,\&#34;y\&#34;:4,\&#34;i\&#34;:\&#34;6\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;InnoDB Buffer Pool Size\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;mysql_variables_innodb_buffer_pool_size{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:8,\&#34;y\&#34;:4,\&#34;i\&#34;:\&#34;7\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;InnoDB Buffer Pool Pages\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;mysql_innodb_buffer_pool_pages_free{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}\&#34;},{\&#34;PromQL\&#34;:\&#34;mysql_innodb_buffer_pool_pages_data{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}\&#34;},{\&#34;PromQL\&#34;:\&#34;mysql_innodb_buffer_pool_pages_total{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:8,\&#34;x\&#34;:16,\&#34;y\&#34;:4,\&#34;i\&#34;:\&#34;8\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          }
+        ]
+      }
+    ]
+  }
+]
+</code></pre></div><p>告警规则JSON：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
+  {
+    <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;MySQL出现慢查询&#34;</span>,
+    <span style="color:#ff6ac1">&#34;note&#34;</span>: <span style="color:#5af78e">&#34;&#34;</span>,
+    <span style="color:#ff6ac1">&#34;severity&#34;</span>: <span style="color:#ff9f43">3</span>,
+    <span style="color:#ff6ac1">&#34;disabled&#34;</span>: <span style="color:#ff9f43">0</span>,
+    <span style="color:#ff6ac1">&#34;prom_for_duration&#34;</span>: <span style="color:#ff9f43">0</span>,
+    <span style="color:#ff6ac1">&#34;prom_ql&#34;</span>: <span style="color:#5af78e">&#34;rate(mysql_slow_queries[5m]) &gt; 0&#34;</span>,
+    <span style="color:#ff6ac1">&#34;prom_eval_interval&#34;</span>: <span style="color:#ff9f43">15</span>,
+    <span style="color:#ff6ac1">&#34;enable_stime&#34;</span>: <span style="color:#5af78e">&#34;00:00&#34;</span>,
+    <span style="color:#ff6ac1">&#34;enable_etime&#34;</span>: <span style="color:#5af78e">&#34;23:59&#34;</span>,
+    <span style="color:#ff6ac1">&#34;enable_days_of_week&#34;</span>: [
+      <span style="color:#5af78e">&#34;1&#34;</span>,
+      <span style="color:#5af78e">&#34;2&#34;</span>,
+      <span style="color:#5af78e">&#34;3&#34;</span>,
+      <span style="color:#5af78e">&#34;4&#34;</span>,
+      <span style="color:#5af78e">&#34;5&#34;</span>,
+      <span style="color:#5af78e">&#34;6&#34;</span>,
+      <span style="color:#5af78e">&#34;0&#34;</span>
+    ],
+    <span style="color:#ff6ac1">&#34;notify_recovered&#34;</span>: <span style="color:#ff9f43">1</span>,
+    <span style="color:#ff6ac1">&#34;notify_channels&#34;</span>: [
+      <span style="color:#5af78e">&#34;email&#34;</span>,
+      <span style="color:#5af78e">&#34;dingtalk&#34;</span>,
+      <span style="color:#5af78e">&#34;wecom&#34;</span>
+    ],
+    <span style="color:#ff6ac1">&#34;notify_repeat_step&#34;</span>: <span style="color:#ff9f43">60</span>,
+    <span style="color:#ff6ac1">&#34;callbacks&#34;</span>: [],
+    <span style="color:#ff6ac1">&#34;runbook_url&#34;</span>: <span style="color:#5af78e">&#34;&#34;</span>,
+    <span style="color:#ff6ac1">&#34;append_tags&#34;</span>: []
+  },
+  {
+    <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;MySQL出现连接失败的情况&#34;</span>,
+    <span style="color:#ff6ac1">&#34;note&#34;</span>: <span style="color:#5af78e">&#34;或许需要调整max_connections&#34;</span>,
+    <span style="color:#ff6ac1">&#34;severity&#34;</span>: <span style="color:#ff9f43">1</span>,
+    <span style="color:#ff6ac1">&#34;disabled&#34;</span>: <span style="color:#ff9f43">0</span>,
+    <span style="color:#ff6ac1">&#34;prom_for_duration&#34;</span>: <span style="color:#ff9f43">0</span>,
+    <span style="color:#ff6ac1">&#34;prom_ql&#34;</span>: <span style="color:#5af78e">&#34;rate(mysql_aborted_connects[5m]) &gt; 0&#34;</span>,
+    <span style="color:#ff6ac1">&#34;prom_eval_interval&#34;</span>: <span style="color:#ff9f43">15</span>,
+    <span style="color:#ff6ac1">&#34;enable_stime&#34;</span>: <span style="color:#5af78e">&#34;00:00&#34;</span>,
+    <span style="color:#ff6ac1">&#34;enable_etime&#34;</span>: <span style="color:#5af78e">&#34;23:59&#34;</span>,
+    <span style="color:#ff6ac1">&#34;enable_days_of_week&#34;</span>: [
+      <span style="color:#5af78e">&#34;1&#34;</span>,
+      <span style="color:#5af78e">&#34;2&#34;</span>,
+      <span style="color:#5af78e">&#34;3&#34;</span>,
+      <span style="color:#5af78e">&#34;4&#34;</span>,
+      <span style="color:#5af78e">&#34;5&#34;</span>,
+      <span style="color:#5af78e">&#34;6&#34;</span>,
+      <span style="color:#5af78e">&#34;0&#34;</span>
+    ],
+    <span style="color:#ff6ac1">&#34;notify_recovered&#34;</span>: <span style="color:#ff9f43">1</span>,
+    <span style="color:#ff6ac1">&#34;notify_channels&#34;</span>: [
+      <span style="color:#5af78e">&#34;email&#34;</span>,
+      <span style="color:#5af78e">&#34;dingtalk&#34;</span>,
+      <span style="color:#5af78e">&#34;wecom&#34;</span>
+    ],
+    <span style="color:#ff6ac1">&#34;notify_repeat_step&#34;</span>: <span style="color:#ff9f43">60</span>,
+    <span style="color:#ff6ac1">&#34;callbacks&#34;</span>: [],
+    <span style="color:#ff6ac1">&#34;runbook_url&#34;</span>: <span style="color:#5af78e">&#34;&#34;</span>,
+    <span style="color:#ff6ac1">&#34;append_tags&#34;</span>: []
+  },
+  {
+    <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;MySQL句柄快用完了&#34;</span>,
+    <span style="color:#ff6ac1">&#34;note&#34;</span>: <span style="color:#5af78e">&#34;&#34;</span>,
+    <span style="color:#ff6ac1">&#34;severity&#34;</span>: <span style="color:#ff9f43">2</span>,
+    <span style="color:#ff6ac1">&#34;disabled&#34;</span>: <span style="color:#ff9f43">0</span>,
+    <span style="color:#ff6ac1">&#34;prom_for_duration&#34;</span>: <span style="color:#ff9f43">0</span>,
+    <span style="color:#ff6ac1">&#34;prom_ql&#34;</span>: <span style="color:#5af78e">&#34;100 * mysql_variables_innodb_open_files / mysql_variables_open_files_limit &gt; 90&#34;</span>,
+    <span style="color:#ff6ac1">&#34;prom_eval_interval&#34;</span>: <span style="color:#ff9f43">15</span>,
+    <span style="color:#ff6ac1">&#34;enable_stime&#34;</span>: <span style="color:#5af78e">&#34;00:00&#34;</span>,
+    <span style="color:#ff6ac1">&#34;enable_etime&#34;</span>: <span style="color:#5af78e">&#34;23:59&#34;</span>,
+    <span style="color:#ff6ac1">&#34;enable_days_of_week&#34;</span>: [
+      <span style="color:#5af78e">&#34;1&#34;</span>,
+      <span style="color:#5af78e">&#34;2&#34;</span>,
+      <span style="color:#5af78e">&#34;3&#34;</span>,
+      <span style="color:#5af78e">&#34;4&#34;</span>,
+      <span style="color:#5af78e">&#34;5&#34;</span>,
+      <span style="color:#5af78e">&#34;6&#34;</span>,
+      <span style="color:#5af78e">&#34;0&#34;</span>
+    ],
+    <span style="color:#ff6ac1">&#34;notify_recovered&#34;</span>: <span style="color:#ff9f43">1</span>,
+    <span style="color:#ff6ac1">&#34;notify_channels&#34;</span>: [
+      <span style="color:#5af78e">&#34;email&#34;</span>,
+      <span style="color:#5af78e">&#34;dingtalk&#34;</span>,
+      <span style="color:#5af78e">&#34;wecom&#34;</span>
+    ],
+    <span style="color:#ff6ac1">&#34;notify_repeat_step&#34;</span>: <span style="color:#ff9f43">60</span>,
+    <span style="color:#ff6ac1">&#34;callbacks&#34;</span>: [],
+    <span style="color:#ff6ac1">&#34;runbook_url&#34;</span>: <span style="color:#5af78e">&#34;&#34;</span>,
+    <span style="color:#ff6ac1">&#34;append_tags&#34;</span>: []
+  },
+  {
+    <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;MySQL近期有重启&#34;</span>,
+    <span style="color:#ff6ac1">&#34;note&#34;</span>: <span style="color:#5af78e">&#34;&#34;</span>,
+    <span style="color:#ff6ac1">&#34;severity&#34;</span>: <span style="color:#ff9f43">3</span>,
+    <span style="color:#ff6ac1">&#34;disabled&#34;</span>: <span style="color:#ff9f43">0</span>,
+    <span style="color:#ff6ac1">&#34;prom_for_duration&#34;</span>: <span style="color:#ff9f43">0</span>,
+    <span style="color:#ff6ac1">&#34;prom_ql&#34;</span>: <span style="color:#5af78e">&#34;mysql_uptime &lt; 1800&#34;</span>,
+    <span style="color:#ff6ac1">&#34;prom_eval_interval&#34;</span>: <span style="color:#ff9f43">15</span>,
+    <span style="color:#ff6ac1">&#34;enable_stime&#34;</span>: <span style="color:#5af78e">&#34;00:00&#34;</span>,
+    <span style="color:#ff6ac1">&#34;enable_etime&#34;</span>: <span style="color:#5af78e">&#34;23:59&#34;</span>,
+    <span style="color:#ff6ac1">&#34;enable_days_of_week&#34;</span>: [
+      <span style="color:#5af78e">&#34;1&#34;</span>,
+      <span style="color:#5af78e">&#34;2&#34;</span>,
+      <span style="color:#5af78e">&#34;3&#34;</span>,
+      <span style="color:#5af78e">&#34;4&#34;</span>,
+      <span style="color:#5af78e">&#34;5&#34;</span>,
+      <span style="color:#5af78e">&#34;6&#34;</span>,
+      <span style="color:#5af78e">&#34;0&#34;</span>
+    ],
+    <span style="color:#ff6ac1">&#34;notify_recovered&#34;</span>: <span style="color:#ff9f43">1</span>,
+    <span style="color:#ff6ac1">&#34;notify_channels&#34;</span>: [
+      <span style="color:#5af78e">&#34;email&#34;</span>,
+      <span style="color:#5af78e">&#34;dingtalk&#34;</span>,
+      <span style="color:#5af78e">&#34;wecom&#34;</span>
+    ],
+    <span style="color:#ff6ac1">&#34;notify_repeat_step&#34;</span>: <span style="color:#ff9f43">60</span>,
+    <span style="color:#ff6ac1">&#34;callbacks&#34;</span>: [],
+    <span style="color:#ff6ac1">&#34;runbook_url&#34;</span>: <span style="color:#5af78e">&#34;&#34;</span>,
+    <span style="color:#ff6ac1">&#34;append_tags&#34;</span>: []
+  },
+  {
+    <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;MySQL连接数快用完了&#34;</span>,
+    <span style="color:#ff6ac1">&#34;note&#34;</span>: <span style="color:#5af78e">&#34;或许需要调整max_connections&#34;</span>,
+    <span style="color:#ff6ac1">&#34;severity&#34;</span>: <span style="color:#ff9f43">2</span>,
+    <span style="color:#ff6ac1">&#34;disabled&#34;</span>: <span style="color:#ff9f43">0</span>,
+    <span style="color:#ff6ac1">&#34;prom_for_duration&#34;</span>: <span style="color:#ff9f43">0</span>,
+    <span style="color:#ff6ac1">&#34;prom_ql&#34;</span>: <span style="color:#5af78e">&#34;100 * mysql_threads_connected / mysql_variables_max_connections &gt; 90&#34;</span>,
+    <span style="color:#ff6ac1">&#34;prom_eval_interval&#34;</span>: <span style="color:#ff9f43">15</span>,
+    <span style="color:#ff6ac1">&#34;enable_stime&#34;</span>: <span style="color:#5af78e">&#34;00:00&#34;</span>,
+    <span style="color:#ff6ac1">&#34;enable_etime&#34;</span>: <span style="color:#5af78e">&#34;23:59&#34;</span>,
+    <span style="color:#ff6ac1">&#34;enable_days_of_week&#34;</span>: [
+      <span style="color:#5af78e">&#34;1&#34;</span>,
+      <span style="color:#5af78e">&#34;2&#34;</span>,
+      <span style="color:#5af78e">&#34;3&#34;</span>,
+      <span style="color:#5af78e">&#34;4&#34;</span>,
+      <span style="color:#5af78e">&#34;5&#34;</span>,
+      <span style="color:#5af78e">&#34;6&#34;</span>,
+      <span style="color:#5af78e">&#34;0&#34;</span>
+    ],
+    <span style="color:#ff6ac1">&#34;notify_recovered&#34;</span>: <span style="color:#ff9f43">1</span>,
+    <span style="color:#ff6ac1">&#34;notify_channels&#34;</span>: [
+      <span style="color:#5af78e">&#34;email&#34;</span>,
+      <span style="color:#5af78e">&#34;dingtalk&#34;</span>,
+      <span style="color:#5af78e">&#34;wecom&#34;</span>
+    ],
+    <span style="color:#ff6ac1">&#34;notify_repeat_step&#34;</span>: <span style="color:#ff9f43">60</span>,
+    <span style="color:#ff6ac1">&#34;callbacks&#34;</span>: [],
+    <span style="color:#ff6ac1">&#34;runbook_url&#34;</span>: <span style="color:#5af78e">&#34;&#34;</span>,
+    <span style="color:#ff6ac1">&#34;append_tags&#34;</span>: []
+  }
+]
+</code></pre></div>
+          <footer class="footline">
+          </footer>
+        </main>
+
+
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/best-practice/http_response/" title="监控URL"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/api/" title="API"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1639742856"></script>
+    <script src="/js/perfect-scrollbar.min.js?1639742856"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1639742856"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1639742856"></script>
+    <script src="/js/featherlight.min.js?1639742856"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1639742856"></script>
+    <script src="/js/mermaid.min.js?1639742856"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1639742856"></script>
+  </body>
+</html>
