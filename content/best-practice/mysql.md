@@ -54,15 +54,15 @@ mysql采集插件的具体使用方式，参考 [这里](https://github.com/infl
             "weight": 0
           },
           {
-            "configs": "{\"name\":\"Queries per second\",\"QL\":[{\"PromQL\":\"rate(mysql_com_select{ident=\\\"$ident\\\", server=\\\"$server\\\"}[1m])\",\"Legend\":\"command_select - {{ident}} - {{server}}\"}],\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":8,\"x\":0,\"y\":2,\"i\":\"3\"}}",
+            "configs": "{\"name\":\"Queries per second\",\"QL\":[{\"PromQL\":\"rate(mysql_queries{ident=\\\"$ident\\\", server=\\\"$server\\\"}[1m])\",\"Legend\":\"mysql_queries - {{ident}} - {{server}}\"}],\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":8,\"x\":0,\"y\":2,\"i\":\"3\"}}",
             "weight": 0
           },
           {
-            "configs": "{\"name\":\"Writes per second\",\"QL\":[{\"PromQL\":\"rate(mysql_com_insert{ident=\\\"$ident\\\", server=\\\"$server\\\"}[1m])\",\"Legend\":\"command_insert - {{ident}} - {{server}}\"},{\"PromQL\":\"rate(mysql_com_update{ident=\\\"$ident\\\", server=\\\"$server\\\"}[1m])\",\"Legend\":\"command_update - {{ident}} - {{server}}\"},{\"PromQL\":\"rate(mysql_com_delete{ident=\\\"$ident\\\", server=\\\"$server\\\"}[1m])\",\"Legend\":\"command_delete - {{ident}} - {{server}}\"}],\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":8,\"x\":8,\"y\":2,\"i\":\"4\"}}",
+            "configs": "{\"name\":\"Writes per second\",\"QL\":[{\"PromQL\":\"rate(mysql_com_insert{ident=\\\"$ident\\\", server=\\\"$server\\\"}[1m])\",\"Legend\":\"command_insert - {{ident}} - {{server}}\"},{\"PromQL\":\"rate(mysql_com_update{ident=\\\"$ident\\\", server=\\\"$server\\\"}[1m])\",\"Legend\":\"command_update - {{ident}} - {{server}}\"},{\"PromQL\":\"rate(mysql_com_delete{ident=\\\"$ident\\\", server=\\\"$server\\\"}[1m])\",\"Legend\":\"command_delete - {{ident}} - {{server}}\"}],\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":8,\"x\":16,\"y\":2,\"i\":\"4\"}}",
             "weight": 0
           },
           {
-            "configs": "{\"name\":\"Threads\",\"QL\":[{\"PromQL\":\"mysql_threads_running{ident=\\\"$ident\\\", server=\\\"$server\\\"}\",\"Legend\":\"threads_running - {{ident}} - {{server}}\"},{\"PromQL\":\"mysql_threads_connected{ident=\\\"$ident\\\", server=\\\"$server\\\"}\",\"Legend\":\"threads_connected - {{ident}} - {{server}}\"}],\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":8,\"x\":16,\"y\":2,\"i\":\"5\"}}",
+            "configs": "{\"name\":\"Threads\",\"QL\":[{\"PromQL\":\"mysql_threads_running{ident=\\\"$ident\\\", server=\\\"$server\\\"}\",\"Legend\":\"threads_running - {{ident}} - {{server}}\"},{\"PromQL\":\"mysql_threads_connected{ident=\\\"$ident\\\", server=\\\"$server\\\"}\",\"Legend\":\"threads_connected - {{ident}} - {{server}}\"}],\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":8,\"x\":16,\"y\":4,\"i\":\"5\"}}",
             "weight": 0
           },
           {
@@ -74,7 +74,15 @@ mysql采集插件的具体使用方式，参考 [这里](https://github.com/infl
             "weight": 0
           },
           {
-            "configs": "{\"name\":\"InnoDB Buffer Pool Pages\",\"QL\":[{\"PromQL\":\"mysql_innodb_buffer_pool_pages_free{ident=\\\"$ident\\\", server=\\\"$server\\\"}\"},{\"PromQL\":\"mysql_innodb_buffer_pool_pages_data{ident=\\\"$ident\\\", server=\\\"$server\\\"}\"},{\"PromQL\":\"mysql_innodb_buffer_pool_pages_total{ident=\\\"$ident\\\", server=\\\"$server\\\"}\"}],\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":8,\"x\":16,\"y\":4,\"i\":\"8\"}}",
+            "configs": "{\"name\":\"InnoDB Buffer Pool Pages\",\"QL\":[{\"PromQL\":\"mysql_innodb_buffer_pool_pages_free{ident=\\\"$ident\\\", server=\\\"$server\\\"}\"},{\"PromQL\":\"mysql_innodb_buffer_pool_pages_data{ident=\\\"$ident\\\", server=\\\"$server\\\"}\"},{\"PromQL\":\"mysql_innodb_buffer_pool_pages_total{ident=\\\"$ident\\\", server=\\\"$server\\\"}\"}],\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":11,\"x\":0,\"y\":6,\"i\":\"8\"}}",
+            "weight": 0
+          },
+          {
+            "configs": "{\"name\":\"TPS\",\"QL\":[{\"PromQL\":\"rate(mysql_com_commit{ident=\\\"$ident\\\", server=\\\"$server\\\"}[1m]) + rate(mysql_com_rollback{ident=\\\"$ident\\\", server=\\\"$server\\\"}[1m])\",\"Legend\":\"tps - {{ident}} - {{server}}\"}],\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":8,\"x\":8,\"y\":2,\"i\":\"9\"}}",
+            "weight": 0
+          },
+          {
+            "configs": "{\"name\":\"InnoDB Buffer Pool Hit Rate\",\"QL\":[{\"PromQL\":\"(increase(mysql_innodb_buffer_pool_read_requests[1m])-increase(mysql_innodb_buffer_pool_reads[1m]))/increase(mysql_innodb_buffer_pool_read_requests[1m])*100\",\"Legend\":\"rate - {{ident}} - {{server}}\"}],\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":13,\"x\":11,\"y\":6,\"i\":\"10\"}}",
             "weight": 0
           }
         ]
@@ -88,6 +96,36 @@ mysql采集插件的具体使用方式，参考 [这里](https://github.com/infl
 
 ```json
 [
+  {
+    "name": "MySQL InnoDB buffer pool 命中率太低",
+    "note": "",
+    "severity": 2,
+    "disabled": 0,
+    "prom_for_duration": 0,
+    "prom_ql": "(increase(mysql_innodb_buffer_pool_read_requests[1m])-increase(mysql_innodb_buffer_pool_reads[1m]))/increase(mysql_innodb_buffer_pool_read_requests[1m])*100 < 99",
+    "prom_eval_interval": 15,
+    "enable_stime": "00:00",
+    "enable_etime": "23:59",
+    "enable_days_of_week": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "notify_recovered": 1,
+    "notify_channels": [
+      "email",
+      "dingtalk",
+      "wecom"
+    ],
+    "notify_repeat_step": 60,
+    "callbacks": [],
+    "runbook_url": "",
+    "append_tags": []
+  },
   {
     "name": "MySQL出现慢查询",
     "note": "",
