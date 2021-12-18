@@ -82,7 +82,7 @@ mysql采集插件的具体使用方式，参考 [这里](https://github.com/infl
             "weight": 0
           },
           {
-            "configs": "{\"name\":\"InnoDB Buffer Pool Hit Rate\",\"QL\":[{\"PromQL\":\"(increase(mysql_innodb_buffer_pool_read_requests[1m])-increase(mysql_innodb_buffer_pool_reads[1m]))/increase(mysql_innodb_buffer_pool_read_requests[1m])*100\",\"Legend\":\"rate - {{ident}} - {{server}}\"}],\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":13,\"x\":11,\"y\":6,\"i\":\"10\"}}",
+            "configs": "{\"name\":\"InnoDB Buffer Pool Hit Rate\",\"QL\":[{\"PromQL\":\"100 - increase(mysql_innodb_buffer_pool_reads{ident=\\\"$ident\\\", server=\\\"$server\\\"}[5m]) / increase(mysql_innodb_buffer_pool_read_requests{ident=\\\"$ident\\\", server=\\\"$server\\\"}[5m]) * 100\",\"Legend\":\"rate - {{ident}} - {{server}}\"}],\"legend\":false,\"highLevelConfig\":{\"shared\":true,\"sharedSortDirection\":\"desc\",\"precision\":\"short\",\"formatUnit\":1000},\"version\":1,\"layout\":{\"h\":2,\"w\":13,\"x\":11,\"y\":6,\"i\":\"10\"}}",
             "weight": 0
           }
         ]
@@ -102,7 +102,7 @@ mysql采集插件的具体使用方式，参考 [这里](https://github.com/infl
     "severity": 2,
     "disabled": 0,
     "prom_for_duration": 0,
-    "prom_ql": "(increase(mysql_innodb_buffer_pool_read_requests[1m])-increase(mysql_innodb_buffer_pool_reads[1m]))/increase(mysql_innodb_buffer_pool_read_requests[1m])*100 < 99",
+    "prom_ql": "100 - increase(mysql_innodb_buffer_pool_reads[5m]) / increase(mysql_innodb_buffer_pool_read_requests[5m]) * 100 < 99",
     "prom_eval_interval": 15,
     "enable_stime": "00:00",
     "enable_etime": "23:59",
