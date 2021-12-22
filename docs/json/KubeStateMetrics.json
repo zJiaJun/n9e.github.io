@@ -1,0 +1,134 @@
+[
+	{
+		"name": "KubeStateMetricsListErrors - kube-state-metrics is experiencing errors in list operations.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(sum(rate(kube_state_metrics_list_total{job=\"kube-state-metrics\",result=\"error\"}[5m]))\n  /\nsum(rate(kube_state_metrics_list_total{job=\"kube-state-metrics\"}[5m])))\n\u003e 0.01",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kube-state-metrics/kubestatemetricslisterrors",
+		"append_tags": [
+			"AlertName=KubeStateMetricsListErrors",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "KubeStateMetricsWatchErrors - kube-state-metrics is experiencing errors in watch operations.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(sum(rate(kube_state_metrics_watch_total{job=\"kube-state-metrics\",result=\"error\"}[5m]))\n  /\nsum(rate(kube_state_metrics_watch_total{job=\"kube-state-metrics\"}[5m])))\n\u003e 0.01",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kube-state-metrics/kubestatemetricswatcherrors",
+		"append_tags": [
+			"AlertName=KubeStateMetricsWatchErrors",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "KubeStateMetricsShardingMismatch - kube-state-metrics sharding is misconfigured.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "stdvar (kube_state_metrics_total_shards{job=\"kube-state-metrics\"}) != 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kube-state-metrics/kubestatemetricsshardingmismatch",
+		"append_tags": [
+			"AlertName=KubeStateMetricsShardingMismatch",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "KubeStateMetricsShardsMissing - kube-state-metrics shards are missing.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "2^max(kube_state_metrics_total_shards{job=\"kube-state-metrics\"}) - 1\n  -\nsum( 2 ^ max by (shard_ordinal) (kube_state_metrics_shard_ordinal{job=\"kube-state-metrics\"}) )\n!= 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kube-state-metrics/kubestatemetricsshardsmissing",
+		"append_tags": [
+			"AlertName=KubeStateMetricsShardsMissing",
+			"severity=critical"
+		]
+	}
+]

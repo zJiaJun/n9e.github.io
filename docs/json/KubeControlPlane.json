@@ -1,0 +1,1561 @@
+[
+	{
+		"name": "KubePodCrashLooping - Pod is crash looping.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "max_over_time(kube_pod_container_status_waiting_reason{reason=\"CrashLoopBackOff\", job=\"kube-state-metrics\"}[5m]) \u003e= 1",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepodcrashlooping",
+		"append_tags": [
+			"AlertName=KubePodCrashLooping",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubePodNotReady - Pod has been in a non-ready state for more than 15 minutes.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "sum by (namespace, pod) (\n  max by(namespace, pod) (\n    kube_pod_status_phase{job=\"kube-state-metrics\", phase=~\"Pending|Unknown\"}\n  ) * on(namespace, pod) group_left(owner_kind) topk by(namespace, pod) (\n    1, max by(namespace, pod, owner_kind) (kube_pod_owner{owner_kind!=\"Job\"})\n  )\n) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepodnotready",
+		"append_tags": [
+			"AlertName=KubePodNotReady",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeDeploymentGenerationMismatch - Deployment generation mismatch due to possible roll-back",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "kube_deployment_status_observed_generation{job=\"kube-state-metrics\"}\n  !=\nkube_deployment_metadata_generation{job=\"kube-state-metrics\"}",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedeploymentgenerationmismatch",
+		"append_tags": [
+			"AlertName=KubeDeploymentGenerationMismatch",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeDeploymentReplicasMismatch - Deployment has not matched the expected number of replicas.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(\n  kube_deployment_spec_replicas{job=\"kube-state-metrics\"}\n    \u003e\n  kube_deployment_status_replicas_available{job=\"kube-state-metrics\"}\n) and (\n  changes(kube_deployment_status_replicas_updated{job=\"kube-state-metrics\"}[10m])\n    ==\n  0\n)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedeploymentreplicasmismatch",
+		"append_tags": [
+			"AlertName=KubeDeploymentReplicasMismatch",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeStatefulSetReplicasMismatch - Deployment has not matched the expected number of replicas.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(\n  kube_statefulset_status_replicas_ready{job=\"kube-state-metrics\"}\n    !=\n  kube_statefulset_status_replicas{job=\"kube-state-metrics\"}\n) and (\n  changes(kube_statefulset_status_replicas_updated{job=\"kube-state-metrics\"}[10m])\n    ==\n  0\n)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubestatefulsetreplicasmismatch",
+		"append_tags": [
+			"AlertName=KubeStatefulSetReplicasMismatch",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeStatefulSetGenerationMismatch - StatefulSet generation mismatch due to possible roll-back",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "kube_statefulset_status_observed_generation{job=\"kube-state-metrics\"}\n  !=\nkube_statefulset_metadata_generation{job=\"kube-state-metrics\"}",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubestatefulsetgenerationmismatch",
+		"append_tags": [
+			"AlertName=KubeStatefulSetGenerationMismatch",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeStatefulSetUpdateNotRolledOut - StatefulSet update has not been rolled out.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(\n  max without (revision) (\n    kube_statefulset_status_current_revision{job=\"kube-state-metrics\"}\n      unless\n    kube_statefulset_status_update_revision{job=\"kube-state-metrics\"}\n  )\n    *\n  (\n    kube_statefulset_replicas{job=\"kube-state-metrics\"}\n      !=\n    kube_statefulset_status_replicas_updated{job=\"kube-state-metrics\"}\n  )\n)  and (\n  changes(kube_statefulset_status_replicas_updated{job=\"kube-state-metrics\"}[5m])\n    ==\n  0\n)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubestatefulsetupdatenotrolledout",
+		"append_tags": [
+			"AlertName=KubeStatefulSetUpdateNotRolledOut",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeDaemonSetRolloutStuck - DaemonSet rollout is stuck.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(\n  (\n    kube_daemonset_status_current_number_scheduled{job=\"kube-state-metrics\"}\n     !=\n    kube_daemonset_status_desired_number_scheduled{job=\"kube-state-metrics\"}\n  ) or (\n    kube_daemonset_status_number_misscheduled{job=\"kube-state-metrics\"}\n     !=\n    0\n  ) or (\n    kube_daemonset_updated_number_scheduled{job=\"kube-state-metrics\"}\n     !=\n    kube_daemonset_status_desired_number_scheduled{job=\"kube-state-metrics\"}\n  ) or (\n    kube_daemonset_status_number_available{job=\"kube-state-metrics\"}\n     !=\n    kube_daemonset_status_desired_number_scheduled{job=\"kube-state-metrics\"}\n  )\n) and (\n  changes(kube_daemonset_updated_number_scheduled{job=\"kube-state-metrics\"}[5m])\n    ==\n  0\n)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedaemonsetrolloutstuck",
+		"append_tags": [
+			"AlertName=KubeDaemonSetRolloutStuck",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeContainerWaiting - Pod container waiting longer than 1 hour",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 3600,
+		"prom_ql": "sum by (namespace, pod, container) (kube_pod_container_status_waiting_reason{job=\"kube-state-metrics\"}) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubecontainerwaiting",
+		"append_tags": [
+			"AlertName=KubeContainerWaiting",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeDaemonSetNotScheduled - DaemonSet pods are not scheduled.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 600,
+		"prom_ql": "kube_daemonset_status_desired_number_scheduled{job=\"kube-state-metrics\"}\n  -\nkube_daemonset_status_current_number_scheduled{job=\"kube-state-metrics\"} \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedaemonsetnotscheduled",
+		"append_tags": [
+			"AlertName=KubeDaemonSetNotScheduled",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeDaemonSetMisScheduled - DaemonSet pods are misscheduled.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "kube_daemonset_status_number_misscheduled{job=\"kube-state-metrics\"} \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedaemonsetmisscheduled",
+		"append_tags": [
+			"AlertName=KubeDaemonSetMisScheduled",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeJobCompletion - Job did not complete in time",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 43200,
+		"prom_ql": "kube_job_spec_completions{job=\"kube-state-metrics\"} - kube_job_status_succeeded{job=\"kube-state-metrics\"}  \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubejobcompletion",
+		"append_tags": [
+			"AlertName=KubeJobCompletion",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeJobFailed - Job failed to complete.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "kube_job_failed{job=\"kube-state-metrics\"}  \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubejobfailed",
+		"append_tags": [
+			"AlertName=KubeJobFailed",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeHpaReplicasMismatch - HPA has not matched descired number of replicas.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(kube_horizontalpodautoscaler_status_desired_replicas{job=\"kube-state-metrics\"}\n  !=\nkube_horizontalpodautoscaler_status_current_replicas{job=\"kube-state-metrics\"})\n  and\n(kube_horizontalpodautoscaler_status_current_replicas{job=\"kube-state-metrics\"}\n  \u003e\nkube_horizontalpodautoscaler_spec_min_replicas{job=\"kube-state-metrics\"})\n  and\n(kube_horizontalpodautoscaler_status_current_replicas{job=\"kube-state-metrics\"}\n  \u003c\nkube_horizontalpodautoscaler_spec_max_replicas{job=\"kube-state-metrics\"})\n  and\nchanges(kube_horizontalpodautoscaler_status_current_replicas{job=\"kube-state-metrics\"}[15m]) == 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubehpareplicasmismatch",
+		"append_tags": [
+			"AlertName=KubeHpaReplicasMismatch",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeHpaMaxedOut - HPA is running at max replicas",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "kube_horizontalpodautoscaler_status_current_replicas{job=\"kube-state-metrics\"}\n  ==\nkube_horizontalpodautoscaler_spec_max_replicas{job=\"kube-state-metrics\"}",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubehpamaxedout",
+		"append_tags": [
+			"AlertName=KubeHpaMaxedOut",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeCPUOvercommit - Cluster has overcommitted CPU resource requests.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 600,
+		"prom_ql": "sum(namespace_cpu:kube_pod_container_resource_requests:sum{}) - (sum(kube_node_status_allocatable{resource=\"cpu\"}) - max(kube_node_status_allocatable{resource=\"cpu\"})) \u003e 0\nand\n(sum(kube_node_status_allocatable{resource=\"cpu\"}) - max(kube_node_status_allocatable{resource=\"cpu\"})) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubecpuovercommit",
+		"append_tags": [
+			"AlertName=KubeCPUOvercommit",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeMemoryOvercommit - Cluster has overcommitted memory resource requests.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 600,
+		"prom_ql": "sum(namespace_memory:kube_pod_container_resource_requests:sum{}) - (sum(kube_node_status_allocatable{resource=\"memory\"}) - max(kube_node_status_allocatable{resource=\"memory\"})) \u003e 0\nand\n(sum(kube_node_status_allocatable{resource=\"memory\"}) - max(kube_node_status_allocatable{resource=\"memory\"})) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubememoryovercommit",
+		"append_tags": [
+			"AlertName=KubeMemoryOvercommit",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeCPUQuotaOvercommit - Cluster has overcommitted CPU resource requests.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 300,
+		"prom_ql": "sum(min without(resource) (kube_resourcequota{job=\"kube-state-metrics\", type=\"hard\", resource=~\"(cpu|requests.cpu)\"}))\n  /\nsum(kube_node_status_allocatable{resource=\"cpu\", job=\"kube-state-metrics\"})\n  \u003e 1.5",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubecpuquotaovercommit",
+		"append_tags": [
+			"AlertName=KubeCPUQuotaOvercommit",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeMemoryQuotaOvercommit - Cluster has overcommitted memory resource requests.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 300,
+		"prom_ql": "sum(min without(resource) (kube_resourcequota{job=\"kube-state-metrics\", type=\"hard\", resource=~\"(memory|requests.memory)\"}))\n  /\nsum(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"})\n  \u003e 1.5",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubememoryquotaovercommit",
+		"append_tags": [
+			"AlertName=KubeMemoryQuotaOvercommit",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeQuotaAlmostFull - Namespace quota is going to be full.",
+		"note": "",
+		"severity": 3,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "kube_resourcequota{job=\"kube-state-metrics\", type=\"used\"}\n  / ignoring(instance, job, type)\n(kube_resourcequota{job=\"kube-state-metrics\", type=\"hard\"} \u003e 0)\n  \u003e 0.9 \u003c 1",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubequotaalmostfull",
+		"append_tags": [
+			"AlertName=KubeQuotaAlmostFull",
+			"severity=info"
+		]
+	},
+	{
+		"name": "KubeQuotaFullyUsed - Namespace quota is fully used.",
+		"note": "",
+		"severity": 3,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "kube_resourcequota{job=\"kube-state-metrics\", type=\"used\"}\n  / ignoring(instance, job, type)\n(kube_resourcequota{job=\"kube-state-metrics\", type=\"hard\"} \u003e 0)\n  == 1",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubequotafullyused",
+		"append_tags": [
+			"AlertName=KubeQuotaFullyUsed",
+			"severity=info"
+		]
+	},
+	{
+		"name": "KubeQuotaExceeded - Namespace quota has exceeded the limits.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "kube_resourcequota{job=\"kube-state-metrics\", type=\"used\"}\n  / ignoring(instance, job, type)\n(kube_resourcequota{job=\"kube-state-metrics\", type=\"hard\"} \u003e 0)\n  \u003e 1",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubequotaexceeded",
+		"append_tags": [
+			"AlertName=KubeQuotaExceeded",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "CPUThrottlingHigh - Processes experience elevated CPU throttling.",
+		"note": "",
+		"severity": 3,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "sum(increase(container_cpu_cfs_throttled_periods_total{container!=\"\", }[5m])) by (container, pod, namespace)\n  /\nsum(increase(container_cpu_cfs_periods_total{}[5m])) by (container, pod, namespace)\n  \u003e ( 25 / 100 )",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/cputhrottlinghigh",
+		"append_tags": [
+			"AlertName=CPUThrottlingHigh",
+			"severity=info"
+		]
+	},
+	{
+		"name": "KubePersistentVolumeFillingUp - PersistentVolume is filling up.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 60,
+		"prom_ql": "(\n  kubelet_volume_stats_available_bytes{job=\"kubelet\", metrics_path=\"/metrics\"}\n    /\n  kubelet_volume_stats_capacity_bytes{job=\"kubelet\", metrics_path=\"/metrics\"}\n) \u003c 0.03\nand\nkubelet_volume_stats_used_bytes{job=\"kubelet\", metrics_path=\"/metrics\"} \u003e 0\nunless on(namespace, persistentvolumeclaim)\nkube_persistentvolumeclaim_access_mode{ access_mode=\"ReadOnlyMany\"} == 1\nunless on(namespace, persistentvolumeclaim)\nkube_persistentvolumeclaim_labels{label_excluded_from_alerts=\"true\"} == 1",
+		"prom_eval_interval": 10,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepersistentvolumefillingup",
+		"append_tags": [
+			"AlertName=KubePersistentVolumeFillingUp",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "KubePersistentVolumeFillingUp - PersistentVolume is filling up.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 3600,
+		"prom_ql": "(\n  kubelet_volume_stats_available_bytes{job=\"kubelet\", metrics_path=\"/metrics\"}\n    /\n  kubelet_volume_stats_capacity_bytes{job=\"kubelet\", metrics_path=\"/metrics\"}\n) \u003c 0.15\nand\nkubelet_volume_stats_used_bytes{job=\"kubelet\", metrics_path=\"/metrics\"} \u003e 0\nand\npredict_linear(kubelet_volume_stats_available_bytes{job=\"kubelet\", metrics_path=\"/metrics\"}[6h], 4 * 24 * 3600) \u003c 0\nunless on(namespace, persistentvolumeclaim)\nkube_persistentvolumeclaim_access_mode{ access_mode=\"ReadOnlyMany\"} == 1\nunless on(namespace, persistentvolumeclaim)\nkube_persistentvolumeclaim_labels{label_excluded_from_alerts=\"true\"} == 1",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepersistentvolumefillingup",
+		"append_tags": [
+			"AlertName=KubePersistentVolumeFillingUp",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubePersistentVolumeErrors - PersistentVolume is having issues with provisioning.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 300,
+		"prom_ql": "kube_persistentvolume_status_phase{phase=~\"Failed|Pending\",job=\"kube-state-metrics\"} \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepersistentvolumeerrors",
+		"append_tags": [
+			"AlertName=KubePersistentVolumeErrors",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "KubeVersionMismatch - Different semantic versions of Kubernetes components running.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "count(count by (git_version) (label_replace(kubernetes_build_info{job!~\"kube-dns|coredns\"},\"git_version\",\"$1\",\"git_version\",\"(v[0-9]*.[0-9]*).*\"))) \u003e 1",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeversionmismatch",
+		"append_tags": [
+			"AlertName=KubeVersionMismatch",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeClientErrors - Kubernetes API server client is experiencing errors.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(sum(rate(rest_client_requests_total{code=~\"5..\"}[5m])) by (instance, job, namespace)\n  /\nsum(rate(rest_client_requests_total[5m])) by (instance, job, namespace))\n\u003e 0.01",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeclienterrors",
+		"append_tags": [
+			"AlertName=KubeClientErrors",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeAPIErrorBudgetBurn - The API server is burning too much error budget.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 120,
+		"prom_ql": "sum(apiserver_request:burnrate1h) \u003e (14.40 * 0.01000)\nand\nsum(apiserver_request:burnrate5m) \u003e (14.40 * 0.01000)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeapierrorbudgetburn",
+		"append_tags": [
+			"AlertName=KubeAPIErrorBudgetBurn",
+			"long=1h",
+			"severity=critical",
+			"short=5m"
+		]
+	},
+	{
+		"name": "KubeAPIErrorBudgetBurn - The API server is burning too much error budget.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "sum(apiserver_request:burnrate6h) \u003e (6.00 * 0.01000)\nand\nsum(apiserver_request:burnrate30m) \u003e (6.00 * 0.01000)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeapierrorbudgetburn",
+		"append_tags": [
+			"AlertName=KubeAPIErrorBudgetBurn",
+			"long=6h",
+			"severity=critical",
+			"short=30m"
+		]
+	},
+	{
+		"name": "KubeAPIErrorBudgetBurn - The API server is burning too much error budget.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 3600,
+		"prom_ql": "sum(apiserver_request:burnrate1d) \u003e (3.00 * 0.01000)\nand\nsum(apiserver_request:burnrate2h) \u003e (3.00 * 0.01000)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeapierrorbudgetburn",
+		"append_tags": [
+			"AlertName=KubeAPIErrorBudgetBurn",
+			"long=1d",
+			"severity=warning",
+			"short=2h"
+		]
+	},
+	{
+		"name": "KubeAPIErrorBudgetBurn - The API server is burning too much error budget.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 10800,
+		"prom_ql": "sum(apiserver_request:burnrate3d) \u003e (1.00 * 0.01000)\nand\nsum(apiserver_request:burnrate6h) \u003e (1.00 * 0.01000)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeapierrorbudgetburn",
+		"append_tags": [
+			"AlertName=KubeAPIErrorBudgetBurn",
+			"long=3d",
+			"severity=warning",
+			"short=6h"
+		]
+	},
+	{
+		"name": "KubeAggregatedAPIDown - Kubernetes aggregated API is down.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 300,
+		"prom_ql": "(1 - max by(name, namespace)(avg_over_time(aggregator_unavailable_apiservice[10m]))) * 100 \u003c 85",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeaggregatedapidown",
+		"append_tags": [
+			"AlertName=KubeAggregatedAPIDown",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeAPIDown - Target disappeared from Prometheus target discovery.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "absent(up{job=\"apiserver\"} == 1)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeapidown",
+		"append_tags": [
+			"AlertName=KubeAPIDown",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "KubeAPITerminatedRequests - The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming requests.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 300,
+		"prom_ql": "sum(rate(apiserver_request_terminations_total{job=\"apiserver\"}[10m]))  / (  sum(rate(apiserver_request_total{job=\"apiserver\"}[10m])) + sum(rate(apiserver_request_terminations_total{job=\"apiserver\"}[10m])) ) \u003e 0.20",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeapiterminatedrequests",
+		"append_tags": [
+			"AlertName=KubeAPITerminatedRequests",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeNodeNotReady - Node is not ready.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "kube_node_status_condition{job=\"kube-state-metrics\",condition=\"Ready\",status=\"true\"} == 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubenodenotready",
+		"append_tags": [
+			"AlertName=KubeNodeNotReady",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeNodeUnreachable - Node is unreachable.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(kube_node_spec_taint{job=\"kube-state-metrics\",key=\"node.kubernetes.io/unreachable\",effect=\"NoSchedule\"} unless ignoring(key,value) kube_node_spec_taint{job=\"kube-state-metrics\",key=~\"ToBeDeletedByClusterAutoscaler|cloud.google.com/impending-node-termination|aws-node-termination-handler/spot-itn\"}) == 1",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubenodeunreachable",
+		"append_tags": [
+			"AlertName=KubeNodeUnreachable",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeletTooManyPods - Kubelet is running at capacity.",
+		"note": "",
+		"severity": 3,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "count by(node) (\n  (kube_pod_status_phase{job=\"kube-state-metrics\",phase=\"Running\"} == 1) * on(instance,pod,namespace,cluster) group_left(node) topk by(instance,pod,namespace,cluster) (1, kube_pod_info{job=\"kube-state-metrics\"})\n)\n/\nmax by(node) (\n  kube_node_status_capacity{job=\"kube-state-metrics\",resource=\"pods\"} != 1\n) \u003e 0.95",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubelettoomanypods",
+		"append_tags": [
+			"AlertName=KubeletTooManyPods",
+			"severity=info"
+		]
+	},
+	{
+		"name": "KubeNodeReadinessFlapping - Node readiness status is flapping.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "sum(changes(kube_node_status_condition{status=\"true\",condition=\"Ready\"}[15m])) by (node) \u003e 2",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubenodereadinessflapping",
+		"append_tags": [
+			"AlertName=KubeNodeReadinessFlapping",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeletPlegDurationHigh - Kubelet Pod Lifecycle Event Generator is taking too long to relist.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 300,
+		"prom_ql": "node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile{quantile=\"0.99\"} \u003e= 10",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletplegdurationhigh",
+		"append_tags": [
+			"AlertName=KubeletPlegDurationHigh",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeletPodStartUpLatencyHigh - Kubelet Pod startup latency is too high.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "histogram_quantile(0.99, sum(rate(kubelet_pod_worker_duration_seconds_bucket{job=\"kubelet\", metrics_path=\"/metrics\"}[5m])) by (instance, le)) * on(instance) group_left(node) kubelet_node_name{job=\"kubelet\", metrics_path=\"/metrics\"} \u003e 60",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletpodstartuplatencyhigh",
+		"append_tags": [
+			"AlertName=KubeletPodStartUpLatencyHigh",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeletClientCertificateRenewalErrors - Kubelet has failed to renew its client certificate.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "increase(kubelet_certificate_manager_client_expiration_renew_errors[5m]) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletclientcertificaterenewalerrors",
+		"append_tags": [
+			"AlertName=KubeletClientCertificateRenewalErrors",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeletServerCertificateRenewalErrors - Kubelet has failed to renew its server certificate.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "increase(kubelet_server_expiration_renew_errors[5m]) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletservercertificaterenewalerrors",
+		"append_tags": [
+			"AlertName=KubeletServerCertificateRenewalErrors",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "KubeletDown - Target disappeared from Prometheus target discovery.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "absent(up{job=\"kubelet\", metrics_path=\"/metrics\"} == 1)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletdown",
+		"append_tags": [
+			"AlertName=KubeletDown",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "KubeSchedulerDown - Target disappeared from Prometheus target discovery.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "absent(up{job=\"kube-scheduler\"} == 1)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeschedulerdown",
+		"append_tags": [
+			"AlertName=KubeSchedulerDown",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "KubeControllerManagerDown - Target disappeared from Prometheus target discovery.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "absent(up{job=\"kube-controller-manager\"} == 1)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubecontrollermanagerdown",
+		"append_tags": [
+			"AlertName=KubeControllerManagerDown",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "KubeProxyDown - Target disappeared from Prometheus target discovery.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "absent(up{job=\"kube-proxy\"} == 1)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeproxydown",
+		"append_tags": [
+			"AlertName=KubeProxyDown",
+			"severity=critical"
+		]
+	}
+]

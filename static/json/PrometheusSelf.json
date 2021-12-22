@@ -1,0 +1,596 @@
+[
+	{
+		"name": "PrometheusBadConfig - Failed Prometheus configuration reload.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 600,
+		"prom_ql": "max_over_time(prometheus_config_last_reload_successful{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]) == 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusbadconfig",
+		"append_tags": [
+			"AlertName=PrometheusBadConfig",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "PrometheusNotificationQueueRunningFull - Prometheus alert notification queue predicted to run full in less than 30m.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(\n  predict_linear(prometheus_notifications_queue_length{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m], 60 * 30)\n\u003e\n  min_over_time(prometheus_notifications_queue_capacity{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m])\n)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusnotificationqueuerunningfull",
+		"append_tags": [
+			"AlertName=PrometheusNotificationQueueRunningFull",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "PrometheusErrorSendingAlertsToSomeAlertmanagers - Prometheus has encountered more than 1% errors sending alerts to a specific Alertmanager.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(\n  rate(prometheus_notifications_errors_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m])\n/\n  rate(prometheus_notifications_sent_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m])\n)\n* 100\n\u003e 1",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheuserrorsendingalertstosomealertmanagers",
+		"append_tags": [
+			"AlertName=PrometheusErrorSendingAlertsToSomeAlertmanagers",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "PrometheusNotConnectedToAlertmanagers - Prometheus is not connected to any Alertmanagers.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 600,
+		"prom_ql": "max_over_time(prometheus_notifications_alertmanagers_discovered{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]) \u003c 1",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusnotconnectedtoalertmanagers",
+		"append_tags": [
+			"AlertName=PrometheusNotConnectedToAlertmanagers",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "PrometheusTSDBReloadsFailing - Prometheus has issues reloading blocks from disk.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 14400,
+		"prom_ql": "increase(prometheus_tsdb_reloads_failures_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[3h]) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheustsdbreloadsfailing",
+		"append_tags": [
+			"AlertName=PrometheusTSDBReloadsFailing",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "PrometheusTSDBCompactionsFailing - Prometheus has issues compacting blocks.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 14400,
+		"prom_ql": "increase(prometheus_tsdb_compactions_failed_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[3h]) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheustsdbcompactionsfailing",
+		"append_tags": [
+			"AlertName=PrometheusTSDBCompactionsFailing",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "PrometheusNotIngestingSamples - Prometheus is not ingesting samples.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 600,
+		"prom_ql": "(\n  rate(prometheus_tsdb_head_samples_appended_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]) \u003c= 0\nand\n  (\n    sum without(scrape_job) (prometheus_target_metadata_cache_entries{job=\"prometheus-k8s\",namespace=\"monitoring\"}) \u003e 0\n  or\n    sum without(rule_group) (prometheus_rule_group_rules{job=\"prometheus-k8s\",namespace=\"monitoring\"}) \u003e 0\n  )\n)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusnotingestingsamples",
+		"append_tags": [
+			"AlertName=PrometheusNotIngestingSamples",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "PrometheusDuplicateTimestamps - Prometheus is dropping samples with duplicate timestamps.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 600,
+		"prom_ql": "rate(prometheus_target_scrapes_sample_duplicate_timestamp_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusduplicatetimestamps",
+		"append_tags": [
+			"AlertName=PrometheusDuplicateTimestamps",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "PrometheusOutOfOrderTimestamps - Prometheus drops samples with out-of-order timestamps.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 600,
+		"prom_ql": "rate(prometheus_target_scrapes_sample_out_of_order_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusoutofordertimestamps",
+		"append_tags": [
+			"AlertName=PrometheusOutOfOrderTimestamps",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "PrometheusRemoteStorageFailures - Prometheus fails to send samples to remote storage.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(\n  (rate(prometheus_remote_storage_failed_samples_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]) or rate(prometheus_remote_storage_samples_failed_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]))\n/\n  (\n    (rate(prometheus_remote_storage_failed_samples_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]) or rate(prometheus_remote_storage_samples_failed_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]))\n  +\n    (rate(prometheus_remote_storage_succeeded_samples_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]) or rate(prometheus_remote_storage_samples_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]))\n  )\n)\n* 100\n\u003e 1",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusremotestoragefailures",
+		"append_tags": [
+			"AlertName=PrometheusRemoteStorageFailures",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "PrometheusRemoteWriteBehind - Prometheus remote write is behind.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(\n  max_over_time(prometheus_remote_storage_highest_timestamp_in_seconds{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m])\n- ignoring(remote_name, url) group_right\n  max_over_time(prometheus_remote_storage_queue_highest_sent_timestamp_seconds{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m])\n)\n\u003e 120",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusremotewritebehind",
+		"append_tags": [
+			"AlertName=PrometheusRemoteWriteBehind",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "PrometheusRemoteWriteDesiredShards - Prometheus remote write desired shards calculation wants to run more than configured max shards.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "(\n  max_over_time(prometheus_remote_storage_shards_desired{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m])\n\u003e\n  max_over_time(prometheus_remote_storage_shards_max{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m])\n)",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusremotewritedesiredshards",
+		"append_tags": [
+			"AlertName=PrometheusRemoteWriteDesiredShards",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "PrometheusRuleFailures - Prometheus is failing rule evaluations.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "increase(prometheus_rule_evaluation_failures_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusrulefailures",
+		"append_tags": [
+			"AlertName=PrometheusRuleFailures",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "PrometheusMissingRuleEvaluations - Prometheus is missing rule evaluations due to slow rule group evaluation.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "increase(prometheus_rule_group_iterations_missed_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusmissingruleevaluations",
+		"append_tags": [
+			"AlertName=PrometheusMissingRuleEvaluations",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "PrometheusTargetLimitHit - Prometheus has dropped targets because some scrape configs have exceeded the targets limit.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "increase(prometheus_target_scrape_pool_exceeded_target_limit_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheustargetlimithit",
+		"append_tags": [
+			"AlertName=PrometheusTargetLimitHit",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "PrometheusLabelLimitHit - Prometheus has dropped targets because some scrape configs have exceeded the labels limit.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "increase(prometheus_target_scrape_pool_exceeded_label_limits_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[5m]) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheuslabellimithit",
+		"append_tags": [
+			"AlertName=PrometheusLabelLimitHit",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "PrometheusTargetSyncFailure - Prometheus has failed to sync targets.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 300,
+		"prom_ql": "increase(prometheus_target_sync_failed_total{job=\"prometheus-k8s\",namespace=\"monitoring\"}[30m]) \u003e 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheustargetsyncfailure",
+		"append_tags": [
+			"AlertName=PrometheusTargetSyncFailure",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "PrometheusErrorSendingAlertsToAnyAlertmanager - Prometheus encounters more than 3% errors sending alerts to any Alertmanager.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "min without (alertmanager) (\n  rate(prometheus_notifications_errors_total{job=\"prometheus-k8s\",namespace=\"monitoring\",alertmanager!~``}[5m])\n/\n  rate(prometheus_notifications_sent_total{job=\"prometheus-k8s\",namespace=\"monitoring\",alertmanager!~``}[5m])\n)\n* 100\n\u003e 3",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheuserrorsendingalertstoanyalertmanager",
+		"append_tags": [
+			"AlertName=PrometheusErrorSendingAlertsToAnyAlertmanager",
+			"severity=critical"
+		]
+	}
+]

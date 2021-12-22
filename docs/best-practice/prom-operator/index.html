@@ -6,7 +6,7 @@
     <meta name="generator" content="Hugo 0.89.3" />
     <meta name="description" content="Documentation for nightingale">
     
-    <title>使用夜莺的的几种实践姿势 :: N9E</title>
+    <title>监控Kubernetes :: N9E</title>
     <link href="/css/nucleus.css?1640135901" rel="stylesheet">
     <link href="/css/fontawesome-all.min.css?1640135901" rel="stylesheet">
     <link href="/css/featherlight.min.css?1640135901" rel="stylesheet">
@@ -23,7 +23,7 @@
       }
     </style>
   </head>
-  <body class="" data-url="/best-practice/fccloud-usage/">
+  <body class="" data-url="/best-practice/prom-operator/">
     <script>
       var index_url="/index.json";
       var root_url="/";
@@ -65,14 +65,14 @@
           <li data-nav-id="/usage/alert-his-event/" title="全部历史告警事件" class="dd-item"><a href="/usage/alert-his-event/">全部历史告警事件<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/selfhealing/" title="告警自愈" class="dd-item"><a href="/usage/selfhealing/">告警自愈<i class="fas fa-check read-icon"></i></a></li></ul></li>
           <li data-nav-id="/best-practice/" title="理念实战" class="dd-item parent"><a href="/best-practice/">理念实战<i class="fas fa-check read-icon"></i></a><ul>
-          <li data-nav-id="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势" class="dd-item active"><a href="/best-practice/fccloud-usage/">使用夜莺的的几种实践姿势<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势" class="dd-item"><a href="/best-practice/fccloud-usage/">使用夜莺的的几种实践姿势<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/busi-group-design/" title="探讨业务组的设计和最佳实践" class="dd-item"><a href="/best-practice/busi-group-design/">探讨业务组的设计和最佳实践<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/linux_host/" title="监控Linux操作系统" class="dd-item"><a href="/best-practice/linux_host/">监控Linux操作系统<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/snmp/" title="使用SNMP采集网络设备的指标" class="dd-item"><a href="/best-practice/snmp/">使用SNMP采集网络设备的指标<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/promapm/" title="内嵌Prometheus SDK做APM" class="dd-item"><a href="/best-practice/promapm/">内嵌Prometheus SDK做APM<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/statsd/" title="内嵌Statsd SDK做APM" class="dd-item"><a href="/best-practice/statsd/">内嵌Statsd SDK做APM<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/middleware/" title="使用Telegraf和Exporter监控中间件" class="dd-item"><a href="/best-practice/middleware/">使用Telegraf和Exporter监控中间件<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/prom-operator/" title="监控Kubernetes" class="dd-item"><a href="/best-practice/prom-operator/">监控Kubernetes<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/prom-operator/" title="监控Kubernetes" class="dd-item active"><a href="/best-practice/prom-operator/">监控Kubernetes<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/http_response/" title="监控URL" class="dd-item"><a href="/best-practice/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/mysql/" title="监控MySQL" class="dd-item"><a href="/best-practice/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li></ul></li>
           <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
@@ -104,7 +104,7 @@
       <div class="padding highlightable">
         <div id="top-bar">
           <div id="top-github-link">
-            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/best-practice/fccloud-usage.md" target="blank">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/best-practice/prom-operator.md" target="blank">
               <i class="fas fa-code-branch"></i>
               <span id="top-github-link-text">Edit this page</span>
             </a>
@@ -120,38 +120,32 @@
               <meta itemprop="itemListOrder" content="Descending" />
                 <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
                 <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/best-practice/"><span itemprop="name">理念实战</span></a> > </li>
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/best-practice/fccloud-usage/" aria-disabled="true"><span itemprop="name">使用夜莺的的几种实践姿势</span></a></li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/best-practice/prom-operator/" aria-disabled="true"><span itemprop="name">监控Kubernetes</span></a></li>
             </ol>
           </div>
             <div class="progress">
               <div class="wrapper">
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#姿势一只是把nightingale作为webui">姿势一：只是把Nightingale作为WEBUI</a></li>
-    <li><a href="#姿势二使用telegraf替代各类exporter">姿势二：使用Telegraf替代各类Exporter</a></li>
-    <li><a href="#姿势三使用victoriametrics替换prometheus时序存储">姿势三：使用VictoriaMetrics替换Prometheus时序存储</a></li>
-  </ul>
-</nav>
+<nav id="TableOfContents"></nav>
               </div>
             </div>
         </div>
         <div id="head-tags">
         </div>
         <main id="body-inner">
-          <h1>使用夜莺的的几种实践姿势</h1>
+          <h1>监控Kubernetes</h1>
 
-<h2 id="姿势一只是把nightingale作为webui">姿势一：只是把Nightingale作为WEBUI</h2>
-<p>只部署n9e-webapi和n9e-server，配合Prometheus以及各类Exporter，可以在夜莺WEBUI上查看监控数据，配置监控大盘，配置告警规则、屏蔽规则、订阅规则，查看活跃告警、历史告警。且各类配置可以按照业务组拆分归组，相互之间没有影响。</p>
-<p>说只是作为WEBUI，其实不止，这种工作模式实际是替换掉了Prometheus内置的告警引擎+alertmanager，只需用Prometheus存时序数据，用Exporter抓取数据即可。</p>
-<h2 id="姿势二使用telegraf替代各类exporter">姿势二：使用Telegraf替代各类Exporter</h2>
-<p>Telegraf是个all-in-one的架构，一个二进制可以搞定机器、网络设备、中间件、数据库、Statsd等各种采集能力，相比散落的各类Exporter而言，维护成本更低一些，Telegraf支持通过OpenTSDB这个output plugin来对接夜莺。</p>
-<p>此时就可以解锁夜莺的对象管理能力，因为Telegraf采集的数据，会流经n9e-server，n9e-server就可以从监控数据中解析出监控对象信息（标签中的ident或host，就表示监控对象标识），知道最近有哪些监控对象在上报数据，哪些监控对象已经失联了，就可以顺道做NODATA逻辑。</p>
-<p>对象管理页面中，可以给监控对象打标签，这些标签会附到相关时序数据上，即：某个对象如果打了<code>bg=cloud</code>标签，这个对象有监控数据上报的时候，比如上报了cpu_usage_idle的监控数据，系统就可以从监控数据中解析出ident，然后根据ident找到页面上打的标签，然后把标签附到时序数据上。</p>
-<p>过半的监控数据其实都可以关联到某个监控对象，看图的时候先找到监控对象，再查监控数据是个挺顺畅的路径，所以，这就是对象视角看图页面的设计初衷，用了Telegraf，也就可以解锁使用这个页面的功能了。</p>
-<h2 id="姿势三使用victoriametrics替换prometheus时序存储">姿势三：使用VictoriaMetrics替换Prometheus时序存储</h2>
-<p>因为Prometheus时序存储是单机版，对于大规模场景，推荐使用VictoriaMetrics或者M3DB，因为M3DB有些复杂，一般建议使用VictoriaMetrics，VictoriaMetrics和Prometheus的查询接口完全兼容，所以夜莺也可以对接VictoriaMetrics，通过Prometheus协议的查询接口来查询VictoriaMetrics的数据。</p>
-<hr>
-<p>所以大规模集群环境建议的组合方式是Nightingale+Telegraf+VictorMetrics，简称<strong>NTVM</strong>，如果是规模不大，组合方式是Nightingale+Telegraf+Prometheus，简称<strong>NTP</strong>，如果Telegraf的采集能力在某些场景下不足，可以用对应场景的Exporter来补齐。</p>
+<p>对于Kubernetes监控，大家可以看一下 <a href="https://github.com/prometheus-operator/kube-prometheus">kube-prometheus</a> 这个项目，Kubernetes集群本身的运维管理，应该由一个专门的团队来做，这个专门的团队应该比较资深，对Kubernetes、对Prometheus都是比较熟悉的，用operator这种方式信手拈来。所以，在这个场景下，其实不太需要用到夜莺，那如果大家仍然想用夜莺来配置Kubernetes的告警规则、查看Kubernetes相关的监控数据，也没啥问题，只要把使用kube-prometheus启动的Prometheus接入夜莺即可。</p>
+<p>后面，我们会针对Kubernetes场景在夜莺里做专门的功能支持，不过目前尚未开始，这里把kube-prometheus项目中的各类告警规则，整理转换成了夜莺系统中可导入的告警规则JSON，大家如果需要的话可以自取。</p>
+<ul>
+<li><a href="/json/Alertmanager.json">Alertmanager</a></li>
+<li><a href="/json/KubeControlPlane.json">KubeControlPlane</a></li>
+<li><a href="/json/KubePrometheus.json">KubePrometheus</a></li>
+<li><a href="/json/KubeStateMetrics.json">KubeStateMetrics</a></li>
+<li><a href="/json/NodeExporter.json">NodeExporter</a></li>
+<li><a href="/json/PromOperator.json">PromOperator</a></li>
+<li><a href="/json/PrometheusSelf.json">PrometheusSelf</a></li>
+</ul>
+<p>如果用夜莺来做告警，其实就不需要Alertmanager了，所以下面kube-prometheus项目中提供的Alertmanager相关的告警规则，其实也用不上了，不过还是放在了这里，大家看自己的场景需求吧。</p>
 
           <footer class="footline">
           </footer>
@@ -162,8 +156,8 @@
 
       </div>
       <div id="navigation">
-        <a class="nav nav-prev" href="/best-practice/" title="理念实战"><i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/best-practice/busi-group-design/" title="探讨业务组的设计和最佳实践"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/best-practice/middleware/" title="使用Telegraf和Exporter监控中间件"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/best-practice/http_response/" title="监控URL"><i class="fa fa-chevron-right"></i></a>
       </div>
     </div>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

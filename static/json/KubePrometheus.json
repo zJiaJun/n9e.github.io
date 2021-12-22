@@ -1,0 +1,68 @@
+[
+	{
+		"name": "TargetDown - One or more targets are unreachable.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 600,
+		"prom_ql": "100 * (count(up == 0) BY (job, namespace, service) / count(up) BY (job, namespace, service)) \u003e 10",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/general/targetdown",
+		"append_tags": [
+			"AlertName=TargetDown",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "NodeNetworkInterfaceFlapping - Network interface is often changing its status",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 120,
+		"prom_ql": "changes(node_network_up{job=\"node-exporter\",device!~\"veth.+\"}[2m]) \u003e 2",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/general/nodenetworkinterfaceflapping",
+		"append_tags": [
+			"AlertName=NodeNetworkInterfaceFlapping",
+			"severity=warning"
+		]
+	}
+]

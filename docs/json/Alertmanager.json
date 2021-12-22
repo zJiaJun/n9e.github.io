@@ -1,0 +1,266 @@
+[
+	{
+		"name": "AlertmanagerFailedReload - Reloading an Alertmanager configuration has failed.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 600,
+		"prom_ql": "max_over_time(alertmanager_config_last_reload_successful{job=\"alertmanager-main\",namespace=\"monitoring\"}[5m]) == 0",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/alertmanager/alertmanagerfailedreload",
+		"append_tags": [
+			"AlertName=AlertmanagerFailedReload",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "AlertmanagerMembersInconsistent - A member of an Alertmanager cluster has not found all other cluster members.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 900,
+		"prom_ql": "  max_over_time(alertmanager_cluster_members{job=\"alertmanager-main\",namespace=\"monitoring\"}[5m])\n\u003c on (namespace,service) group_left\n  count by (namespace,service) (max_over_time(alertmanager_cluster_members{job=\"alertmanager-main\",namespace=\"monitoring\"}[5m]))",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/alertmanager/alertmanagermembersinconsistent",
+		"append_tags": [
+			"AlertName=AlertmanagerMembersInconsistent",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "AlertmanagerFailedToSendAlerts - An Alertmanager instance failed to send notifications.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 300,
+		"prom_ql": "(\n  rate(alertmanager_notifications_failed_total{job=\"alertmanager-main\",namespace=\"monitoring\"}[5m])\n/\n  rate(alertmanager_notifications_total{job=\"alertmanager-main\",namespace=\"monitoring\"}[5m])\n)\n\u003e 0.01",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/alertmanager/alertmanagerfailedtosendalerts",
+		"append_tags": [
+			"AlertName=AlertmanagerFailedToSendAlerts",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "AlertmanagerClusterFailedToSendAlerts - All Alertmanager instances in a cluster failed to send notifications to a critical integration.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 300,
+		"prom_ql": "min by (namespace,service, integration) (\n  rate(alertmanager_notifications_failed_total{job=\"alertmanager-main\",namespace=\"monitoring\", integration=~`.*`}[5m])\n/\n  rate(alertmanager_notifications_total{job=\"alertmanager-main\",namespace=\"monitoring\", integration=~`.*`}[5m])\n)\n\u003e 0.01",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/alertmanager/alertmanagerclusterfailedtosendalerts",
+		"append_tags": [
+			"AlertName=AlertmanagerClusterFailedToSendAlerts",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "AlertmanagerClusterFailedToSendAlerts - All Alertmanager instances in a cluster failed to send notifications to a non-critical integration.",
+		"note": "",
+		"severity": 2,
+		"disabled": 0,
+		"prom_for_duration": 300,
+		"prom_ql": "min by (namespace,service, integration) (\n  rate(alertmanager_notifications_failed_total{job=\"alertmanager-main\",namespace=\"monitoring\", integration!~`.*`}[5m])\n/\n  rate(alertmanager_notifications_total{job=\"alertmanager-main\",namespace=\"monitoring\", integration!~`.*`}[5m])\n)\n\u003e 0.01",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/alertmanager/alertmanagerclusterfailedtosendalerts",
+		"append_tags": [
+			"AlertName=AlertmanagerClusterFailedToSendAlerts",
+			"severity=warning"
+		]
+	},
+	{
+		"name": "AlertmanagerConfigInconsistent - Alertmanager instances within the same cluster have different configurations.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 1200,
+		"prom_ql": "count by (namespace,service) (\n  count_values by (namespace,service) (\"config_hash\", alertmanager_config_hash{job=\"alertmanager-main\",namespace=\"monitoring\"})\n)\n!= 1",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/alertmanager/alertmanagerconfiginconsistent",
+		"append_tags": [
+			"AlertName=AlertmanagerConfigInconsistent",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "AlertmanagerClusterDown - Half or more of the Alertmanager instances within the same cluster are down.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 300,
+		"prom_ql": "(\n  count by (namespace,service) (\n    avg_over_time(up{job=\"alertmanager-main\",namespace=\"monitoring\"}[5m]) \u003c 0.5\n  )\n/\n  count by (namespace,service) (\n    up{job=\"alertmanager-main\",namespace=\"monitoring\"}\n  )\n)\n\u003e= 0.5",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/alertmanager/alertmanagerclusterdown",
+		"append_tags": [
+			"AlertName=AlertmanagerClusterDown",
+			"severity=critical"
+		]
+	},
+	{
+		"name": "AlertmanagerClusterCrashlooping - Half or more of the Alertmanager instances within the same cluster are crashlooping.",
+		"note": "",
+		"severity": 1,
+		"disabled": 0,
+		"prom_for_duration": 300,
+		"prom_ql": "(\n  count by (namespace,service) (\n    changes(process_start_time_seconds{job=\"alertmanager-main\",namespace=\"monitoring\"}[10m]) \u003e 4\n  )\n/\n  count by (namespace,service) (\n    up{job=\"alertmanager-main\",namespace=\"monitoring\"}\n  )\n)\n\u003e= 0.5",
+		"prom_eval_interval": 60,
+		"enable_stime": "00:00",
+		"enable_etime": "23:59",
+		"enable_days_of_week": [
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"0"
+		],
+		"notify_recovered": 1,
+		"notify_channels": [
+			"email",
+			"dingtalk",
+			"wecom"
+		],
+		"notify_repeat_step": 60,
+		"callbacks": [],
+		"runbook_url": "https://runbooks.prometheus-operator.dev/runbooks/alertmanager/alertmanagerclustercrashlooping",
+		"append_tags": [
+			"AlertName=AlertmanagerClusterCrashlooping",
+			"severity=critical"
+		]
+	}
+]
