@@ -17,5 +17,4 @@ title: "监控Kubernetes"
 
 如果用夜莺来做告警，其实就不需要Alertmanager了，所以下面kube-prometheus项目中提供的Alertmanager相关的告警规则，其实也用不上了，不过还是放在了这里，大家看自己的场景需求吧。
 
-
-
+另外，kube-operator项目的告警规则，很多用到了recording rule，这些recording rule还是需要继续在Prometheus中配置，夜莺不提供recording rule的UI化管理。
