@@ -63,7 +63,7 @@ Info注意ident这个标签，ident是identity的缩写，表示设备的唯一�
       <link>https://n9e.github.io/usecase/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://n9e.github.io/usecase/</guid>
-      <description> Telegraf Windows版本的安装，保姆级教程 - by SL Telegraf Linux版本的安装，保姆级教程 - by SL 弃用Prometheus，搭建单机版本的VictoriaMetrics - by SL 使用Telegraf做夜莺5.0的数据采集，样例包含Linux基本信息采集、MySQL、Redis的采集 - by 柴今栋@艾派 修改notify.py为夜莺增加短信通知能力 - by 柴今栋@艾派 Oracle的简单监控实现 - by 柴今栋@艾派 RocketMQ简单监控的实现 - by 柴今栋@艾派  </description>
+      <description> Telegraf Windows版本的安装，保姆级教程 - by SL Telegraf Linux版本的安装，保姆级教程 - by SL 弃用Prometheus，搭建单机版本的VictoriaMetrics - by SL 一键部署夜莺到Kubernetes - by 陶柒 使用Telegraf做夜莺5.0的数据采集，样例包含Linux基本信息采集、MySQL、Redis的采集 - by 柴今栋@艾派 修改notify.py为夜莺增加短信通知能力 - by 柴今栋@艾派 使用notify.py接入阿里云语音通知 - by 果 Oracle的简单监控实现 - by 柴今栋@艾派 RocketMQ简单监控的实现 - by 柴今栋@艾派  </description>
     </item>
   </channel>
 </rss>

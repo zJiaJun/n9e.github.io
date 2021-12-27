@@ -175,11 +175,11 @@
     "uri": "/best-practice/middleware/"
   },
   {
-    "content": "对于Kubernetes监控，大家可以看一下 kube-prometheus 这个项目，Kubernetes集群本身的运维管理，应该由一个专门的团队来做，这个专门的团队应该比较资深，对Kubernetes、对Prometheus都是比较熟悉的，用operator这种方式信手拈来。所以，在这个场景下，其实不太需要用到夜莺，那如果大家仍然想用夜莺来配置Kubernetes的告警规则、查看Kubernetes相关的监控数据，也没啥问题，只要把使用kube-prometheus启动的Prometheus接入夜莺即可。\n后面，我们会针对Kubernetes场景在夜莺里做专门的功能支持，不过目前尚未开始，这里把kube-prometheus项目中的各类告警规则，整理转换成了夜莺系统中可导入的告警规则JSON，大家如果需要的话可以自取。\n Alertmanager KubeControlPlane KubePrometheus KubeStateMetrics NodeExporter PromOperator PrometheusSelf  如果用夜莺来做告警，其实就不需要Alertmanager了，所以下面kube-prometheus项目中提供的Alertmanager相关的告警规则，其实也用不上了，不过还是放在了这里，大家看自己的场景需求吧。\n另外，kube-operator项目的告警规则，很多用到了recording rule，这些recording rule还是需要继续在Prometheus中配置，夜莺不提供recording rule的UI化管理。\n",
+    "content": "kube-prometheus kube-prometheus 这个项目大家可以参考下。Kubernetes集群本身的运维管理，应该由一个专门的团队来做，这个专门的团队应该比较资深，对Kubernetes、对Prometheus都是比较熟悉的，用operator这种方式信手拈来。所以，在这个场景下，其实不太需要用到夜莺，那如果大家仍然想用夜莺来配置Kubernetes的告警规则、查看Kubernetes相关的监控数据，也没啥问题，只要把使用kube-prometheus启动的Prometheus接入夜莺即可。\n后面，我们会针对Kubernetes场景在夜莺里做专门的功能支持，不过目前尚未开始，这里把kube-prometheus项目中的各类告警规则，整理转换成了夜莺系统中可导入的告警规则JSON，大家如果需要的话可以自取。\n Alertmanager KubeControlPlane KubePrometheus KubeStateMetrics NodeExporter PromOperator PrometheusSelf  如果用夜莺来做告警，其实就不需要Alertmanager了，所以下面kube-prometheus项目中提供的Alertmanager相关的告警规则，其实也用不上了，不过还是放在了这里，大家看自己的场景需求吧。\n另外，kube-operator项目的告警规则，很多用到了recording rule，这些recording rule还是需要继续在Prometheus中配置，夜莺不提供recording rule的UI化管理。\nTelegraf Telegraf监控Kubernetes有两个input plugin大家可以看看，一个是kube_inventory，一个是kubernetes 具体我还没有研究，大家如果有已经研究过的，欢迎写文章分享哈\n",
     "description": "",
     "tags": null,
     "title": "监控Kubernetes",
-    "uri": "/best-practice/prom-operator/"
+    "uri": "/best-practice/k8s/"
   },
   {
     "content": "之前在写调研笔记的时候，测试了PING监控和TCP探测监控，调研笔记在 这里 这个章节主要给大家讲解域名URL探测。直接上测试配置：\n[[inputs.http_response]] urls = [\"https://www.baidu.com\", \"http://ulricqin.io/ping\"] response_timeout = \"5s\" method = \"GET\" fielddrop = [\"result_type\"] tagexclude = [\"result\", \"status_code\"] https://www.baidu.com 显然是通的，http://ulricqin.io/ping 这个是个假的URL，不通，我们测试一下输出的内容：\n[root@10-255-0-34 telegraf-1.20.3]# ./usr/bin/telegraf --config etc/telegraf/telegraf.conf --input-filter http_response --test 2021-12-13T04:16:43Z I! Starting Telegraf 1.20.3 \u003e http_response,host=10-255-0-34,method=GET,server=https://www.baidu.com content_length=227i,http_response_code=200i,response_time=0.028757521,result_code=0i 1639369003000000000 \u003e http_response,host=10-255-0-34,method=GET,server=http://ulricqin.io/ping result_code=5i 1639369003000000000 这里有个字段是result_code，用这个字段配置告警即可，正常可以访问的URL，result_code是0，不正常就是非0，告警规则里可以配置如下promql：\nhttp_response_result_code != 0 或者直接在夜莺的告警规则页面导入这条告警规则JSON：\n[ { \"name\": \"有URL探测失败，请注意\", \"note\": \"\", \"severity\": 1, \"disabled\": 0, \"prom_for_duration\": 60, \"prom_ql\": \"http_response_result_code != 0\", \"prom_eval_interval\": 15, \"enable_stime\": \"00:00\", \"enable_etime\": \"23:59\", \"enable_days_of_week\": [ \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"0\" ], \"notify_recovered\": 1, \"notify_channels\": [ \"email\", \"dingtalk\", \"wecom\" ], \"notify_repeat_step\": 60, \"callbacks\": [], \"runbook_url\": \"\", \"append_tags\": [] } ] 如果想对域名返回的statuscode或者response body的内容做判断，Telegraf也是支持的，使用response_status_code和response_string_match这些字段配置，配置文件里有样例，大家可以自行参考下。\n",
@@ -203,7 +203,7 @@
     "uri": "/api/"
   },
   {
-    "content": " Telegraf Windows版本的安装，保姆级教程 - by SL Telegraf Linux版本的安装，保姆级教程 - by SL 弃用Prometheus，搭建单机版本的VictoriaMetrics - by SL 使用Telegraf做夜莺5.0的数据采集，样例包含Linux基本信息采集、MySQL、Redis的采集 - by 柴今栋@艾派 修改notify.py为夜莺增加短信通知能力 - by 柴今栋@艾派 Oracle的简单监控实现 - by 柴今栋@艾派 RocketMQ简单监控的实现 - by 柴今栋@艾派  ",
+    "content": " Telegraf Windows版本的安装，保姆级教程 - by SL Telegraf Linux版本的安装，保姆级教程 - by SL 弃用Prometheus，搭建单机版本的VictoriaMetrics - by SL 一键部署夜莺到Kubernetes - by 陶柒 使用Telegraf做夜莺5.0的数据采集，样例包含Linux基本信息采集、MySQL、Redis的采集 - by 柴今栋@艾派 修改notify.py为夜莺增加短信通知能力 - by 柴今栋@艾派 使用notify.py接入阿里云语音通知 - by 果 Oracle的简单监控实现 - by 柴今栋@艾派 RocketMQ简单监控的实现 - by 柴今栋@艾派  ",
     "description": "",
     "tags": null,
     "title": "社区用户实践分享",
