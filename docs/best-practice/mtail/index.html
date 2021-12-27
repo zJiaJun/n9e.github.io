@@ -6,7 +6,7 @@
     <meta name="generator" content="Hugo 0.89.3" />
     <meta name="description" content="Documentation for nightingale">
     
-    <title>使用Telegraf采集监控数据 :: N9E</title>
+    <title>监控日志（超级轻量的方案） :: N9E</title>
     <link href="/css/nucleus.css?1640574253" rel="stylesheet">
     <link href="/css/fontawesome-all.min.css?1640574253" rel="stylesheet">
     <link href="/css/featherlight.min.css?1640574253" rel="stylesheet">
@@ -23,7 +23,7 @@
       }
     </style>
   </head>
-  <body class="" data-url="/quickstart/telegraf/">
+  <body class="" data-url="/best-practice/mtail/">
     <script>
       var index_url="/index.json";
       var root_url="/";
@@ -47,10 +47,10 @@
       </div>
       <div class="highlightable">
         <ul class="topics">
-          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item parent"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
           <li data-nav-id="/quickstart/compose/" title="使用Docker Compose快速部署" class="dd-item"><a href="/quickstart/compose/">使用Docker Compose快速部署<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/standalone/" title="快速在生产环境部署启动单机版" class="dd-item"><a href="/quickstart/standalone/">快速在生产环境部署启动单机版<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item active"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
@@ -64,7 +64,7 @@
           <li data-nav-id="/usage/alert-cur-event/" title="当前告警活跃事件" class="dd-item"><a href="/usage/alert-cur-event/">当前告警活跃事件<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-his-event/" title="全部历史告警事件" class="dd-item"><a href="/usage/alert-his-event/">全部历史告警事件<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/selfhealing/" title="告警自愈" class="dd-item"><a href="/usage/selfhealing/">告警自愈<i class="fas fa-check read-icon"></i></a></li></ul></li>
-          <li data-nav-id="/best-practice/" title="理念实战" class="dd-item"><a href="/best-practice/">理念实战<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/best-practice/" title="理念实战" class="dd-item parent"><a href="/best-practice/">理念实战<i class="fas fa-check read-icon"></i></a><ul>
           <li data-nav-id="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势" class="dd-item"><a href="/best-practice/fccloud-usage/">使用夜莺的的几种实践姿势<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/busi-group-design/" title="探讨业务组的设计和最佳实践" class="dd-item"><a href="/best-practice/busi-group-design/">探讨业务组的设计和最佳实践<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/linux_host/" title="监控Linux操作系统" class="dd-item"><a href="/best-practice/linux_host/">监控Linux操作系统<i class="fas fa-check read-icon"></i></a></li>
@@ -74,7 +74,7 @@
           <li data-nav-id="/best-practice/middleware/" title="使用Telegraf和Exporter监控中间件" class="dd-item"><a href="/best-practice/middleware/">使用Telegraf和Exporter监控中间件<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/k8s/" title="监控Kubernetes" class="dd-item"><a href="/best-practice/k8s/">监控Kubernetes<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/http_response/" title="监控URL" class="dd-item"><a href="/best-practice/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/mtail/" title="监控日志（超级轻量的方案）" class="dd-item"><a href="/best-practice/mtail/">监控日志（超级轻量的方案）<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/best-practice/mtail/" title="监控日志（超级轻量的方案）" class="dd-item active"><a href="/best-practice/mtail/">监控日志（超级轻量的方案）<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/mysql/" title="监控MySQL" class="dd-item"><a href="/best-practice/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li></ul></li>
           <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
           <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
@@ -105,7 +105,7 @@
       <div class="padding highlightable">
         <div id="top-bar">
           <div id="top-github-link">
-            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/quickstart/telegraf.md" target="blank">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/best-practice/mtail.md" target="blank">
               <i class="fas fa-code-branch"></i>
               <span id="top-github-link-text">Edit this page</span>
             </a>
@@ -120,15 +120,19 @@
             <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
               <meta itemprop="itemListOrder" content="Descending" />
                 <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/quickstart/"><span itemprop="name">安装部署</span></a> > </li>
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/quickstart/telegraf/" aria-disabled="true"><span itemprop="name">使用Telegraf采集监控数据</span></a></li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/best-practice/"><span itemprop="name">理念实战</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/best-practice/mtail/" aria-disabled="true"><span itemprop="name">监控日志（超级轻量的方案）</span></a></li>
             </ol>
           </div>
             <div class="progress">
               <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#网友分享">网友分享</a></li>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#mtail简介">mtail简介</a></li>
+    <li><a href="#mtail样例">mtail样例</a></li>
+    <li><a href="#mtail更多样例">mtail更多样例</a></li>
+    <li><a href="#关于时间戳">关于时间戳</a></li>
   </ul>
 </nav>
               </div>
@@ -137,108 +141,56 @@
         <div id="head-tags">
         </div>
         <main id="body-inner">
-          <h1>使用Telegraf采集监控数据</h1>
+          <h1>监控日志（超级轻量的方案）</h1>
 
-<blockquote>
-<p>Telegraf 是 InfluxData 开源的一款采集器，可以采集操作系统、各种中间件的监控指标，采集<a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs">目标列表</a>，看起来是非常丰富，Telegraf是一个大一统的设计，即一个二进制可以采集CPU、内存、mysql、mongodb、redis、snmp等，不像Prometheus的exporter，每个监控对象一个exporter，管理起来略麻烦。一个二进制分发起来确实比较方便。</p>
-</blockquote>
-<p>这里提供快速安装的教程，Telegraf的更多知识，请参考<a href="https://github.com/influxdata/telegraf">Telegraf官网</a>，笔者之前也写了一个<a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU3ODAxNTIzMQ==&amp;action=getalbum&amp;album_id=2124352687600205826&amp;scene=173&amp;from_msgid=2247484223&amp;from_itemidx=1&amp;count=3&amp;nolastread=1">Telegraf调研笔记</a>，大家亦可参考。</p>
-<p>Telegraf下载地址在<a href="https://github.com/influxdata/telegraf/releases">这里</a>，根据自己的平台选择对应的二进制下载即可。笔者的环境是CentOS，下面是安装脚本，/opt/telegraf/telegraf.conf 是一个经过删减的干净的配置文件，指定了opentsdb output plugin，这个plugin的写入地址配置的是n9e-server，所以，Telegraf采集的数据会被推送给n9e-server，二者贯通：</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#78787e">#!/bin/sh
-</span><span style="color:#78787e"></span>
-<span style="color:#ff5c57">version</span><span style="color:#ff6ac1">=</span>1.20.4
-<span style="color:#ff5c57">tarball</span><span style="color:#ff6ac1">=</span>telegraf-<span style="color:#5af78e">${</span><span style="color:#ff5c57">version</span><span style="color:#5af78e">}</span>_linux_amd64.tar.gz
-wget https://dl.influxdata.com/telegraf/releases/<span style="color:#ff5c57">$tarball</span>
-tar xzvf <span style="color:#ff5c57">$tarball</span>
-
-mkdir -p /opt/telegraf
-cp -far telegraf-<span style="color:#5af78e">${</span><span style="color:#ff5c57">version</span><span style="color:#5af78e">}</span>/usr/bin/telegraf /opt/telegraf
-
-cat <span style="color:#5af78e">&lt;&lt;EOF &gt; /opt/telegraf/telegraf.conf
-</span><span style="color:#5af78e">[global_tags]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[agent]
-</span><span style="color:#5af78e">  interval = &#34;10s&#34;
-</span><span style="color:#5af78e">  round_interval = true
-</span><span style="color:#5af78e">  metric_batch_size = 1000
-</span><span style="color:#5af78e">  metric_buffer_limit = 10000
-</span><span style="color:#5af78e">  collection_jitter = &#34;0s&#34;
-</span><span style="color:#5af78e">  flush_interval = &#34;10s&#34;
-</span><span style="color:#5af78e">  flush_jitter = &#34;0s&#34;
-</span><span style="color:#5af78e">  precision = &#34;&#34;
-</span><span style="color:#5af78e">  hostname = &#34;&#34;
-</span><span style="color:#5af78e">  omit_hostname = false
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[outputs.opentsdb]]
-</span><span style="color:#5af78e">  host = &#34;http://127.0.0.1&#34;
-</span><span style="color:#5af78e">  port = 19000
-</span><span style="color:#5af78e">  http_batch_size = 50
-</span><span style="color:#5af78e">  http_path = &#34;/opentsdb/put&#34;
-</span><span style="color:#5af78e">  debug = false
-</span><span style="color:#5af78e">  separator = &#34;_&#34;
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.cpu]]
-</span><span style="color:#5af78e">  percpu = true
-</span><span style="color:#5af78e">  totalcpu = true
-</span><span style="color:#5af78e">  collect_cpu_time = false
-</span><span style="color:#5af78e">  report_active = true
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.disk]]
-</span><span style="color:#5af78e">  ignore_fs = [&#34;tmpfs&#34;, &#34;devtmpfs&#34;, &#34;devfs&#34;, &#34;iso9660&#34;, &#34;overlay&#34;, &#34;aufs&#34;, &#34;squashfs&#34;]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.diskio]]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.kernel]]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.mem]]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.processes]]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.system]]
-</span><span style="color:#5af78e">  fielddrop = [&#34;uptime_format&#34;]
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[[inputs.net]]
-</span><span style="color:#5af78e">  ignore_protocol_stats = true
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">EOF</span>
-
-cat <span style="color:#5af78e">&lt;&lt;EOF &gt; /etc/systemd/system/telegraf.service
-</span><span style="color:#5af78e">[Unit]
-</span><span style="color:#5af78e">Description=&#34;telegraf&#34;
-</span><span style="color:#5af78e">After=network.target
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[Service]
-</span><span style="color:#5af78e">Type=simple
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">ExecStart=/opt/telegraf/telegraf --config telegraf.conf
-</span><span style="color:#5af78e">WorkingDirectory=/opt/telegraf
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">Restart=on-failure
-</span><span style="color:#5af78e">SuccessExitStatus=0
-</span><span style="color:#5af78e">LimitNOFILE=65536
-</span><span style="color:#5af78e">StandardOutput=syslog
-</span><span style="color:#5af78e">StandardError=syslog
-</span><span style="color:#5af78e">SyslogIdentifier=telegraf
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">
-</span><span style="color:#5af78e">[Install]
-</span><span style="color:#5af78e">WantedBy=multi-user.target
-</span><span style="color:#5af78e">EOF</span>
-
-systemctl daemon-reload
-systemctl <span style="color:#ff5c57">enable</span> telegraf
-systemctl restart telegraf
-systemctl status telegraf
-</code></pre></div>
-<div class="notices warning">
-    <div class="label">Warning</div><p><code>/opt/telegraf/telegraf.conf</code>的内容是个删减版，只是为了让大家快速跑起来，如果要采集更多监控对象，比如mysql、redis、tomcat等，还是要仔细去阅读从tarball里解压出来的那个配置文件，那里有很详细的注释，也可以参考官方提供的各个采集插件下的<a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs">README</a></p>
-
-</div>
-<h2 id="网友分享">网友分享</h2>
+<h2 id="前言">前言</h2>
+<p>说到日志监控，大家第一反应的可能是ELK的方案，或者Loki的方案，这两个方案都是把日志采集了发到中心，在中心存储、查看、分析，不过这个方案相对比较重量级一些，如果我们的需求只是从日志中提取一些metrics数据，比如统计一些日志中出现的Error次数之类的，则有一个更简单的方案。</p>
+<p>这个方案在夜莺v4版本中是有的，不过后来推荐大家客户端使用Telegraf，Telegraf没有这个能力，所以v5版本的夜莺没法监控日志，怎么办呢？这里给大家介绍一个Google出品的瑞士军刀，<a href="https://github.com/google/mtail">mtail</a>，mtail和夜莺v4的方案类似，就是流式读取日志，通过正则表达式匹配的方式从日志中提取metrics指标，这种方式可以利用目标机器的算力，不过如果量太大，可能会影响目标机器上的业务程序，另外一个好处是无侵入性，不需要业务埋点，如果业务程序是第三方供应商提供的，我们改不了其代码，mtail此时就非常合适了。当然了，如果业务程序是我们公司的人自己写的，那还是建议用埋点的方式采集指标，mtail只是作为一个补充吧。</p>
+<h2 id="mtail简介">mtail简介</h2>
+<p>mtail的使用方案，参考如下两个文档（下载的话参考<a href="https://github.com/google/mtail/releases">Releases页面</a>）：</p>
 <ul>
-<li><a href="https://t.zsxq.com/ba2Faqb">Telegraf的Linux版安装分享</a></li>
-<li><a href="https://t.zsxq.com/AAqFQJY">Telegraf的Windows版安装分享</a></li>
+<li><a href="https://github.com/google/mtail/blob/main/docs/Deploying.md">Deploying</a></li>
+<li><a href="https://google.github.io/mtail/Programming-Guide.html">Programming Guide</a></li>
 </ul>
+<p>我们拿mtail的启动命令来举例其用法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mtail --progs /etc/mtail --logs /var/log/syslog --logs /var/log/ntp/peerstats
+</code></pre></div><p>通过 <code>--progs</code> 参数指定一个目录，这个目录里放置一堆的<code>*.mtail</code>文件，每个mtail文件就是描述的正则提取规则，通过 <code>--logs</code> 参数来指定要监控的日志目录，可以写通配符，<code>--logs</code> 可以写多次，上例中只是指定了 <code>--progs</code> 和 <code>--logs</code> ，没有其他参数，mtail启动之后会自动监听一个端口3903，在3903的<code>/metrics</code>接口暴露符合Prometheus协议的监控数据，Prometheus（或者Telegraf）就可以从 <code>/metrics</code> 接口提取监控数据。</p>
+<p>这样看起来，原理就很清晰了，mtail启动之后，根据 <code>--logs</code> 找到相关日志文件文件，seek到文件末尾，开始流式读取，每读到一行，就根据 <code>--progs</code> 指定的那些规则文件做匹配，看是否符合某些正则，从中提取时序数据，然后通过3903的<code>/metrics</code>暴露采集到的监控指标。当然，除了Prometheus这种<code>/metrics</code>方式暴露，mtail还支持把监控数据直接推给graphite或者statsd，具体可以参考：<a href="https://github.com/google/mtail/blob/main/docs/Interoperability.md">这里</a></p>
+<h2 id="mtail样例">mtail样例</h2>
+<p>这里我用mtail监控一下n9e-server的日志，从中提取一下各个告警规则触发的notify的数量，这个日志举例：</p>
+<pre tabindex="0"><code>2021-12-27 10:00:30.537582 INFO engine/logger.go:19 event(cbb8d4be5efd07983c296aaa4dec5737 triggered) notify: rule_id=9 [__name__=net_response_result_code author=qin ident=10-255-0-34 port=4567 protocol=tcp server=localhost]2@1640570430
+</code></pre><p>很明显，日志中有这么个关键字：<code>notify: rule_id=9</code>，可以用正则来匹配，统计出现的行数，ruleid也可以从中提取到，这样，我们可以把ruleid作为标签上报，于是乎，我们就可以写出这样的mtail规则了：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ff6ac1">[</span>root@10-255-0-34 nightingale<span style="color:#ff6ac1">]</span><span style="color:#78787e"># cat /etc/mtail/n9e-server.mtail</span>
+counter mtail_alert_rule_notify_total by ruleid
+
+/notify: <span style="color:#ff5c57">rule_id</span><span style="color:#ff6ac1">=(</span>?P&lt;ruleid&gt;<span style="color:#5af78e">\d</span>+<span style="color:#ff6ac1">)</span>/ <span style="color:#ff6ac1">{</span>
+    mtail_alert_rule_notify_total<span style="color:#ff6ac1">[</span><span style="color:#ff5c57">$ruleid</span><span style="color:#ff6ac1">]</span>++
+<span style="color:#ff6ac1">}</span>
+</code></pre></div><p>然后启动也比较简单，我这里就用nohup简单来做：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nohup mtail -logtostderr --progs /etc/mtail --logs server.log &amp;&gt; stdout.log &amp;
+</code></pre></div><p>mtail没有指定绝对路径，是因为我把mtail的二进制直接放在了 <code>/usr/bin</code> 下面了，mtail默认会监听在3903，所以我们可以用如下命令验证：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -s localhost:3903/metrics
+</code></pre></div><p>可以看到输出如下内容：</p>
+<pre tabindex="0"><code># HELP mtail_alert_rule_notify_total defined at n9e-server.mtail:1:9-37
+# TYPE mtail_alert_rule_notify_total counter
+mtail_alert_rule_notify_total{prog=&quot;n9e-server.mtail&quot;,ruleid=&quot;9&quot;} 6
+</code></pre><p>上面的输出只是挑选了部分内容，没有全部放出来哈，这就表示正常采集到了，如果n9e的server.log中当前没有打印notify相关的日志，那请求<code>/metrics</code>接口是没法得到上面的输出的，可以手工配置一条必然会触发的规则，待日志里有相关输出的时候再次请求 <code>/metrics</code> 接口，应该就有了</p>
+<p>最后，我们使用Telegraf来采集一下 <code>localhost:3903/metrics</code> 这个地址的输出，在telegraf.conf中添加如下配置：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[[inputs.prometheus]]
+urls = [<span style="color:#5af78e">&#34;http://localhost:3903/metrics&#34;</span>]
+</code></pre></div><p>完事重启Telegraf或者给Telegraf进程发一个SIGHUP信号：</p>
+<pre tabindex="0"><code>kill -HUP `pidof telegraf`
+</code></pre><p>等一会，就可以在页面上查到相关指标了，我们拿着mtail_alert_rule_notify_total这个指标去即时查询里查，会发现查不到数据，而是出现了一个mtail_alert_rule_notify_total_counter这样的指标，看起来像是Telegraf对于Prometheus协议的监控数据，自动加了后缀，无所谓了，大家注意一下就好。如果在prometheus.yaml中配置scrape_config来抓取mtail，应该不会自动加上<code>_counter</code>的后缀。</p>
+<p>另外，mtail的配置文件如果发生变化，是需要重启mtail才能生效的，或者也是类似Telegraf那样发一个SIGHUP信号给mtail，mtail收到信号就会重新加载配置。</p>
+<h2 id="mtail更多样例">mtail更多样例</h2>
+<p>mtail的github repo中有一个<a href="https://github.com/google/mtail/tree/main/examples">examples</a>，里边有挺多例子，大家可以参考。我在这里再给大家举1个简单例子，比如我们要统计/var/log/messages文件中的 <code>Out of memory</code> 关键字，mtail规则应该怎么写呢？其实比上面举例的mtail_alert_rule_notify_total还要更简单：</p>
+<pre tabindex="0"><code>counter mtail_oom_total
+
+/Out of memory/ {
+    mtail_oom_total++
+}
+</code></pre><h2 id="关于时间戳">关于时间戳</h2>
+<p>最后说一下时间戳的问题，日志中每一行一般都是有个时间戳的，夜莺v4版本在页面上配置采集规则的时候，就是要选择时间戳的，但是mtail，上面的例子中没有处理时间戳，为啥？其实mtail也可以支持从日志中提取时间戳，如果没有配置的话，就用系统当前时间，个人认为，用系统当前时间就可以了，从日志中提取时间稍微还有点麻烦，当然，系统当前时间和日志中的时间可能稍微有差别，但是不会差很多的，可以接受，examples中的mtail样例，也基本都没有给出时间戳的提取，估计这就是最佳实践。</p>
 
           <footer class="footline">
           </footer>
@@ -249,8 +201,8 @@ systemctl status telegraf
 
       </div>
       <div id="navigation">
-        <a class="nav nav-prev" href="/quickstart/standalone/" title="快速在生产环境部署启动单机版"><i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/best-practice/http_response/" title="监控URL"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/best-practice/mysql/" title="监控MySQL"><i class="fa fa-chevron-right"></i></a>
       </div>
     </div>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

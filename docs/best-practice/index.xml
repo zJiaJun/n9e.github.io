@@ -107,6 +107,22 @@ http_response_result_code != 0 或者直接在夜莺的告警规则页面导入�
 [ { &amp;#34;name&amp;#34;: &amp;#34;有URL探测失败，请注意&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 1, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;http_response_result_code != 0&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] } ] 如果想对域名返回的statuscode或者response body的内容做判断，Telegraf也是支持的，使用response_status_code和response_string_match这些字段配置，配置文件里有样例，大家可以自行参考下。</description>
     </item>
     <item>
+      <title>监控日志（超级轻量的方案）</title>
+      <link>https://n9e.github.io/best-practice/mtail/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/best-practice/mtail/</guid>
+      <description>前言 说到日志监控，大家第一反应的可能是ELK的方案，或者Loki的方案，这两个方案都是把日志采集了发到中心，在中心存储、查看、分析，不过这个方案相对比较重量级一些，如果我们的需求只是从日志中提取一些metrics数据，比如统计一些日志中出现的Error次数之类的，则有一个更简单的方案。
+这个方案在夜莺v4版本中是有的，不过后来推荐大家客户端使用Telegraf，Telegraf没有这个能力，所以v5版本的夜莺没法监控日志，怎么办呢？这里给大家介绍一个Google出品的瑞士军刀，mtail，mtail和夜莺v4的方案类似，就是流式读取日志，通过正则表达式匹配的方式从日志中提取metrics指标，这种方式可以利用目标机器的算力，不过如果量太大，可能会影响目标机器上的业务程序，另外一个好处是无侵入性，不需要业务埋点，如果业务程序是第三方供应商提供的，我们改不了其代码，mtail此时就非常合适了。当然了，如果业务程序是我们公司的人自己写的，那还是建议用埋点的方式采集指标，mtail只是作为一个补充吧。
+mtail简介 mtail的使用方案，参考如下两个文档（下载的话参考Releases页面）：
+ Deploying Programming Guide  我们拿mtail的启动命令来举例其用法：
+mtail --progs /etc/mtail --logs /var/log/syslog --logs /var/log/ntp/peerstats 通过 --progs 参数指定一个目录，这个目录里放置一堆的*.mtail文件，每个mtail文件就是描述的正则提取规则，通过 --logs 参数来指定要监控的日志目录，可以写通配符，--logs 可以写多次，上例中只是指定了 --progs 和 --logs ，没有其他参数，mtail启动之后会自动监听一个端口3903，在3903的/metrics接口暴露符合Prometheus协议的监控数据，Prometheus（或者Telegraf）就可以从 /metrics 接口提取监控数据。
+这样看起来，原理就很清晰了，mtail启动之后，根据 --logs 找到相关日志文件文件，seek到文件末尾，开始流式读取，每读到一行，就根据 --progs 指定的那些规则文件做匹配，看是否符合某些正则，从中提取时序数据，然后通过3903的/metrics暴露采集到的监控指标。当然，除了Prometheus这种/metrics方式暴露，mtail还支持把监控数据直接推给graphite或者statsd，具体可以参考：这里
+mtail样例 这里我用mtail监控一下n9e-server的日志，从中提取一下各个告警规则触发的notify的数量，这个日志举例：
+2021-12-27 10:00:30.537582 INFO engine/logger.go:19 event(cbb8d4be5efd07983c296aaa4dec5737 triggered) notify: rule_id=9 [__name__=net_response_result_code author=qin ident=10-255-0-34 port=4567 protocol=tcp server=localhost]2@1640570430 很明显，日志中有这么个关键字：notify: rule_id=9，可以用正则来匹配，统计出现的行数，ruleid也可以从中提取到，这样，我们可以把ruleid作为标签上报，于是乎，我们就可以写出这样的mtail规则了：
+[root@10-255-0-34 nightingale]# cat /etc/mtail/n9e-server.mtail counter mtail_alert_rule_notify_total by ruleid /notify: rule_id=(?P&amp;lt;ruleid&amp;gt;\d+)/ { mtail_alert_rule_notify_total[$ruleid]++ } 然后启动也比较简单，我这里就用nohup简单来做：
+nohup mtail -logtostderr --progs /etc/mtail --logs server.</description>
+    </item>
+    <item>
       <title>监控MySQL</title>
       <link>https://n9e.github.io/best-practice/mysql/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
