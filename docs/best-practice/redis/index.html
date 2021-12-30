@@ -4,10 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.89.3" />
-    <link rel="alternate" type="application/rss&#43;xml" href="/categories/index.xml" title="N9E" />
     <meta name="description" content="Documentation for nightingale">
     
-    <title>Categories :: N9E</title>
+    <title>监控Redis :: N9E</title>
     <link href="/css/nucleus.css?1640861512" rel="stylesheet">
     <link href="/css/fontawesome-all.min.css?1640861512" rel="stylesheet">
     <link href="/css/featherlight.min.css?1640861512" rel="stylesheet">
@@ -24,7 +23,7 @@
       }
     </style>
   </head>
-  <body class="" data-url="/categories/">
+  <body class="" data-url="/best-practice/redis/">
     <script>
       var index_url="/index.json";
       var root_url="/";
@@ -65,7 +64,7 @@
           <li data-nav-id="/usage/alert-cur-event/" title="当前告警活跃事件" class="dd-item"><a href="/usage/alert-cur-event/">当前告警活跃事件<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-his-event/" title="全部历史告警事件" class="dd-item"><a href="/usage/alert-his-event/">全部历史告警事件<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/selfhealing/" title="告警自愈" class="dd-item"><a href="/usage/selfhealing/">告警自愈<i class="fas fa-check read-icon"></i></a></li></ul></li>
-          <li data-nav-id="/best-practice/" title="理念实战" class="dd-item"><a href="/best-practice/">理念实战<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/best-practice/" title="理念实战" class="dd-item parent"><a href="/best-practice/">理念实战<i class="fas fa-check read-icon"></i></a><ul>
           <li data-nav-id="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势" class="dd-item"><a href="/best-practice/fccloud-usage/">使用夜莺的的几种实践姿势<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/busi-group-design/" title="探讨业务组的设计和最佳实践" class="dd-item"><a href="/best-practice/busi-group-design/">探讨业务组的设计和最佳实践<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/linux_host/" title="监控Linux操作系统" class="dd-item"><a href="/best-practice/linux_host/">监控Linux操作系统<i class="fas fa-check read-icon"></i></a></li>
@@ -77,7 +76,7 @@
           <li data-nav-id="/best-practice/http_response/" title="监控URL" class="dd-item"><a href="/best-practice/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/mtail/" title="监控日志（超级轻量的方案）" class="dd-item"><a href="/best-practice/mtail/">监控日志（超级轻量的方案）<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/best-practice/mysql/" title="监控MySQL" class="dd-item"><a href="/best-practice/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/redis/" title="监控Redis" class="dd-item"><a href="/best-practice/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/best-practice/redis/" title="监控Redis" class="dd-item active"><a href="/best-practice/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
           <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
           <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
         </ul>
@@ -106,6 +105,12 @@
       <div id="overlay"></div>
       <div class="padding highlightable">
         <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/best-practice/redis.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
           <div id="breadcrumbs">
             <span id="sidebar-toggle-span">
               <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
@@ -115,23 +120,68 @@
             <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
             <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
               <meta itemprop="itemListOrder" content="Descending" />
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/categories/" aria-disabled="true"><span itemprop="name">Categories</span></a></li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/best-practice/"><span itemprop="name">理念实战</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/best-practice/redis/" aria-disabled="true"><span itemprop="name">监控Redis</span></a></li>
             </ol>
           </div>
             <div class="progress">
               <div class="wrapper">
-
+<nav id="TableOfContents"></nav>
               </div>
             </div>
         </div>
         <div id="head-tags">
         </div>
         <main id="body-inner">
-          <h1>Categories</h1>
-          <ul>
-          </ul>
-          <footer class=" footline">
+          <h1>监控Redis</h1>
+
+<p>Telegraf可以监控Redis，相关配置如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[[inputs.redis]]
+servers = [<span style="color:#5af78e">&#34;tcp://localhost:6379&#34;</span>]
+</code></pre></div><p>这是最简单的一个配置了，更多的参数可以参考telegraf.conf中的inputs.redis部分的注释，也可以把这个配置独立成一个单独的文件，参考 <a href="/best-practice/mysql/">监控MySQL</a> 章节。</p>
+<p>关键是下面的监控大盘配置，json如下，可以直接导入监控大盘使用。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
+  {
+    <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;Redis关键指标 - by Telegraf&#34;</span>,
+    <span style="color:#ff6ac1">&#34;tags&#34;</span>: <span style="color:#5af78e">&#34;Redis&#34;</span>,
+    <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;var\&#34;:[{\&#34;name\&#34;:\&#34;ident\&#34;,\&#34;definition\&#34;:\&#34;label_values(redis_used_memory, ident)\&#34;,\&#34;selected\&#34;:\&#34;10-255-0-34\&#34;,\&#34;multi\&#34;:true,\&#34;allOption\&#34;:true},{\&#34;name\&#34;:\&#34;server\&#34;,\&#34;definition\&#34;:\&#34;label_values(redis_used_memory{ident=\\\&#34;$ident\\\&#34;}, server)\&#34;,\&#34;multi\&#34;:true,\&#34;selected\&#34;:\&#34;localhost\&#34;,\&#34;allOption\&#34;:true},{\&#34;name\&#34;:\&#34;port\&#34;,\&#34;definition\&#34;:\&#34;label_values(redis_used_memory{ident=\\\&#34;$ident\\\&#34;, server=\\\&#34;$server\\\&#34;}, port)\&#34;,\&#34;multi\&#34;:true,\&#34;allOption\&#34;:true,\&#34;selected\&#34;:[\&#34;6379\&#34;],\&#34;options\&#34;:[\&#34;6379\&#34;]}]}&#34;</span>,
+    <span style="color:#ff6ac1">&#34;chart_groups&#34;</span>: [
+      {
+        <span style="color:#ff6ac1">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;Default chart group&#34;</span>,
+        <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>,
+        <span style="color:#ff6ac1">&#34;charts&#34;</span>: [
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;Redis memory\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;redis_used_memory{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}\&#34;},{\&#34;PromQL\&#34;:\&#34;redis_used_memory_lua{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}\&#34;},{\&#34;PromQL\&#34;:\&#34;redis_used_memory_peak{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}\&#34;},{\&#34;PromQL\&#34;:\&#34;redis_used_memory_rss{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}\&#34;},{\&#34;PromQL\&#34;:\&#34;redis_maxmemory{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:12,\&#34;x\&#34;:0,\&#34;y\&#34;:0,\&#34;i\&#34;:\&#34;0\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;Redis clients\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;redis_clients{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}\&#34;},{\&#34;PromQL\&#34;:\&#34;redis_blocked_clients{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:12,\&#34;x\&#34;:12,\&#34;y\&#34;:0,\&#34;i\&#34;:\&#34;1\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;commands_processed / sec\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;rate(redis_total_commands_processed{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}[1m])\&#34;,\&#34;Legend\&#34;:\&#34;commands_processed_per_sec - {{ident}} - {{server}}:{{port}}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:12,\&#34;x\&#34;:0,\&#34;y\&#34;:2,\&#34;i\&#34;:\&#34;2\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;keyspace hits and misses\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;irate(redis_keyspace_hits{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}[5m])\&#34;,\&#34;Legend\&#34;:\&#34;hits - {{ident}} - {{server}}:{{port}}\&#34;},{\&#34;PromQL\&#34;:\&#34;irate(redis_keyspace_misses{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}[5m])\&#34;,\&#34;Legend\&#34;:\&#34;misses - {{ident}} - {{server}}:{{port}}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:12,\&#34;x\&#34;:12,\&#34;y\&#34;:2,\&#34;i\&#34;:\&#34;3\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;Network IO\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;rate(redis_total_net_input_bytes{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}[5m])\&#34;,\&#34;Legend\&#34;:\&#34;in_bytes - {{ident}} - {{server}}:{{port}}\&#34;},{\&#34;PromQL\&#34;:\&#34;rate(redis_total_net_output_bytes{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}[5m])\&#34;,\&#34;Legend\&#34;:\&#34;out_bytes - {{ident}} - {{server}}:{{port}}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1024},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:12,\&#34;x\&#34;:0,\&#34;y\&#34;:4,\&#34;i\&#34;:\&#34;4\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          },
+          {
+            <span style="color:#ff6ac1">&#34;configs&#34;</span>: <span style="color:#5af78e">&#34;{\&#34;name\&#34;:\&#34;Expired Evicted keys\&#34;,\&#34;QL\&#34;:[{\&#34;PromQL\&#34;:\&#34;rate(redis_expired_keys{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}[5m])\&#34;,\&#34;Legend\&#34;:\&#34;expired_keys - {{ident}} - {{server}}:{{port}}\&#34;},{\&#34;PromQL\&#34;:\&#34;rate(redis_evicted_keys{ident=~\\\&#34;$ident\\\&#34;, server=~\\\&#34;$server\\\&#34;, port=~\\\&#34;$port\\\&#34;}[5m])\&#34;,\&#34;Legend\&#34;:\&#34;evicted_keys - {{ident}} - {{server}}:{{port}}\&#34;}],\&#34;legend\&#34;:false,\&#34;highLevelConfig\&#34;:{\&#34;shared\&#34;:true,\&#34;sharedSortDirection\&#34;:\&#34;desc\&#34;,\&#34;precision\&#34;:\&#34;short\&#34;,\&#34;formatUnit\&#34;:1000},\&#34;version\&#34;:1,\&#34;layout\&#34;:{\&#34;h\&#34;:2,\&#34;w\&#34;:12,\&#34;x\&#34;:12,\&#34;y\&#34;:4,\&#34;i\&#34;:\&#34;5\&#34;}}&#34;</span>,
+            <span style="color:#ff6ac1">&#34;weight&#34;</span>: <span style="color:#ff9f43">0</span>
+          }
+        ]
+      }
+    ]
+  }
+]
+</code></pre></div>
+          <footer class="footline">
           </footer>
         </main>
 <hr> 
@@ -140,7 +190,8 @@
 
       </div>
       <div id="navigation">
-        <a class="nav nav-prev" href="/usecase/" title="社区用户实践分享"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-prev" href="/best-practice/mysql/" title="监控MySQL"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/api/" title="API"><i class="fa fa-chevron-right"></i></a>
       </div>
     </div>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
