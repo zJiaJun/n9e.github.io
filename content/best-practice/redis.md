@@ -20,7 +20,7 @@ servers = ["tcp://localhost:6379"]
   {
     "name": "Redis关键指标 - by Telegraf",
     "tags": "Redis",
-    "configs": "{\"var\":[{\"name\":\"ident\",\"definition\":\"label_values(redis_used_memory, ident)\",\"selected\":\"10-255-0-34\",\"multi\":true,\"allOption\":true},{\"name\":\"server\",\"definition\":\"label_values(redis_used_memory{ident=\\\"$ident\\\"}, server)\",\"multi\":true,\"selected\":\"localhost\",\"allOption\":true},{\"name\":\"port\",\"definition\":\"label_values(redis_used_memory{ident=\\\"$ident\\\", server=\\\"$server\\\"}, port)\",\"multi\":true,\"allOption\":true,\"selected\":[\"6379\"],\"options\":[\"6379\"]}]}",
+    "configs": "{\"var\":[{\"name\":\"ident\",\"definition\":\"label_values(redis_used_memory, ident)\",\"selected\":\"10-255-0-34\",\"multi\":true,\"allOption\":true},{\"name\":\"server\",\"definition\":\"label_values(redis_used_memory{ident=~\\\"$ident\\\"}, server)\",\"multi\":true,\"selected\":[\"all\"],\"options\":[\"localhost\"],\"allOption\":true},{\"name\":\"port\",\"definition\":\"label_values(redis_used_memory{ident=~\\\"$ident\\\", server=~\\\"$server\\\"}, port)\",\"multi\":true,\"selected\":[\"all\"],\"options\":[\"6379\"],\"allOption\":true}]}",
     "chart_groups": [
       {
         "name": "Default chart group",
