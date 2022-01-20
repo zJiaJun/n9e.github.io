@@ -79,12 +79,15 @@ Type=simple
 ExecStart=/opt/telegraf/telegraf --config telegraf.conf
 WorkingDirectory=/opt/telegraf
 
-Restart=on-failure
 SuccessExitStatus=0
 LimitNOFILE=65536
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=telegraf
+KillMode=process
+KillSignal=SIGQUIT
+TimeoutStopSec=5
+Restart=always
 
 
 [Install]
