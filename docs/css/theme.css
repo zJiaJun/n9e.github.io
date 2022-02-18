@@ -419,19 +419,19 @@ textarea:hover, input[type="email"]:hover, input[type="number"]:hover, input[typ
 }
 body {
     color: #323232 !important;
-    font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-family: "verdana", "verdana", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 300;
     line-height: 1.574;
     font-size: 16.25px !important;
 }
 h2, h3, h4, h5, h6 {
-    font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-family: "verdana", "verdana", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     text-rendering: optimizeLegibility;
     color: #5e5e5e;
     letter-spacing: -1px;
 }
 h1 {
-    font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-family: "verdana", "verdana", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 200;
     text-align: center;
     text-transform: uppercase;
@@ -1252,13 +1252,13 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 
 #body h2 {
   font-size: 2.2rem;
-  font-weight: 500;
+  font-weight: 300;
   margin-top: 2rem;
 }
 
 #body h3 {
   font-size: 1.8rem;
-  font-weight: 500;
+  font-weight: 300;
   margin-top: 2rem;
 }
 
