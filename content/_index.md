@@ -32,7 +32,7 @@ Nightingale可以接入多个Prometheus/M3DB/VictoriaMetrics，可以允许用�
 
 夜莺5.1的设计非常简单，核心是server和webapi两个模块，webapi无状态，放到中心端，承接前端请求，将用户配置写入数据库；server是告警引擎和数据转发模块，一般随着时序库走，一个时序库就对应一套server，每套server可以只用一个server实例，也可以多个实例组成集群，server可以接收Telegraf上报的数据，写入后端时序库，周期性从数据库同步告警规则，然后查询时序库做告警判断。每套server依赖一个redis。架构图如下：
 
-![](/n9e-arch-server.png)
+![](/n9e-v5-arch.png)
 
 ## 加入社区
 
