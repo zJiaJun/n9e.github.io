@@ -57,7 +57,7 @@ cd ibex && make
 ```bash
 git clone https://github.com/n9e/fe-v5.git
 cd fe-v5
-git checkout v5.1
+git checkout master
 npm install
 npm run build
 ```
