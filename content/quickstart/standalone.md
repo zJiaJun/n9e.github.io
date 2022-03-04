@@ -72,8 +72,8 @@ systemctl restart redis
 mkdir -p /opt/n9e && cd /opt/n9e
 
 # 去 https://github.com/didi/nightingale/releases 找最新版本的包，文档里的包地址可能已经不是最新的了
-tarball=n9e-5.0.0-ga-06.tar.gz
-urlpath=https://github.com/didi/nightingale/releases/download/v5.0.0-ga-06/${tarball}
+tarball=n9e-5.4.0.tar.gz
+urlpath=https://github.com/didi/nightingale/releases/download/v5.4.0/${tarball}
 wget $urlpath || exit 1
 
 tar zxvf ${tarball}
