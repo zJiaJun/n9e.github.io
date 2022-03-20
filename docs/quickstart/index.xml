@@ -31,7 +31,7 @@ ulric@mac.home:~/workspace/gopath/src/n9e/docker$ docker-compose up -d Creating 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://n9e.github.io/quickstart/telegraf/</guid>
       <description>Telegraf 是 InfluxData 开源的一款采集器，可以采集操作系统、各种中间件的监控指标，采集目标列表，看起来是非常丰富，Telegraf是一个大一统的设计，即一个二进制可以采集CPU、内存、mysql、mongodb、redis、snmp等，不像Prometheus的exporter，每个监控对象一个exporter，管理起来略麻烦。一个二进制分发起来确实比较方便。
- 这里提供快速安装的教程，Telegraf的更多知识，请参考Telegraf官网，笔者之前也写了一个Telegraf调研笔记，大家亦可参考。
+ 这里提供快速安装的教程，Telegraf的更多知识，请参考Telegraf官网，笔者之前也写了一个Telegraf调研笔记，讲解了Telegraf的基本用法，一定要看！！！，大家亦可参考。
 Telegraf下载地址在这里，根据自己的平台选择对应的二进制下载即可。笔者的环境是CentOS，下面是安装脚本，/opt/telegraf/telegraf.conf 是一个经过删减的干净的配置文件，指定了opentsdb output plugin，这个plugin的写入地址配置的是n9e-server，所以，Telegraf采集的数据会被推送给n9e-server，二者贯通：
 #!/bin/sh  version=1.20.4 tarball=telegraf-${version}_linux_amd64.tar.gz wget https://dl.influxdata.com/telegraf/releases/$tarball tar xzvf $tarball mkdir -p /opt/telegraf cp -far telegraf-${version}/usr/bin/telegraf /opt/telegraf cat &amp;lt;&amp;lt;EOF &amp;gt; /opt/telegraf/telegraf.conf [global_tags] [agent] interval = &amp;#34;10s&amp;#34; round_interval = true metric_batch_size = 1000 metric_buffer_limit = 10000 collection_jitter = &amp;#34;0s&amp;#34; flush_interval = &amp;#34;10s&amp;#34; flush_jitter = &amp;#34;0s&amp;#34; precision = &amp;#34;&amp;#34; hostname = &amp;#34;&amp;#34; omit_hostname = false [[outputs.opentsdb]] host = &amp;#34;http://127.0.0.1&amp;#34; port = 19000 http_batch_size = 50 http_path = &amp;#34;/opentsdb/put&amp;#34; debug = false separator = &amp;#34;_&amp;#34; [[inputs.</description>
     </item>

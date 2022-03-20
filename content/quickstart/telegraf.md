@@ -5,7 +5,7 @@ weight: 3
 
 >Telegraf 是 InfluxData 开源的一款采集器，可以采集操作系统、各种中间件的监控指标，采集[目标列表](https://github.com/influxdata/telegraf/tree/master/plugins/inputs)，看起来是非常丰富，Telegraf是一个大一统的设计，即一个二进制可以采集CPU、内存、mysql、mongodb、redis、snmp等，不像Prometheus的exporter，每个监控对象一个exporter，管理起来略麻烦。一个二进制分发起来确实比较方便。
 
-这里提供快速安装的教程，Telegraf的更多知识，请参考[Telegraf官网](https://github.com/influxdata/telegraf)，笔者之前也写了一个[Telegraf调研笔记](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU3ODAxNTIzMQ==&action=getalbum&album_id=2124352687600205826&scene=173&from_msgid=2247484223&from_itemidx=1&count=3&nolastread=1)，大家亦可参考。
+这里提供快速安装的教程，Telegraf的更多知识，请参考[Telegraf官网](https://github.com/influxdata/telegraf)，笔者之前也写了一个[Telegraf调研笔记，讲解了Telegraf的基本用法，一定要看！！！](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU3ODAxNTIzMQ==&action=getalbum&album_id=2124352687600205826&scene=173&from_msgid=2247484223&from_itemidx=1&count=3&nolastread=1)，大家亦可参考。
 
 Telegraf下载地址在[这里](https://github.com/influxdata/telegraf/releases)，根据自己的平台选择对应的二进制下载即可。笔者的环境是CentOS，下面是安装脚本，/opt/telegraf/telegraf.conf 是一个经过删减的干净的配置文件，指定了opentsdb output plugin，这个plugin的写入地址配置的是n9e-server，所以，Telegraf采集的数据会被推送给n9e-server，二者贯通：
 
