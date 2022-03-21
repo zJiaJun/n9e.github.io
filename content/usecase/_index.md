@@ -12,3 +12,5 @@ title: "社区用户实践分享"
 - [使用notify.py接入阿里云语音通知](https://t.zsxq.com/VNniqbQ) - by 果
 - [Oracle的简单监控实现](https://mp.weixin.qq.com/s/c2mW2YfyMaeyITWcUDNUBg) - by 柴今栋@艾派
 - [RocketMQ简单监控的实现](https://mp.weixin.qq.com/s/CyYdss6kFlo9qRuGfM_OlA) - by 柴今栋@艾派
+- [手把手教你接入钉钉告警](https://mp.weixin.qq.com/s/ayVaQJ8mEacnyMkyqE_rJg)
+- [一文说透MySQL监控，使用Prometheus生态的Exporter](https://mp.weixin.qq.com/s/gyqXh1ZGnoOC6jg6xOp-IA)
