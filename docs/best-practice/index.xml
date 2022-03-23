@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>理念实战 on N9E</title>
+    <title>夜莺实战 on N9E</title>
     <link>https://n9e.github.io/best-practice/</link>
-    <description>Recent content in 理念实战 on N9E</description>
+    <description>Recent content in 夜莺实战 on N9E</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language><atom:link href="https://n9e.github.io/best-practice/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -82,7 +82,7 @@ package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34
       <description>对于MySQL、Redis、MongoDB、Tomcat、RabbitMQ、Ceph、Cassandra、Consul等等各类中间件、数据库，Telegraf都可以监控，Prometheus生态也提供了各类Exporter，直接用就好了，如果有优化建议，就提PR，夜莺生态再搞一套采集意义不大，能够良好的集成，与社区协同起来才是关键。
 本节起了一个巨大的标题，不过并不准备事无巨细的讲解每个中间件的采集配置，Telegraf的入门在这里，每个中间件都在这里成一个目录，目录下README就是文档。如果有Telegraf解决不了的，Google一下Exporter解决方案，互相补充一下。
 数据采集有了Telegraf和Exporter，问题就不大了，但是，对于某一个具体的监控对象，比如MySQL，各个指标是什么意思？应该着重关注哪些指标？哪些指标应该配置告警规则？报警的时候应该如何处理？这就是非常专业的领域知识了，欢迎大家写博客分享，并把博客链接放到本节下面 :)
- MySQL监控分享 By xxx  </description>
+ 一文说透MySQL监控，使用Prometheus生态的Exporter - By UlricQin  </description>
     </item>
     <item>
       <title>监控Kubernetes</title>
@@ -112,7 +112,7 @@ http_response_result_code != 0 或者直接在夜莺的告警规则页面导入�
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://n9e.github.io/best-practice/mtail/</guid>
       <description>前言 说到日志监控，大家第一反应的可能是ELK的方案，或者Loki的方案，这两个方案都是把日志采集了发到中心，在中心存储、查看、分析，不过这个方案相对比较重量级一些，如果我们的需求只是从日志中提取一些metrics数据，比如统计一些日志中出现的Error次数之类的，则有一个更简单的方案。
-这个方案在夜莺v4版本中是有的，不过后来推荐大家客户端使用Telegraf，Telegraf没有这个能力，所以v5版本的夜莺没法监控日志，怎么办呢？这里给大家介绍一个Google出品的瑞士军刀，mtail，mtail和夜莺v4的方案类似，就是流式读取日志，通过正则表达式匹配的方式从日志中提取metrics指标，这种方式可以利用目标机器的算力，不过如果量太大，可能会影响目标机器上的业务程序，另外一个好处是无侵入性，不需要业务埋点，如果业务程序是第三方供应商提供的，我们改不了其代码，mtail此时就非常合适了。当然了，如果业务程序是我们公司的人自己写的，那还是建议用埋点的方式采集指标，mtail只是作为一个补充吧。
+这个方案在夜莺v4版本中是有的，不过后来推荐大家客户端使用Telegraf，Telegraf没有这个能力，所以v5版本的夜莺没法监控日志，怎么办呢？这里给大家介绍一个Google出品的小工具，mtail，mtail和夜莺v4的方案类似，就是流式读取日志，通过正则表达式匹配的方式从日志中提取metrics指标，这种方式可以利用目标机器的算力，不过如果量太大，可能会影响目标机器上的业务程序，另外一个好处是无侵入性，不需要业务埋点，如果业务程序是第三方供应商提供的，我们改不了其代码，mtail此时就非常合适了。当然了，如果业务程序是我们公司的人自己写的，那还是建议用埋点的方式采集指标，mtail只是作为一个补充吧。
 mtail简介 mtail的使用方案，参考如下两个文档（下载的话参考Releases页面）：
  Deploying Programming Guide  我们拿mtail的启动命令来举例其用法：
 mtail --progs /etc/mtail --logs /var/log/syslog --logs /var/log/ntp/peerstats 通过 --progs 参数指定一个目录，这个目录里放置一堆的*.mtail文件，每个mtail文件就是描述的正则提取规则，通过 --logs 参数来指定要监控的日志目录，可以写通配符，--logs 可以写多次，上例中只是指定了 --progs 和 --logs ，没有其他参数，mtail启动之后会自动监听一个端口3903，在3903的/metrics接口暴露符合Prometheus协议的监控数据，Prometheus（或者Telegraf）就可以从 /metrics 接口提取监控数据。
