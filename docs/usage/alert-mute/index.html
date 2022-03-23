@@ -7,16 +7,16 @@
     <meta name="description" content="Documentation for nightingale">
     
     <title>屏蔽规则 :: N9E</title>
-    <link href="/css/nucleus.css?1647996259" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1647996259" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1647996259" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1647996259" rel="stylesheet">
-    <link href="/css/auto-complete.css?1647996259" rel="stylesheet">
-    <link href="/css/theme.css?1647996259" rel="stylesheet">
-    <link href="/css/theme-blue.css?1647996259" rel="stylesheet">
-    <link href="/css/variant.css?1647996259" rel="stylesheet">
-    <link href="/css/print.css?1647996259" rel="stylesheet" media="print">
-    <script src="/js/jquery.min.js?1647996259"></script>
+    <link href="/css/nucleus.css?1647997054" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1647997054" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1647997054" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1647997054" rel="stylesheet">
+    <link href="/css/auto-complete.css?1647997054" rel="stylesheet">
+    <link href="/css/theme.css?1647997054" rel="stylesheet">
+    <link href="/css/theme-blue.css?1647997054" rel="stylesheet">
+    <link href="/css/variant.css?1647997054" rel="stylesheet">
+    <link href="/css/print.css?1647997054" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1647997054"></script>
     <style>
       :root #header + #content > #left > #rlblock_left{
         display:none !important;
@@ -39,11 +39,11 @@
           <input data-search-input id="search-by" type="search" placeholder="Search...">
           <span data-search-clear=""><i class="fas fa-times"></i></span>
         </div>
-        <script src="/js/lunr.min.js?1647996259"></script>
-        <script src="/js/auto-complete.js?1647996259"></script>
+        <script src="/js/lunr.min.js?1647997054"></script>
+        <script src="/js/auto-complete.js?1647997054"></script>
         <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
         <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
-        <script src="/js/search.js?1647996259"></script>
+        <script src="/js/search.js?1647997054"></script>
       </div>
       <div class="highlightable">
         <ul class="topics">
@@ -60,7 +60,7 @@
           <li data-nav-id="/usage/alert-rule/" title="告警规则" class="dd-item"><a href="/usage/alert-rule/">告警规则<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-mute/" title="屏蔽规则" class="dd-item active"><a href="/usage/alert-mute/">屏蔽规则<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-subscribe/" title="订阅规则" class="dd-item"><a href="/usage/alert-subscribe/">订阅规则<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/usage/alert-notify/" title="多种告警通知媒介的支持" class="dd-item"><a href="/usage/alert-notify/">多种告警通知媒介的支持<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/alert-notify/" title="告警通知媒介" class="dd-item"><a href="/usage/alert-notify/">告警通知媒介<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-cur-event/" title="当前告警活跃事件" class="dd-item"><a href="/usage/alert-cur-event/">当前告警活跃事件<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/alert-his-event/" title="全部历史告警事件" class="dd-item"><a href="/usage/alert-his-event/">全部历史告警事件<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/selfhealing/" title="告警自愈" class="dd-item"><a href="/usage/selfhealing/">告警自愈<i class="fas fa-check read-icon"></i></a></li></ul></li>
@@ -164,18 +164,18 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1647996259"></script>
-    <script src="/js/perfect-scrollbar.min.js?1647996259"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1647996259"></script>
-    <script src="/js/jquery.svg.pan.zoom.js?1647996259"></script>
-    <script src="/js/featherlight.min.js?1647996259"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1647996259"></script>
-    <script src="/js/mermaid.min.js?1647996259"></script>
+    <script src="/js/clipboard.min.js?1647997054"></script>
+    <script src="/js/perfect-scrollbar.min.js?1647997054"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1647997054"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1647997054"></script>
+    <script src="/js/featherlight.min.js?1647997054"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1647997054"></script>
+    <script src="/js/mermaid.min.js?1647997054"></script>
     <script>
       if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
         mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
       }
     </script>
-    <script src="/js/relearn.js?1647996259"></script>
+    <script src="/js/relearn.js?1647997054"></script>
   </body>
 </html>
