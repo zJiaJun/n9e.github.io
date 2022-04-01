@@ -36,13 +36,13 @@ publishDir = "docs"
     landingPageName = "<i class='fas fa-home'></i> Home"
 
   [[Languages.en.menu.shortcuts]]
-    name = "<i class='fab fa-fw fa-github'></i> GitHub repo"
+    name = "<i class='fab fa-fw fa-github'></i> 代码仓库"
     identifier = "ds"
     url = "https://github.com/didi/nightingale"
     weight = 10
 
  [[Languages.en.menu.shortcuts]]
-   name = "<i class='fas fa-fw fa-book'></i> Video tutorial"
+   name = "<i class='fas fa-fw fa-book'></i> 视频教程"
    identifier = "video"
    url = "https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"
    weight = 20

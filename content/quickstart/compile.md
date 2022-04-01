@@ -3,11 +3,20 @@ title: "源码编译夜莺前后端及告警自愈模块"
 weight: 20
 ---
 
-> 本节讲述Nightingale的源码编译方式，分前后端两部分。另外，如果用到告警自愈模块，会用到ibex这个模块，本节也会一并讲解ibex模块的编译方法
+> 本节讲述 Nightingale 的源码编译方式，分前后端两部分。另外，如果用到告警自愈模块，会用到 ibex 这个模块，本节也会一并讲解 ibex 模块的编译方法。对于 ARM 的处理器，我们没有提供编译好的二进制，大家就要用下面的方法自行编译了。
+
+## 前端
+
+```bash
+git clone https://github.com/n9e/fe-v5.git
+cd fe-v5
+npm install
+npm run build
+```
 
 ## 后端
 
-Nightingale后端采用Go语言编写，编译的前置条件就是配置Go的开发环境。
+Nightingale 后端采用 Go 语言编写，编译的前置条件就是配置 Go 的开发环境。
 
 ### 配置Go环境
 
@@ -30,7 +39,7 @@ git clone https://github.com/didi/nightingale.git
 export GOPROXY=https://goproxy.cn
 
 # 执行编译
-cd n9e && make
+cd nightingale && make
 ```
 
 编译完成之后如果生成二进制：n9e，就表示编译成功！想要快速入门Go语言？可以参考[GOCN](https://gocn.vip/wiki)的资料！
@@ -50,15 +59,4 @@ cd ibex && make
 ```
 
 编译完成之后如果生成二进制：ibex，就表示编译成功！
-
-
-## 前端
-
-```bash
-git clone https://github.com/n9e/fe-v5.git
-cd fe-v5
-git checkout master
-npm install
-npm run build
-```
 

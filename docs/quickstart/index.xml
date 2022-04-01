@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language><atom:link href="https://n9e.github.io/quickstart/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>使用Docker Compose快速部署</title>
+      <title>使用Docker快速启动测试</title>
       <link>https://n9e.github.io/quickstart/compose/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://n9e.github.io/quickstart/compose/</guid>
@@ -17,7 +17,7 @@
 $ git clone https://github.com/didi/nightingale.git $ cd nightingale/docker $ docker-compose up -d Creating network &amp;#34;docker_nightingale&amp;#34; with driver &amp;#34;bridge&amp;#34; Creating mysql ... done Creating redis ... done Creating prometheus ... done Creating ibex ... done Creating agentd ... done Creating nwebapi ... done Creating nserver ... done Creating telegraf ... done $ docker-compose ps Name Command State Ports ---------------------------------------------------------------------------------------------------------------------------- agentd /app/ibex agentd Up 10090/tcp, 20090/tcp ibex /app/ibex server Up 0.</description>
     </item>
     <item>
-      <title>快速在生产环境部署启动单机版</title>
+      <title>使用二进制部署单机版服务端</title>
       <link>https://n9e.github.io/quickstart/standalone/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://n9e.github.io/quickstart/standalone/</guid>
@@ -55,8 +55,10 @@ vmstorage、vminsert、vmselect 三者组合构成 VictoriaMetrics 的集群功�
       <link>https://n9e.github.io/quickstart/multitsdb/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://n9e.github.io/quickstart/multitsdb/</guid>
-      <description>由于Prometheus没有集群版本，受限于容量问题，很多公司会搭建多套Prometheus，比如按照业务拆分，不同的业务使用不同的Prometheus集群，或者按照地域拆分，不同的地域使用不同的Prometheus集群。这里是以Prometheus来举例，VictoriaMetrics、M3DB都有集群版本，不过有时为了不相互干扰和地域网络问题，也会拆成多个集群。对于多集群的协同，需要在夜莺里做一些配置，架构图如下：
-比如，我们有两个时序库，在北京搭建了一个Prometheus，在广州搭建了一个VictoriaMetrics，n9e-webapi会把这两个时序库作为DataSource，所以在n9e-webapi的配置文件中，要配置上这俩存储的地址，举例：
+      <description>由于Prometheus没有集群版本，受限于容量问题，很多公司会搭建多套Prometheus，比如按照业务拆分，不同的业务使用不同的Prometheus集群，或者按照地域拆分，不同的地域使用不同的Prometheus集群。这里是以Prometheus来举例，VictoriaMetrics、M3DB都有集群版本，不过有时为了不相互干扰和地域网络问题，也会拆成多个集群。对于多集群的协同，需要在夜莺里做一些配置，回顾一下夜莺的架构图：
+图上分了 3 个 region，每个 region 一套时序库，每个 region 一套 n9e-server，n9e-server 依赖 redis，所以每个 region 一个 redis，n9e-webapi 和 mysql 放到中心，n9e-webapi 也依赖一个 redis，所以中心端放置的是 n9e-webapi、redis、mysql，如果想图省事，redis 也是可以复用的，各个 region 的 n9e-server 都连接中心的 redis 也是可以的。
+为了高可用，各个 region 的 n9e-server 可以多部署几个实例组成一个集群，集群中的所有 n9e-server 的配置文件 server.conf 中的 ClusterName 要设置成一样的字符串。
+假设，我们有两个时序库，在北京搭建了一个 Prometheus，在广州搭建了一个 VictoriaMetrics，n9e-webapi 会把这两个时序库作为 DataSource，所以在 n9e-webapi 的配置文件中，要配置上这俩存储的地址，举例：
 [[Clusters]] # cluster name Name = &amp;#34;Prom-Beijing&amp;#34; # Prometheus APIs base url Prom = &amp;#34;http://10.2.3.4:9090&amp;#34; # Basic auth username BasicAuthUser = &amp;#34;&amp;#34; # Basic auth password BasicAuthPass = &amp;#34;&amp;#34; # timeout settings, unit: ms Timeout = 30000 DialTimeout = 10000 TLSHandshakeTimeout = 30000 ExpectContinueTimeout = 1000 IdleConnTimeout = 90000 # time duration, unit: ms KeepAlive = 30000 MaxConnsPerHost = 0 MaxIdleConns = 100 MaxIdleConnsPerHost = 100 [[Clusters]] # cluster name Name = &amp;#34;VM-Guangzhou&amp;#34; # Prometheus APIs base url Prom = &amp;#34;http://172.</description>
     </item>
     <item>
@@ -65,11 +67,11 @@ vmstorage、vminsert、vmselect 三者组合构成 VictoriaMetrics 的集群功�
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://n9e.github.io/quickstart/clusters/</guid>
       <description>对于规模相对较小的公司，比如几百台机器这个体量，个人认为单机版足够用了，使用云主机部署，性能不足可以直接升配，存储使用云存储保证，硬件故障云平台也会自动把虚拟机热迁移走，非常省心。那如果咱们体量确实比较大，或者没有云主机这种基础设施，这里会讲解集群版的部署方式。
-单中心，单集群，接入公司所有数据 首先，来讲解一种普适性比较高的架构方式，就是单中心大集群模式。比如某公司，虽然有3个机房，但是相互之间有专线打通，链路很好，为了便于维护，倾向于在中心搭建一套监控集群，其他机房的机器上只需要部署监控客户端（推荐Telegraf）即可，架构图如下：
-图中时序库使用Prometheus表示，当然，也可以选用VictoriaMetrics或者M3DB等，n9e-server部署了3台机器，n9e-webapi也部署了3台机器，当然，可以混部，即一台机器上既部署n9e-server，也部署n9e-webapi，监控客户端Telegraf要上报监控数据所以要调用n9e-server的接口，为了高可用，可以在n9e-server前面架设负载均衡，比如LVS，Telegraf的output plugin配置vip即可。负责与前端交互的n9e-webapi也部署了多个，为了高可用也是在前面架设负载均衡，这样终端用户访问的时候，也是访问vip，某个n9e-webapi如果挂掉，负载均衡可以自动感知并摘除，用户无感。
-图中redis画了两个，n9e-webapi依赖一个redis，n9e-server也依赖一个redis，在单中心、单集群模式下，可以复用一个redis。redis采用的是标准版，非集群版、非Sentinel版，这点大家要注意。
-多套存储，多套server集群，单套webapi集群 在接入多个Prom/VM/M3DB集群一节中，介绍了夜莺可以接入多个时序库，在夜莺的架构中，时序库和n9e-server是一一对应的，每接入一套时序库，就一定要部署一套n9e-server，所谓的这一套n9e-server，可以是单实例模式，也可以是多实例模式。
-比如在北京机房部署了一套Prometheus时序库，就需要在北京机房部署一套n9e-server，在广州机房部署了一套VictoriaMetrics，就需要在广州机房也部署一套n9e-server，每套n9e-server都要对应一个redis，此时，ne9-server的redis不建议与n9e-webapi的redis复用（虽然从原理上也支持），建议n9e-server的redis部署到n9e-server所在的机房，避免机房割裂时n9e-server连不上redis。</description>
+时序库 时序库的集群部署，就看时序库自身的机制了，这里不展开，如果是使用 Prometheus，Prometheus 没有集群版，VictoriaMetrics、M3DB、Thanos 等都是有集群版的，请参考他们的文档
+MySQL MySQL 一般部署成主从，这个请你们的 DBA 来搞吧，或者直接使用云上 RDS，这里就不展开了
+Redis 夜莺当前 n9e-webapi 和 n9e-server 都依赖 redis，redis 一般有三种模式，单机模式、集群模式、哨兵模式，夜莺当前只支持单机模式。具体使用几个 redis，要看大家的环境情况，如果图省事，全局就使用一个 redis 也是可以的。也可以把 n9e-webapi 用的 redis 和 n9e-server 用的 redis 分开，可以参考文档：接入多个 Prom/VM/M3DB 集群
+n9e-webapi 这个模块是放中心的，可以部署多个实例，前面统一放置 nginx 或者 lvs，某个 n9e-webapi 实例如果挂了，nginx、lvs 都可以自动摘除，保证了高可用。
+n9e-server n9e-server 是随着时序库走的，每个时序库对应一套 n9e-server，一套 n9e-server 可以只有一个 n9e-server 实例，也可以部署多个保证高可用和性能。同一套 n9e-server 内部的多个实例，其配置文件 server.conf 中的 ClusterName 字段，要配置成一样的字符串。</description>
     </item>
     <item>
       <title>告警自愈依赖的脚本下发执行模块</title>
@@ -78,7 +80,7 @@ vmstorage、vminsert、vmselect 三者组合构成 VictoriaMetrics 的集群功�
       <guid>https://n9e.github.io/quickstart/ibex/</guid>
       <description>概述 所谓的告警自愈，典型手段是在告警触发时自动回调某个webhook地址，在这个webhook里写告警自愈的逻辑，夜莺默认支持这种方式。另外，夜莺还可以更进一步，配合ibex这个模块，在告警触发的时候，自动去告警的机器执行某个脚本，这种机制可以大幅简化构建运维自愈链路的工作量，毕竟，不是所有的运维人员都擅长写http server，但所有的运维人员，都擅长写脚本。这种方式是典型的物理机时代的产物，希望各位朋友用不到这个工具（说明贵司的IT技术已经走得非常靠前了）。
 架构 ibex模块，类似之前夜莺v3版本中的job模块，可以批量执行脚本，其架构非常简单，包括server和agentd两个模块，agentd周期性调用server的rpc接口，询问有哪些任务要执行，如果有分配给自己的任务，就从server拿到任务脚本信息，在本地fork一个进程运行，然后将结果上报给服务端。为了简化部署，server和agentd融合成了一个二进制，就是ibex，通过传入不同的参数来启动不同的角色。ibex架构图如下：
-项目地址  Git仓库：https://gitee.com/cnperl/ibex Linux安装包：http://49.233.250.79/ibex-1.0.0.tar.gz 其他环境的包需要自行编译，编译方法参考这里  安装启动 下载安装包之后，解压缩，在etc下可以找到服务端和客户端的配置文件，在sql目录下可以找到初始化sql脚本。
+项目地址  Git仓库：https://gitee.com/cnperl/ibex 编译方法看这里 Linux 下编译好的包 在这里  安装启动 下载安装包之后，解压缩，在etc下可以找到服务端和客户端的配置文件，在sql目录下可以找到初始化sql脚本。
 初始化sql mysql &amp;lt; sql/ibex.sql 启动server server的配置文件是etc/server.conf，注意修改里边的mysql连接地址，配置正确的mysql用户名和密码。然后就可以直接启动了：
 nohup ./ibex server &amp;amp;&amp;gt; server.log &amp;amp; ibex没有web页面，只提供api接口，鉴权方式是http basic auth，basic auth的用户名和密码默认都是ibex，在etc/server.conf中可以找到，如果ibex部署在互联网，一定要修改默认用户名和密码，当然，因为n9e要调用ibex，所以n9e的server.conf和webapi.conf中也配置了ibex的basic auth账号信息，要改就要一起改啦。
 启动agentd 客户端的配置非常非常简单，agentd.conf内容如下：
@@ -89,13 +91,12 @@ nohup ./ibex server &amp;amp;&amp;gt; server.log &amp;amp; ibex没有web页面�
       <link>https://n9e.github.io/quickstart/compile/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://n9e.github.io/quickstart/compile/</guid>
-      <description> 本节讲述Nightingale的源码编译方式，分前后端两部分。另外，如果用到告警自愈模块，会用到ibex这个模块，本节也会一并讲解ibex模块的编译方法
- 后端 Nightingale后端采用Go语言编写，编译的前置条件就是配置Go的开发环境。
+      <description>本节讲述 Nightingale 的源码编译方式，分前后端两部分。另外，如果用到告警自愈模块，会用到 ibex 这个模块，本节也会一并讲解 ibex 模块的编译方法。对于 ARM 的处理器，我们没有提供编译好的二进制，大家就要用下面的方法自行编译了。
+ 前端 git clone https://github.com/n9e/fe-v5.git cd fe-v5 npm install npm run build 后端 Nightingale 后端采用 Go 语言编写，编译的前置条件就是配置 Go 的开发环境。
 配置Go环境 到Go官网选择对应的版本下载，我的环境是Linux，选择的go1.17.3.linux-amd64.tar.gz，直接下载到/root目录下了，然后解压缩，即Go的内容都放到了/root/go目录下了。同时准备gopath目录，如下：
-cd /root &amp;amp;&amp;amp; mkdir -p gopath/src echo &amp;#34;GOROOT=/root/go&amp;#34; &amp;gt;&amp;gt; .bash_profile echo &amp;#34;GOPATH=/root/gopath&amp;#34; &amp;gt;&amp;gt; .bash_profile echo &amp;#39;export PATH=$GOROOT/bin:$GOPATH/bin:$PATH&amp;#39; &amp;gt;&amp;gt; .bash_profile source .bash_profile 编译n9e git clone https://github.com/didi/nightingale.git # 国内配置一下代理，可以加速编译 export GOPROXY=https://goproxy.cn # 执行编译 cd n9e &amp;amp;&amp;amp; make 编译完成之后如果生成二进制：n9e，就表示编译成功！想要快速入门Go语言？可以参考GOCN的资料！
+cd /root &amp;amp;&amp;amp; mkdir -p gopath/src echo &amp;#34;GOROOT=/root/go&amp;#34; &amp;gt;&amp;gt; .bash_profile echo &amp;#34;GOPATH=/root/gopath&amp;#34; &amp;gt;&amp;gt; .bash_profile echo &amp;#39;export PATH=$GOROOT/bin:$GOPATH/bin:$PATH&amp;#39; &amp;gt;&amp;gt; .bash_profile source .bash_profile 编译n9e git clone https://github.com/didi/nightingale.git # 国内配置一下代理，可以加速编译 export GOPROXY=https://goproxy.cn # 执行编译 cd nightingale &amp;amp;&amp;amp; make 编译完成之后如果生成二进制：n9e，就表示编译成功！想要快速入门Go语言？可以参考GOCN的资料！
 编译ibex 如果需要告警自愈能力，夜莺依赖ibex做命令下发执行，ibex的编译和n9e几乎一模一样，如下：
-git clone https://gitee.com/cnperl/ibex.git # 国内配置一下代理，可以加速编译 export GOPROXY=https://goproxy.cn # 执行编译 cd ibex &amp;amp;&amp;amp; make 编译完成之后如果生成二进制：ibex，就表示编译成功！
-前端 git clone https://github.com/n9e/fe-v5.git cd fe-v5 git checkout master npm install npm run build </description>
+git clone https://gitee.</description>
     </item>
   </channel>
 </rss>

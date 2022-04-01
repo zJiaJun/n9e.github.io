@@ -128,7 +128,7 @@ apiKey = "datadog-api-key"
 
 > 018. telegraf的基本配置和中间件采集的配置都放到一个telegraf.conf中不好管理怎么办？
 
-telegraf启动的时候支持两个参数--config和--config-directory，这俩参数可以一并使用，通过--config指定主配置文件，通过--config-directory指定配置目录，各种非通用的配置，都可以放到配置目录里，每个配置文件以.conf结尾，这样telegraf就可以都识别到了，比如：
+telegraf启动的时候支持两个参数`--config`和`--config-directory`，这俩参数可以一并使用，通过`--config`指定主配置文件，通过`--config-directory`指定配置目录，各种非通用的配置，都可以放到配置目录里，每个配置文件以.conf结尾，这样telegraf就可以都识别到了，比如：
 
 ```shell
 ./usr/bin/telegraf --config etc/telegraf/telegraf.conf --config-directory etc/telegraf.d

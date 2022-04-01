@@ -4,13 +4,10 @@
     <loc>https://n9e.github.io/quickstart/compose/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/best-practice/fccloud-usage/</loc>
+    <loc>https://n9e.github.io/quickstart/standalone/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/quickstart/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/quickstart/standalone/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/quickstart/telegraf/</loc>
@@ -25,70 +22,40 @@
     <loc>https://n9e.github.io/quickstart/clusters/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/best-practice/busi-group-design/</loc>
-  </url>
-  <url>
     <loc>https://n9e.github.io/quickstart/ibex/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/quickstart/compile/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/usage/alert-rule/</loc>
+    <loc>https://n9e.github.io/usage/linux/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/usage/alert-mute/</loc>
+    <loc>https://n9e.github.io/usage/windows/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/usage/alert-subscribe/</loc>
+    <loc>https://n9e.github.io/usage/snmp/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/usage/alert-notify/</loc>
+    <loc>https://n9e.github.io/usage/promapm/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/usage/alert-cur-event/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/usage/alert-his-event/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/best-practice/linux_host/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/best-practice/snmp/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/usage/selfhealing/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/best-practice/promapm/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/best-practice/statsd/</loc>
+    <loc>https://n9e.github.io/usage/statsd/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/usage/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/best-practice/</loc>
+    <loc>https://n9e.github.io/usage/http_response/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/best-practice/middleware/</loc>
+    <loc>https://n9e.github.io/usage/mtail/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/best-practice/k8s/</loc>
+    <loc>https://n9e.github.io/usage/mysql/</loc>
   </url>
   <url>
-    <loc>https://n9e.github.io/best-practice/http_response/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/best-practice/mtail/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/best-practice/mysql/</loc>
-  </url>
-  <url>
-    <loc>https://n9e.github.io/best-practice/redis/</loc>
+    <loc>https://n9e.github.io/usage/redis/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/api/</loc>

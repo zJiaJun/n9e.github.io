@@ -2,10 +2,9 @@
 title = "夜莺手册"
 +++
 
+# 夜莺简介
 
-## 夜莺简介
-
-夜莺（ Nightingale ）是一款国产开源、云原生监控系统，Nightingale 在 2020.3.20 发布 v1 版本，目前是 v5 版本，从这个版本开始，与 Prometheus、VictoriaMetrics、Grafana、Telegraf、Datadog 等生态做了协同集成，力争打造国内最好用的开源运维监控系统。出自 Open-Falcon 研发团队。
+> 夜莺（ Nightingale ）是一款国产开源、云原生监控系统，Nightingale 在 2020.3.20 发布 v1 版本，目前是 v5 版本，从这个版本开始，与 Prometheus、VictoriaMetrics、Grafana、Telegraf、Datadog 等生态做了协同集成，力争打造国内最好用的开源运维监控系统。出自 Open-Falcon 研发团队。
 
 ## 项目代码
 

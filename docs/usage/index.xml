@@ -7,81 +7,94 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language><atom:link href="https://n9e.github.io/usage/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>告警规则</title>
-      <link>https://n9e.github.io/usage/alert-rule/</link>
+      <title>监控Linux</title>
+      <link>https://n9e.github.io/usage/linux/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://n9e.github.io/usage/alert-rule/</guid>
-      <description>从夜莺5.1版本开始，摒弃了之前数据PUSH型的告警规则，完全使用PromQL来触发告警，相比之前确实灵活了很多，不过学习成本会略高一丢丢，权衡之下，我们认为这是值得的。下面用几条简单的PromQL来入门一下PromQL的用法，至于更多使用知识，请参考Prometheus官网
-需求1：客户端失联告警
-target_up == 0 target_up是夜莺自动生成的一个监控指标，用于监控采集客户端是否存活，如果采集客户端在持续上报监控数据，target_up的值就是1，如果采集客户端不再上报监控数据了，这个指标的值就变成0了，所以，PromQL如上配置，即可在监控客户端失联的时候告警，为了防止网络抖动的情况，或临时restart进程，告警规则里，持续时长一般配置为60秒，给出一定的容错周期。
-监控数据和监控客户端是如何关联的呢？就看监控数据中的ident标签，或host标签，如果有这俩标签中的一个，系统就认为这个监控数据是跟某个监控客户端相关的，就认为在这一时刻，监控客户端是活着的。
-需求2：对整机的CPU空闲率告警
-CPU空闲率的指标是cpu_usage_idle，我们直接用promql查询这个指标，可以看到，有很多Label，比如：cpu=&amp;quot;cpu0&amp;quot;说明这个监控指标标识的是0号cpu的数据，我们要处理整机的CPU空闲率，应该用这个Label：cpu=&amp;quot;cpu-total&amp;quot;
-cpu_usage_idle{cpu=&amp;quot;cpu-total&amp;quot;} &amp;lt; 25 上面的promql只是指定了cpu=&amp;quot;cpu-total&amp;quot;这一个标签，没有指定是哪个机器，那就表示对所有机器生效，任何一台机器的CPU空闲率小于25就告警。
- 简单的PromQL一般就是指定metric，然后在{}中指定筛选标签，和之前夜莺的告警配置规则是一个道理，但是PromQL远不止可以做这些，还可以做很多更复杂的表达式计算，更多知识请参考：Prometheus官网
- 下面是一条Prometheus的告警规则，对照这条规则，咱们看一下是怎么对应到夜莺的功能的。
-groups: - name: example # 报警规则组的名字 rules: - alert: InstanceDown # 检测job的状态，持续1分钟metrices不能访问会发给altermanager进行报警 expr: up == 0 for: 1m # 持续时间，表示持续一分钟获取不到信息，则触发报警 labels: severity: danger # 自定义标签 annotations: summary: &amp;#34;Instance {{ $labels.instance }} down&amp;#34; # 自定义摘要  description: &amp;#34;{{ $labels.instance }} of job {{ $labels.job }} has been down for more than  groups.name，报警规则组的名称，有点像是夜莺里的业务组的概念 alert，表示告警规则名称，和夜莺里的规则名称类似 expr，是一条promql表达式，和夜莺的告警规则里的promql对应 for，对应夜莺告警规则里的持续时长 labels，对应夜莺告警规则里的附加标签 annotations，夜莺没有这个概念，夜莺在处理发送内容时，会有统一的几个模板来生成告警内容 evaluation_interval，这个是在Prometheus的global段的配置，表示规则执行频率，对应夜莺规则里的执行频率  当然，夜莺的告警规则还有一些其他配置，比如：</description>
+      <guid>https://n9e.github.io/usage/linux/</guid>
+      <description>监控 Linux 常用的有两种方式，一个是通过部署 Telegraf，一个是通过 node_exporter，关注三个层面的问题：怎么部署？配置哪些告警规则？监控大盘如何配置？
+Telegraf  部署方式：使用Telegraf采集监控数据 告警规则：https://github.com/didi/nightingale/blob/main/etc/alerts/linux_by_telegraf.json 监控大盘：正在整理  node_exporter  部署方式：https://github.com/prometheus/node_exporter 告警规则：https://github.com/didi/nightingale/blob/main/etc/alerts/node_by_exporter.json 监控大盘：https://github.com/didi/nightingale/blob/main/etc/dashboards/node_by_exporter.json  </description>
     </item>
     <item>
-      <title>屏蔽规则</title>
-      <link>https://n9e.github.io/usage/alert-mute/</link>
+      <title>监控Windows</title>
+      <link>https://n9e.github.io/usage/windows/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://n9e.github.io/usage/alert-mute/</guid>
-      <description>临时屏蔽部分告警通知 屏蔽规则，是针对告警事件的，大家在生成的告警事件中可以看到每个事件有很多标签，屏蔽规则就是针对这些标签配置过滤规则，满足过滤规则的，就不生成告警事件了。
-比如，我想屏蔽所有设备失联的告警，把标签key配置为：__name__，运算符：==，标签value：target_up即可。运算符=~表示正则，针对标签value，可以填写正则表达式，匹配一批的告警事件。运算符in表示数组包含的关系，即value可以配置多个。
-系统整体维护关掉所有通知 比如在某个时间段，全公司要做整体维护，预知会生成大量告警事件，就想把所有告警都先不发送，就只生成事件便于后面留档排查。这种情况不好做屏蔽规则，毕竟，不同的告警事件，标签很多都不一样。提供一个简单办法，把notify.py临时改个名字，这样n9e-server发送的时候就找不到这个脚本了，于是就没法发送了，此时页面上仍然可以看到告警事件。</description>
+      <guid>https://n9e.github.io/usage/windows/</guid>
+      <description>推荐使用 windows_exporter 监控 windows
+ 部署方式：https://github.com/prometheus-community/windows_exporter 告警规则：https://github.com/didi/nightingale/blob/main/etc/alerts/windows_by_exporter.json 监控大盘：https://github.com/didi/nightingale/blob/main/etc/dashboards/windows_by_exporter.json  </description>
     </item>
     <item>
-      <title>订阅规则</title>
-      <link>https://n9e.github.io/usage/alert-subscribe/</link>
+      <title>监控网络设备</title>
+      <link>https://n9e.github.io/usage/snmp/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://n9e.github.io/usage/alert-subscribe/</guid>
-      <description>某个告警除了某个组的人关心，可能其他人也关心，就配置订阅规则，比如K8S平台的运维人员要作为告警接收人来接收所有K8S的告警，但是K8S的一些重大网络故障会影响整个K8S集群上面的业务方，上层业务也会关心这类告警，此时业务方就可以订阅K8S集群的部分重大告警。
-对于订阅规则，还有一种场景，比如运维团队管理了公司所有的告警规则，比如内存利用率的告警，不同业务线的人只关心自己的，那不同业务线的人就可以通过订阅规则，只订阅自己业务线的机器的告警。只需简单的为这批机器打上业务线标签，就可以通过这些标签做过滤。
-当然，有的公司推行DevOps文化，自己的狗粮自己吃，自己的服务自己运维，我这个业务线关心哪些告警，就自己创建一个业务组，配置相关策略，跟别的业务线没有任何关系，也不需要由特定的某个团队帮我配置，这样也是可以的，不同公司文化不同，组织架构职能分工不同，大家就根据自己的公司情况来规划即可。
-不过，从性能上讲，建议多使用订阅规则，让整体的告警规则变少，因为告警规则每次判断，都要查询时序库，如果告警规则量很大，对时序库的压力是很大的。当然，对性能的影响也没有那么夸张，把这个信息透传给大家，大家自行把握就好。</description>
+      <guid>https://n9e.github.io/usage/snmp/</guid>
+      <description>Telegraf内置支持snmp的采集，本节给一个入门例子，让大家快速上手，更多具体知识可以参考这里。在telegraf.conf中搜索inputs.snmp，即可找到对应的配置，例子如下：
+[[inputs.snmp]] agents = [&amp;#34;udp://172.25.79.194:161&amp;#34;] timeout = &amp;#34;5s&amp;#34; version = 3 agent_host_tag = &amp;#34;ident&amp;#34; retries = 1 sec_name = &amp;#34;managev3user&amp;#34; auth_protocol = &amp;#34;SHA&amp;#34; auth_password = &amp;#34;example.Demo.c0m&amp;#34; [[inputs.snmp.field]] oid = &amp;#34;RFC1213-MIB::sysUpTime.0&amp;#34; name = &amp;#34;uptime&amp;#34; [[inputs.snmp.field]] oid = &amp;#34;RFC1213-MIB::sysName.0&amp;#34; name = &amp;#34;source&amp;#34; is_tag = true [[inputs.snmp.table]] oid = &amp;#34;IF-MIB::ifTable&amp;#34; name = &amp;#34;interface&amp;#34; inherit_tags = [&amp;#34;source&amp;#34;] [[inputs.snmp.table.field]] oid = &amp;#34;IF-MIB::ifDescr&amp;#34; name = &amp;#34;ifDescr&amp;#34; is_tag = true 上面非常关键的部分是：agent_host_tag = &amp;quot;ident&amp;quot;，因为夜莺对ident这个标签会特殊对待处理，把携有这个标签的数据当做隶属某个监控对象的数据，机器和网络设备都是典型的期望作为监控对象来管理的，所以snmp的采集中，我们把网络设备的ip放到ident这个标签里带上去。
+另外这个采集规则是v3的校验方法，不同的公司可能配置的校验方式不同，请各位参照telegraf.conf中那些snmp相关的注释仔细核对，如果是v2会简单很多，把上例中的如下部分：
+version = 3 sec_name = &amp;#34;managev3user&amp;#34; auth_protocol = &amp;#34;SHA&amp;#34; auth_password = &amp;#34;example.</description>
     </item>
     <item>
-      <title>告警通知媒介</title>
-      <link>https://n9e.github.io/usage/alert-notify/</link>
+      <title>埋点监控之PromSDK</title>
+      <link>https://n9e.github.io/usage/promapm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://n9e.github.io/usage/alert-notify/</guid>
-      <description>告警引擎模块是n9e-server，发送也是这个模块，查看server.conf，可以看到Alerting相关的一些配置，都是和告警发送相关的：
-[SMTP] Host = &amp;#34;smtp.163.com&amp;#34; Port = 994 User = &amp;#34;username&amp;#34; Pass = &amp;#34;password&amp;#34; From = &amp;#34;username@163.com&amp;#34; InsecureSkipVerify = true Batch = 5 [Alerting] TemplatesDir = &amp;#34;./etc/template&amp;#34; NotifyConcurrency = 10 # use builtin go code notify by default NotifyBuiltinEnable = true [Alerting.CallScript] # built in sending capability in go code # so, no need enable script sender Enable = false ScriptPath = &amp;#34;./etc/script/notify.py&amp;#34; [Alerting.CallPlugin] Enable = false # use a plugin via `go build -buildmode=plugin -o notify.</description>
+      <guid>https://n9e.github.io/usage/promapm/</guid>
+      <description>Google提出了应用监控的4个黄金指标，分别是：流量、延迟、错误、饱和度，其中前面3个指标都可以通过内嵌SDK的方式埋点采集。夜莺核心模块有两个，webapi主要是提供http接口给JavaScript调用，server主要是负责接收监控数据，处理告警规则，这两个模块都引入了Prometheus的Go的SDK，用此方式做App Performance监控，本节以夜莺的代码为例，讲解如何使用Prometheus的SDK。
+webapi监控 webapi模块主要统计两个内容，一个是请求的数量统计，一个是请求的延迟统计，统计时，要用不同的Label做维度区分，后面就可以通过不同的维度做多种多样的统计分析，对于HTTP请求，规划4个核心Label，分别是：service、code、path、method。service标识服务名称，要求全局唯一，便于和其他服务名称区分开，比如webapi模块，就定义为n9e-webapi，code是http返回的状态码，200就表示成功数量，其他code就是失败的，后面我们可以据此统计成功率，method是HTTP方法，GET、POST、PUT、DELETE等，比如新增用户和获取用户列表可能都是/api/n9e/users，从路径上无法区分，只能再加上method才能区分开。
+path着重说一下，表示请求路径，比如上面提到的/api/n9e/users，但是，在restful实践中，url中经常会有参数，比如获取编号为1的用户的信息，接口是/api/n9e/user/1，获取编号为2的用户信息，接口是/api/n9e/user/2，如果这俩带有用户编号的url都作为Label，会造成时序库索引爆炸，而且从业务方使用角度来看，我们也不关注编号为1的用户获取请求还是编号为2的用户获取请求，而是关注整体的GET /api/n9e/user/:id这个接口的监控数据。所以我们在设置Label的时候，要把path设置为/api/n9e/user/:id，而不是那具体的带有用户编号的url路径。夜莺用的gin框架，gin框架有个FullPath方法就是获取这个信息的，比较方便。
+首先，我们在webapi下面创建一个stat包，放置相关统计变量：
+package stat import ( &amp;#34;time&amp;#34; &amp;#34;github.com/prometheus/client_golang/prometheus&amp;#34; ) const Service = &amp;#34;n9e-webapi&amp;#34; var ( labels = []string{&amp;#34;service&amp;#34;, &amp;#34;code&amp;#34;, &amp;#34;path&amp;#34;, &amp;#34;method&amp;#34;} uptime = prometheus.NewCounterVec( prometheus.CounterOpts{ Name: &amp;#34;uptime&amp;#34;, Help: &amp;#34;HTTP service uptime.&amp;#34;, }, []string{&amp;#34;service&amp;#34;}, ) RequestCounter = prometheus.NewCounterVec( prometheus.CounterOpts{ Name: &amp;#34;http_request_count_total&amp;#34;, Help: &amp;#34;Total number of HTTP requests made.&amp;#34;, }, labels, ) RequestDuration = prometheus.NewHistogramVec( prometheus.HistogramOpts{ Buckets: []float64{.01, .1, 1, 10}, Name: &amp;#34;http_request_duration_seconds&amp;#34;, Help: &amp;#34;HTTP request latencies in seconds.</description>
     </item>
     <item>
-      <title>当前告警活跃事件</title>
-      <link>https://n9e.github.io/usage/alert-cur-event/</link>
+      <title>埋点监控之StatsdSDK</title>
+      <link>https://n9e.github.io/usage/statsd/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://n9e.github.io/usage/alert-cur-event/</guid>
-      <description>本节并无太多要讲的内容，菜单里的【活跃告警】，就是列出了当前所有的未恢复活跃告警，如果某个告警恢复了，就会自动从这个列表中删除，这个页面还是蛮重要的，可以作为日常巡检的一项，每天上下班的时候都看一下，看看哪些事件还没恢复，漏了处理。
-活跃告警可以删除，这个操作比较危险，一定要弄明白原理。通常情况下，我们是无需手工删除的，比如cpu_usage_idle告警了，会自动创建一条告警事件，当cpu_usage_idle的值恢复了，即这条告警变成恢复状态了，系统就会自动从活跃告警中删除，所以，通常情况下，就让系统自动处理就好了。
-但是，如果某个指标的标签发生变化，或者机器下线，相关的告警就再也无法恢复了，这个不好理解，详细解释一下：
-指标标签发生变化
-比如这个告警规则：cpu_usage_idle{cpu=&amp;quot;cpu-total&amp;quot;} &amp;lt; 25，拿着这个promql去promdash查询，得到的结果可以看到，有cpu和ident两个标签，ident表示的监控对象，此时，如果我们去对象管理页面，修改这个监控对象的标签，后面新上报的监控数据，就会自动打上新标签，继续拿着刚才的promql去promdash查询，会发现表格里很快会出现新的记录，和之前的记录并存，从时序库的角度来看，就是多了一条新的series。
-就相当于：之前有个series告警了，还没恢复呢，又来了一个新的series，老的series不再上报监控数据，所以老的告警事件就永远都不会恢复了。当然，我们可以调整一下这个promql，忽略掉其他的额外的标签，比如avg(cpu_usage_idle{cpu=&amp;quot;cpu-total&amp;quot;}) by (ident)，这样一来，即使在监控对象的页面修改了标签，这个新的promql永远都只有ident这一个标签，因为这个新的promql是根据ident做了聚合。虽然标签稳定了，但是本人不推荐大家这么做，这样做了之后，cpu=&amp;quot;cpu-total&amp;quot;这个标签就丢了。
-机器下线
-比如某个机器的某个指标报警了，比如内存利用率的一个指标，还没恢复呢，这个机器下线了，上面的客户端也不再上报监控数据了，那这个告警事件就永远都不会消失了，这种情况，我们知道是怎么回事，就可以手工删除对应的告警事件。省的放那没用，还碍眼。
- 另外，左侧的业务组旁边，带有一个数字徽章，表示的是这个业务组下的活跃告警数量，这种方式可以让我们快速知道哪个业务组下的告警规则触发了及其活跃事件数量。</description>
+      <guid>https://n9e.github.io/usage/statsd/</guid>
+      <description>StatsD简介 在内嵌Prometheus SDK做APM一节中，我们介绍了业务进程内嵌Prometheus的SDK做埋点，这种方式，会把监控数据聚合计算的逻辑放在业务进程中，比如一些平均值、分位值的计算，可能会对业务进程造成影响，本节要介绍的StatsD的方式，理念是把指标聚合计算的逻辑挪到业务进程之外，业务进程调用埋点函数的时候，通过UDP推送给StatsD，即使StatsD挂了，也不会对业务进程造成影响。
+StatsD的简介，网上一搜一大把，请大家自行Google，这里就不重复描述了。核心要理解一下StatsD的设计理念、协议、支持的各个语言的SDK（在附录里有）即可，下面直接拿一个小例子讲解如何利用Telegraf支持StatsD协议的数据，数据只要进了Telegraf了，就意味着可以推到夜莺了，夜莺就相当于支持了StatsD的埋点监控采集能力。
+Telegraf启用StatsD 在Telegraf的配置文件中搜索inputs.statsd就能看到对应的section：
+[[inputs.statsd]] protocol = &amp;#34;udp&amp;#34; service_address = &amp;#34;:8125&amp;#34; percentiles = [50.0, 90.0, 99.0, 99.9, 99.95, 100.0] metric_separator = &amp;#34;_&amp;#34; 启用如上配置，percentiles略微有点多，可以配置的少一点，比如percentiles = [50.0, 90.0, 99.0, 100.0]，这样整体计算存储压力也会小一些。重启Telegraf，Telegraf就会在8125端口监听udp协议，接收业务埋点数据的上报。即，Telegraf实现了StatsD的协议，可以作为StatsD的Server使用。
+在业务程序中埋点 附录里罗列了一些客户端SDK，这里笔者使用Go语言的一个SDK来测试，实现了一个很小的web程序，代码如下：
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;net/http&amp;#34; &amp;#34;time&amp;#34; &amp;#34;github.com/smira/go-statsd&amp;#34; ) var client *statsd.Client func homeHandler(w http.ResponseWriter, r *http.Request) { start := time.Now() // random sleep 	num := rand.Int31n(100) time.Sleep(time.Duration(num) * time.Millisecond) fmt.Fprintf(w, &amp;#34;duration: %d&amp;#34;, num) client.Incr(&amp;#34;requests.counter,page=home&amp;#34;, 1) client.</description>
     </item>
     <item>
-      <title>全部历史告警事件</title>
-      <link>https://n9e.github.io/usage/alert-his-event/</link>
+      <title>监控URL</title>
+      <link>https://n9e.github.io/usage/http_response/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://n9e.github.io/usage/alert-his-event/</guid>
-      <description>相比【活跃告警】，【历史告警】数量更多，会把恢复状态的消息也存档展示，用处不是很大，主要是留档查问题用的，这个表的数量增加会比较快，大家要经常关注一下，如果表的数量很多，比如超过100万，建议做一下清理，量太大的话会影响告警处理的速度，因为每一条告警事件都要往这个表里插入。</description>
+      <guid>https://n9e.github.io/usage/http_response/</guid>
+      <description>之前在写调研笔记的时候，测试了PING监控和TCP探测监控，调研笔记在 这里 这个章节主要给大家讲解域名URL探测。直接上测试配置：
+[[inputs.http_response]] urls = [&amp;#34;https://www.baidu.com&amp;#34;, &amp;#34;http://ulricqin.io/ping&amp;#34;] response_timeout = &amp;#34;5s&amp;#34; method = &amp;#34;GET&amp;#34; fielddrop = [&amp;#34;result_type&amp;#34;] tagexclude = [&amp;#34;result&amp;#34;, &amp;#34;status_code&amp;#34;] https://www.baidu.com 显然是通的，http://ulricqin.io/ping 这个是个假的URL，不通，我们测试一下输出的内容：
+[root@10-255-0-34 telegraf-1.20.3]# ./usr/bin/telegraf --config etc/telegraf/telegraf.conf --input-filter http_response --test 2021-12-13T04:16:43Z I! Starting Telegraf 1.20.3 &amp;gt; http_response,host=10-255-0-34,method=GET,server=https://www.baidu.com content_length=227i,http_response_code=200i,response_time=0.028757521,result_code=0i 1639369003000000000 &amp;gt; http_response,host=10-255-0-34,method=GET,server=http://ulricqin.io/ping result_code=5i 1639369003000000000 这里有个字段是result_code，用这个字段配置告警即可，正常可以访问的URL，result_code是0，不正常就是非0，告警规则里可以配置如下promql：
+http_response_result_code != 0 或者直接在夜莺的告警规则页面导入这条告警规则JSON：
+[ { &amp;#34;name&amp;#34;: &amp;#34;有URL探测失败，请注意&amp;#34;, &amp;#34;note&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;severity&amp;#34;: 1, &amp;#34;disabled&amp;#34;: 0, &amp;#34;prom_for_duration&amp;#34;: 60, &amp;#34;prom_ql&amp;#34;: &amp;#34;http_response_result_code != 0&amp;#34;, &amp;#34;prom_eval_interval&amp;#34;: 15, &amp;#34;enable_stime&amp;#34;: &amp;#34;00:00&amp;#34;, &amp;#34;enable_etime&amp;#34;: &amp;#34;23:59&amp;#34;, &amp;#34;enable_days_of_week&amp;#34;: [ &amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;3&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;5&amp;#34;, &amp;#34;6&amp;#34;, &amp;#34;0&amp;#34; ], &amp;#34;notify_recovered&amp;#34;: 1, &amp;#34;notify_channels&amp;#34;: [ &amp;#34;email&amp;#34;, &amp;#34;dingtalk&amp;#34;, &amp;#34;wecom&amp;#34; ], &amp;#34;notify_repeat_step&amp;#34;: 60, &amp;#34;callbacks&amp;#34;: [], &amp;#34;runbook_url&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;append_tags&amp;#34;: [] } ] 如果想对域名返回的statuscode或者response body的内容做判断，Telegraf也是支持的，使用response_status_code和response_string_match这些字段配置，配置文件里有样例，大家可以自行参考下。</description>
     </item>
     <item>
-      <title>告警自愈</title>
-      <link>https://n9e.github.io/usage/selfhealing/</link>
+      <title>监控日志</title>
+      <link>https://n9e.github.io/usage/mtail/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://n9e.github.io/usage/selfhealing/</guid>
-      <description>所谓的告警自愈，主要是靠告警规则中配置webhook，即在告警和恢复的时候，自动调用指定的webhook地址，在这个webhook中写自动处理的逻辑。这个功能大部分监控系统都支持，不过对于运维人员，这个门槛可能稍高。夜莺和ibex（类似之前v3版本中的job模块）整合，可以做到告警的时候自动执行某个脚本，运维人员只需要写脚本即可，这个门槛会低一些。
-自愈脚本 在这个页面提前准备好一些自愈脚本，python、perl、ruby都行，只要机器上有对应的运行环境，系统会为每个自愈脚本生成一个ID，这个ID后面用于配置到告警规则那里形成联动。
-执行历史 保存了所有告警自愈的调用历史，可以查看执行结果，包括脚本的stdout和stderr等
-告警规则关联自愈脚本 告警规则中可以配置回调地址，比如${ibex}/11就表示这个回调是个特殊的回调，是要和告警自愈脚本打通，11表示的是自愈脚本的编号。如果我想在某个告警规则触发告警的时候，执行第22号脚本，就配置为：${ibex}/22，告警规则和自愈脚本都是要归属某个业务组的，规则关联的脚本只能是同业务组的。
-默认情况下，脚本的执行是去告警的那个机器执行，如果想把脚本放在特定的机器执行，可以这么配置：${ibex}/11/c3-center01.bj，c3-center01.bj表示希望脚本放到这个机器执行，这个机器需要和告警规则隶属于相同的业务组。典型的是这个机器是这个业务组的中控机，在中控机上跑一些自愈逻辑。
-额外说明 对于告警回调的处理，这里额外交代一下，默认情况下，不管是告警消息还是恢复消息，都会调用webhook，有时，webhook只需要在告警的时候才做处理，在恢复的时候啥都不做，此时，webhook逻辑要去看IsRecovered这个字段，这个字段如果是1就表示是恢复消息，如果这个字段是0就表示是告警消息。如果是${ibex}这种回调，系统会自动判断，只在告警的时候才触发，恢复的时候不触发，这点也请注意。因为从使用角度，自愈脚本只需要在告警的时候运行，恢复的时候，脚本是无需执行的。</description>
+      <guid>https://n9e.github.io/usage/mtail/</guid>
+      <description>前言 说到日志监控，大家第一反应的可能是ELK的方案，或者Loki的方案，这两个方案都是把日志采集了发到中心，在中心存储、查看、分析，不过这个方案相对比较重量级一些，如果我们的需求只是从日志中提取一些metrics数据，比如统计一些日志中出现的Error次数之类的，则有一个更简单的方案。
+这个方案在夜莺v4版本中是有的，不过后来推荐大家客户端使用Telegraf，Telegraf没有这个能力，所以v5版本的夜莺没法监控日志，怎么办呢？这里给大家介绍一个Google出品的小工具，mtail，mtail和夜莺v4的方案类似，就是流式读取日志，通过正则表达式匹配的方式从日志中提取metrics指标，这种方式可以利用目标机器的算力，不过如果量太大，可能会影响目标机器上的业务程序，另外一个好处是无侵入性，不需要业务埋点，如果业务程序是第三方供应商提供的，我们改不了其代码，mtail此时就非常合适了。当然了，如果业务程序是我们公司的人自己写的，那还是建议用埋点的方式采集指标，mtail只是作为一个补充吧。
+mtail简介 mtail的使用方案，参考如下两个文档（下载的话参考Releases页面）：
+ Deploying Programming Guide  我们拿mtail的启动命令来举例其用法：
+mtail --progs /etc/mtail --logs /var/log/syslog --logs /var/log/ntp/peerstats 通过 --progs 参数指定一个目录，这个目录里放置一堆的*.mtail文件，每个mtail文件就是描述的正则提取规则，通过 --logs 参数来指定要监控的日志目录，可以写通配符，--logs 可以写多次，上例中只是指定了 --progs 和 --logs ，没有其他参数，mtail启动之后会自动监听一个端口3903，在3903的/metrics接口暴露符合Prometheus协议的监控数据，Prometheus（或者Telegraf）就可以从 /metrics 接口提取监控数据。
+这样看起来，原理就很清晰了，mtail启动之后，根据 --logs 找到相关日志文件文件，seek到文件末尾，开始流式读取，每读到一行，就根据 --progs 指定的那些规则文件做匹配，看是否符合某些正则，从中提取时序数据，然后通过3903的/metrics暴露采集到的监控指标。当然，除了Prometheus这种/metrics方式暴露，mtail还支持把监控数据直接推给graphite或者statsd，具体可以参考：这里
+mtail样例 这里我用mtail监控一下n9e-server的日志，从中提取一下各个告警规则触发的notify的数量，这个日志举例：
+2021-12-27 10:00:30.537582 INFO engine/logger.go:19 event(cbb8d4be5efd07983c296aaa4dec5737 triggered) notify: rule_id=9 [__name__=net_response_result_code author=qin ident=10-255-0-34 port=4567 protocol=tcp server=localhost]2@1640570430 很明显，日志中有这么个关键字：notify: rule_id=9，可以用正则来匹配，统计出现的行数，ruleid也可以从中提取到，这样，我们可以把ruleid作为标签上报，于是乎，我们就可以写出这样的mtail规则了：
+[root@10-255-0-34 nightingale]# cat /etc/mtail/n9e-server.mtail counter mtail_alert_rule_notify_total by ruleid /notify: rule_id=(?P&amp;lt;ruleid&amp;gt;\d+)/ { mtail_alert_rule_notify_total[$ruleid]++ } 然后启动也比较简单，我这里就用nohup简单来做：
+nohup mtail -logtostderr --progs /etc/mtail --logs server.</description>
+    </item>
+    <item>
+      <title>监控MySQL</title>
+      <link>https://n9e.github.io/usage/mysql/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/usage/mysql/</guid>
+      <description> 监控方式：https://github.com/prometheus/mysqld_exporter 告警规则：https://github.com/didi/nightingale/blob/main/etc/alerts/mysql_by_exporter.json 监控大盘：https://github.com/didi/nightingale/blob/main/etc/dashboards/mysql_by_exporter.json  </description>
+    </item>
+    <item>
+      <title>监控Redis</title>
+      <link>https://n9e.github.io/usage/redis/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/usage/redis/</guid>
+      <description> 监控方式：https://github.com/oliver006/redis_exporter 告警规则：https://github.com/didi/nightingale/blob/main/etc/alerts/redis_by_exporter.json 监控大盘：https://github.com/didi/nightingale/blob/main/etc/dashboards/redis_by_exporter.json  </description>
     </item>
   </channel>
 </rss>

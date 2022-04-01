@@ -1,5 +1,5 @@
 ---
-title: "快速在生产环境部署启动单机版"
+title: "使用二进制部署单机版服务端"
 weight: 2
 ---
 
@@ -7,7 +7,7 @@ weight: 2
 
 如果仅仅是为了快速测试，Docker 部署方式是最快的，不过很多朋友未必有 Docker 环境，另外为了减少引入更多技术栈，增强生产环境稳定性，有些朋友可能也不愿意用 Docker，那本篇就来讲解如何快速部署单机版，单机版的配套时序库是使用 Prometheus。如果要监控的机器有几千台，服务有几百个，单机版的容量无法满足，可以上集群版，集群版的时序库建议使用 VictoriaMetrics，也可以使用 M3DB，不过 M3DB 的架构更复杂，很多朋友无法搞定，选择简单的 VictoriaMetrics，对大部分公司来讲，足够用了。我们先来看一下服务端架构：
 
-<img src="/install/standalone.png" width="200" />
+![](/install/standalone.png?width=500px)
 
 按照单机版本的这个架构图可以看出，服务端需要安装的组件有：MySQL、Redis、Prometheus、n9e-server、n9e-webapi，Agent 有多种选型，可以是 Telegraf、Datadog-Agent、Grafana-Agent 等，Agent 应该部署在所有的目标机器上，包括服务端的这台机器，Exporters 是指 Prometheus 生态的各类 Exporter 采集器，比如 mysqld_exporter、redis_exporter、blackbox_exporter 等，这些 Exporter 是非必须的，看各自公司的情况。
 
@@ -71,8 +71,8 @@ systemctl restart redis
 mkdir -p /opt/n9e && cd /opt/n9e
 
 # 去 https://github.com/didi/nightingale/releases 找最新版本的包，文档里的包地址可能已经不是最新的了
-tarball=n9e-5.4.0.tar.gz
-urlpath=https://github.com/didi/nightingale/releases/download/v5.4.0/${tarball}
+tarball=n9e-5.5.0.tar.gz
+urlpath=https://github.com/didi/nightingale/releases/download/v5.5.0/${tarball}
 wget $urlpath || exit 1
 
 tar zxvf ${tarball}
@@ -86,15 +86,10 @@ nohup ./n9e webapi &> webapi.log &
 # check port
 ```
 
-如果启动成功，server默认会监听在19000端口，webapi会监听在18000端口，且日志没有报错。上面使用nohup简单演示，生产环境建议用systemd托管，相关service文件可以在etc/service目录下找到。
+如果启动成功，server 默认会监听在 19000 端口，webapi 会监听在 18000 端口，且日志没有报错。上面使用 nohup 简单演示，生产环境建议用 systemd 托管，相关 service 文件可以在 etc/service 目录下，供参考。
 
+配置文件`etc/server.conf`和`etc/webapi.conf`中都含有 mysql 的连接地址配置，检查一下用户名和密码，prometheus 如果使用上面的脚本安装，默认会监听本机 9090 端口，server.conf 和 webapi.conf 中的 prometheus 相关地址都不用修改就是对的。
 
-配置文件etc/server.conf和etc/webapi.conf中都含有mysql的连接地址配置，检查一下用户名和密码，prometheus如果使用上面的脚本安装，默认会监听本机9090端口，server.conf和webapi.conf中的prometheus相关地址都不用修改就是对的。
+好了，浏览器访问 webapi 的端口（默认是18000）就可以体验相关功能了，默认用户是`root`，密码是`root.2020`。如果安装过程出现问题，可以参考公众号（云原生监控）的视频教程。
 
-好了，浏览器访问webapi的端口（默认是18000）就可以体验相关功能了，默认用户是`root`，密码是`root.2020`。如果安装过程出现问题，可以参考 [视频教程](https://www.bilibili.com/video/BV1HL4y1H7Yc/) 
-
-接下来，你可能需要：
-
-- [安装Telegraf采集更多监控数据]({{%relref "telegraf"%}})
-
-
+夜莺服务端部署好了，接下来要考虑监控数据采集的问题，如果是 Prometheus 重度用户，可以继续使用各类 Exporter 来采集，只要数据进了时序库了，夜莺就能够消费（判断告警、展示图表等）；如果想快速看到效果，可以使用 Telegraf 来采集监控数据，请参考后续文档章节。

@@ -11,12 +11,11 @@ weight: 15
 
 ibex模块，类似之前夜莺v3版本中的job模块，可以批量执行脚本，其架构非常简单，包括server和agentd两个模块，agentd周期性调用server的rpc接口，询问有哪些任务要执行，如果有分配给自己的任务，就从server拿到任务脚本信息，在本地fork一个进程运行，然后将结果上报给服务端。为了简化部署，server和agentd融合成了一个二进制，就是ibex，通过传入不同的参数来启动不同的角色。ibex架构图如下：
 
-![ibex架构图](/ibex-arch.png)
+![ibex架构图](/install/ibex.png?width=500px)
 
 ## 项目地址
 
-- Git仓库：[https://gitee.com/cnperl/ibex](https://gitee.com/cnperl/ibex)
-- Linux安装包：[http://49.233.250.79/ibex-1.0.0.tar.gz](http://49.233.250.79/ibex-1.0.0.tar.gz) 其他环境的包需要自行编译，编译方法参考[这里]({{%relref "compile" %}})
+- Git仓库：[https://gitee.com/cnperl/ibex](https://gitee.com/cnperl/ibex) 编译方法[看这里]({{%relref "compile" %}}) Linux 下编译好的包 [在这里](/tarball/ibex-1.0.0.tar.gz)
 
 ## 安装启动
 

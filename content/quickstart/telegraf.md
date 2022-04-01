@@ -105,10 +105,6 @@ systemctl status telegraf
 {{% /notice %}}
 
 
-## 网友分享
-
-- [Telegraf的Linux版安装分享](https://t.zsxq.com/ba2Faqb)
-- [Telegraf的Windows版安装分享](https://t.zsxq.com/AAqFQJY)
-
+💡 Telegraf 采集的 Linux 层面的监控数据，我们整理了一个告警规则配置，可以直接导入，[JSON在这里](https://github.com/didi/nightingale/blob/main/etc/alerts/linux_by_telegraf.json) 监控大盘正在整理，未来会放到 [这里](https://github.com/didi/nightingale/tree/main/etc/dashboards)
 
 

@@ -7,16 +7,16 @@
     <meta name="description" content="Documentation for nightingale">
     
     <title>接入多个Prom/VM/M3DB集群 :: N9E</title>
-    <link href="/css/nucleus.css?1648787771" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1648787771" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1648787771" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1648787771" rel="stylesheet">
-    <link href="/css/auto-complete.css?1648787771" rel="stylesheet">
-    <link href="/css/theme.css?1648787771" rel="stylesheet">
-    <link href="/css/theme-blue.css?1648787771" rel="stylesheet">
-    <link href="/css/variant.css?1648787771" rel="stylesheet">
-    <link href="/css/print.css?1648787771" rel="stylesheet" media="print">
-    <script src="/js/jquery.min.js?1648787771"></script>
+    <link href="/css/nucleus.css?1648800681" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1648800681" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1648800681" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1648800681" rel="stylesheet">
+    <link href="/css/auto-complete.css?1648800681" rel="stylesheet">
+    <link href="/css/theme.css?1648800681" rel="stylesheet">
+    <link href="/css/theme-blue.css?1648800681" rel="stylesheet">
+    <link href="/css/variant.css?1648800681" rel="stylesheet">
+    <link href="/css/print.css?1648800681" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1648800681"></script>
     <style>
       :root #header + #content > #left > #rlblock_left{
         display:none !important;
@@ -33,7 +33,7 @@
       <div id="header-wrapper">
         <div id="header">
 
-<a href="/" style="font-weight: 900;font-size: 20px;color: #fff;">Nightingale</a>
+<a href="/" style="font-weight: 900;font-size: 24px;color: #fff;">Nightingale</a>
 <div style="color:#eee;line-height: 24px;padding-top: 8px;font-size: 12px;"><i>Version 5.0</i></div>
         </div>
         <div class="searchbox">
@@ -41,17 +41,17 @@
           <input data-search-input id="search-by" type="search" placeholder="Search...">
           <span data-search-clear=""><i class="fas fa-times"></i></span>
         </div>
-        <script src="/js/lunr.min.js?1648787771"></script>
-        <script src="/js/auto-complete.js?1648787771"></script>
+        <script src="/js/lunr.min.js?1648800681"></script>
+        <script src="/js/auto-complete.js?1648800681"></script>
         <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
         <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
-        <script src="/js/search.js?1648787771"></script>
+        <script src="/js/search.js?1648800681"></script>
       </div>
       <div class="highlightable">
         <ul class="topics">
           <li data-nav-id="/quickstart/" title="安装部署" class="dd-item parent"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
-          <li data-nav-id="/quickstart/compose/" title="使用Docker Compose快速部署" class="dd-item"><a href="/quickstart/compose/">使用Docker Compose快速部署<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/quickstart/standalone/" title="快速在生产环境部署启动单机版" class="dd-item"><a href="/quickstart/standalone/">快速在生产环境部署启动单机版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker快速启动测试" class="dd-item"><a href="/quickstart/compose/">使用Docker快速启动测试<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="使用二进制部署单机版服务端" class="dd-item"><a href="/quickstart/standalone/">使用二进制部署单机版服务端<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item active"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
@@ -59,26 +59,15 @@
           <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
           <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
-          <li data-nav-id="/usage/alert-rule/" title="告警规则" class="dd-item"><a href="/usage/alert-rule/">告警规则<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/usage/alert-mute/" title="屏蔽规则" class="dd-item"><a href="/usage/alert-mute/">屏蔽规则<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/usage/alert-subscribe/" title="订阅规则" class="dd-item"><a href="/usage/alert-subscribe/">订阅规则<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/usage/alert-notify/" title="告警通知媒介" class="dd-item"><a href="/usage/alert-notify/">告警通知媒介<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/usage/alert-cur-event/" title="当前告警活跃事件" class="dd-item"><a href="/usage/alert-cur-event/">当前告警活跃事件<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/usage/alert-his-event/" title="全部历史告警事件" class="dd-item"><a href="/usage/alert-his-event/">全部历史告警事件<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/usage/selfhealing/" title="告警自愈" class="dd-item"><a href="/usage/selfhealing/">告警自愈<i class="fas fa-check read-icon"></i></a></li></ul></li>
-          <li data-nav-id="/best-practice/" title="夜莺实战" class="dd-item"><a href="/best-practice/">夜莺实战<i class="fas fa-check read-icon"></i></a><ul>
-          <li data-nav-id="/best-practice/fccloud-usage/" title="使用夜莺的的几种实践姿势" class="dd-item"><a href="/best-practice/fccloud-usage/">使用夜莺的的几种实践姿势<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/busi-group-design/" title="探讨业务组的设计和最佳实践" class="dd-item"><a href="/best-practice/busi-group-design/">探讨业务组的设计和最佳实践<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/linux_host/" title="监控Linux操作系统" class="dd-item"><a href="/best-practice/linux_host/">监控Linux操作系统<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/snmp/" title="使用SNMP采集网络设备的指标" class="dd-item"><a href="/best-practice/snmp/">使用SNMP采集网络设备的指标<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/promapm/" title="内嵌Prometheus SDK做APM" class="dd-item"><a href="/best-practice/promapm/">内嵌Prometheus SDK做APM<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/statsd/" title="内嵌Statsd SDK做APM" class="dd-item"><a href="/best-practice/statsd/">内嵌Statsd SDK做APM<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/middleware/" title="使用Telegraf和Exporter监控中间件" class="dd-item"><a href="/best-practice/middleware/">使用Telegraf和Exporter监控中间件<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/k8s/" title="监控Kubernetes" class="dd-item"><a href="/best-practice/k8s/">监控Kubernetes<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/http_response/" title="监控URL" class="dd-item"><a href="/best-practice/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/mtail/" title="监控日志（超级轻量的方案）" class="dd-item"><a href="/best-practice/mtail/">监控日志（超级轻量的方案）<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/mysql/" title="监控MySQL" class="dd-item"><a href="/best-practice/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/best-practice/redis/" title="监控Redis" class="dd-item"><a href="/best-practice/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/linux/" title="监控Linux" class="dd-item"><a href="/usage/linux/">监控Linux<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/windows/" title="监控Windows" class="dd-item"><a href="/usage/windows/">监控Windows<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/snmp/" title="监控网络设备" class="dd-item"><a href="/usage/snmp/">监控网络设备<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/promapm/" title="埋点监控之PromSDK" class="dd-item"><a href="/usage/promapm/">埋点监控之PromSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/statsd/" title="埋点监控之StatsdSDK" class="dd-item"><a href="/usage/statsd/">埋点监控之StatsdSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/http_response/" title="监控URL" class="dd-item"><a href="/usage/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mtail/" title="监控日志" class="dd-item"><a href="/usage/mtail/">监控日志<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mysql/" title="监控MySQL" class="dd-item"><a href="/usage/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/redis/" title="监控Redis" class="dd-item"><a href="/usage/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
           <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
           <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
           <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
@@ -86,8 +75,8 @@
         <div id="shortcuts">
           <div class="nav-title">More</div>
           <ul>
-            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> GitHub repo</a></li>
-            <li><a class="padding" href="https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"><i class='fas fa-fw fa-book'></i> Video tutorial</a></li>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> 代码仓库</a></li>
+            <li><a class="padding" href="https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"><i class='fas fa-fw fa-book'></i> 视频教程</a></li>
           </ul>
         </div>
         <div id="prefooter">
@@ -139,9 +128,11 @@
         <main id="body-inner">
           <h1>接入多个Prom/VM/M3DB集群</h1>
 
-<p>由于Prometheus没有集群版本，受限于容量问题，很多公司会搭建多套Prometheus，比如按照业务拆分，不同的业务使用不同的Prometheus集群，或者按照地域拆分，不同的地域使用不同的Prometheus集群。这里是以Prometheus来举例，VictoriaMetrics、M3DB都有集群版本，不过有时为了不相互干扰和地域网络问题，也会拆成多个集群。对于多集群的协同，需要在夜莺里做一些配置，架构图如下：</p>
-<p><img src="/n9e-multi-cluster.png" alt="夜莺读取多个时序库"></p>
-<p>比如，我们有两个时序库，在北京搭建了一个Prometheus，在广州搭建了一个VictoriaMetrics，n9e-webapi会把这两个时序库作为DataSource，所以在n9e-webapi的配置文件中，要配置上这俩存储的地址，举例：</p>
+<p>由于Prometheus没有集群版本，受限于容量问题，很多公司会搭建多套Prometheus，比如按照业务拆分，不同的业务使用不同的Prometheus集群，或者按照地域拆分，不同的地域使用不同的Prometheus集群。这里是以Prometheus来举例，VictoriaMetrics、M3DB都有集群版本，不过有时为了不相互干扰和地域网络问题，也会拆成多个集群。对于多集群的协同，需要在夜莺里做一些配置，回顾一下夜莺的架构图：</p>
+<p><img src="/intro/arch-system.png" alt="夜莺架构图"></p>
+<p>图上分了 3 个 region，每个 region 一套时序库，每个 region 一套 n9e-server，n9e-server 依赖 redis，所以每个 region 一个 redis，n9e-webapi 和 mysql 放到中心，n9e-webapi 也依赖一个 redis，所以中心端放置的是 n9e-webapi、redis、mysql，如果想图省事，redis 也是可以复用的，各个 region 的 n9e-server 都连接中心的 redis 也是可以的。</p>
+<p>为了高可用，各个 region 的 n9e-server 可以多部署几个实例组成一个集群，集群中的所有 n9e-server 的配置文件 server.conf 中的 ClusterName 要设置成一样的字符串。</p>
+<p>假设，我们有两个时序库，在北京搭建了一个 Prometheus，在广州搭建了一个 VictoriaMetrics，n9e-webapi 会把这两个时序库作为 DataSource，所以在 n9e-webapi 的配置文件中，要配置上这俩存储的地址，举例：</p>
 <div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[[Clusters]]
 <span style="color:#78787e"># cluster name</span>
 Name = <span style="color:#5af78e">&#34;Prom-Beijing&#34;</span>
@@ -183,7 +174,7 @@ KeepAlive = <span style="color:#ff9f43">30000</span>
 MaxConnsPerHost = <span style="color:#ff9f43">0</span>
 MaxIdleConns = <span style="color:#ff9f43">100</span>
 MaxIdleConnsPerHost = <span style="color:#ff9f43">100</span>
-</code></pre></div><p>另外图上也可以看出，一个n9e-server对应一个时序库，所以在n9e-server的配置文件中，也需要配置对应的时序库的地址，比如北京的server，配置如下，Writers下面的Url配置的是remote write的地址，而Reader下面配置的Url是实现Prometheus原生查询接口的BaseUrl</p>
+</code></pre></div><p>另外图上也可以看出，一个 n9e-server 对应一个时序库，所以在 n9e-server 的配置文件中，也需要配置对应的时序库的地址，比如北京的 server，配置如下，Writers 下面的 Url 配置的是 remote write 的地址，而 Reader 下面配置的 Url 是实现Prometheus 原生查询接口的 BaseUrl。</p>
 <div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[Reader]
 <span style="color:#78787e"># prometheus base url</span>
 Url = <span style="color:#5af78e">&#34;http://127.0.0.1:9090&#34;</span>
@@ -204,7 +195,6 @@ MaxIdleConns = <span style="color:#ff9f43">100</span>
 MaxIdleConnsPerHost = <span style="color:#ff9f43">10</span>
 
 [[Writers]]
-Name = <span style="color:#5af78e">&#34;prom&#34;</span>
 Url = <span style="color:#5af78e">&#34;http://127.0.0.1:9090/api/v1/write&#34;</span>
 <span style="color:#78787e"># Basic auth username</span>
 BasicAuthUser = <span style="color:#5af78e">&#34;&#34;</span>
@@ -221,7 +211,7 @@ KeepAlive = <span style="color:#ff9f43">30000</span>
 MaxConnsPerHost = <span style="color:#ff9f43">0</span>
 MaxIdleConns = <span style="color:#ff9f43">100</span>
 MaxIdleConnsPerHost = <span style="color:#ff9f43">100</span>
-</code></pre></div><p>上海区域用的是VictoriaMetrics，所以Url略有不同，配置如下：</p>
+</code></pre></div><p>假设上海区域用的是 VictoriaMetrics，所以 Url 略有不同，配置如下：</p>
 <div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[Reader]
 <span style="color:#78787e"># prometheus base url</span>
 Url = <span style="color:#5af78e">&#34;http://127.0.0.1:8481/select/0/prometheus&#34;</span>
@@ -242,7 +232,6 @@ MaxIdleConns = <span style="color:#ff9f43">100</span>
 MaxIdleConnsPerHost = <span style="color:#ff9f43">10</span>
 
 [[Writers]]
-Name = <span style="color:#5af78e">&#34;vm&#34;</span>
 Url = <span style="color:#5af78e">&#34;http://127.0.0.1:8480/insert/0/prometheus/api/v1/write&#34;</span>
 <span style="color:#78787e"># Basic auth username</span>
 BasicAuthUser = <span style="color:#5af78e">&#34;&#34;</span>
@@ -259,8 +248,8 @@ KeepAlive = <span style="color:#ff9f43">30000</span>
 MaxConnsPerHost = <span style="color:#ff9f43">0</span>
 MaxIdleConns = <span style="color:#ff9f43">100</span>
 MaxIdleConnsPerHost = <span style="color:#ff9f43">100</span>
-</code></pre></div><p>n9e-webapi是要响应前端ajax请求的，前端会从n9e-webapi查询监控数据，n9e-webapi自身不存储监控数据，而是仅仅做了一个代理，把请求代理给后端的时序库，前端读取数据时会调用Prometheus的那些原生接口，即：<code>/api/v1/query</code> <code>/api/v1/query_range</code> <code>/api/v1/labels</code> 这种接口，所以注意啦，n9e-webapi中配置的Clusters下面的Url，都是要支持Prometheus原生接口的BaseUrl。</p>
-<p>对于n9e-server，有两个重要作用，一个是接收监控数据，然后转发给后端多个Writer，所以，Writer可以配置多个，配置文件是toml格式，<code>[[Writers]]</code>双中括号这种就表示数组，数据写给后端存储，走的协议是Prometheus的Remote Write，所以，所有支持Remote Write的存储，都可以使用。n9e-server的另一个重要作用，是做告警判断，会周期性从mysql同步告警规则，然后根据用户配置的Promeql调用时序库的 <code>query</code> 接口，所以n9e-server的Reader下面的Url，也是要配置支持Prometheus原生接口的BaseUrl。另外注意，Writer可以配置多个，但是Reader只能配置一个。比如监控数据可以写一份到Prometheus存储近期数据用于告警判断，再写一份到OpenTSDB存储长期数据，Writer就可以配置为Prometheus和OpenTSDB这两个，而Reader只配置Prometheus即可。</p>
+</code></pre></div><p>n9e-webapi 是要响应前端 ajax 请求的，前端会从 n9e-webapi 查询监控数据，n9e-webapi 自身不存储监控数据，而是仅仅做了一个代理，把请求代理给后端的时序库，前端读取数据时会调用 Prometheus 的那些原生接口，即：<code>/api/v1/query</code> <code>/api/v1/query_range</code> <code>/api/v1/labels</code> 这种接口，所以注意啦，n9e-webapi 中配置的 Clusters 下面的Url，都是要支持Prometheus 原生接口的 BaseUrl。</p>
+<p>对于 n9e-server，有两个重要作用，一个是接收监控数据，然后转发给后端多个 Writer，所以，Writer 可以配置多个，配置文件是 toml 格式，<code>[[Writers]]</code>双中括号这种就表示数组，数据写给后端存储，走的协议是 Prometheus 的 Remote Write，所以，所有支持 Remote Write 的存储，都可以使用。n9e-server 的另一个重要作用，是做告警判断，会周期性从 mysql 同步告警规则，然后根据用户配置的 PromQL 调用时序库的 <code>query</code> 接口，所以 n9e-server 的 Reader 下面的 Url，也是要配置支持 Prometheus 原生接口的 BaseUrl。另外注意，Writer 可以配置多个，但是 Reader 只能配置一个。比如监控数据可以写一份到Prometheus 存储近期数据用于告警判断，再写一份到 OpenTSDB 存储长期数据，Writer 就可以配置为 Prometheus 和 OpenTSDB 这两个，而 Reader 只配置 Prometheus 即可。</p>
 
           <footer class="footline">
           </footer>
@@ -278,18 +267,18 @@ MaxIdleConnsPerHost = <span style="color:#ff9f43">100</span>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1648787771"></script>
-    <script src="/js/perfect-scrollbar.min.js?1648787771"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1648787771"></script>
-    <script src="/js/jquery.svg.pan.zoom.js?1648787771"></script>
-    <script src="/js/featherlight.min.js?1648787771"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1648787771"></script>
-    <script src="/js/mermaid.min.js?1648787771"></script>
+    <script src="/js/clipboard.min.js?1648800681"></script>
+    <script src="/js/perfect-scrollbar.min.js?1648800681"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1648800681"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1648800681"></script>
+    <script src="/js/featherlight.min.js?1648800681"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1648800681"></script>
+    <script src="/js/mermaid.min.js?1648800681"></script>
     <script>
       if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
         mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
       }
     </script>
-    <script src="/js/relearn.js?1648787771"></script>
+    <script src="/js/relearn.js?1648800681"></script>
   </body>
 </html>

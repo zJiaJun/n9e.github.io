@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.92.2" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>埋点监控之PromSDK :: N9E</title>
+    <link href="/css/nucleus.css?1648800681" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1648800681" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1648800681" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1648800681" rel="stylesheet">
+    <link href="/css/auto-complete.css?1648800681" rel="stylesheet">
+    <link href="/css/theme.css?1648800681" rel="stylesheet">
+    <link href="/css/theme-blue.css?1648800681" rel="stylesheet">
+    <link href="/css/variant.css?1648800681" rel="stylesheet">
+    <link href="/css/print.css?1648800681" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1648800681"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/usage/promapm/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+
+<a href="/" style="font-weight: 900;font-size: 24px;color: #fff;">Nightingale</a>
+<div style="color:#eee;line-height: 24px;padding-top: 8px;font-size: 12px;"><i>Version 5.0</i></div>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1648800681"></script>
+        <script src="/js/auto-complete.js?1648800681"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1648800681"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker快速启动测试" class="dd-item"><a href="/quickstart/compose/">使用Docker快速启动测试<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="使用二进制部署单机版服务端" class="dd-item"><a href="/quickstart/standalone/">使用二进制部署单机版服务端<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item parent"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/linux/" title="监控Linux" class="dd-item"><a href="/usage/linux/">监控Linux<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/windows/" title="监控Windows" class="dd-item"><a href="/usage/windows/">监控Windows<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/snmp/" title="监控网络设备" class="dd-item"><a href="/usage/snmp/">监控网络设备<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/promapm/" title="埋点监控之PromSDK" class="dd-item active"><a href="/usage/promapm/">埋点监控之PromSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/statsd/" title="埋点监控之StatsdSDK" class="dd-item"><a href="/usage/statsd/">埋点监控之StatsdSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/http_response/" title="监控URL" class="dd-item"><a href="/usage/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mtail/" title="监控日志" class="dd-item"><a href="/usage/mtail/">监控日志<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mysql/" title="监控MySQL" class="dd-item"><a href="/usage/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/redis/" title="监控Redis" class="dd-item"><a href="/usage/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> 代码仓库</a></li>
+            <li><a class="padding" href="https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"><i class='fas fa-fw fa-book'></i> 视频教程</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/usage/promapm.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/usage/"><span itemprop="name">功能介绍</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/usage/promapm/" aria-disabled="true"><span itemprop="name">埋点监控之PromSDK</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#webapi监控">webapi监控</a></li>
+    <li><a href="#server监控">server监控</a></li>
+    <li><a href="#数据抓取">数据抓取</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
+</nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>埋点监控之PromSDK</h1>
+
+<p>Google提出了应用监控的4个黄金指标，分别是：流量、延迟、错误、饱和度，其中前面3个指标都可以通过内嵌SDK的方式埋点采集。夜莺核心模块有两个，webapi主要是提供http接口给JavaScript调用，server主要是负责接收监控数据，处理告警规则，这两个模块都引入了Prometheus的Go的SDK，用此方式做App Performance监控，本节以夜莺的代码为例，讲解如何使用Prometheus的SDK。</p>
+<h2 id="webapi监控">webapi监控</h2>
+<p>webapi模块主要统计两个内容，一个是请求的数量统计，一个是请求的延迟统计，统计时，要用不同的Label做维度区分，后面就可以通过不同的维度做多种多样的统计分析，对于HTTP请求，规划4个核心Label，分别是：service、code、path、method。service标识服务名称，要求全局唯一，便于和其他服务名称区分开，比如webapi模块，就定义为n9e-webapi，code是http返回的状态码，200就表示成功数量，其他code就是失败的，后面我们可以据此统计成功率，method是HTTP方法，GET、POST、PUT、DELETE等，比如新增用户和获取用户列表可能都是<code>/api/n9e/users</code>，从路径上无法区分，只能再加上method才能区分开。</p>
+<p>path着重说一下，表示请求路径，比如上面提到的<code>/api/n9e/users</code>，但是，在restful实践中，url中经常会有参数，比如获取编号为1的用户的信息，接口是<code>/api/n9e/user/1</code>，获取编号为2的用户信息，接口是<code>/api/n9e/user/2</code>，如果这俩带有用户编号的url都作为Label，会造成时序库索引爆炸，而且从业务方使用角度来看，我们也不关注编号为1的用户获取请求还是编号为2的用户获取请求，而是关注整体的<code>GET /api/n9e/user/:id</code>这个接口的监控数据。所以我们在设置Label的时候，要把path设置为<code>/api/n9e/user/:id</code>，而不是那具体的带有用户编号的url路径。夜莺用的gin框架，gin框架有个FullPath方法就是获取这个信息的，比较方便。</p>
+<p>首先，我们在webapi下面创建一个stat包，放置相关统计变量：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#ff6ac1">package</span> stat
+
+<span style="color:#ff6ac1">import</span> (
+	<span style="color:#5af78e">&#34;time&#34;</span>
+
+	<span style="color:#5af78e">&#34;github.com/prometheus/client_golang/prometheus&#34;</span>
+)
+
+<span style="color:#ff5c57">const</span> Service = <span style="color:#5af78e">&#34;n9e-webapi&#34;</span>
+
+<span style="color:#ff5c57">var</span> (
+	labels = []<span style="color:#9aedfe">string</span>{<span style="color:#5af78e">&#34;service&#34;</span>, <span style="color:#5af78e">&#34;code&#34;</span>, <span style="color:#5af78e">&#34;path&#34;</span>, <span style="color:#5af78e">&#34;method&#34;</span>}
+
+	uptime = prometheus.<span style="color:#57c7ff">NewCounterVec</span>(
+		prometheus.CounterOpts{
+			Name: <span style="color:#5af78e">&#34;uptime&#34;</span>,
+			Help: <span style="color:#5af78e">&#34;HTTP service uptime.&#34;</span>,
+		}, []<span style="color:#9aedfe">string</span>{<span style="color:#5af78e">&#34;service&#34;</span>},
+	)
+
+	RequestCounter = prometheus.<span style="color:#57c7ff">NewCounterVec</span>(
+		prometheus.CounterOpts{
+			Name: <span style="color:#5af78e">&#34;http_request_count_total&#34;</span>,
+			Help: <span style="color:#5af78e">&#34;Total number of HTTP requests made.&#34;</span>,
+		}, labels,
+	)
+
+	RequestDuration = prometheus.<span style="color:#57c7ff">NewHistogramVec</span>(
+		prometheus.HistogramOpts{
+			Buckets: []<span style="color:#9aedfe">float64</span>{<span style="color:#ff9f43">.01</span>, <span style="color:#ff9f43">.1</span>, <span style="color:#ff9f43">1</span>, <span style="color:#ff9f43">10</span>},
+			Name:    <span style="color:#5af78e">&#34;http_request_duration_seconds&#34;</span>,
+			Help:    <span style="color:#5af78e">&#34;HTTP request latencies in seconds.&#34;</span>,
+		}, labels,
+	)
+)
+
+<span style="color:#ff5c57">func</span> <span style="color:#57c7ff">Init</span>() {
+	<span style="color:#78787e">// Register the summary and the histogram with Prometheus&#39;s default registry.
+</span><span style="color:#78787e"></span>	prometheus.<span style="color:#57c7ff">MustRegister</span>(
+		uptime,
+		RequestCounter,
+		RequestDuration,
+	)
+
+	<span style="color:#ff6ac1">go</span> <span style="color:#57c7ff">recordUptime</span>()
+}
+
+<span style="color:#78787e">// recordUptime increases service uptime per second.
+</span><span style="color:#78787e"></span><span style="color:#ff5c57">func</span> <span style="color:#57c7ff">recordUptime</span>() {
+	<span style="color:#ff6ac1">for</span> <span style="color:#ff6ac1">range</span> time.<span style="color:#57c7ff">Tick</span>(time.Second) {
+		uptime.<span style="color:#57c7ff">WithLabelValues</span>(Service).<span style="color:#57c7ff">Inc</span>()
+	}
+}
+</code></pre></div><p>uptime变量是顺手为之，统计进程启动了多久时间，不用太关注，RequestCounter和RequestDuration，分别统计请求流量和请求延迟。Init方法是在webapi模块进程初始化的时候调用，所以进程一起，就会自动注册好。</p>
+<p>然后我们写一个middleware，在请求进来的时候拦截一下，省的每个请求都要去统计，middleware方法的代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#ff6ac1">import</span> (
+	<span style="color:#ff6ac1">...</span>
+	promstat <span style="color:#5af78e">&#34;github.com/didi/nightingale/v5/src/webapi/stat&#34;</span>
+)
+
+<span style="color:#ff5c57">func</span> <span style="color:#57c7ff">stat</span>() gin.HandlerFunc {
+	<span style="color:#ff6ac1">return</span> <span style="color:#ff5c57">func</span>(c <span style="color:#ff6ac1">*</span>gin.Context) {
+		start <span style="color:#ff6ac1">:=</span> time.<span style="color:#57c7ff">Now</span>()
+		c.<span style="color:#57c7ff">Next</span>()
+
+		code <span style="color:#ff6ac1">:=</span> fmt.<span style="color:#57c7ff">Sprintf</span>(<span style="color:#5af78e">&#34;%d&#34;</span>, c.Writer.<span style="color:#57c7ff">Status</span>())
+		method <span style="color:#ff6ac1">:=</span> c.Request.Method
+		labels <span style="color:#ff6ac1">:=</span> []<span style="color:#9aedfe">string</span>{promstat.Service, code, c.<span style="color:#57c7ff">FullPath</span>(), method}
+
+		promstat.RequestCounter.<span style="color:#57c7ff">WithLabelValues</span>(labels<span style="color:#ff6ac1">...</span>).<span style="color:#57c7ff">Inc</span>()
+		promstat.RequestDuration.<span style="color:#57c7ff">WithLabelValues</span>(labels<span style="color:#ff6ac1">...</span>).<span style="color:#57c7ff">Observe</span>(<span style="color:#ff5c57">float64</span>(time.<span style="color:#57c7ff">Since</span>(start).<span style="color:#57c7ff">Seconds</span>()))
+	}
+}
+</code></pre></div><p>有了这个middleware之后，new出gin的engine的时候，就立马Use一下，代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#ff6ac1">...</span>
+r <span style="color:#ff6ac1">:=</span> gin.<span style="color:#57c7ff">New</span>()
+r.<span style="color:#57c7ff">Use</span>(<span style="color:#57c7ff">stat</span>())
+<span style="color:#ff6ac1">...</span>
+</code></pre></div><p>最后，监控数据要通过<code>/metrics</code>接口暴露出去，我们要暴露这个请求端点，代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#ff6ac1">import</span> (
+	<span style="color:#ff6ac1">...</span>
+	<span style="color:#5af78e">&#34;github.com/prometheus/client_golang/prometheus/promhttp&#34;</span>
+)
+
+<span style="color:#ff5c57">func</span> <span style="color:#57c7ff">configRoute</span>(r <span style="color:#ff6ac1">*</span>gin.Engine, version <span style="color:#9aedfe">string</span>) {
+	<span style="color:#ff6ac1">...</span>
+	r.<span style="color:#57c7ff">GET</span>(<span style="color:#5af78e">&#34;/metrics&#34;</span>, gin.<span style="color:#57c7ff">WrapH</span>(promhttp.<span style="color:#57c7ff">Handler</span>()))
+}
+</code></pre></div><p>如上，每个webapi的接口的流量和成功率都可以监控到了。如果你也部署了夜莺，请求webapi的端口(默认是18000)的<code>/metrics</code>接口看看吧。</p>
+
+<div class="notices info">
+    <div class="label">Info</div><p>如果服务部署多个实例，甚至多个region，多个环境，上面的4个Label就不够用了，因为只有这4个Label不足以唯一标识一个具体的实例，此时需要env、region、instance这种Label，这些Label不需要在代码里埋点，在采集的时候一般可以附加额外的标签，通过附加标签的方式来处理即可</p>
+
+</div>
+<h2 id="server监控">server监控</h2>
+<p>server模块的监控，和webapi模块的监控差异较大，因为关注点不同，webapi关注的是HTTP接口的请求量和延迟，而server模块关注的是接收了多少监控指标，内部事件队列的长度，从数据库同步告警规则花费多久，同步了多少条数据等，所以，我们也需要在server的package下创建一个stat包，stat包下放置stat.go，内容如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#ff6ac1">package</span> stat
+
+<span style="color:#ff6ac1">import</span> (
+	<span style="color:#5af78e">&#34;github.com/prometheus/client_golang/prometheus&#34;</span>
+)
+
+<span style="color:#ff5c57">const</span> (
+	namespace = <span style="color:#5af78e">&#34;n9e&#34;</span>
+	subsystem = <span style="color:#5af78e">&#34;server&#34;</span>
+)
+
+<span style="color:#ff5c57">var</span> (
+	<span style="color:#78787e">// 各个周期性任务的执行耗时
+</span><span style="color:#78787e"></span>	GaugeCronDuration = prometheus.<span style="color:#57c7ff">NewGaugeVec</span>(prometheus.GaugeOpts{
+		Namespace: namespace,
+		Subsystem: subsystem,
+		Name:      <span style="color:#5af78e">&#34;cron_duration&#34;</span>,
+		Help:      <span style="color:#5af78e">&#34;Cron method use duration, unit: ms.&#34;</span>,
+	}, []<span style="color:#9aedfe">string</span>{<span style="color:#5af78e">&#34;cluster&#34;</span>, <span style="color:#5af78e">&#34;name&#34;</span>})
+
+	<span style="color:#78787e">// 从数据库同步数据的时候，同步的条数
+</span><span style="color:#78787e"></span>	GaugeSyncNumber = prometheus.<span style="color:#57c7ff">NewGaugeVec</span>(prometheus.GaugeOpts{
+		Namespace: namespace,
+		Subsystem: subsystem,
+		Name:      <span style="color:#5af78e">&#34;cron_sync_number&#34;</span>,
+		Help:      <span style="color:#5af78e">&#34;Cron sync number.&#34;</span>,
+	}, []<span style="color:#9aedfe">string</span>{<span style="color:#5af78e">&#34;cluster&#34;</span>, <span style="color:#5af78e">&#34;name&#34;</span>})
+
+	<span style="color:#78787e">// 从各个接收接口接收到的监控数据总量
+</span><span style="color:#78787e"></span>	CounterSampleTotal = prometheus.<span style="color:#57c7ff">NewCounterVec</span>(prometheus.CounterOpts{
+		Namespace: namespace,
+		Subsystem: subsystem,
+		Name:      <span style="color:#5af78e">&#34;samples_received_total&#34;</span>,
+		Help:      <span style="color:#5af78e">&#34;Total number samples received.&#34;</span>,
+	}, []<span style="color:#9aedfe">string</span>{<span style="color:#5af78e">&#34;cluster&#34;</span>, <span style="color:#5af78e">&#34;channel&#34;</span>})
+
+	<span style="color:#78787e">// 产生的告警总量
+</span><span style="color:#78787e"></span>	CounterAlertsTotal = prometheus.<span style="color:#57c7ff">NewCounterVec</span>(prometheus.CounterOpts{
+		Namespace: namespace,
+		Subsystem: subsystem,
+		Name:      <span style="color:#5af78e">&#34;alerts_total&#34;</span>,
+		Help:      <span style="color:#5af78e">&#34;Total number alert events.&#34;</span>,
+	}, []<span style="color:#9aedfe">string</span>{<span style="color:#5af78e">&#34;cluster&#34;</span>})
+
+	<span style="color:#78787e">// 内存中的告警事件队列的长度
+</span><span style="color:#78787e"></span>	GaugeAlertQueueSize = prometheus.<span style="color:#57c7ff">NewGaugeVec</span>(prometheus.GaugeOpts{
+		Namespace: namespace,
+		Subsystem: subsystem,
+		Name:      <span style="color:#5af78e">&#34;alert_queue_size&#34;</span>,
+		Help:      <span style="color:#5af78e">&#34;The size of alert queue.&#34;</span>,
+	}, []<span style="color:#9aedfe">string</span>{<span style="color:#5af78e">&#34;cluster&#34;</span>})
+)
+
+<span style="color:#ff5c57">func</span> <span style="color:#57c7ff">Init</span>() {
+	<span style="color:#78787e">// Register the summary and the histogram with Prometheus&#39;s default registry.
+</span><span style="color:#78787e"></span>	prometheus.<span style="color:#57c7ff">MustRegister</span>(
+		GaugeCronDuration,
+		GaugeSyncNumber,
+		CounterSampleTotal,
+		CounterAlertsTotal,
+		GaugeAlertQueueSize,
+	)
+}
+</code></pre></div><p>定义一个监控指标，除了name之外，还可以设置namespace、subsystem，最终通过<code>/metrics</code>接口暴露的时候，可以发现：监控指标的最终名字，就是$namespace_$subsystem_$name，三者拼接在一起。webapi模块的监控代码中我们看到了counter类型和histogram类型的处理，这次我们拿GaugeAlertQueueSize举例，这是个GAUGE类型的统计数据，起一个goroutine周期性获取队列长度，然后Set到GaugeAlertQueueSize中：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#ff6ac1">package</span> engine
+
+<span style="color:#ff6ac1">import</span> (
+	<span style="color:#5af78e">&#34;context&#34;</span>
+	<span style="color:#5af78e">&#34;time&#34;</span>
+
+	<span style="color:#5af78e">&#34;github.com/didi/nightingale/v5/src/server/config&#34;</span>
+	promstat <span style="color:#5af78e">&#34;github.com/didi/nightingale/v5/src/server/stat&#34;</span>
+)
+
+<span style="color:#ff5c57">func</span> <span style="color:#57c7ff">Start</span>(ctx context.Context) <span style="color:#9aedfe">error</span> {
+	<span style="color:#ff6ac1">...</span>
+	<span style="color:#ff6ac1">go</span> <span style="color:#57c7ff">reportQueueSize</span>()
+	<span style="color:#ff6ac1">return</span> <span style="color:#ff6ac1">nil</span>
+}
+
+<span style="color:#ff5c57">func</span> <span style="color:#57c7ff">reportQueueSize</span>() {
+	<span style="color:#ff6ac1">for</span> {
+		time.<span style="color:#57c7ff">Sleep</span>(time.Second)
+		promstat.GaugeAlertQueueSize.<span style="color:#57c7ff">WithLabelValues</span>(config.C.ClusterName).<span style="color:#57c7ff">Set</span>(<span style="color:#ff5c57">float64</span>(EventQueue.<span style="color:#57c7ff">Len</span>()))
+	}
+}
+
+</code></pre></div><p>另外，Init方法要在server模块初始化的时候调用，server的router.go中要暴露<code>/metrics</code>端点路径，这些就不再详述了，大家可以扒拉一下夜莺的代码看一下。</p>
+<h2 id="数据抓取">数据抓取</h2>
+<p>应用自身的监控数据已经通过<code>/metrics</code>接口暴露了，后续采集规则可以在prometheus.yml中配置，prometheus.yml中有个section叫：scrape_configs可以配置抓取目标，这是Prometheus范畴的知识了，大家可以参考<a href="https://prometheus.io/">Prometheus官网</a>。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://prometheus.io/docs/instrumenting/clientlibs/">https://prometheus.io/docs/instrumenting/clientlibs/</a></li>
+<li><a href="https://github.com/prometheus/client_golang/tree/master/examples">https://github.com/prometheus/client_golang/tree/master/examples</a></li>
+</ul>
+
+          <footer class="footline">
+          </footer>
+        </main>
+<hr> 
+
+<i>想学习 Nightingale 更多最佳实践？听到 Nightingale 代码层面的分享？生产环境出了问题希望得到夜莺研发团队及时支援？有更多监控/稳定性相关产品需求？欢迎联系电话或微信：18612185520 注明「商务合作」</i>
+
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/usage/snmp/" title="监控网络设备"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/usage/statsd/" title="埋点监控之StatsdSDK"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1648800681"></script>
+    <script src="/js/perfect-scrollbar.min.js?1648800681"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1648800681"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1648800681"></script>
+    <script src="/js/featherlight.min.js?1648800681"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1648800681"></script>
+    <script src="/js/mermaid.min.js?1648800681"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1648800681"></script>
+  </body>
+</html>
