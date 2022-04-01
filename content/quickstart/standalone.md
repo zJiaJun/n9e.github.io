@@ -5,12 +5,11 @@ weight: 2
 
 > 本节讲述如何部署单机版，单机版对于很多中小公司足够用了，简单高效、快速直接，建议使用云主机，性能不够了直接升配，可以应对每秒上报的数据点小于100万的情形，如果只是监控机器（每台机器每个周期大概采集200个数据点）采集周期频率设置10秒的话，支撑上限是5万台
 
-如果仅仅是为了快速测试，Docker部署方式是最快的，不过很多朋友未必有Docker环境，另外为了减少引入更多技术栈，增强生产环境稳定性，有些朋友可能也不愿意用Docker，那本篇就来讲解如何快速部署单机版，单机版的配套时序库是使用Prometheus。如果要监控的机器有几千台，服务有几百个，单机版的容量无法满足，可以上集群版，集群版的时序库建议使用VictoriaMetrics，也可以使用M3DB，不过M3DB的架构更复杂，很多朋友无法搞定，选择简单的VictoriaMetrics，对大部分公司来讲，足够用了。我们先来看一下服务端架构：
+如果仅仅是为了快速测试，Docker 部署方式是最快的，不过很多朋友未必有 Docker 环境，另外为了减少引入更多技术栈，增强生产环境稳定性，有些朋友可能也不愿意用 Docker，那本篇就来讲解如何快速部署单机版，单机版的配套时序库是使用 Prometheus。如果要监控的机器有几千台，服务有几百个，单机版的容量无法满足，可以上集群版，集群版的时序库建议使用 VictoriaMetrics，也可以使用 M3DB，不过 M3DB 的架构更复杂，很多朋友无法搞定，选择简单的 VictoriaMetrics，对大部分公司来讲，足够用了。我们先来看一下服务端架构：
 
-![夜莺服务端架构](/n9e-arch-server.png)
+<img src="/install/standalone.png" width="200" />
 
-- 核心模块server：server是用来做告警的，会从数据库中同步告警规则，然后读取Prometheus的数据做告警判断。server也可以接收监控数据上报，然后通过remote write协议写入多个时序库。server也依赖redis，用redis存储了server本身以及监控对象的心跳信息
-- 核心模块webapi：提供restful api，用于和前端JavaScript交互，把一些用户配置类的信息写入mysql，鉴权采用jwt，jwt的token使用redis存储，在单机部署的方式下，server的redis和webapi的redis可以复用
+按照单机版本的这个架构图可以看出，服务端需要安装的组件有：MySQL、Redis、Prometheus、n9e-server、n9e-webapi，Agent 有多种选型，可以是 Telegraf、Datadog-Agent、Grafana-Agent 等，Agent 应该部署在所有的目标机器上，包括服务端的这台机器，Exporters 是指 Prometheus 生态的各类 Exporter 采集器，比如 mysqld_exporter、redis_exporter、blackbox_exporter 等，这些 Exporter 是非必须的，看各自公司的情况。
 
 ## 环境准备
 

@@ -37,8 +37,10 @@ a:hover {
 
 #sidebar #header-wrapper {
     background-color: var(--MENU-HEADER-BG-color);
+    /*background-color: #262c31;*/
     color: var(--MENU-SEARCH-BOX-color);
     border-color: var(--MENU-HEADER-BORDER-color);
+    /*border: 0;*/
 }
 
 #sidebar .searchbox {

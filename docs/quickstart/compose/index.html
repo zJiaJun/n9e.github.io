@@ -7,16 +7,16 @@
     <meta name="description" content="Documentation for nightingale">
     
     <title>使用Docker Compose快速部署 :: N9E</title>
-    <link href="/css/nucleus.css?1648727215" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1648727215" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1648727215" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1648727215" rel="stylesheet">
-    <link href="/css/auto-complete.css?1648727215" rel="stylesheet">
-    <link href="/css/theme.css?1648727215" rel="stylesheet">
-    <link href="/css/theme-blue.css?1648727215" rel="stylesheet">
-    <link href="/css/variant.css?1648727215" rel="stylesheet">
-    <link href="/css/print.css?1648727215" rel="stylesheet" media="print">
-    <script src="/js/jquery.min.js?1648727215"></script>
+    <link href="/css/nucleus.css?1648787771" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1648787771" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1648787771" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1648787771" rel="stylesheet">
+    <link href="/css/auto-complete.css?1648787771" rel="stylesheet">
+    <link href="/css/theme.css?1648787771" rel="stylesheet">
+    <link href="/css/theme-blue.css?1648787771" rel="stylesheet">
+    <link href="/css/variant.css?1648787771" rel="stylesheet">
+    <link href="/css/print.css?1648787771" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1648787771"></script>
     <style>
       :root #header + #content > #left > #rlblock_left{
         display:none !important;
@@ -32,18 +32,20 @@
     <nav id="sidebar" class="showVisitedLinks">
       <div id="header-wrapper">
         <div id="header">
-<a href="/"><img src="/logo-l.svg" width="180"></a>
+
+<a href="/" style="font-weight: 900;font-size: 20px;color: #fff;">Nightingale</a>
+<div style="color:#eee;line-height: 24px;padding-top: 8px;font-size: 12px;"><i>Version 5.0</i></div>
         </div>
         <div class="searchbox">
           <label for="search-by"><i class="fas fa-search"></i></label>
           <input data-search-input id="search-by" type="search" placeholder="Search...">
           <span data-search-clear=""><i class="fas fa-times"></i></span>
         </div>
-        <script src="/js/lunr.min.js?1648727215"></script>
-        <script src="/js/auto-complete.js?1648727215"></script>
+        <script src="/js/lunr.min.js?1648787771"></script>
+        <script src="/js/auto-complete.js?1648787771"></script>
         <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
         <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
-        <script src="/js/search.js?1648727215"></script>
+        <script src="/js/search.js?1648787771"></script>
       </div>
       <div class="highlightable">
         <ul class="topics">
@@ -140,8 +142,11 @@
 <blockquote>
 <p>采用Docker Compose做编排，用于单机快速启动环境做测试，包含了MySQL、Redis、Prometheus、Ibex、Nightingale、Telegraf</p>
 </blockquote>
-<p>从<a href="https://github.com/didi/nightingale">Github</a>下载夜莺的源码，进入docker目录，执行<code>docker-compose up -d</code>即可，docker-compose会自动拉取镜像并启动，查看各个容器启动状态，使用命令<code>docker-compose ps</code>，都是Up状态则表示启动成功，如果ibex、nserver、nwebapi等模块一直在Restarting，可能是数据库容器启动太慢了没有准备好，可以执行<code>docker-compose down</code>停掉再重新尝试启动测试：</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ulric@mac.home:~/workspace/gopath/src/n9e/docker$ docker-compose up -d
+<p>从<a href="https://github.com/didi/nightingale">Github</a>下载夜莺的源码，进入docker目录，执行<code>docker-compose up -d</code>即可，docker-compose会自动拉取镜像并启动，查看各个容器启动状态，使用命令<code>docker-compose ps</code>，都是Up状态则表示启动成功。</p>
+<p>如果ibex、nserver、nwebapi等模块一直在Restarting，可能是数据库容器启动太慢了没有准备好，可以执行<code>docker-compose down</code>停掉再重新尝试启动测试，这个问题受限于个人知识水平一直不知道如何解决，如果有对 docker-compose 机制熟悉的小伙伴可以赐教下，怎么保证各个容器的启动顺序，要求 MySQL 进程启动之后，其他的进程才启动。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://github.com/didi/nightingale.git
+$ <span style="color:#ff5c57">cd</span> nightingale/docker
+$ docker-compose up -d
 Creating network <span style="color:#5af78e">&#34;docker_nightingale&#34;</span> with driver <span style="color:#5af78e">&#34;bridge&#34;</span>
 Creating mysql      ... <span style="color:#ff6ac1">done</span>
 Creating redis      ... <span style="color:#ff6ac1">done</span>
@@ -151,7 +156,7 @@ Creating agentd     ... <span style="color:#ff6ac1">done</span>
 Creating nwebapi    ... <span style="color:#ff6ac1">done</span>
 Creating nserver    ... <span style="color:#ff6ac1">done</span>
 Creating telegraf   ... <span style="color:#ff6ac1">done</span>
-ulric@mac.home:~/workspace/gopath/src/n9e/docker$ docker-compose ps
+$ docker-compose ps
    Name                 Command               State                                   Ports
 ----------------------------------------------------------------------------------------------------------------------------
 agentd       /app/ibex agentd                 Up      10090/tcp, 20090/tcp
@@ -165,7 +170,8 @@ telegraf     /entrypoint.sh telegraf          Up      0.0.0.0:8092-&gt;8092/udp,
 </code></pre></div><p>更多docker-compose相关知识请参考<a href="https://docs.docker.com/compose/">官网</a></p>
 
 <div class="notices warning">
-    <div class="label">Warning</div><p>启动成功之后，建议把initsql目录下的内容挪走，这样下次重启的时候，DB就不会重新初始化了。否则下次启动mysql还是会自动执行initsql下面的sql文件导致DB重新初始化，页面上创建的规则、用户等都会丢失</p>
+    <div class="label">Warning</div><p>启动成功之后，建议把initsql目录下的内容挪走，这样下次重启的时候，DB就不会重新初始化了。否则下次启动mysql还是会自动执行initsql下面的sql文件导致DB重新初始化，页面上创建的规则、用户等都会丢失。</p>
+<p>docker-compose 这种部署方式，只是用于简单测试，不推荐在生产环境使用，当然了，如果您是 docker-compose 专家，另当别论。</p>
 
 </div>
 <p>服务启动之后，浏览器访问nwebapi的端口，即18000，默认用户是<code>root</code>，密码是<code>root.2020</code></p>
@@ -186,18 +192,18 @@ telegraf     /entrypoint.sh telegraf          Up      0.0.0.0:8092-&gt;8092/udp,
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1648727215"></script>
-    <script src="/js/perfect-scrollbar.min.js?1648727215"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1648727215"></script>
-    <script src="/js/jquery.svg.pan.zoom.js?1648727215"></script>
-    <script src="/js/featherlight.min.js?1648727215"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1648727215"></script>
-    <script src="/js/mermaid.min.js?1648727215"></script>
+    <script src="/js/clipboard.min.js?1648787771"></script>
+    <script src="/js/perfect-scrollbar.min.js?1648787771"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1648787771"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1648787771"></script>
+    <script src="/js/featherlight.min.js?1648787771"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1648787771"></script>
+    <script src="/js/mermaid.min.js?1648787771"></script>
     <script>
       if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
         mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
       }
     </script>
-    <script src="/js/relearn.js?1648727215"></script>
+    <script src="/js/relearn.js?1648787771"></script>
   </body>
 </html>

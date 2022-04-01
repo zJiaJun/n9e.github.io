@@ -58,12 +58,12 @@ body #chapter h1 {
 }
 @media only all and (min-width: 48em) and (max-width: 59.938em) {
     body #chapter h1 {
-        font-size: 3rem;
+        font-size: 1.8rem;
     }
 }
 @media only all and (max-width: 47.938em) {
     body #chapter h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 }
 a {
@@ -231,7 +231,7 @@ textarea:hover, input[type="email"]:hover, input[type="number"]:hover, input[typ
 }
 #sidebar ul.topics > li > a {
     line-height: 2rem;
-    font-size: 1.1rem;
+    font-size: 14px;
 }
 #sidebar ul.topics > li > a b {
     opacity: 0.5;
@@ -422,7 +422,7 @@ body {
     font-family: "verdana", "verdana", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 300;
     line-height: 1.574;
-    font-size: 16.25px !important;
+    font-size: 14px !important;
 }
 h2, h3, h4, h5, h6 {
     font-family: "verdana", "verdana", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -432,16 +432,17 @@ h2, h3, h4, h5, h6 {
 }
 h1 {
     font-family: "verdana", "verdana", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-weight: 200;
+    font-weight: 900;
     text-align: center;
     text-transform: uppercase;
     color: #222;
+    padding-bottom: 20px;
 }
 blockquote {
     border-left: 10px solid rgba(0, 8, 16, 0.2);
 }
 blockquote p {
-    font-size: 1.1rem;
+    font-size: 14px;
     color: #56585d;
 }
 blockquote cite {
@@ -612,7 +613,7 @@ div.attachments.neutral > div.label {
 }
 
 code, kbd, pre, samp {
-    font-family: "Consolas", menlo, monospace;
+    /*font-family: "Consolas", menlo, monospace;*/
     font-size: 92%;
     vertical-align: baseline;
 }
@@ -648,7 +649,7 @@ pre code {
 	-webkit-print-color-adjust: economy;
 	color-adjust: economy;
     border: 0;
-    font-size: 15px;
+    font-size: 12px;
     margin: 0;
     padding: 0;
     white-space: inherit;
@@ -1251,31 +1252,33 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 }
 
 #body h2 {
-  font-size: 2.2rem;
-  font-weight: 300;
+  font-size: 1.4rem;
+  font-weight: 700;
   margin-top: 2rem;
+  border-bottom: 4px solid #F0F2F4;
+  padding-bottom: 1rem;
 }
 
 #body h3 {
-  font-size: 1.8rem;
-  font-weight: 300;
+  font-size: 1.2rem;
+  font-weight: 600;
   margin-top: 2rem;
 }
 
 #body h4 {
-  font-size: 1.85rem;
-  font-weight: 300;
+  font-size: 1rem;
+  font-weight: 400;
   margin-top: 2rem;
 }
 
 #body h5 {
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: 300;
   margin-top: 2rem;
 }
 
 #body h6 {
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 300;
   margin-top: 2rem;
 }

@@ -18,15 +18,34 @@ title = "夜莺手册"
 
 查看监控数据，即监控大盘页面：
 
-![](/intro-dash.png)
+![](/intro/dashboard.png)
 
 配置告警规则的列表页面：
 
-![](/intro-alerts.png)
+![](/intro/alert-rules.png)
 
 活跃告警列表页面，即当前未恢复的告警页面：
 
-![](/intro-events.png)
+![](/intro/alert-events.png)
+
+## 产品架构
+
+Nightingale 有四个核心功能：
+
+- Query Proxy：承接前端时序数据查询请求，转发给时序库，并将时序库返回的结果返回给前端
+- Push Gateway：承接各类采集客户端的监控数据推送，然后把数据转存到后端多种时序库
+- Conf Manager：配置管理，比如告警规则、屏蔽规则、订阅规则、自愈脚本、权限等相关配置的管理
+- Alerting Engine：告警引擎，根据用户配置的 PromQL，查询时序库，判断是否应该触发告警并发送
+
+![](/intro/arch-product.png)
+
+## 系统架构
+
+夜莺 v5 的设计非常简单，核心是 server 和 webapi 两个模块，webapi 无状态，放到中心端，承接前端请求，将用户配置写入数据库；server 是告警引擎和数据转发模块，一般随着时序库走，一个时序库就对应一套 server，每套 server 可以只用一个实例，也可以多个实例组成集群，server 可以接收 Telegraf、Grafana-Agent、Datadog-Agent、Falcon-Plugins 上报的数据，写入后端时序库，周期性从数据库同步告警规则，然后查询时序库做告警判断。每套 server 依赖一个 redis。架构图如下：
+
+![](/intro/arch-system.png)
+
+## 产品对比
 
 #### 与 Open-Falcon 的区别
 
@@ -41,12 +60,6 @@ Nightingale 直接支持 PromQL，支持 Prometheus、M3DB、VictoriaMetrics 多
 Nightingale 可以简单看做是 Prometheus 的一个企业级版本，把 Prometheus 当做 Nightingale 的一个内部组件（时序库），当然，也不是必须的，时序库除了 Prometheus，还可以使用 VictoriaMetrics、M3DB 等，各种 Exporter 采集器也可以继续使用。
 
 Nightingale 可以接入多个 Prometheus，可以允许用户在页面上配置告警规则、屏蔽规则、订阅规则，在页面上查看告警事件、做告警事件聚合统计，配置告警自愈机制，管理监控对象，配置监控大盘等，就把 Nightingale 看做是 Prometheus 的一个 WEBUI 也是可以的，不过实际上，它远远不止是一个 WEBUI，用一下就会深有感触。
-
-## 系统架构
-
-夜莺 v5 的设计非常简单，核心是 server 和 webapi 两个模块，webapi 无状态，放到中心端，承接前端请求，将用户配置写入数据库；server 是告警引擎和数据转发模块，一般随着时序库走，一个时序库就对应一套 server，每套 server 可以只用一个实例，也可以多个实例组成集群，server 可以接收 Telegraf、Grafana-Agent、Datadog-Agent、Falcon-Plugins 上报的数据，写入后端时序库，周期性从数据库同步告警规则，然后查询时序库做告警判断。每套 server 依赖一个 redis。架构图如下：
-
-![](/intro-arch.png)
 
 ## 加入社区
 
