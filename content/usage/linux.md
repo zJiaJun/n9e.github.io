@@ -9,7 +9,7 @@ title: "监控Linux"
 
 - 部署方式：[使用Telegraf采集监控数据]({{%relref "quickstart/telegraf"%}}) 
 - 告警规则：[https://github.com/didi/nightingale/blob/main/etc/alerts/linux_by_telegraf.json](https://github.com/didi/nightingale/blob/main/etc/alerts/linux_by_telegraf.json)
-- 监控大盘：正在整理
+- 监控大盘：[https://github.com/didi/nightingale/blob/main/etc/dashboards/linux_by_telegraf.json](https://github.com/didi/nightingale/blob/main/etc/dashboards/linux_by_telegraf.json)
 
 ## node_exporter
 
