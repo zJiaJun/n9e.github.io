@@ -6,7 +6,7 @@
     <meta name="generator" content="Hugo 0.92.2" />
     <meta name="description" content="Documentation for nightingale">
     
-    <title>生产环境部署高可用集群版 :: N9E</title>
+    <title>对接Grafana :: N9E</title>
     <link href="/css/nucleus.css?1648868675" rel="stylesheet">
     <link href="/css/fontawesome-all.min.css?1648868675" rel="stylesheet">
     <link href="/css/featherlight.min.css?1648868675" rel="stylesheet">
@@ -23,7 +23,7 @@
       }
     </style>
   </head>
-  <body class="" data-url="/quickstart/clusters/">
+  <body class="" data-url="/usage/grafana/">
     <script>
       var index_url="/index.json";
       var root_url="/";
@@ -49,17 +49,17 @@
       </div>
       <div class="highlightable">
         <ul class="topics">
-          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item parent"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
           <li data-nav-id="/quickstart/compose/" title="使用Docker快速启动测试" class="dd-item"><a href="/quickstart/compose/">使用Docker快速启动测试<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/standalone/" title="使用二进制部署单机版服务端" class="dd-item"><a href="/quickstart/standalone/">使用二进制部署单机版服务端<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
-          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item active"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
-          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
-          <li data-nav-id="/usage/grafana/" title="对接Grafana" class="dd-item"><a href="/usage/grafana/">对接Grafana<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item parent"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/grafana/" title="对接Grafana" class="dd-item active"><a href="/usage/grafana/">对接Grafana<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/linux/" title="监控Linux" class="dd-item"><a href="/usage/linux/">监控Linux<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/windows/" title="监控Windows" class="dd-item"><a href="/usage/windows/">监控Windows<i class="fas fa-check read-icon"></i></a></li>
           <li data-nav-id="/usage/snmp/" title="监控网络设备" class="dd-item"><a href="/usage/snmp/">监控网络设备<i class="fas fa-check read-icon"></i></a></li>
@@ -102,7 +102,7 @@
       <div class="padding highlightable">
         <div id="top-bar">
           <div id="top-github-link">
-            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/quickstart/clusters.md" target="blank">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/usage/grafana.md" target="blank">
               <i class="fas fa-code-branch"></i>
               <span id="top-github-link-text">Edit this page</span>
             </a>
@@ -117,44 +117,22 @@
             <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
               <meta itemprop="itemListOrder" content="Descending" />
                 <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/quickstart/"><span itemprop="name">安装部署</span></a> > </li>
-                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/quickstart/clusters/" aria-disabled="true"><span itemprop="name">生产环境部署高可用集群版</span></a></li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/usage/"><span itemprop="name">功能介绍</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/usage/grafana/" aria-disabled="true"><span itemprop="name">对接Grafana</span></a></li>
             </ol>
           </div>
             <div class="progress">
               <div class="wrapper">
-<nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#时序库">时序库</a></li>
-        <li><a href="#mysql">MySQL</a></li>
-        <li><a href="#redis">Redis</a></li>
-        <li><a href="#n9e-webapi">n9e-webapi</a></li>
-        <li><a href="#n9e-server">n9e-server</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+<nav id="TableOfContents"></nav>
               </div>
             </div>
         </div>
         <div id="head-tags">
         </div>
         <main id="body-inner">
-          <h1>生产环境部署高可用集群版</h1>
+          <h1>对接Grafana</h1>
 
-<p>对于规模相对较小的公司，比如几百台机器这个体量，个人认为<a href="/quickstart/standalone/">单机版</a>足够用了，使用云主机部署，性能不足可以直接升配，存储使用云存储保证，硬件故障云平台也会自动把虚拟机热迁移走，非常省心。那如果咱们体量确实比较大，或者没有云主机这种基础设施，这里会讲解集群版的部署方式。</p>
-<h3 id="时序库">时序库</h3>
-<p>时序库的集群部署，就看时序库自身的机制了，这里不展开，如果是使用 Prometheus，Prometheus 没有集群版，VictoriaMetrics、M3DB、Thanos 等都是有集群版的，请参考他们的文档</p>
-<h3 id="mysql">MySQL</h3>
-<p>MySQL 一般部署成主从，这个请你们的 DBA 来搞吧，或者直接使用云上 RDS，这里就不展开了</p>
-<h3 id="redis">Redis</h3>
-<p>夜莺当前 n9e-webapi 和 n9e-server 都依赖 redis，redis 一般有三种模式，单机模式、集群模式、哨兵模式，夜莺当前只支持单机模式。具体使用几个 redis，要看大家的环境情况，如果图省事，全局就使用一个 redis 也是可以的。也可以把 n9e-webapi 用的 redis 和 n9e-server 用的 redis 分开，可以参考文档：<a href="/quickstart/multitsdb/">接入多个 Prom/VM/M3DB 集群</a></p>
-<h3 id="n9e-webapi">n9e-webapi</h3>
-<p>这个模块是放中心的，可以部署多个实例，前面统一放置 nginx 或者 lvs，某个 n9e-webapi 实例如果挂了，nginx、lvs 都可以自动摘除，保证了高可用。</p>
-<h3 id="n9e-server">n9e-server</h3>
-<p>n9e-server 是随着时序库走的，每个时序库对应一套 n9e-server，一套 n9e-server 可以只有一个 n9e-server 实例，也可以部署多个保证高可用和性能。同一套 n9e-server 内部的多个实例，其配置文件 server.conf 中的 ClusterName 字段，要配置成一样的字符串。</p>
+<p>夜莺无需对接 Grafana，夜莺会把监控数据转存到后端时序库，比如 Prometheus、VictoriaMetrics、M3DB 等，把这些时序库配置为 Grafana 的数据源即可。</p>
 
           <footer class="footline">
           </footer>
@@ -165,8 +143,8 @@
 
       </div>
       <div id="navigation">
-        <a class="nav nav-prev" href="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群"><i class="fa fa-chevron-left"></i></a>
-        <a class="nav nav-next" href="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块"><i class="fa fa-chevron-right"></i></a>
+        <a class="nav nav-prev" href="/usage/" title="功能介绍"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/usage/linux/" title="监控Linux"><i class="fa fa-chevron-right"></i></a>
       </div>
     </div>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

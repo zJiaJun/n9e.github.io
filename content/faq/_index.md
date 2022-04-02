@@ -145,3 +145,7 @@ interval_slow = "1m"
 tagexclude = ["innodb_version"]
 ```
 
+## Any Questions?
+
+如果问题仍然没有解决，请加微信公众号：cloudmon 公众号底部菜单有各种答疑方式
+

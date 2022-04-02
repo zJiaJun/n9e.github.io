@@ -22,10 +22,22 @@
     <loc>https://n9e.github.io/quickstart/clusters/</loc>
   </url>
   <url>
+    <loc>https://n9e.github.io/api/read/</loc>
+  </url>
+  <url>
     <loc>https://n9e.github.io/quickstart/ibex/</loc>
   </url>
   <url>
+    <loc>https://n9e.github.io/api/opentsdb/</loc>
+  </url>
+  <url>
     <loc>https://n9e.github.io/quickstart/compile/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/api/webapi/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/usage/grafana/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/usage/linux/</loc>

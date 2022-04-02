@@ -7,6 +7,13 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language><atom:link href="https://n9e.github.io/usage/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>对接Grafana</title>
+      <link>https://n9e.github.io/usage/grafana/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/usage/grafana/</guid>
+      <description>夜莺无需对接 Grafana，夜莺会把监控数据转存到后端时序库，比如 Prometheus、VictoriaMetrics、M3DB 等，把这些时序库配置为 Grafana 的数据源即可。</description>
+    </item>
+    <item>
       <title>监控Linux</title>
       <link>https://n9e.github.io/usage/linux/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
