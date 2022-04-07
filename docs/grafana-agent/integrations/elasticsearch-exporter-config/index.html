@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.92.2" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>Elasticsearch Exporter :: N9E</title>
+    <link href="/css/nucleus.css?1649316325" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1649316325" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1649316325" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1649316325" rel="stylesheet">
+    <link href="/css/auto-complete.css?1649316325" rel="stylesheet">
+    <link href="/css/theme.css?1649316325" rel="stylesheet">
+    <link href="/css/theme-blue.css?1649316325" rel="stylesheet">
+    <link href="/css/variant.css?1649316325" rel="stylesheet">
+    <link href="/css/print.css?1649316325" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1649316325"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/grafana-agent/integrations/elasticsearch-exporter-config/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+
+<a href="/" style="font-weight: 900;font-size: 24px;color: #fff;">Nightingale</a>
+<div style="color:#eee;line-height: 24px;padding-top: 8px;font-size: 12px;"><i>Version 5.0</i></div>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1649316325"></script>
+        <script src="/js/auto-complete.js?1649316325"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1649316325"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker快速启动测试" class="dd-item"><a href="/quickstart/compose/">使用Docker快速启动测试<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="使用二进制部署单机版服务端" class="dd-item"><a href="/quickstart/standalone/">使用二进制部署单机版服务端<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/grafana/" title="对接Grafana" class="dd-item"><a href="/usage/grafana/">对接Grafana<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/linux/" title="监控Linux" class="dd-item"><a href="/usage/linux/">监控Linux<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/windows/" title="监控Windows" class="dd-item"><a href="/usage/windows/">监控Windows<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/snmp/" title="监控网络设备" class="dd-item"><a href="/usage/snmp/">监控网络设备<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/promapm/" title="埋点监控之PromSDK" class="dd-item"><a href="/usage/promapm/">埋点监控之PromSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/statsd/" title="埋点监控之StatsdSDK" class="dd-item"><a href="/usage/statsd/">埋点监控之StatsdSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/http_response/" title="监控URL" class="dd-item"><a href="/usage/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mtail/" title="监控日志" class="dd-item"><a href="/usage/mtail/">监控日志<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mysql/" title="监控MySQL" class="dd-item"><a href="/usage/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/redis/" title="监控Redis" class="dd-item"><a href="/usage/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/api/read/" title="读取监控数据" class="dd-item"><a href="/api/read/">读取监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/opentsdb/" title="推送监控数据（OpenTSDB协议）" class="dd-item"><a href="/api/opentsdb/">推送监控数据（OpenTSDB协议）<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/webapi/" title="调用webapi的接口" class="dd-item"><a href="/api/webapi/">调用webapi的接口<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/grafana-agent/" title="使用Grafana-agent采集监控数据" class="dd-item parent"><a href="/grafana-agent/">使用Grafana-agent采集监控数据<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/" title="grafana-agent采集常用exporter" class="dd-item parent alwaysopen"><a href="/grafana-agent/integrations/">grafana-agent采集常用exporter<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/cadvisor-config/" title="cAdvisor Exporter" class="dd-item"><a href="/grafana-agent/integrations/cadvisor-config/">cAdvisor Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/consul-exporter-config/" title="Consul Exporter" class="dd-item"><a href="/grafana-agent/integrations/consul-exporter-config/">Consul Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/dnsmasq-exporter-config/" title="dnsmasq Exporter" class="dd-item"><a href="/grafana-agent/integrations/dnsmasq-exporter-config/">dnsmasq Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/elasticsearch-exporter-config/" title="Elasticsearch Exporter" class="dd-item active"><a href="/grafana-agent/integrations/elasticsearch-exporter-config/">Elasticsearch Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/github-exporter-config/" title="Github Exporter" class="dd-item"><a href="/grafana-agent/integrations/github-exporter-config/">Github Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/kafka-exporter-config/" title="Kafka Exporter" class="dd-item"><a href="/grafana-agent/integrations/kafka-exporter-config/">Kafka Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/memcached-exporter-config/" title="Memcached Exporter" class="dd-item"><a href="/grafana-agent/integrations/memcached-exporter-config/">Memcached Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mongodb-exporter-config/" title="Mongodb Exporter" class="dd-item"><a href="/grafana-agent/integrations/mongodb-exporter-config/">Mongodb Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mysqld-exporter-config/" title="MySQLd Exporter" class="dd-item"><a href="/grafana-agent/integrations/mysqld-exporter-config/">MySQLd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/node-exporter-config/" title="Node Exporter" class="dd-item"><a href="/grafana-agent/integrations/node-exporter-config/">Node Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/postgres-exporter-config/" title="Postgres Exporter" class="dd-item"><a href="/grafana-agent/integrations/postgres-exporter-config/">Postgres Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/process-exporter-config/" title="Process Exporter" class="dd-item"><a href="/grafana-agent/integrations/process-exporter-config/">Process Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/redis-exporter-config/" title="Redis Exporter" class="dd-item"><a href="/grafana-agent/integrations/redis-exporter-config/">Redis Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/statsd-exporter-config/" title="Statsd Exporter" class="dd-item"><a href="/grafana-agent/integrations/statsd-exporter-config/">Statsd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/windows-exporter-config/" title="Windows Exporter" class="dd-item"><a href="/grafana-agent/integrations/windows-exporter-config/">Windows Exporter<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/grafana-agent/scrape_exporters/" title="grafana-agent收集三方exporter" class="dd-item"><a href="/grafana-agent/scrape_exporters/">grafana-agent收集三方exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_metrics/" title="在K8s中运行grafana-agent收集metrics" class="dd-item"><a href="/grafana-agent/k8s_metrics/">在K8s中运行grafana-agent收集metrics<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_logs/" title="在K8s中运行grafana-agent收集log" class="dd-item"><a href="/grafana-agent/k8s_logs/">在K8s中运行grafana-agent收集log<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_traces/" title="在K8s中运行grafana-agent收集trace" class="dd-item"><a href="/grafana-agent/k8s_traces/">在K8s中运行grafana-agent收集trace<i class="fas fa-check read-icon"></i></a></li></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> 代码仓库</a></li>
+            <li><a class="padding" href="https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"><i class='fas fa-fw fa-book'></i> 视频教程</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/grafana-agent/integrations/elasticsearch-exporter-config.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="4" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/grafana-agent/"><span itemprop="name">使用Grafana-agent采集监控数据</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/grafana-agent/integrations/"><span itemprop="name">grafana-agent采集常用exporter</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/grafana-agent/integrations/elasticsearch-exporter-config/" aria-disabled="true"><span itemprop="name">Elasticsearch Exporter</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents"></nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>Elasticsearch Exporter</h1>
+
+<p>grafana-agent内置了<a href="https://github.com/prometheus-community/elasticsearch_exporter"><code>elasticsearch_exporter</code></a>，可以采集Elasticsearch的运行指标。</p>
+<p>目前grafana-agent不支持配置多个elasticsearch的地址，只能配置一个ElasticSearch地址对其进行metrics的采集。</p>
+<p>我们强烈推荐您使用独立的账号运行grafana-agent，并做好访问elasticsearch实例的最小化授权，避免过度授权带来的安全隐患，更多可以参考<a href="https://github.com/prometheus-community/elasticsearch_exporter#elasticsearch-7x-security-privileges">official documentation</a>。</p>
+<h1 id="配置并启用elasticsearch_exporter">配置并启用elasticsearch_exporter</h1>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff6ac1">elasticsearch_exporter</span>:
+  <span style="color:#ff6ac1">enabled</span>: <span style="color:#ff6ac1">true</span>
+  <span style="color:#ff6ac1">address</span>: <span style="color:#5af78e">&#34;http://localhost:9200&#34;</span>
+</code></pre></div><h1 id="采集的关键指标列表">采集的关键指标列表</h1>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#78787e"># Estimated size in bytes of breaker</span>
+<span style="color:#78787e"># 断路器预估内存大小</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_breakers_estimated_size_bytes
+
+<span style="color:#78787e"># Limit size in bytes for breaker</span>
+<span style="color:#78787e"># 断路器设置内存限制</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_breakers_limit_size_bytes
+
+<span style="color:#78787e"># tripped for breaker</span>
+<span style="color:#78787e"># 断路器累计阻断此时</span>
+<span style="color:#78787e"># Counter </span>
+elasticsearch_breakers_tripped
+
+<span style="color:#78787e"># The number of primary shards in your cluster. This is an aggregate total across all indices</span>
+<span style="color:#78787e"># 集群主分片数量</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_cluster_health_active_primary_shards
+
+<span style="color:#78787e"># Aggregate total of all shards across all indices, which includes replica shards.</span>
+<span style="color:#78787e"># 集群分片总数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_cluster_health_active_shards
+
+<span style="color:#78787e"># Shards delayed to reduce reallocation overhead</span>
+<span style="color:#78787e"># 暂缓重分配的分片数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_cluster_health_delayed_unassigned_shards
+
+<span style="color:#78787e"># Count of shards that are being freshly created</span>
+<span style="color:#78787e"># 创建中的分片数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_cluster_health_initializing_shards
+
+<span style="color:#78787e"># Number of data nodes in the cluster</span>
+<span style="color:#78787e"># 数据节点数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_cluster_health_number_of_data_nodes
+
+<span style="color:#78787e"># Number of nodes in the cluster</span>
+<span style="color:#78787e"># 节点总数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_cluster_health_number_of_nodes
+
+<span style="color:#78787e"># Cluster level changes which have not yet been executed</span>
+<span style="color:#78787e"># 等待执行的集群变更总数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_cluster_health_number_of_pending_tasks
+
+<span style="color:#78787e"># The number of shards that are currently moving from one node to another node</span>
+<span style="color:#78787e"># 迁移中的分片数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_cluster_health_relocating_shards
+
+<span style="color:#78787e"># Whether all primary and replica shards are allocated</span>
+<span style="color:#78787e"># 集群健康度</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_cluster_health_status
+
+<span style="color:#78787e"># The number of shards that exist in the cluster state, but cannot be found in the cluster itself</span>
+<span style="color:#78787e"># 集群未分配的分片数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_cluster_health_unassigned_shards
+
+<span style="color:#78787e"># Available space on block device in bytes</span>
+<span style="color:#78787e"># 可用磁盘容量（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_filesystem_data_available_bytes
+
+<span style="color:#78787e"># Size of block device in bytes</span>
+<span style="color:#78787e"># 磁盘容量（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_filesystem_data_size_bytes
+
+<span style="color:#78787e"># Count of documents on this node</span>
+<span style="color:#78787e"># 节点文档总数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_docs
+
+<span style="color:#78787e"># Count of deleted documents on this node</span>
+<span style="color:#78787e"># 节点删除文档数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_docs_deleted
+
+<span style="color:#78787e"># Count of documents with only primary shards on all nodes</span>
+<span style="color:#78787e"># 所有节点主分片文档总数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_docs_primary
+
+<span style="color:#78787e"># Evictions from field data</span>
+<span style="color:#78787e"># field data cache 内存剔除次数</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_fielddata_evictions
+
+<span style="color:#78787e"># Field data cache memory usage in bytes</span>
+<span style="color:#78787e"># field data cache 内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_fielddata_memory_size_bytes
+
+<span style="color:#78787e"># Evictions from filter cache</span>
+<span style="color:#78787e"># filter cache 内存剔除次数</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_filter_cache_evictions
+
+<span style="color:#78787e"># Filter cache memory usage in bytes</span>
+<span style="color:#78787e"># filter cache 内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_flush_time_seconds
+
+<span style="color:#78787e"># Total flushes</span>
+<span style="color:#78787e"># flush操作次数累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_flush_total
+
+<span style="color:#78787e"># Total time get exists in seconds</span>
+<span style="color:#78787e"># get成功操作次数累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_get_exists_time_seconds
+
+<span style="color:#78787e"># Total get exists operations</span>
+<span style="color:#78787e"># get操作次数累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_get_exists_total
+
+<span style="color:#78787e"># Total time of get missing in seconds</span>
+<span style="color:#78787e"># get失败操作耗时累计（秒）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_get_missing_time_seconds
+
+<span style="color:#78787e"># Total get missing</span>
+<span style="color:#78787e"># get失败操作次数累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_get_missing_total
+
+<span style="color:#78787e"># Total get time in seconds</span>
+<span style="color:#78787e"># get操作耗时累计（秒）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_get_time_seconds
+
+<span style="color:#78787e"># Total get</span>
+<span style="color:#78787e"># get操作次数累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_get_tota
+
+<span style="color:#78787e"># Total time indexing delete in seconds</span>
+<span style="color:#78787e"># 索引删除累计耗时（秒）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_indexing_delete_time_seconds_total
+
+<span style="color:#78787e"># Total indexing deletes</span>
+<span style="color:#78787e"># 索引删除操作次数累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_indexing_delete_total
+
+<span style="color:#78787e"># Cumulative index time in seconds</span>
+<span style="color:#78787e"># index操作累计耗时（秒）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_indexing_index_time_seconds_total
+
+<span style="color:#78787e"># Total index calls</span>
+<span style="color:#78787e"># index操作数量累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_indexing_index_total
+
+<span style="color:#78787e"># Cumulative docs merged</span>
+<span style="color:#78787e"># merge文档数量累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_merges_docs_total
+
+<span style="color:#78787e"># Total merges</span>
+<span style="color:#78787e"># merge操作数量累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_merges_total
+
+<span style="color:#78787e"># Total merge size in bytes</span>
+<span style="color:#78787e"># merge操作数据大小累计（byte）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_merges_total_size_bytes_total
+
+<span style="color:#78787e"># Total time spent merging in seconds</span>
+<span style="color:#78787e"># merge操作累计耗时（秒）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_merges_total_time_seconds_total
+
+<span style="color:#78787e"># Evictions from query cache</span>
+<span style="color:#78787e"># query cache 内存剔除次数</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_query_cache_evictions
+
+<span style="color:#78787e"># Query cache memory usage in bytes</span>
+<span style="color:#78787e"># query cache 内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_query_cache_memory_size_bytes
+
+<span style="color:#78787e"># Total time spent refreshing in seconds</span>
+<span style="color:#78787e"># refresh操作耗时累计（秒）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_refresh_time_seconds_total
+
+<span style="color:#78787e"># Total refreshes</span>
+<span style="color:#78787e"># refresh操作次数累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_refresh_total
+
+<span style="color:#78787e"># Total search fetch time in seconds</span>
+<span style="color:#78787e"># fetch操作耗时累计（秒）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_search_fetch_time_seconds
+
+<span style="color:#78787e"># Total number of fetches</span>
+<span style="color:#78787e"># fetch操作次数累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_search_fetch_total
+
+<span style="color:#78787e"># Total search query time in seconds</span>
+<span style="color:#78787e"># query操作耗时累计（秒）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_search_query_time_seconds
+
+<span style="color:#78787e"># Total number of queries</span>
+<span style="color:#78787e"># query操作次数累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_search_query_total
+
+<span style="color:#78787e"># Segments with only primary shards on all nodes</span>
+<span style="color:#78787e"># 所有节点主分片segment总数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_count_primary
+
+<span style="color:#78787e"># Segments with all shards on all nodes</span>
+<span style="color:#78787e"># 所有节点所有分片segment总数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_count_total
+
+<span style="color:#78787e"># Doc values with only primary shards on all nodes in bytes</span>
+<span style="color:#78787e"># 主分片doc value内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_doc_values_memory_bytes_primary
+
+<span style="color:#78787e"># Doc values with all shards on all nodes in bytes</span>
+<span style="color:#78787e"># 所有分片doc value内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_doc_values_memory_bytes_total
+
+<span style="color:#78787e"># Size of fields with only primary shards on all nodes in bytes</span>
+<span style="color:#78787e"># 分片field内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_fields_memory_bytes_primary
+
+<span style="color:#78787e"># Size of fields with all shards on all nodes in bytes</span>
+<span style="color:#78787e"># 所有分片field内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_fields_memory_bytes_total
+
+<span style="color:#78787e"># Size of fixed bit with only primary shards on all nodes in bytes</span>
+<span style="color:#78787e"># 主分片fixed bit set内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_fixed_bit_set_memory_bytes_primary
+
+<span style="color:#78787e"># Size of fixed bit with all shards on all nodes in bytes</span>
+<span style="color:#78787e"># 所有分片fixed bit set内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_fixed_bit_set_memory_bytes_total
+
+<span style="color:#78787e"># Index writer with only primary shards on all nodes in bytes</span>
+<span style="color:#78787e"># 主分片索引写入数据量（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_index_writer_memory_bytes_primary
+
+<span style="color:#78787e"># Index writer with all shards on all nodes in bytes</span>
+<span style="color:#78787e"># 所有分片索引写入数据量（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_index_writer_memory_bytes_total
+
+<span style="color:#78787e"># Size of segments with only primary shards on all nodes in bytes</span>
+<span style="color:#78787e"># 主分片segment数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_memory_bytes_primary
+
+<span style="color:#78787e"># Size of segments with all shards on all nodes in bytes</span>
+<span style="color:#78787e"># 所有分片segment总数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_memory_bytes_total
+
+<span style="color:#78787e"># Size of norms with only primary shards on all nodes in bytes</span>
+<span style="color:#78787e"># 主分片normalization factor内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_norms_memory_bytes_primary
+
+<span style="color:#78787e"># Size of norms with all shards on all nodes in bytes</span>
+<span style="color:#78787e"># 所有分片normalization factor内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_norms_memory_bytes_total
+
+<span style="color:#78787e"># Size of points with only primary shards on all nodes in bytes</span>
+<span style="color:#78787e"># 主分片point内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_points_memory_bytes_primary
+
+<span style="color:#78787e"># Size of points with all shards on all nodes in bytes</span>
+<span style="color:#78787e"># 所有分片point内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_points_memory_bytes_total
+
+<span style="color:#78787e"># Size of terms with only primary shards on all nodes in bytes</span>
+<span style="color:#78787e"># 主分片term内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_terms_memory_primary
+
+<span style="color:#78787e"># Number of terms with all shards on all nodes in bytes</span>
+<span style="color:#78787e"># 所有分片term内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_terms_memory_total
+
+<span style="color:#78787e"># Size of version map with only primary shards on all nodes in bytes</span>
+<span style="color:#78787e"># 所有分片version map内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_version_map_memory_bytes_primary
+
+<span style="color:#78787e"># Size of version map with all shards on all nodes in bytes</span>
+<span style="color:#78787e"># 所有分片version map内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segment_version_map_memory_bytes_total
+
+<span style="color:#78787e"># Count of index segments</span>
+<span style="color:#78787e"># segment个数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segments_count
+
+<span style="color:#78787e"># Current memory size of segments in bytes</span>
+<span style="color:#78787e"># segment内存占用（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_segments_memory_bytes
+
+<span style="color:#78787e"># Current size of stored index data in bytes with only primary shards on all nodes</span>
+<span style="color:#78787e"># 主分片索引容量（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_store_size_bytes_primary
+
+<span style="color:#78787e"># Current size of stored index data in bytes with all shards on all nodes</span>
+<span style="color:#78787e"># 所有分片索引容量（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_indices_store_size_bytes_total
+
+<span style="color:#78787e"># Throttle time for index store in seconds</span>
+<span style="color:#78787e"># 索引存储限制耗时（秒）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_store_throttle_time_seconds_total
+
+<span style="color:#78787e"># Total translog operations</span>
+<span style="color:#78787e"># tranlog操作数累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_translog_operations
+
+<span style="color:#78787e"># Total translog size in bytes</span>
+<span style="color:#78787e"># tranlog大小累计（byte）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_indices_translog_size_in_bytes
+
+<span style="color:#78787e"># Count of JVM GC runs</span>
+<span style="color:#78787e"># GC运行次数累计</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_jvm_gc_collection_seconds_count
+
+<span style="color:#78787e"># GC run time in seconds</span>
+<span style="color:#78787e"># GC运行耗时累计（秒）</span>
+<span style="color:#78787e"># C欧BT而</span>
+elasticsearch_jvm_gc_collection_seconds_sum
+
+<span style="color:#78787e"># JVM memory currently committed by area</span>
+<span style="color:#78787e"># JVM申请内存大小（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_jvm_memory_committed_bytes
+
+<span style="color:#78787e"># JVM memory max</span>
+<span style="color:#78787e"># JVM内存限制大小（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_jvm_memory_max_bytes
+
+<span style="color:#78787e"># JVM memory peak used by pool</span>
+<span style="color:#78787e"># JVM内存峰值大小（byte）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_jvm_memory_pool_peak_used_bytes
+
+<span style="color:#78787e"># JVM memory currently used by area</span>
+<span style="color:#78787e"># JVM内存占用大小（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_jvm_memory_used_bytes
+
+<span style="color:#78787e"># Shortterm load average</span>
+<span style="color:#78787e"># 系统负载（1分钟）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_os_load1
+
+<span style="color:#78787e"># Midterm load average</span>
+<span style="color:#78787e"># 系统负载（5分钟）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_os_load15
+
+<span style="color:#78787e"># Longterm load average</span>
+<span style="color:#78787e"># 系统负载（15分钟）</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_os_load5
+
+<span style="color:#78787e"># Percent CPU used by process</span>
+<span style="color:#78787e"># 进程CPU占用率</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_process_cpu_percent
+
+<span style="color:#78787e"># Open file descriptors</span>
+<span style="color:#78787e"># 进程打开文件数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_process_open_files_count
+
+<span style="color:#78787e"># Thread Pool threads active</span>
+<span style="color:#78787e"># 活跃线程总数</span>
+<span style="color:#78787e"># Gauge</span>
+elasticsearch_thread_pool_active_count
+
+<span style="color:#78787e"># Thread Pool operations completed</span>
+<span style="color:#78787e"># 线程池complete次数</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_thread_pool_completed_count
+
+<span style="color:#78787e"># Thread Pool operations rejected</span>
+<span style="color:#78787e"># 线程池reject次数</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_thread_pool_rejected_count
+
+<span style="color:#78787e"># Total number of bytes received</span>
+<span style="color:#78787e"># 网络收流量（byte）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_transport_rx_size_bytes_total
+
+<span style="color:#78787e"># Total number of bytes received</span>
+<span style="color:#78787e"># 网络发流量（byte）</span>
+<span style="color:#78787e"># Counter</span>
+elasticsearch_transport_tx_size_bytes_total
+
+</code></pre></div><h1 id="完整地配置项说明">完整地配置项说明</h1>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#78787e"># Enables the elasticsearch_exporter integration, allowing the Agent to automatically</span>
+  <span style="color:#78787e"># collect system metrics from the configured ElasticSearch server address</span>
+  <span style="color:#ff6ac1">[enabled</span>: &lt;boolean&gt; | default = false]
+
+  <span style="color:#78787e"># Sets an explicit value for the instance label when the integration is</span>
+  <span style="color:#78787e"># self-scraped. Overrides inferred values.</span>
+  <span style="color:#78787e">#</span>
+  <span style="color:#78787e"># The default value for this integration is inferred from the hostname portion</span>
+  <span style="color:#78787e"># of address.</span>
+  <span style="color:#ff6ac1">[instance</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Automatically collect metrics from this integration. If disabled,</span>
+  <span style="color:#78787e"># the elasticsearch_exporter integration will be run but not scraped and thus not</span>
+  <span style="color:#78787e"># remote-written. Metrics for the integration will be exposed at</span>
+  <span style="color:#78787e"># /integrations/elasticsearch_exporter/metrics and can be scraped by an external</span>
+  <span style="color:#78787e"># process.</span>
+  <span style="color:#ff6ac1">[scrape_integration</span>: &lt;boolean&gt; | default = &lt;integrations_config.scrape_integrations&gt;]
+
+  <span style="color:#78787e"># How often should the metrics be collected? Defaults to</span>
+  <span style="color:#78787e"># prometheus.global.scrape_interval.</span>
+  <span style="color:#ff6ac1">[scrape_interval</span>: &lt;duration&gt; | default = &lt;global_config.scrape_interval&gt;]
+
+  <span style="color:#78787e"># The timeout before considering the scrape a failure. Defaults to</span>
+  <span style="color:#78787e"># prometheus.global.scrape_timeout.</span>
+  <span style="color:#ff6ac1">[scrape_timeout</span>: &lt;duration&gt; | default = &lt;global_config.scrape_timeout&gt;]
+
+  <span style="color:#78787e"># Allows for relabeling labels on the target.</span>
+  <span style="color:#ff6ac1">relabel_configs</span>:
+    [- &lt;relabel_config&gt; ... ]
+
+  <span style="color:#78787e"># Relabel metrics coming from the integration, allowing to drop series</span>
+  <span style="color:#78787e"># from the integration that you don&#39;t care about.</span>
+  <span style="color:#ff6ac1">metric_relabel_configs</span>:
+    [ - &lt;relabel_config&gt; ... ]
+
+  <span style="color:#78787e"># How frequent to truncate the WAL for this integration.</span>
+  <span style="color:#ff6ac1">[wal_truncate_frequency</span>: &lt;duration&gt; | default = &#34;60m&#34;]
+
+  <span style="color:#78787e"># Monitor the exporter itself and include those metrics in the results.</span>
+  <span style="color:#ff6ac1">[include_exporter_metrics</span>: &lt;bool&gt; | default = false]
+
+  <span style="color:#78787e">#</span>
+  <span style="color:#78787e"># Exporter-specific configuration options</span>
+  <span style="color:#78787e">#</span>
+
+  <span style="color:#78787e"># HTTP API address of an Elasticsearch node.</span>
+  <span style="color:#ff6ac1">[ address</span>: &lt;string&gt; | default = &#34;http://localhost:9200&#34; ]
+
+  <span style="color:#78787e"># Timeout for trying to get stats from Elasticsearch.</span>
+  <span style="color:#ff6ac1">[ timeout</span>: &lt;duration&gt; | default = &#34;5s&#34; ]
+
+  <span style="color:#78787e"># Export stats for all nodes in the cluster. If used, this flag will override the flag `node`.</span>
+  <span style="color:#ff6ac1">[ all</span>: &lt;boolean&gt; ]
+
+  <span style="color:#78787e"># Node&#39;s name of which metrics should be exposed.</span>
+  <span style="color:#ff6ac1">[ node</span>: &lt;boolean&gt; ]
+
+  <span style="color:#78787e"># Export stats for indices in the cluster.</span>
+  <span style="color:#ff6ac1">[ indices</span>: &lt;boolean&gt; ]
+
+  <span style="color:#78787e"># Export stats for settings of all indices of the cluster.</span>
+  <span style="color:#ff6ac1">[ indices_settings</span>: &lt;boolean&gt; ]
+
+  <span style="color:#78787e"># Export stats for cluster settings.</span>
+  <span style="color:#ff6ac1">[ cluster_settings</span>: &lt;boolean&gt; ]
+
+  <span style="color:#78787e"># Export stats for shards in the cluster (implies indices).</span>
+  <span style="color:#ff6ac1">[ shards</span>: &lt;boolean&gt; ]
+
+  <span style="color:#78787e"># Export stats for the cluster snapshots.</span>
+  <span style="color:#ff6ac1">[ snapshots</span>: &lt;boolean&gt; ]
+
+  <span style="color:#78787e"># Cluster info update interval for the cluster label.</span>
+  <span style="color:#ff6ac1">[ clusterinfo_interval</span>: &lt;duration&gt; | default = &#34;5m&#34; ]
+
+  <span style="color:#78787e"># Path to PEM file that contains trusted Certificate Authorities for the Elasticsearch connection.</span>
+  <span style="color:#ff6ac1">[ ca</span>: &lt;string&gt; ]
+
+  <span style="color:#78787e"># Path to PEM file that contains the private key for client auth when connecting to Elasticsearch.</span>
+  <span style="color:#ff6ac1">[ client_private_key</span>: &lt;string&gt; ]
+
+  <span style="color:#78787e"># Path to PEM file that contains the corresponding cert for the private key to connect to Elasticsearch.</span>
+  <span style="color:#ff6ac1">[ client_cert</span>: &lt;string&gt; ]
+
+  <span style="color:#78787e"># Skip SSL verification when connecting to Elasticsearch.</span>
+  <span style="color:#ff6ac1">[ ssl_skip_verify</span>: &lt;boolean&gt; ]
+</code></pre></div>
+          <footer class="footline">
+          </footer>
+        </main>
+<hr> 
+
+<i>想学习 Nightingale 更多最佳实践？听到 Nightingale 代码层面的分享？生产环境出了问题希望得到夜莺研发团队及时支援？有更多监控/稳定性相关产品需求？欢迎联系电话或微信：18612185520 注明「商务合作」</i>
+
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/grafana-agent/integrations/dnsmasq-exporter-config/" title="dnsmasq Exporter"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/grafana-agent/integrations/github-exporter-config/" title="Github Exporter"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1649316325"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1649316325"></script>
+    <script src="/js/featherlight.min.js?1649316325"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1649316325"></script>
+    <script src="/js/mermaid.min.js?1649316325"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1649316325"></script>
+  </body>
+</html>

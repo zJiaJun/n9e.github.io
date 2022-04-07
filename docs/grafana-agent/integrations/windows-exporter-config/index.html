@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.92.2" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>Windows Exporter :: N9E</title>
+    <link href="/css/nucleus.css?1649316325" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1649316325" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1649316325" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1649316325" rel="stylesheet">
+    <link href="/css/auto-complete.css?1649316325" rel="stylesheet">
+    <link href="/css/theme.css?1649316325" rel="stylesheet">
+    <link href="/css/theme-blue.css?1649316325" rel="stylesheet">
+    <link href="/css/variant.css?1649316325" rel="stylesheet">
+    <link href="/css/print.css?1649316325" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1649316325"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/grafana-agent/integrations/windows-exporter-config/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+
+<a href="/" style="font-weight: 900;font-size: 24px;color: #fff;">Nightingale</a>
+<div style="color:#eee;line-height: 24px;padding-top: 8px;font-size: 12px;"><i>Version 5.0</i></div>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1649316325"></script>
+        <script src="/js/auto-complete.js?1649316325"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1649316325"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker快速启动测试" class="dd-item"><a href="/quickstart/compose/">使用Docker快速启动测试<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="使用二进制部署单机版服务端" class="dd-item"><a href="/quickstart/standalone/">使用二进制部署单机版服务端<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/grafana/" title="对接Grafana" class="dd-item"><a href="/usage/grafana/">对接Grafana<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/linux/" title="监控Linux" class="dd-item"><a href="/usage/linux/">监控Linux<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/windows/" title="监控Windows" class="dd-item"><a href="/usage/windows/">监控Windows<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/snmp/" title="监控网络设备" class="dd-item"><a href="/usage/snmp/">监控网络设备<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/promapm/" title="埋点监控之PromSDK" class="dd-item"><a href="/usage/promapm/">埋点监控之PromSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/statsd/" title="埋点监控之StatsdSDK" class="dd-item"><a href="/usage/statsd/">埋点监控之StatsdSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/http_response/" title="监控URL" class="dd-item"><a href="/usage/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mtail/" title="监控日志" class="dd-item"><a href="/usage/mtail/">监控日志<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mysql/" title="监控MySQL" class="dd-item"><a href="/usage/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/redis/" title="监控Redis" class="dd-item"><a href="/usage/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/api/read/" title="读取监控数据" class="dd-item"><a href="/api/read/">读取监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/opentsdb/" title="推送监控数据（OpenTSDB协议）" class="dd-item"><a href="/api/opentsdb/">推送监控数据（OpenTSDB协议）<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/webapi/" title="调用webapi的接口" class="dd-item"><a href="/api/webapi/">调用webapi的接口<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/grafana-agent/" title="使用Grafana-agent采集监控数据" class="dd-item parent"><a href="/grafana-agent/">使用Grafana-agent采集监控数据<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/" title="grafana-agent采集常用exporter" class="dd-item parent alwaysopen"><a href="/grafana-agent/integrations/">grafana-agent采集常用exporter<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/cadvisor-config/" title="cAdvisor Exporter" class="dd-item"><a href="/grafana-agent/integrations/cadvisor-config/">cAdvisor Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/consul-exporter-config/" title="Consul Exporter" class="dd-item"><a href="/grafana-agent/integrations/consul-exporter-config/">Consul Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/dnsmasq-exporter-config/" title="dnsmasq Exporter" class="dd-item"><a href="/grafana-agent/integrations/dnsmasq-exporter-config/">dnsmasq Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/elasticsearch-exporter-config/" title="Elasticsearch Exporter" class="dd-item"><a href="/grafana-agent/integrations/elasticsearch-exporter-config/">Elasticsearch Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/github-exporter-config/" title="Github Exporter" class="dd-item"><a href="/grafana-agent/integrations/github-exporter-config/">Github Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/kafka-exporter-config/" title="Kafka Exporter" class="dd-item"><a href="/grafana-agent/integrations/kafka-exporter-config/">Kafka Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/memcached-exporter-config/" title="Memcached Exporter" class="dd-item"><a href="/grafana-agent/integrations/memcached-exporter-config/">Memcached Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mongodb-exporter-config/" title="Mongodb Exporter" class="dd-item"><a href="/grafana-agent/integrations/mongodb-exporter-config/">Mongodb Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mysqld-exporter-config/" title="MySQLd Exporter" class="dd-item"><a href="/grafana-agent/integrations/mysqld-exporter-config/">MySQLd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/node-exporter-config/" title="Node Exporter" class="dd-item"><a href="/grafana-agent/integrations/node-exporter-config/">Node Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/postgres-exporter-config/" title="Postgres Exporter" class="dd-item"><a href="/grafana-agent/integrations/postgres-exporter-config/">Postgres Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/process-exporter-config/" title="Process Exporter" class="dd-item"><a href="/grafana-agent/integrations/process-exporter-config/">Process Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/redis-exporter-config/" title="Redis Exporter" class="dd-item"><a href="/grafana-agent/integrations/redis-exporter-config/">Redis Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/statsd-exporter-config/" title="Statsd Exporter" class="dd-item"><a href="/grafana-agent/integrations/statsd-exporter-config/">Statsd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/windows-exporter-config/" title="Windows Exporter" class="dd-item active"><a href="/grafana-agent/integrations/windows-exporter-config/">Windows Exporter<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/grafana-agent/scrape_exporters/" title="grafana-agent收集三方exporter" class="dd-item"><a href="/grafana-agent/scrape_exporters/">grafana-agent收集三方exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_metrics/" title="在K8s中运行grafana-agent收集metrics" class="dd-item"><a href="/grafana-agent/k8s_metrics/">在K8s中运行grafana-agent收集metrics<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_logs/" title="在K8s中运行grafana-agent收集log" class="dd-item"><a href="/grafana-agent/k8s_logs/">在K8s中运行grafana-agent收集log<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_traces/" title="在K8s中运行grafana-agent收集trace" class="dd-item"><a href="/grafana-agent/k8s_traces/">在K8s中运行grafana-agent收集trace<i class="fas fa-check read-icon"></i></a></li></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> 代码仓库</a></li>
+            <li><a class="padding" href="https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"><i class='fas fa-fw fa-book'></i> 视频教程</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/grafana-agent/integrations/windows-exporter-config.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="4" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/grafana-agent/"><span itemprop="name">使用Grafana-agent采集监控数据</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/grafana-agent/integrations/"><span itemprop="name">grafana-agent采集常用exporter</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/grafana-agent/integrations/windows-exporter-config/" aria-disabled="true"><span itemprop="name">Windows Exporter</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents"></nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>Windows Exporter</h1>
+
+<p>grafana-agent内置了<a href="https://github.com/grafana/windows_exporter"><code>windows_exporter</code></a>的实现，可以采集到windows平台的指标。</p>
+<h1 id="配置并启用windows_exporter">配置并启用windows_exporter</h1>
+<pre tabindex="0"><code># grafana-agent 本身的配置
+server:
+  log_level: info
+  http_listen_port: 12345
+
+# grafana-agent 抓取 metrics 的相关配置（类似于prometheus的scrape_configs）
+metrics:
+  global:
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    remote_write:
+      - url: https://n9e-server:19000/prometheus/v1/write
+        basic_auth:
+          username: &lt;string&gt;
+          password: &lt;string&gt;
+
+integrations:
+  windows_exporter:
+    enabled: true
+</code></pre><h1 id="采集的关键指标列表">采集的关键指标列表</h1>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff6ac1">windows_cpu_clock_interrupts_total</span>: Total number of received and serviced clock tick interrupts(counter)
+<span style="color:#ff6ac1">windows_cpu_core_frequency_mhz</span>: Core frequency in megahertz(gauge)
+<span style="color:#ff6ac1">windows_cpu_cstate_seconds_total</span>: Time spent in low-power idle state(counter)
+<span style="color:#ff6ac1">windows_cpu_dpcs_total</span>: Total number of received and serviced deferred procedure calls (DPCs)(counter)
+<span style="color:#ff6ac1">windows_cpu_idle_break_events_total</span>: Total number of time processor was woken from idle(counter)
+<span style="color:#ff6ac1">windows_cpu_interrupts_total</span>: Total number of received and serviced hardware interrupts(counter)
+<span style="color:#ff6ac1">windows_cpu_parking_status</span>: Parking Status represents whether a processor is parked or not(gauge)
+<span style="color:#ff6ac1">windows_cpu_processor_performance</span>: Processor Performance is the average performance of the processor while it is executing instructions, as a percentage of the nominal performance of the processor. On some processors, Processor Performance may exceed 100%(gauge)
+<span style="color:#ff6ac1">windows_cpu_time_total</span>: Time that processor spent in different modes (idle, user, system, ...)(counter)
+<span style="color:#ff6ac1">windows_cs_hostname</span>: Labeled system hostname information as provided by ComputerSystem.DNSHostName and ComputerSystem.Domain(gauge)
+<span style="color:#ff6ac1">windows_cs_logical_processors</span>: ComputerSystem.NumberOfLogicalProcessors(gauge)
+<span style="color:#ff6ac1">windows_cs_physical_memory_bytes</span>: ComputerSystem.TotalPhysicalMemory(gauge)
+<span style="color:#ff6ac1">windows_exporter_build_info</span>: A metric with a constant &#39;1&#39; value labeled by version, revision, branch, and goversion from which windows_exporter was built.(gauge)
+<span style="color:#ff6ac1">windows_exporter_collector_duration_seconds</span>: Duration of a collection.(gauge)
+<span style="color:#ff6ac1">windows_exporter_collector_success</span>: Whether the collector was successful.(gauge)
+<span style="color:#ff6ac1">windows_exporter_collector_timeout</span>: Whether the collector timed out.(gauge)
+<span style="color:#ff6ac1">windows_exporter_perflib_snapshot_duration_seconds</span>: Duration of perflib snapshot capture(gauge)
+<span style="color:#ff6ac1">windows_logical_disk_free_bytes</span>: Free space in bytes (LogicalDisk.PercentFreeSpace)(gauge)
+<span style="color:#ff6ac1">windows_logical_disk_idle_seconds_total</span>: Seconds that the disk was idle (LogicalDisk.PercentIdleTime)(counter)
+<span style="color:#ff6ac1">windows_logical_disk_read_bytes_total</span>: The number of bytes transferred from the disk during read operations (LogicalDisk.DiskReadBytesPerSec)(counter)
+<span style="color:#ff6ac1">windows_logical_disk_read_latency_seconds_total</span>: Shows the average time, in seconds, of a read operation from the disk (LogicalDisk.AvgDiskSecPerRead)(counter)
+<span style="color:#ff6ac1">windows_logical_disk_read_seconds_total</span>: Seconds that the disk was busy servicing read requests (LogicalDisk.PercentDiskReadTime)(counter)
+<span style="color:#ff6ac1">windows_logical_disk_read_write_latency_seconds_total</span>: Shows the time, in seconds, of the average disk transfer (LogicalDisk.AvgDiskSecPerTransfer)(counter)
+<span style="color:#ff6ac1">windows_logical_disk_reads_total</span>: The number of read operations on the disk (LogicalDisk.DiskReadsPerSec)(counter)
+<span style="color:#ff6ac1">windows_logical_disk_requests_queued</span>: The number of requests queued to the disk (LogicalDisk.CurrentDiskQueueLength)(gauge)
+<span style="color:#ff6ac1">windows_logical_disk_size_bytes</span>: Total space in bytes (LogicalDisk.PercentFreeSpace_Base)(gauge)
+<span style="color:#ff6ac1">windows_logical_disk_split_ios_total</span>: The number of I/Os to the disk were split into multiple I/Os (LogicalDisk.SplitIOPerSec)(counter)
+<span style="color:#ff6ac1">windows_logical_disk_write_bytes_total</span>: The number of bytes transferred to the disk during write operations (LogicalDisk.DiskWriteBytesPerSec)(counter)
+<span style="color:#ff6ac1">windows_logical_disk_write_latency_seconds_total</span>: Shows the average time, in seconds, of a write operation to the disk (LogicalDisk.AvgDiskSecPerWrite)(counter)
+<span style="color:#ff6ac1">windows_logical_disk_write_seconds_total</span>: Seconds that the disk was busy servicing write requests (LogicalDisk.PercentDiskWriteTime)(counter)
+<span style="color:#ff6ac1">windows_logical_disk_writes_total</span>: The number of write operations on the disk (LogicalDisk.DiskWritesPerSec)(counter)
+<span style="color:#ff6ac1">windows_net_bytes_received_total</span>: (Network.BytesReceivedPerSec)(counter)
+<span style="color:#ff6ac1">windows_net_bytes_sent_total</span>: (Network.BytesSentPerSec)(counter)
+<span style="color:#ff6ac1">windows_net_bytes_total</span>: (Network.BytesTotalPerSec)(counter)
+<span style="color:#ff6ac1">windows_net_current_bandwidth</span>: (Network.CurrentBandwidth)(gauge)
+<span style="color:#ff6ac1">windows_net_packets_outbound_discarded_total</span>: (Network.PacketsOutboundDiscarded)(counter)
+<span style="color:#ff6ac1">windows_net_packets_outbound_errors_total</span>: (Network.PacketsOutboundErrors)(counter)
+<span style="color:#ff6ac1">windows_net_packets_received_discarded_total</span>: (Network.PacketsReceivedDiscarded)(counter)
+<span style="color:#ff6ac1">windows_net_packets_received_errors_total</span>: (Network.PacketsReceivedErrors)(counter)
+<span style="color:#ff6ac1">windows_net_packets_received_total</span>: (Network.PacketsReceivedPerSec)(counter)
+<span style="color:#ff6ac1">windows_net_packets_received_unknown_total</span>: (Network.PacketsReceivedUnknown)(counter)
+<span style="color:#ff6ac1">windows_net_packets_sent_total</span>: (Network.PacketsSentPerSec)(counter)
+<span style="color:#ff6ac1">windows_net_packets_total</span>: (Network.PacketsPerSec)(counter)
+<span style="color:#ff6ac1">windows_os_info</span>: OperatingSystem.Caption, OperatingSystem.Version(gauge)
+<span style="color:#ff6ac1">windows_os_paging_free_bytes</span>: OperatingSystem.FreeSpaceInPagingFiles(gauge)
+<span style="color:#ff6ac1">windows_os_paging_limit_bytes</span>: OperatingSystem.SizeStoredInPagingFiles(gauge)
+<span style="color:#ff6ac1">windows_os_physical_memory_free_bytes</span>: OperatingSystem.FreePhysicalMemory(gauge)
+<span style="color:#ff6ac1">windows_os_process_memory_limix_bytes</span>: OperatingSystem.MaxProcessMemorySize(gauge)
+<span style="color:#ff6ac1">windows_os_processes</span>: OperatingSystem.NumberOfProcesses(gauge)
+<span style="color:#ff6ac1">windows_os_processes_limit</span>: OperatingSystem.MaxNumberOfProcesses(gauge)
+<span style="color:#ff6ac1">windows_os_time</span>: OperatingSystem.LocalDateTime(gauge)
+<span style="color:#ff6ac1">windows_os_timezone</span>: OperatingSystem.LocalDateTime(gauge)
+<span style="color:#ff6ac1">windows_os_users</span>: OperatingSystem.NumberOfUsers(gauge)
+<span style="color:#ff6ac1">windows_os_virtual_memory_bytes</span>: OperatingSystem.TotalVirtualMemorySize(gauge)
+<span style="color:#ff6ac1">windows_os_virtual_memory_free_bytes</span>: OperatingSystem.FreeVirtualMemory(gauge)
+<span style="color:#ff6ac1">windows_os_visible_memory_bytes</span>: OperatingSystem.TotalVisibleMemorySize(gauge)
+<span style="color:#ff6ac1">windows_service_info</span>: A metric with a constant &#39;1&#39; value labeled with service information(gauge)
+<span style="color:#ff6ac1">windows_service_start_mode</span>: The start mode of the service (StartMode)(gauge)
+<span style="color:#ff6ac1">windows_service_state</span>: The state of the service (State)(gauge)
+<span style="color:#ff6ac1">windows_service_status</span>: The status of the service (Status)(gauge)
+<span style="color:#ff6ac1">windows_system_context_switches_total</span>: Total number of context switches (WMI source is PerfOS_System.ContextSwitchesPersec)(counter)
+<span style="color:#ff6ac1">windows_system_exception_dispatches_total</span>: Total number of exceptions dispatched (WMI source is PerfOS_System.ExceptionDispatchesPersec)(counter)
+<span style="color:#ff6ac1">windows_system_processor_queue_length</span>: Length of processor queue (WMI source is PerfOS_System.ProcessorQueueLength)(gauge)
+<span style="color:#ff6ac1">windows_system_system_calls_total</span>: Total number of system calls (WMI source is PerfOS_System.SystemCallsPersec)(counter)
+<span style="color:#ff6ac1">windows_system_system_up_time</span>: System boot time (WMI source is PerfOS_System.SystemUpTime)(gauge)
+<span style="color:#ff6ac1">windows_system_threads</span>: Current number of threads (WMI source is PerfOS_System.Threads)(gauge)
+</code></pre></div><h1 id="完整地配置项说明">完整地配置项说明</h1>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#78787e"># Enables the windows_exporter integration, allowing the Agent to automatically</span>
+  <span style="color:#78787e"># collect system metrics from the local windows instance</span>
+  <span style="color:#ff6ac1">[enabled</span>: &lt;boolean&gt; | default = false]
+
+  <span style="color:#78787e"># Sets an explicit value for the instance label when the integration is</span>
+  <span style="color:#78787e"># self-scraped. Overrides inferred values.</span>
+  <span style="color:#78787e">#</span>
+  <span style="color:#78787e"># The default value for this integration is inferred from the agent hostname</span>
+  <span style="color:#78787e"># and HTTP listen port, delimited by a colon.</span>
+  <span style="color:#ff6ac1">[instance</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Automatically collect metrics from this integration. If disabled,</span>
+  <span style="color:#78787e"># the consul_exporter integration will be run but not scraped and thus not</span>
+  <span style="color:#78787e"># remote-written. Metrics for the integration will be exposed at</span>
+  <span style="color:#78787e"># /integrations/windows_exporter/metrics and can be scraped by an external</span>
+  <span style="color:#78787e"># process.</span>
+  <span style="color:#ff6ac1">[scrape_integration</span>: &lt;boolean&gt; | default = &lt;integrations_config.scrape_integrations&gt;]
+
+  <span style="color:#78787e"># How often should the metrics be collected? Defaults to</span>
+  <span style="color:#78787e"># prometheus.global.scrape_interval.</span>
+  <span style="color:#ff6ac1">[scrape_interval</span>: &lt;duration&gt; | default = &lt;global_config.scrape_interval&gt;]
+
+  <span style="color:#78787e"># The timeout before considering the scrape a failure. Defaults to</span>
+  <span style="color:#78787e"># prometheus.global.scrape_timeout.</span>
+  <span style="color:#ff6ac1">[scrape_timeout</span>: &lt;duration&gt; | default = &lt;global_config.scrape_timeout&gt;]
+
+  <span style="color:#78787e"># Allows for relabeling labels on the target.</span>
+  <span style="color:#ff6ac1">relabel_configs</span>:
+    [- &lt;relabel_config&gt; ... ]
+
+  <span style="color:#78787e"># Relabel metrics coming from the integration, allowing to drop series</span>
+  <span style="color:#78787e"># from the integration that you don&#39;t care about.</span>
+  <span style="color:#ff6ac1">metric_relabel_configs</span>:
+    [ - &lt;relabel_config&gt; ... ]
+
+  <span style="color:#78787e"># How frequent to truncate the WAL for this integration.</span>
+  <span style="color:#ff6ac1">[wal_truncate_frequency</span>: &lt;duration&gt; | default = &#34;60m&#34;]
+
+  <span style="color:#78787e"># Monitor the exporter itself and include those metrics in the results.</span>
+  <span style="color:#ff6ac1">[include_exporter_metrics</span>: &lt;bool&gt; | default = false]
+
+  <span style="color:#78787e">#</span>
+  <span style="color:#78787e"># Exporter-specific configuration options</span>
+  <span style="color:#78787e">#</span>
+
+  <span style="color:#78787e"># List of collectors to enable. Any non-experimental collector from the</span>
+  <span style="color:#78787e"># embeded version of windows_exporter can be enabeld here.</span>
+  <span style="color:#ff6ac1">[enabled_collectors</span>: &lt;string&gt; | default = &#34;cpu,cs,logical_disk,net,os,service,system,textfile&#34;]
+
+  <span style="color:#78787e"># Settings for collectors which accept configuration. Settings specified here</span>
+  <span style="color:#78787e"># are only used if the corresponding collector is enabled in</span>
+  <span style="color:#78787e"># enabled_collectors.</span>
+
+  <span style="color:#78787e"># Configuration for Exchange Mail Server</span>
+  <span style="color:#ff6ac1">exchange</span>:
+    <span style="color:#78787e"># Comma-separated List of collectors to use. Defaults to all, if not specified.</span>
+    <span style="color:#78787e"># Maps to collectors.exchange.enabled in windows_exporter</span>
+    <span style="color:#ff6ac1">[enabled_list</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Configuration for the IIS web server</span>
+  <span style="color:#ff6ac1">iis</span>:
+    <span style="color:#78787e"># Regexp of sites to whitelist. Site name must both match whitelist and not match blacklist to be included.</span>
+    <span style="color:#78787e"># Maps to collector.iis.site-whitelist in windows_exporter</span>
+    <span style="color:#ff6ac1">[site_whitelist</span>: &lt;string&gt; | default = &#34;.+&#34;]
+
+    <span style="color:#78787e"># Regexp of sites to blacklist. Site name must both match whitelist and not match blacklist to be included.</span>
+    <span style="color:#78787e"># Maps to collector.iis.site-blacklist in windows_exporter</span>
+    <span style="color:#ff6ac1">[site_blacklist</span>: &lt;string&gt; | default = &#34;&#34;]
+
+    <span style="color:#78787e"># Regexp of apps to whitelist. App name must both match whitelist and not match blacklist to be included.</span>
+    <span style="color:#78787e"># Maps to collector.iis.app-whitelist in windows_exporter</span>
+    <span style="color:#ff6ac1">[app_whitelist</span>: &lt;string&gt; | default=&#34;.+&#34;]
+
+    <span style="color:#78787e"># Regexp of apps to blacklist. App name must both match whitelist and not match blacklist to be included.</span>
+    <span style="color:#78787e"># Maps to collector.iis.app-blacklist in windows_exporter</span>
+    <span style="color:#ff6ac1">[app_blacklist</span>: &lt;string&gt; | default=&#34;.+&#34;]
+
+  <span style="color:#78787e"># Configuration for reading metrics from a text files in a directory</span>
+  <span style="color:#ff6ac1">text_file</span>:
+    <span style="color:#78787e"># Directory to read text files with metrics from.</span>
+    <span style="color:#78787e"># Maps to collector.textfile.directory in windows_exporter</span>
+    <span style="color:#ff6ac1">[text_file_directory</span>: &lt;string&gt; | default=&#34;C:\Program Files\windows_exporter\textfile_inputs&#34;]
+
+  <span style="color:#78787e"># Configuration for SMTP metrics</span>
+  <span style="color:#ff6ac1">smtp</span>:
+    <span style="color:#78787e"># Regexp of virtual servers to whitelist. Server name must both match whitelist and not match blacklist to be included.</span>
+    <span style="color:#78787e"># Maps to collector.smtp.server-whitelist in windows_exporter</span>
+    <span style="color:#ff6ac1">[whitelist</span>: &lt;string&gt; | default=&#34;.+&#34;]
+
+    <span style="color:#78787e"># Regexp of virtual servers to blacklist. Server name must both match whitelist and not match blacklist to be included.</span>
+    <span style="color:#78787e"># Maps to collector.smtp.server-blacklist in windows_exporter</span>
+    <span style="color:#ff6ac1">[blacklist</span>: &lt;string&gt; | default=&#34;&#34;]
+
+  <span style="color:#78787e"># Configuration for Windows Services</span>
+  <span style="color:#ff6ac1">service</span>:
+    <span style="color:#78787e"># &#34;WQL &#39;where&#39; clause to use in WMI metrics query. Limits the response to the services you specify and reduces the size of the response.</span>
+    <span style="color:#78787e"># Maps to collector.service.services-where in windows_exporter</span>
+    <span style="color:#ff6ac1">[where_clause</span>: &lt;string&gt; | default=&#34;&#34;]
+
+  <span style="color:#78787e"># Configuration for Windows Processes</span>
+  <span style="color:#ff6ac1">process</span>:
+    <span style="color:#78787e"># Regexp of processes to include. Process name must both match whitelist and not match blacklist to be included.</span>
+    <span style="color:#78787e"># Maps to collector.process.whitelist in windows_exporter</span>
+    <span style="color:#ff6ac1">[whitelist</span>: &lt;string&gt; | default=&#34;.+&#34;]
+
+    <span style="color:#78787e"># Regexp of processes to exclude. Process name must both match whitelist and not match blacklist to be included.</span>
+    <span style="color:#78787e"># Maps to collector.process.blacklist in windows_exporter</span>
+    <span style="color:#ff6ac1">[blacklist</span>: &lt;string&gt; | default=&#34;&#34;]
+
+  <span style="color:#78787e"># Configuration for NICs</span>
+  <span style="color:#ff6ac1">network</span>:
+    <span style="color:#78787e"># Regexp of NIC&#39;s to whitelist. NIC name must both match whitelist and not match blacklist to be included.</span>
+    <span style="color:#78787e"># Maps to collector.net.nic-whitelist in windows_exporter</span>
+    <span style="color:#ff6ac1">[whitelist</span>: &lt;string&gt; | default=&#34;.+&#34;]
+
+    <span style="color:#78787e"># Regexp of NIC&#39;s to blacklist. NIC name must both match whitelist and not match blacklist to be included.</span>
+    <span style="color:#78787e"># Maps to collector.net.nic-blacklist in windows_exporter</span>
+    <span style="color:#ff6ac1">[blacklist</span>: &lt;string&gt; | default=&#34;&#34;]
+
+  <span style="color:#78787e"># Configuration for Microsoft SQL Server</span>
+  <span style="color:#ff6ac1">mssql</span>:
+    <span style="color:#78787e"># Comma-separated list of mssql WMI classes to use.</span>
+    <span style="color:#78787e"># Maps to collectors.mssql.classes-enabled in windows_exporter</span>
+    <span style="color:#ff6ac1">[enabled_classes</span>: &lt;string&gt; | default=&#34;accessmethods,availreplica,bufman,databases,dbreplica,genstats,locks,memmgr,sqlstats,sqlerrors,transactions&#34;]
+
+  <span style="color:#78787e"># Configuration for Microsoft Queue</span>
+  <span style="color:#ff6ac1">msqm</span>:
+    <span style="color:#78787e"># WQL &#39;where&#39; clause to use in WMI metrics query. Limits the response to the msmqs you specify and reduces the size of the response.</span>
+    <span style="color:#78787e"># Maps to collector.msmq.msmq-where in windows_exporter</span>
+    <span style="color:#ff6ac1">[where_clause</span>: &lt;string&gt; | default=&#34;&#34;]
+
+  <span style="color:#78787e"># Configuration for disk information</span>
+  <span style="color:#ff6ac1">logical_disk</span>:
+    <span style="color:#78787e"># Regexp of volumes to whitelist. Volume name must both match whitelist and not match blacklist to be included.</span>
+    <span style="color:#78787e"># Maps to collector.logical_disk.volume-whitelist in windows_exporter</span>
+    <span style="color:#ff6ac1">[whitelist</span>: &lt;string&gt; | default=&#34;.+&#34;]
+
+    <span style="color:#78787e"># Regexp of volumes to blacklist. Volume name must both match whitelist and not match blacklist to be included.</span>
+    <span style="color:#78787e"># Maps to collector.logical_disk.volume-blacklist in windows_exporter</span>
+    <span style="color:#ff6ac1">[blacklist</span>: &lt;string&gt; | default=&#34;.+&#34;]
+</code></pre></div>
+          <footer class="footline">
+          </footer>
+        </main>
+<hr> 
+
+<i>想学习 Nightingale 更多最佳实践？听到 Nightingale 代码层面的分享？生产环境出了问题希望得到夜莺研发团队及时支援？有更多监控/稳定性相关产品需求？欢迎联系电话或微信：18612185520 注明「商务合作」</i>
+
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/grafana-agent/integrations/statsd-exporter-config/" title="Statsd Exporter"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/grafana-agent/scrape_exporters/" title="grafana-agent收集三方exporter"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1649316325"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1649316325"></script>
+    <script src="/js/featherlight.min.js?1649316325"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1649316325"></script>
+    <script src="/js/mermaid.min.js?1649316325"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1649316325"></script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>使用Grafana-agent采集监控数据 on N9E</title>
+    <link>https://n9e.github.io/grafana-agent/</link>
+    <description>Recent content in 使用Grafana-agent采集监控数据 on N9E</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language><atom:link href="https://n9e.github.io/grafana-agent/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>grafana-agent采集常用exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/</guid>
+      <description>grafana-agent 的 metrics采集，完全兼容 prometheus exporter 生态，一些常见的 exporter，会在 grafana-agent 中内嵌实现（列表如下）; 对于未嵌入到 grafana-agent中的 exporter，则可以在 grafana-agent 中配置 scrape_configs 来完成抓取和收集，请参考抓取第三方exporter;  grafana-agent 内置实现的 exporter 列表  node-exporter mysqld-exporter process-exporter cadvisor windows-exporter postgres-exporter mongodb-exporter redis-exporter memcached-exporter kafka-exporter elasticsearch-exporter consul-exporter dnsmasq-exporter  内置exporter的配置项说明 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125  # grafana-agent 本身的配置 server: log_level: info http_listen_port: 12345 # grafana-agent 抓取 metrics 的相关配置（类似于prometheus的scrape_configs） metrics: global: scrape_interval: 15s scrape_timeout: 10s remote_write: - url: https://n9e-server:19000/prometheus/v1/write basic_auth: username: &amp;lt;string&amp;gt; password: &amp;lt;string&amp;gt; # grafana-agent integration 相关的配置 integrations: ## grafana-agent self-integration ## grafana-agent 本身的metrics 采集，这也是一个内嵌的 integration，可以选择启用或者关闭。 agent: ### 是否开启针对grafana-agent 自身的integration，允许grafana-agent自动采集和发送其自身的metrics [enabled: &amp;lt;boolean&amp;gt; | default = false] # Sets an explicit value for the instance label when the integration is # self-scraped.</description>
+    </item>
+    <item>
+      <title>grafana-agent收集三方exporter</title>
+      <link>https://n9e.github.io/grafana-agent/scrape_exporters/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/scrape_exporters/</guid>
+      <description>对于未嵌入到 grafana-agent中的 exporter，则可以在 grafana-agent 中配置 scrape_configs 来完成抓取和收集，请参考抓取第三方exporter。</description>
+    </item>
+    <item>
+      <title>在K8s中运行grafana-agent收集metrics</title>
+      <link>https://n9e.github.io/grafana-agent/k8s_metrics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/k8s_metrics/</guid>
+      <description>在本文档中，介绍如何以Deployment或者Daemonset的方式部署grafana-agent到您的k8s集群中，抓取宿主机上kubelet和cAdvisor的metrics指标，并把抓取到的数据，以remote_write的方式推送到Nightingale.
+通过本文档，我们预期达成以下目标：
+ 部署grafana-agent到您的K8s集群中； 配置grafana-agent抓取kubelet和cAdvisor的metrics；  K8s是开源的容器编排系统，自动化管理容器的部署、扩缩容等工作。K8s默认会暴露Node和控制面的若干metrics接口，这些接口兼容Prometheus的metrics规范。我们可以部署grafana-agent来收集Node的cAdvisor和kubelet metrics，并以remote_write的方式发送到Nightingale.
+前置依赖  一个开启RBAC（role-based access control）的Kubernetes集群； 安装并配置好了kubectl命令行工具；  步骤一：创建 ServiceAcount、ClusterRole、ClusterRoleBinding export NAMESPACE=default MANIFEST_URL=https://raw.githubusercontent.com/flashcatcloud/fc-agent/fc-release/etc/k8s/agent-bare.yaml curl -fsSL $MANIFEST_URL | envsubst | kubectl apply -f - 步骤二：创建ConfigMap，配置grafana-agent export NAMESPACE=default export CLUSTER_NAME=kubernetes export FC_REMOTE_WRITE_URL=http://10.206.0.16:8480/insert/0/prometheus/api/v1/write #export FC_REMOTE_WRITE_URL=https://n9e-server:19000/prometheus/v1/write #export FC_REMOTE_WRITE_USERNAME=fc_laiwei #export FC_REMOTE_WRITE_PASSWORD=fc_laiweisecret cat &amp;lt;&amp;lt;EOF | kind: ConfigMap metadata: name: grafana-agent apiVersion: v1 data: agent.yaml: | server: http_listen_port: 12345 metrics: wal_directory: /tmp/grafana-agent-wal global: scrape_interval: 15s scrape_timeout: 10s external_labels: cluster: ${CLUSTER_NAME} configs: - name: integrations remote_write: - url: ${FC_REMOTE_WRITE_URL} basic_auth: username: ${FC_REMOTE_WRITE_USERNAME} password: ${FC_REMOTE_WRITE_PASSWORD} scrape_configs: - job_name: integrations/kubernetes/cadvisor bearer_token_file: /var/run/secrets/kubernetes.</description>
+    </item>
+    <item>
+      <title>在K8s中运行grafana-agent收集log</title>
+      <link>https://n9e.github.io/grafana-agent/k8s_logs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/k8s_logs/</guid>
+      <description>在本文档中，介绍如何以Daemonset的形式部署grafana-agent到您的k8s集群中，收集您的K8s集群中应用的日志，并将其推送到Nightingale.</description>
+    </item>
+    <item>
+      <title>在K8s中运行grafana-agent收集trace</title>
+      <link>https://n9e.github.io/grafana-agent/k8s_traces/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/k8s_traces/</guid>
+      <description>在本文档中，介绍如何以 Deployment 的形式部署grafana-agent到您的K8s集群中，收集您的K8s集群中应用的trace数据，并将其推送到Nightingale.</description>
+    </item>
+  </channel>
+</rss>

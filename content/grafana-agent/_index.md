@@ -38,7 +38,7 @@ metrics:
               labels:
                 cluster: 'mymac'
       remote_write:
-        - url: https://flashc.at/api/v1/prom/write
+        - url: https://n9e-server:19000/prometheus/v1/write
           basic_auth:
             username: <string>
             password: <string>
@@ -194,7 +194,7 @@ metrics:
     scrape_interval: 15s
     scrape_timeout: 10s
     remote_write:
-      - url: https://flashc.at/api/v1/prom/write
+      - url: https://n9e-server:19000/prometheus/v1/write
         basic_auth:
           username: <string>
           password: <string>

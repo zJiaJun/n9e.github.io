@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.92.2" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>在K8s中运行grafana-agent收集metrics :: N9E</title>
+    <link href="/css/nucleus.css?1649316325" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1649316325" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1649316325" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1649316325" rel="stylesheet">
+    <link href="/css/auto-complete.css?1649316325" rel="stylesheet">
+    <link href="/css/theme.css?1649316325" rel="stylesheet">
+    <link href="/css/theme-blue.css?1649316325" rel="stylesheet">
+    <link href="/css/variant.css?1649316325" rel="stylesheet">
+    <link href="/css/print.css?1649316325" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1649316325"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/grafana-agent/k8s_metrics/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+
+<a href="/" style="font-weight: 900;font-size: 24px;color: #fff;">Nightingale</a>
+<div style="color:#eee;line-height: 24px;padding-top: 8px;font-size: 12px;"><i>Version 5.0</i></div>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1649316325"></script>
+        <script src="/js/auto-complete.js?1649316325"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1649316325"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker快速启动测试" class="dd-item"><a href="/quickstart/compose/">使用Docker快速启动测试<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="使用二进制部署单机版服务端" class="dd-item"><a href="/quickstart/standalone/">使用二进制部署单机版服务端<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/grafana/" title="对接Grafana" class="dd-item"><a href="/usage/grafana/">对接Grafana<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/linux/" title="监控Linux" class="dd-item"><a href="/usage/linux/">监控Linux<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/windows/" title="监控Windows" class="dd-item"><a href="/usage/windows/">监控Windows<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/snmp/" title="监控网络设备" class="dd-item"><a href="/usage/snmp/">监控网络设备<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/promapm/" title="埋点监控之PromSDK" class="dd-item"><a href="/usage/promapm/">埋点监控之PromSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/statsd/" title="埋点监控之StatsdSDK" class="dd-item"><a href="/usage/statsd/">埋点监控之StatsdSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/http_response/" title="监控URL" class="dd-item"><a href="/usage/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mtail/" title="监控日志" class="dd-item"><a href="/usage/mtail/">监控日志<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mysql/" title="监控MySQL" class="dd-item"><a href="/usage/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/redis/" title="监控Redis" class="dd-item"><a href="/usage/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/api/read/" title="读取监控数据" class="dd-item"><a href="/api/read/">读取监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/opentsdb/" title="推送监控数据（OpenTSDB协议）" class="dd-item"><a href="/api/opentsdb/">推送监控数据（OpenTSDB协议）<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/webapi/" title="调用webapi的接口" class="dd-item"><a href="/api/webapi/">调用webapi的接口<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/grafana-agent/" title="使用Grafana-agent采集监控数据" class="dd-item parent"><a href="/grafana-agent/">使用Grafana-agent采集监控数据<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/" title="grafana-agent采集常用exporter" class="dd-item alwaysopen"><a href="/grafana-agent/integrations/">grafana-agent采集常用exporter<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/cadvisor-config/" title="cAdvisor Exporter" class="dd-item"><a href="/grafana-agent/integrations/cadvisor-config/">cAdvisor Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/consul-exporter-config/" title="Consul Exporter" class="dd-item"><a href="/grafana-agent/integrations/consul-exporter-config/">Consul Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/dnsmasq-exporter-config/" title="dnsmasq Exporter" class="dd-item"><a href="/grafana-agent/integrations/dnsmasq-exporter-config/">dnsmasq Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/elasticsearch-exporter-config/" title="Elasticsearch Exporter" class="dd-item"><a href="/grafana-agent/integrations/elasticsearch-exporter-config/">Elasticsearch Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/github-exporter-config/" title="Github Exporter" class="dd-item"><a href="/grafana-agent/integrations/github-exporter-config/">Github Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/kafka-exporter-config/" title="Kafka Exporter" class="dd-item"><a href="/grafana-agent/integrations/kafka-exporter-config/">Kafka Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/memcached-exporter-config/" title="Memcached Exporter" class="dd-item"><a href="/grafana-agent/integrations/memcached-exporter-config/">Memcached Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mongodb-exporter-config/" title="Mongodb Exporter" class="dd-item"><a href="/grafana-agent/integrations/mongodb-exporter-config/">Mongodb Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mysqld-exporter-config/" title="MySQLd Exporter" class="dd-item"><a href="/grafana-agent/integrations/mysqld-exporter-config/">MySQLd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/node-exporter-config/" title="Node Exporter" class="dd-item"><a href="/grafana-agent/integrations/node-exporter-config/">Node Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/postgres-exporter-config/" title="Postgres Exporter" class="dd-item"><a href="/grafana-agent/integrations/postgres-exporter-config/">Postgres Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/process-exporter-config/" title="Process Exporter" class="dd-item"><a href="/grafana-agent/integrations/process-exporter-config/">Process Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/redis-exporter-config/" title="Redis Exporter" class="dd-item"><a href="/grafana-agent/integrations/redis-exporter-config/">Redis Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/statsd-exporter-config/" title="Statsd Exporter" class="dd-item"><a href="/grafana-agent/integrations/statsd-exporter-config/">Statsd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/windows-exporter-config/" title="Windows Exporter" class="dd-item"><a href="/grafana-agent/integrations/windows-exporter-config/">Windows Exporter<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/grafana-agent/scrape_exporters/" title="grafana-agent收集三方exporter" class="dd-item"><a href="/grafana-agent/scrape_exporters/">grafana-agent收集三方exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_metrics/" title="在K8s中运行grafana-agent收集metrics" class="dd-item active"><a href="/grafana-agent/k8s_metrics/">在K8s中运行grafana-agent收集metrics<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_logs/" title="在K8s中运行grafana-agent收集log" class="dd-item"><a href="/grafana-agent/k8s_logs/">在K8s中运行grafana-agent收集log<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_traces/" title="在K8s中运行grafana-agent收集trace" class="dd-item"><a href="/grafana-agent/k8s_traces/">在K8s中运行grafana-agent收集trace<i class="fas fa-check read-icon"></i></a></li></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> 代码仓库</a></li>
+            <li><a class="padding" href="https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"><i class='fas fa-fw fa-book'></i> 视频教程</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/grafana-agent/k8s_metrics.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/grafana-agent/"><span itemprop="name">使用Grafana-agent采集监控数据</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/grafana-agent/k8s_metrics/" aria-disabled="true"><span itemprop="name">在K8s中运行grafana-agent收集metrics</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#前置依赖">前置依赖</a></li>
+    <li><a href="#步骤一创建-serviceacountclusterroleclusterrolebinding">步骤一：创建 <code>ServiceAcount</code>、<code>ClusterRole</code>、<code>ClusterRoleBinding</code></a></li>
+    <li><a href="#步骤二创建configmap配置grafana-agent">步骤二：创建<code>ConfigMap</code>，配置grafana-agent</a></li>
+    <li><a href="#步骤三在k8s中创建grafana-agent实例">步骤三：在K8s中创建grafana-agent实例</a>
+      <ul>
+        <li><a href="#对于采集-node_exporter-kubelet-cadvisor等指标每个节点上只运行一个grafana-agent实例的情况推荐以daemonset运行">对于采集 node_exporter/ kubelet/ cAdvisor等指标，每个节点上只运行一个grafana-agent实例的情况，推荐以daemonset运行</a></li>
+        <li><a href="#对于采集mysqld_exporter等需要运行多个grafana-agent实例的情况推荐以deployment运行">对于采集MySQLd_Exporter等需要运行多个grafana-agent实例的情况，推荐以deployment运行。</a></li>
+      </ul>
+    </li>
+    <li><a href="#如何重建grafana-agent">如何重建grafana-agent</a></li>
+  </ul>
+</nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>在K8s中运行grafana-agent收集metrics</h1>
+
+<p>在本文档中，介绍如何以Deployment或者Daemonset的方式部署grafana-agent到您的k8s集群中，抓取宿主机上<code>kubelet</code>和<code>cAdvisor</code>的metrics指标，并把抓取到的数据，以remote_write的方式推送到Nightingale.</p>
+<p><strong>通过本文档，我们预期达成以下目标：</strong></p>
+<ol>
+<li>部署grafana-agent到您的K8s集群中；</li>
+<li>配置grafana-agent抓取kubelet和cAdvisor的metrics；</li>
+</ol>
+<p>K8s是开源的容器编排系统，自动化管理容器的部署、扩缩容等工作。K8s默认会暴露Node和控制面的若干metrics接口，这些接口兼容Prometheus的metrics规范。我们可以部署grafana-agent来收集Node的cAdvisor和kubelet metrics，并以remote_write的方式发送到Nightingale.</p>
+<h2 id="前置依赖">前置依赖</h2>
+<ol>
+<li>一个开启RBAC（role-based access control）的Kubernetes集群；</li>
+<li>安装并配置好了kubectl命令行工具；</li>
+</ol>
+<h2 id="步骤一创建-serviceacountclusterroleclusterrolebinding">步骤一：创建 <code>ServiceAcount</code>、<code>ClusterRole</code>、<code>ClusterRoleBinding</code></h2>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ff5c57">export</span> <span style="color:#ff5c57">NAMESPACE</span><span style="color:#ff6ac1">=</span>default
+<span style="color:#ff5c57">MANIFEST_URL</span><span style="color:#ff6ac1">=</span>https://raw.githubusercontent.com/flashcatcloud/fc-agent/fc-release/etc/k8s/agent-bare.yaml
+
+curl -fsSL <span style="color:#ff5c57">$MANIFEST_URL</span> | envsubst |  kubectl apply -f -
+</code></pre></div><h2 id="步骤二创建configmap配置grafana-agent">步骤二：创建<code>ConfigMap</code>，配置grafana-agent</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ff5c57">export</span> <span style="color:#ff5c57">NAMESPACE</span><span style="color:#ff6ac1">=</span>default
+<span style="color:#ff5c57">export</span> <span style="color:#ff5c57">CLUSTER_NAME</span><span style="color:#ff6ac1">=</span>kubernetes
+<span style="color:#ff5c57">export</span> <span style="color:#ff5c57">FC_REMOTE_WRITE_URL</span><span style="color:#ff6ac1">=</span>http://10.206.0.16:8480/insert/0/prometheus/api/v1/write
+<span style="color:#78787e">#export FC_REMOTE_WRITE_URL=https://n9e-server:19000/prometheus/v1/write</span>
+<span style="color:#78787e">#export FC_REMOTE_WRITE_USERNAME=fc_laiwei</span>
+<span style="color:#78787e">#export FC_REMOTE_WRITE_PASSWORD=fc_laiweisecret</span>
+
+cat <span style="color:#5af78e">&lt;&lt;EOF |
+</span><span style="color:#5af78e">kind: ConfigMap
+</span><span style="color:#5af78e">metadata:
+</span><span style="color:#5af78e">  name: grafana-agent
+</span><span style="color:#5af78e">apiVersion: v1
+</span><span style="color:#5af78e">data:
+</span><span style="color:#5af78e">  agent.yaml: |
+</span><span style="color:#5af78e">    server:
+</span><span style="color:#5af78e">      http_listen_port: 12345
+</span><span style="color:#5af78e">    metrics:
+</span><span style="color:#5af78e">      wal_directory: /tmp/grafana-agent-wal
+</span><span style="color:#5af78e">      global:
+</span><span style="color:#5af78e">        scrape_interval: 15s
+</span><span style="color:#5af78e">        scrape_timeout: 10s
+</span><span style="color:#5af78e">        external_labels:
+</span><span style="color:#5af78e">          cluster: ${CLUSTER_NAME}
+</span><span style="color:#5af78e">      configs:
+</span><span style="color:#5af78e">      - name: integrations
+</span><span style="color:#5af78e">        remote_write:
+</span><span style="color:#5af78e">        - url: ${FC_REMOTE_WRITE_URL}
+</span><span style="color:#5af78e">          basic_auth:
+</span><span style="color:#5af78e">            username: ${FC_REMOTE_WRITE_USERNAME}
+</span><span style="color:#5af78e">            password: ${FC_REMOTE_WRITE_PASSWORD}
+</span><span style="color:#5af78e">        scrape_configs:
+</span><span style="color:#5af78e">        - job_name: integrations/kubernetes/cadvisor
+</span><span style="color:#5af78e">          bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+</span><span style="color:#5af78e">          kubernetes_sd_configs:
+</span><span style="color:#5af78e">            - role: node
+</span><span style="color:#5af78e">          metric_relabel_configs:
+</span><span style="color:#5af78e">            - action: drop
+</span><span style="color:#5af78e">              regex: container_([a-z_]+);
+</span><span style="color:#5af78e">              source_labels:
+</span><span style="color:#5af78e">                - __name__
+</span><span style="color:#5af78e">                - image
+</span><span style="color:#5af78e">            - action: drop
+</span><span style="color:#5af78e">              regex: container_(network_tcp_usage_total|network_udp_usage_total|tasks_state|cpu_load_average_10s)
+</span><span style="color:#5af78e">              source_labels:
+</span><span style="color:#5af78e">                - __name__
+</span><span style="color:#5af78e">          relabel_configs:
+</span><span style="color:#5af78e">            - replacement: kubernetes.default.svc:443
+</span><span style="color:#5af78e">              target_label: __address__
+</span><span style="color:#5af78e">            - regex: (.+)
+</span><span style="color:#5af78e">              replacement: /api/v1/nodes/\$1/proxy/metrics/cadvisor
+</span><span style="color:#5af78e">              source_labels:
+</span><span style="color:#5af78e">                - __meta_kubernetes_node_name
+</span><span style="color:#5af78e">              target_label: __metrics_path__
+</span><span style="color:#5af78e">          scheme: https
+</span><span style="color:#5af78e">          tls_config:
+</span><span style="color:#5af78e">              ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+</span><span style="color:#5af78e">              insecure_skip_verify: false
+</span><span style="color:#5af78e">              server_name: kubernetes
+</span><span style="color:#5af78e">        - job_name: integrations/kubernetes/kubelet
+</span><span style="color:#5af78e">          bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+</span><span style="color:#5af78e">          kubernetes_sd_configs:
+</span><span style="color:#5af78e">            - role: node
+</span><span style="color:#5af78e">          relabel_configs:
+</span><span style="color:#5af78e">            - replacement: kubernetes.default.svc:443
+</span><span style="color:#5af78e">              target_label: __address__
+</span><span style="color:#5af78e">            - regex: (.+)
+</span><span style="color:#5af78e">              replacement: /api/v1/nodes/\$1/proxy/metrics
+</span><span style="color:#5af78e">              source_labels:
+</span><span style="color:#5af78e">                - __meta_kubernetes_node_name
+</span><span style="color:#5af78e">              target_label: __metrics_path__
+</span><span style="color:#5af78e">          scheme: https
+</span><span style="color:#5af78e">          tls_config:
+</span><span style="color:#5af78e">              ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+</span><span style="color:#5af78e">              insecure_skip_verify: false
+</span><span style="color:#5af78e">              server_name: kubernetes
+</span><span style="color:#5af78e">EOF</span>
+
+envsubst | kubectl apply -n <span style="color:#ff5c57">$NAMESPACE</span> -f -
+</code></pre></div><h2 id="步骤三在k8s中创建grafana-agent实例">步骤三：在K8s中创建grafana-agent实例</h2>
+<blockquote>
+<p>Daemonset</p>
+</blockquote>
+<h3 id="对于采集-node_exporter-kubelet-cadvisor等指标每个节点上只运行一个grafana-agent实例的情况推荐以daemonset运行">对于采集 node_exporter/ kubelet/ cAdvisor等指标，每个节点上只运行一个grafana-agent实例的情况，推荐以daemonset运行</h3>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ff5c57">export</span> <span style="color:#ff5c57">NAMESPACE</span><span style="color:#ff6ac1">=</span>default
+<span style="color:#ff5c57">MANIFEST_URL</span><span style="color:#ff6ac1">=</span>https://raw.githubusercontent.com/flashcatcloud/fc-agent/fc-release/etc/k8s/agent-daemonset.yaml
+
+curl -fsSL <span style="color:#ff5c57">$MANIFEST_URL</span> | envsubst |  kubectl apply -f -
+</code></pre></div><blockquote>
+<p>Deployment</p>
+</blockquote>
+<h3 id="对于采集mysqld_exporter等需要运行多个grafana-agent实例的情况推荐以deployment运行">对于采集MySQLd_Exporter等需要运行多个grafana-agent实例的情况，推荐以deployment运行。</h3>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ff5c57">export</span> <span style="color:#ff5c57">NAMESPACE</span><span style="color:#ff6ac1">=</span>default
+<span style="color:#ff5c57">MANIFEST_URL</span><span style="color:#ff6ac1">=</span>https://raw.githubusercontent.com/flashcatcloud/fc-agent/fc-release/etc/k8s/agent-deployment.yaml
+
+curl -fsSL <span style="color:#ff5c57">$MANIFEST_URL</span> | envsubst |  kubectl apply -f -
+</code></pre></div><h2 id="如何重建grafana-agent">如何重建grafana-agent</h2>
+<blockquote>
+<p>Daemonset</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl rollout restart daemonset/grafana-agent
+</code></pre></div><blockquote>
+<p>Deployment</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl rollout restart deployment/grafana-agent
+</code></pre></div><p>至此，我们已经完成了在K8s中部署grafana-agent并收集metrics，进一步，我们还可以配置grafana-agent来<a href="/fc-monitor/kube-o11y">建立起完整的kubernetes指标监控体系</a>。</p>
+
+          <footer class="footline">
+          </footer>
+        </main>
+<hr> 
+
+<i>想学习 Nightingale 更多最佳实践？听到 Nightingale 代码层面的分享？生产环境出了问题希望得到夜莺研发团队及时支援？有更多监控/稳定性相关产品需求？欢迎联系电话或微信：18612185520 注明「商务合作」</i>
+
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/grafana-agent/scrape_exporters/" title="grafana-agent收集三方exporter"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/grafana-agent/k8s_logs/" title="在K8s中运行grafana-agent收集log"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1649316325"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1649316325"></script>
+    <script src="/js/featherlight.min.js?1649316325"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1649316325"></script>
+    <script src="/js/mermaid.min.js?1649316325"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1649316325"></script>
+  </body>
+</html>

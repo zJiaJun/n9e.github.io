@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.92.2" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>Redis Exporter :: N9E</title>
+    <link href="/css/nucleus.css?1649316325" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1649316325" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1649316325" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1649316325" rel="stylesheet">
+    <link href="/css/auto-complete.css?1649316325" rel="stylesheet">
+    <link href="/css/theme.css?1649316325" rel="stylesheet">
+    <link href="/css/theme-blue.css?1649316325" rel="stylesheet">
+    <link href="/css/variant.css?1649316325" rel="stylesheet">
+    <link href="/css/print.css?1649316325" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1649316325"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/grafana-agent/integrations/redis-exporter-config/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+
+<a href="/" style="font-weight: 900;font-size: 24px;color: #fff;">Nightingale</a>
+<div style="color:#eee;line-height: 24px;padding-top: 8px;font-size: 12px;"><i>Version 5.0</i></div>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1649316325"></script>
+        <script src="/js/auto-complete.js?1649316325"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1649316325"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker快速启动测试" class="dd-item"><a href="/quickstart/compose/">使用Docker快速启动测试<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="使用二进制部署单机版服务端" class="dd-item"><a href="/quickstart/standalone/">使用二进制部署单机版服务端<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/grafana/" title="对接Grafana" class="dd-item"><a href="/usage/grafana/">对接Grafana<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/linux/" title="监控Linux" class="dd-item"><a href="/usage/linux/">监控Linux<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/windows/" title="监控Windows" class="dd-item"><a href="/usage/windows/">监控Windows<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/snmp/" title="监控网络设备" class="dd-item"><a href="/usage/snmp/">监控网络设备<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/promapm/" title="埋点监控之PromSDK" class="dd-item"><a href="/usage/promapm/">埋点监控之PromSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/statsd/" title="埋点监控之StatsdSDK" class="dd-item"><a href="/usage/statsd/">埋点监控之StatsdSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/http_response/" title="监控URL" class="dd-item"><a href="/usage/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mtail/" title="监控日志" class="dd-item"><a href="/usage/mtail/">监控日志<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mysql/" title="监控MySQL" class="dd-item"><a href="/usage/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/redis/" title="监控Redis" class="dd-item"><a href="/usage/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/api/read/" title="读取监控数据" class="dd-item"><a href="/api/read/">读取监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/opentsdb/" title="推送监控数据（OpenTSDB协议）" class="dd-item"><a href="/api/opentsdb/">推送监控数据（OpenTSDB协议）<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/webapi/" title="调用webapi的接口" class="dd-item"><a href="/api/webapi/">调用webapi的接口<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/grafana-agent/" title="使用Grafana-agent采集监控数据" class="dd-item parent"><a href="/grafana-agent/">使用Grafana-agent采集监控数据<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/" title="grafana-agent采集常用exporter" class="dd-item parent alwaysopen"><a href="/grafana-agent/integrations/">grafana-agent采集常用exporter<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/cadvisor-config/" title="cAdvisor Exporter" class="dd-item"><a href="/grafana-agent/integrations/cadvisor-config/">cAdvisor Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/consul-exporter-config/" title="Consul Exporter" class="dd-item"><a href="/grafana-agent/integrations/consul-exporter-config/">Consul Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/dnsmasq-exporter-config/" title="dnsmasq Exporter" class="dd-item"><a href="/grafana-agent/integrations/dnsmasq-exporter-config/">dnsmasq Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/elasticsearch-exporter-config/" title="Elasticsearch Exporter" class="dd-item"><a href="/grafana-agent/integrations/elasticsearch-exporter-config/">Elasticsearch Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/github-exporter-config/" title="Github Exporter" class="dd-item"><a href="/grafana-agent/integrations/github-exporter-config/">Github Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/kafka-exporter-config/" title="Kafka Exporter" class="dd-item"><a href="/grafana-agent/integrations/kafka-exporter-config/">Kafka Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/memcached-exporter-config/" title="Memcached Exporter" class="dd-item"><a href="/grafana-agent/integrations/memcached-exporter-config/">Memcached Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mongodb-exporter-config/" title="Mongodb Exporter" class="dd-item"><a href="/grafana-agent/integrations/mongodb-exporter-config/">Mongodb Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mysqld-exporter-config/" title="MySQLd Exporter" class="dd-item"><a href="/grafana-agent/integrations/mysqld-exporter-config/">MySQLd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/node-exporter-config/" title="Node Exporter" class="dd-item"><a href="/grafana-agent/integrations/node-exporter-config/">Node Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/postgres-exporter-config/" title="Postgres Exporter" class="dd-item"><a href="/grafana-agent/integrations/postgres-exporter-config/">Postgres Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/process-exporter-config/" title="Process Exporter" class="dd-item"><a href="/grafana-agent/integrations/process-exporter-config/">Process Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/redis-exporter-config/" title="Redis Exporter" class="dd-item active"><a href="/grafana-agent/integrations/redis-exporter-config/">Redis Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/statsd-exporter-config/" title="Statsd Exporter" class="dd-item"><a href="/grafana-agent/integrations/statsd-exporter-config/">Statsd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/windows-exporter-config/" title="Windows Exporter" class="dd-item"><a href="/grafana-agent/integrations/windows-exporter-config/">Windows Exporter<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/grafana-agent/scrape_exporters/" title="grafana-agent收集三方exporter" class="dd-item"><a href="/grafana-agent/scrape_exporters/">grafana-agent收集三方exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_metrics/" title="在K8s中运行grafana-agent收集metrics" class="dd-item"><a href="/grafana-agent/k8s_metrics/">在K8s中运行grafana-agent收集metrics<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_logs/" title="在K8s中运行grafana-agent收集log" class="dd-item"><a href="/grafana-agent/k8s_logs/">在K8s中运行grafana-agent收集log<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_traces/" title="在K8s中运行grafana-agent收集trace" class="dd-item"><a href="/grafana-agent/k8s_traces/">在K8s中运行grafana-agent收集trace<i class="fas fa-check read-icon"></i></a></li></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> 代码仓库</a></li>
+            <li><a class="padding" href="https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"><i class='fas fa-fw fa-book'></i> 视频教程</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/grafana-agent/integrations/redis-exporter-config.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="4" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/grafana-agent/"><span itemprop="name">使用Grafana-agent采集监控数据</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/grafana-agent/integrations/"><span itemprop="name">grafana-agent采集常用exporter</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/grafana-agent/integrations/redis-exporter-config/" aria-disabled="true"><span itemprop="name">Redis Exporter</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents"></nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>Redis Exporter</h1>
+
+<p>grafana-agent内置了<a href="https://github.com/oliver006/redis_exporter"><code>redis_exporter</code></a>，可以采集Redis server的运行指标。</p>
+<p>目前grafana-agent，只支持配置一个Redis server地址，对其进行数据采集。如果您希望采集多个redis实例的metrics数据，那么需要启动多个grafana-agent实例，并通过<code>relabel_configs</code>来区分来自不同redis实例的数据。</p>
+<h1 id="配置并启用redis_exporter">配置并启用redis_exporter</h1>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff6ac1">redis_exporter</span>:
+  <span style="color:#ff6ac1">enabled</span>: <span style="color:#ff6ac1">true</span>
+  <span style="color:#ff6ac1">redis_addr</span>: <span style="color:#5af78e">&#34;redis-2:6379&#34;</span>
+  <span style="color:#ff6ac1">relabel_configs</span>:
+  - <span style="color:#ff6ac1">source_labels</span>: [__address__]
+    <span style="color:#ff6ac1">target_label</span>: instance
+    <span style="color:#ff6ac1">replacement</span>: redis-2
+</code></pre></div><p>我们强烈推荐您使用独立的账号运行grafana-agent，并做好访问redis实例的最小化授权，避免过度授权带来的安全隐患，更多可以参考<a href="https://github.com/oliver006/redis_exporter#authenticating-with-redis">official documentation</a>。</p>
+<h1 id="采集的关键指标列表">采集的关键指标列表</h1>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff6ac1">redis_active_defrag_running</span>: When activedefrag is enabled, this indicates whether defragmentation is currently active, and the CPU percentage it intends to utilize.
+<span style="color:#ff6ac1">redis_allocator_active_bytes</span>: Total bytes in the allocator active pages, this includes external-fragmentation.
+<span style="color:#ff6ac1">redis_allocator_allocated_bytes</span>: Total bytes allocated form the allocator, including internal-fragmentation. Normally the same as used_memory.
+<span style="color:#ff6ac1">redis_allocator_frag_bytes</span>: Delta between allocator_active and allocator_allocated. See note about mem_fragmentation_bytes.
+<span style="color:#ff6ac1">redis_allocator_frag_ratio</span>: Ratio between allocator_active and allocator_allocated. This is the true (external) fragmentation metric (not mem_fragmentation_ratio).
+<span style="color:#ff6ac1">redis_allocator_resident_bytes</span>: Total bytes resident (RSS) in the allocator, this includes pages that can be released to the OS (by MEMORY PURGE, or just waiting).
+<span style="color:#ff6ac1">redis_allocator_rss_bytes</span>: Delta between allocator_resident and allocator_active.
+<span style="color:#ff6ac1">redis_allocator_rss_ratio</span>: Ratio between allocator_resident and allocator_active. This usually indicates pages that the allocator can and probably will soon release back to the OS.
+<span style="color:#ff6ac1">redis_aof_current_rewrite_duration_sec</span>: Duration of the on-going AOF rewrite operation if any.
+<span style="color:#ff6ac1">redis_aof_enabled</span>: Flag indicating AOF logging is activated.
+<span style="color:#ff6ac1">redis_aof_last_bgrewrite_status</span>: Status of the last AOF rewrite operation.
+<span style="color:#ff6ac1">redis_aof_last_cow_size_bytes</span>: The size in bytes of copy-on-write memory during the last AOF rewrite operation.
+<span style="color:#ff6ac1">redis_aof_last_rewrite_duration_sec</span>: Duration of the last AOF rewrite operation in seconds.
+<span style="color:#ff6ac1">redis_aof_last_write_status</span>: Status of the last write operation to the AOF.
+<span style="color:#ff6ac1">redis_aof_rewrite_in_progress</span>: Flag indicating a AOF rewrite operation is on-going.
+<span style="color:#ff6ac1">redis_aof_rewrite_scheduled</span>: Flag indicating an AOF rewrite operation will be scheduled once the on-going RDB save is complete.
+<span style="color:#ff6ac1">redis_blocked_clients</span>: Number of clients pending on a blocking call (BLPOP, BRPOP, BRPOPLPUSH, BLMOVE, BZPOPMIN, BZPOPMAX).
+<span style="color:#ff6ac1">redis_client_recent_max_input_buffer_bytes</span>: Biggest input buffer among current client connections.
+<span style="color:#ff6ac1">redis_client_recent_max_output_buffer_bytes</span>: Biggest output buffer among current client connections.
+<span style="color:#ff6ac1">redis_cluster_enabled</span>: Indicate Redis cluster is enabled.
+<span style="color:#ff6ac1">redis_commands_duration_seconds_total</span>: The total CPU time consumed by these commands.(Counter)
+<span style="color:#ff6ac1">redis_commands_processed_total</span>: Total number of commands processed by the server.(Counter)
+<span style="color:#ff6ac1">redis_commands_total</span>: The number of calls that reached command execution (not rejected).(Counter)
+<span style="color:#ff6ac1">redis_config_maxclients</span>: The value of the maxclients configuration directive. This is the upper limit for the sum of connected_clients, connected_slaves and cluster_connections.
+<span style="color:#ff6ac1">redis_config_maxmemory</span>: The value of the maxmemory configuration directive.
+<span style="color:#ff6ac1">redis_connected_clients</span>: Number of client connections (excluding connections from replicas).
+<span style="color:#ff6ac1">redis_connected_slaves</span>: Number of connected replicas.
+<span style="color:#ff6ac1">redis_connections_received_total</span>: Total number of connections accepted by the server.(Counter)
+<span style="color:#ff6ac1">redis_cpu_sys_children_seconds_total</span>: System CPU consumed by the background processes.(Counter)
+<span style="color:#ff6ac1">redis_cpu_sys_seconds_total</span>: System CPU consumed by the Redis server, which is the sum of system CPU consumed by all threads of the server process (main thread and background threads).(Counter)
+<span style="color:#ff6ac1">redis_cpu_user_children_seconds_total</span>: User CPU consumed by the background processes.(Counter)
+<span style="color:#ff6ac1">redis_cpu_user_seconds_total</span>: User CPU consumed by the Redis server, which is the sum of user CPU consumed by all threads of the server process (main thread and background threads).(Counter)
+<span style="color:#ff6ac1">redis_db_keys</span>: Total number of keys by DB.
+<span style="color:#ff6ac1">redis_db_keys_expiring</span>: Total number of expiring keys by DB
+<span style="color:#ff6ac1">redis_defrag_hits</span>: Number of value reallocations performed by active the defragmentation process.
+<span style="color:#ff6ac1">redis_defrag_misses</span>: Number of aborted value reallocations started by the active defragmentation process.
+<span style="color:#ff6ac1">redis_defrag_key_hits</span>: Number of keys that were actively defragmented.
+<span style="color:#ff6ac1">redis_defrag_key_misses</span>: Number of keys that were skipped by the active defragmentation process.
+<span style="color:#ff6ac1">redis_evicted_keys_total</span>: Number of evicted keys due to maxmemory limit.(Counter)
+<span style="color:#ff6ac1">redis_expired_keys_total</span>: Total number of key expiration events.(Counter)
+<span style="color:#ff6ac1">redis_expired_stale_percentage</span>: The percentage of keys probably expired.
+<span style="color:#ff6ac1">redis_expired_time_cap_reached_total</span>: The count of times that active expiry cycles have stopped early.
+<span style="color:#ff6ac1">redis_exporter_last_scrape_connect_time_seconds</span>: The duration(in seconds) to connect when scrape.
+<span style="color:#ff6ac1">redis_exporter_last_scrape_duration_seconds</span>: The last scrape duration.
+<span style="color:#ff6ac1">redis_exporter_last_scrape_error</span>: The last scrape error status.
+<span style="color:#ff6ac1">redis_exporter_scrape_duration_seconds_count</span>: Durations of scrapes by the exporter
+<span style="color:#ff6ac1">redis_exporter_scrape_duration_seconds_sum</span>: Durations of scrapes by the exporter
+<span style="color:#ff6ac1">redis_exporter_scrapes_total</span>: Current total redis scrapes.(Counter)
+<span style="color:#ff6ac1">redis_instance_info</span>: Information about the Redis instance.
+<span style="color:#ff6ac1">redis_keyspace_hits_total</span>: Hits total.(Counter)
+<span style="color:#ff6ac1">redis_keyspace_misses_total</span>: Misses total.(Counter)
+<span style="color:#ff6ac1">redis_last_key_groups_scrape_duration_milliseconds</span>: Duration of the last key group metrics scrape in milliseconds.
+<span style="color:#ff6ac1">redis_last_slow_execution_duration_seconds</span>: The amount of time needed for last slow execution, in seconds.
+<span style="color:#ff6ac1">redis_latest_fork_seconds</span>: The amount of time needed for last fork, in seconds.
+<span style="color:#ff6ac1">redis_lazyfree_pending_objects</span>: The number of objects waiting to be freed (as a result of calling UNLINK, or FLUSHDB and FLUSHALL with the ASYNC option).
+<span style="color:#ff6ac1">redis_master_repl_offset</span>: The server&#39;s current replication offset. 
+<span style="color:#ff6ac1">redis_mem_clients_normal</span>: Memory used by normal clients.(Gauge)
+<span style="color:#ff6ac1">redis_mem_clients_slaves</span>: Memory used by replica clients - Starting Redis 7.0, replica buffers share memory with the replication backlog, so this field can show 0 when replicas don&#39;t trigger an increase of memory usage.
+<span style="color:#ff6ac1">redis_mem_fragmentation_bytes</span>: Delta between used_memory_rss and used_memory. Note that when the total fragmentation bytes is low (few megabytes), a high ratio (e.g. 1.5 and above) is not an indication of an issue.
+<span style="color:#ff6ac1">redis_mem_fragmentation_ratio</span>: Ratio between used_memory_rss and used_memory. Note that this doesn&#39;t only includes fragmentation, but also other process overheads (see the allocator_* metrics), and also overheads like code, shared libraries, stack, etc.
+<span style="color:#ff6ac1">redis_mem_not_counted_for_eviction_bytes</span>: (Gauge)
+<span style="color:#ff6ac1">redis_memory_max_bytes</span>: Max memory limit in bytes.
+<span style="color:#ff6ac1">redis_memory_used_bytes</span>: Total number of bytes allocated by Redis using its allocator (either standard libc, jemalloc, or an alternative allocator such as tcmalloc)
+<span style="color:#ff6ac1">redis_memory_used_dataset_bytes</span>: The size in bytes of the dataset (used_memory_overhead subtracted from used_memory)
+<span style="color:#ff6ac1">redis_memory_used_lua_bytes</span>: Number of bytes used by the Lua engine.
+<span style="color:#ff6ac1">redis_memory_used_overhead_bytes</span>: The sum in bytes of all overheads that the server allocated for managing its internal data structures.
+<span style="color:#ff6ac1">redis_memory_used_peak_bytes</span>: Peak memory consumed by Redis (in bytes)
+<span style="color:#ff6ac1">redis_memory_used_rss_bytes</span>: Number of bytes that Redis allocated as seen by the operating system (a.k.a resident set size). This is the number reported by tools such as top(1) and ps(1)
+<span style="color:#ff6ac1">redis_memory_used_scripts_bytes</span>: Number of bytes used by cached Lua scripts
+<span style="color:#ff6ac1">redis_memory_used_startup_bytes</span>: Initial amount of memory consumed by Redis at startup in bytes
+<span style="color:#ff6ac1">redis_migrate_cached_sockets_total</span>: The number of sockets open for MIGRATE purposes
+<span style="color:#ff6ac1">redis_net_input_bytes_total</span>: Total input bytes(Counter)
+<span style="color:#ff6ac1">redis_net_output_bytes_total</span>: Total output bytes(Counter)
+<span style="color:#ff6ac1">redis_process_id</span>: Process ID
+<span style="color:#ff6ac1">redis_pubsub_channels</span>: Global number of pub/sub channels with client subscriptions
+<span style="color:#ff6ac1">redis_pubsub_patterns</span>: Global number of pub/sub pattern with client subscriptions
+<span style="color:#ff6ac1">redis_rdb_bgsave_in_progress</span>: Flag indicating a RDB save is on-going
+<span style="color:#ff6ac1">redis_rdb_changes_since_last_save</span>: Number of changes since the last dump
+<span style="color:#ff6ac1">redis_rdb_current_bgsave_duration_sec</span>: Duration of the on-going RDB save operation if any
+<span style="color:#ff6ac1">redis_rdb_last_bgsave_duration_sec</span>: Duration of the last RDB save operation in seconds
+<span style="color:#ff6ac1">redis_rdb_last_bgsave_status</span>: Status of the last RDB save operation
+<span style="color:#ff6ac1">redis_rdb_last_cow_size_bytes</span>: The size in bytes of copy-on-write memory during the last RDB save operation
+<span style="color:#ff6ac1">redis_rdb_last_save_timestamp_seconds</span>: Epoch-based timestamp of last successful RDB save
+<span style="color:#ff6ac1">redis_rejected_connections_total</span>: Number of connections rejected because of maxclients limit(Counter)
+<span style="color:#ff6ac1">redis_repl_backlog_first_byte_offset</span>: The master offset of the replication backlog buffer
+<span style="color:#ff6ac1">redis_repl_backlog_history_bytes</span>: Size in bytes of the data in the replication backlog buffer
+<span style="color:#ff6ac1">redis_repl_backlog_is_active</span>: Flag indicating replication backlog is active
+<span style="color:#ff6ac1">redis_replica_partial_resync_accepted</span>: The number of accepted partial resync requests(Gauge)
+<span style="color:#ff6ac1">redis_replica_partial_resync_denied</span>: The number of denied partial resync requests(Gauge)
+<span style="color:#ff6ac1">redis_replica_resyncs_full</span>: The number of full resyncs with replicas
+<span style="color:#ff6ac1">redis_replication_backlog_bytes</span>: Memory used by replication backlog
+<span style="color:#ff6ac1">redis_second_repl_offset</span>: The offset up to which replication IDs are accepted.
+<span style="color:#ff6ac1">redis_slave_expires_tracked_keys</span>: The number of keys tracked for expiry purposes (applicable only to writable replicas)(Gauge)
+<span style="color:#ff6ac1">redis_slowlog_last_id</span>: Last id of slowlog
+<span style="color:#ff6ac1">redis_slowlog_length</span>: Total slowlog
+<span style="color:#ff6ac1">redis_start_time_seconds</span>: Start time of the Redis instance since unix epoch in seconds.
+<span style="color:#ff6ac1">redis_target_scrape_request_errors_total</span>: Errors in requests to the exporter
+<span style="color:#ff6ac1">redis_up</span>: Flag indicating redis instance is up
+<span style="color:#ff6ac1">redis_uptime_in_seconds</span>: Number of seconds since Redis server start
+</code></pre></div><h1 id="完整地配置项说明">完整地配置项说明</h1>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#78787e"># Enables the redis_exporter integration, allowing the Agent to automatically</span>
+  <span style="color:#78787e"># collect system metrics from the configured redis address</span>
+  <span style="color:#ff6ac1">[enabled</span>: &lt;boolean&gt; | default = false]
+
+  <span style="color:#78787e"># Sets an explicit value for the instance label when the integration is</span>
+  <span style="color:#78787e"># self-scraped. Overrides inferred values.</span>
+  <span style="color:#78787e">#</span>
+  <span style="color:#78787e"># The default value for this integration is inferred from the hostname</span>
+  <span style="color:#78787e"># portion of redis_addr.</span>
+  <span style="color:#ff6ac1">[instance</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Automatically collect metrics from this integration. If disabled,</span>
+  <span style="color:#78787e"># the redis_exporter integration will be run but not scraped and thus not</span>
+  <span style="color:#78787e"># remote-written. Metrics for the integration will be exposed at</span>
+  <span style="color:#78787e"># /integrations/redis_exporter/metrics and can be scraped by an external</span>
+  <span style="color:#78787e"># process.</span>
+  <span style="color:#ff6ac1">[scrape_integration</span>: &lt;boolean&gt; | default = &lt;integrations_config.scrape_integrations&gt;]
+
+  <span style="color:#78787e"># How often should the metrics be collected? Defaults to</span>
+  <span style="color:#78787e"># prometheus.global.scrape_interval.</span>
+  <span style="color:#ff6ac1">[scrape_interval</span>: &lt;duration&gt; | default = &lt;global_config.scrape_interval&gt;]
+
+  <span style="color:#78787e"># The timeout before considering the scrape a failure. Defaults to</span>
+  <span style="color:#78787e"># prometheus.global.scrape_timeout.</span>
+  <span style="color:#ff6ac1">[scrape_timeout</span>: &lt;duration&gt; | default = &lt;global_config.scrape_timeout&gt;]
+
+  <span style="color:#78787e"># Allows for relabeling labels on the target.</span>
+  <span style="color:#ff6ac1">relabel_configs</span>:
+    [- &lt;relabel_config&gt; ... ]
+
+  <span style="color:#78787e"># Relabel metrics coming from the integration, allowing to drop series</span>
+  <span style="color:#78787e"># from the integration that you don&#39;t care about.</span>
+  <span style="color:#ff6ac1">metric_relabel_configs</span>:
+    [ - &lt;relabel_config&gt; ... ]
+
+  <span style="color:#78787e"># How frequent to truncate the WAL for this integration.</span>
+  <span style="color:#ff6ac1">[wal_truncate_frequency</span>: &lt;duration&gt; | default = &#34;60m&#34;]
+
+  <span style="color:#78787e"># Monitor the exporter itself and include those metrics in the results.</span>
+  <span style="color:#ff6ac1">[include_exporter_metrics</span>: &lt;bool&gt; | default = false]
+
+  <span style="color:#78787e"># exporter-specific configuration options</span>
+
+  <span style="color:#78787e"># Address of the redis instance.</span>
+  <span style="color:#ff6ac1">redis_addr</span>: &lt;string&gt;
+
+  <span style="color:#78787e"># User name to use for authentication (Redis ACL for Redis 6.0 and newer).</span>
+  <span style="color:#ff6ac1">[redis_user</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Password of the redis instance.</span>
+  <span style="color:#ff6ac1">[redis_password</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Path of a file containing a passord. If this is defined, it takes precedece</span>
+  <span style="color:#78787e"># over redis_password.</span>
+  <span style="color:#ff6ac1">[redis_password_file</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Namespace for the metrics.</span>
+  <span style="color:#ff6ac1">[namespace</span>: &lt;string&gt; | default = &#34;redis&#34;]
+
+  <span style="color:#78787e"># What to use for the CONFIG command.</span>
+  <span style="color:#ff6ac1">[config_command</span>: &lt;string&gt; | default = &#34;CONFIG&#34;]
+
+  <span style="color:#78787e"># Comma separated list of key-patterns to export value and length/size, searched for with SCAN.</span>
+  <span style="color:#ff6ac1">[check_keys</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Comma separated list of LUA regex for grouping keys. When unset, no key</span>
+  <span style="color:#78787e"># groups will be made.</span>
+  <span style="color:#ff6ac1">[check_key_groups</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Check key or key groups batch size hint for the underlying SCAN. Keeping the same name for backwards compatibility, but this applies to both key and key groups batch size configuration.</span>
+  <span style="color:#ff6ac1">[check_key_groups_batch_size</span>: &lt;int&gt; | default = 10000]
+
+  <span style="color:#78787e"># The maximum number of distinct key groups with the most memory utilization</span>
+  <span style="color:#78787e"># to present as distinct metrics per database. The leftover key groups will be</span>
+  <span style="color:#78787e"># aggregated in the &#39;overflow&#39; bucket.</span>
+  <span style="color:#ff6ac1">[max_distinct_key_groups</span>: &lt;int&gt; | default = 100]
+
+  <span style="color:#78787e"># Comma separated list of single keys to export value and length/size.</span>
+  <span style="color:#ff6ac1">[check_single_keys</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Comma separated list of stream-patterns to export info about streams, groups and consumers, searched for with SCAN.</span>
+  <span style="color:#ff6ac1">[check_streams</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Comma separated list of single streams to export info about streams, groups and consumers.</span>
+  <span style="color:#ff6ac1">[check_single_streams</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Comma separated list of individual keys to export counts for.</span>
+  <span style="color:#ff6ac1">[count_keys</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Path to Lua Redis script for collecting extra metrics.</span>
+  <span style="color:#ff6ac1">[script_path</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Timeout for connection to Redis instance (in Golang duration format).</span>
+  <span style="color:#ff6ac1">[connection_timeout</span>: &lt;time.Duration&gt; | default = &#34;15s&#34;]
+
+  <span style="color:#78787e"># Name of the client key file (including full path) if the server requires TLS client authentication.</span>
+  <span style="color:#ff6ac1">[tls_client_key_file</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Name of the client certificate file (including full path) if the server requires TLS client authentication.</span>
+  <span style="color:#ff6ac1">[tls_client_cert_file</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Name of the CA certificate file (including full path) if the server requires TLS client authentication.</span>
+  <span style="color:#ff6ac1">[tls_ca_cert_file</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Whether to set client name to redis_exporter.</span>
+  <span style="color:#ff6ac1">[set_client_name</span>: &lt;bool&gt;]
+
+  <span style="color:#78787e"># Whether to scrape Tile38 specific metrics.</span>
+  <span style="color:#ff6ac1">[is_tile38</span>: &lt;bool&gt;]
+
+  <span style="color:#78787e"># Whether to scrape Client List specific metrics.</span>
+  <span style="color:#ff6ac1">[export_client_list</span>: &lt;bool&gt;]
+
+  <span style="color:#78787e"># Whether to include the client&#39;s port when exporting the client list. Note</span>
+  <span style="color:#78787e"># that including this will increase the cardinality of all redis metrics.</span>
+  <span style="color:#ff6ac1">[export_client_port</span>: &lt;bool&gt;]
+
+  <span style="color:#78787e"># Whether to also export go runtime metrics.</span>
+  <span style="color:#ff6ac1">[redis_metrics_only</span>: &lt;bool&gt;]
+
+  <span style="color:#78787e"># Whether to ping the redis instance after connecting.</span>
+  <span style="color:#ff6ac1">[ping_on_connect</span>: &lt;bool&gt;]
+
+  <span style="color:#78787e"># Whether to include system metrics like e.g. redis_total_system_memory_bytes.</span>
+  <span style="color:#ff6ac1">[incl_system_metrics</span>: &lt;bool&gt;]
+
+  <span style="color:#78787e"># Whether to to skip TLS verification.</span>
+  <span style="color:#ff6ac1">[skip_tls_verification</span>: &lt;bool&gt;]
+</code></pre></div>
+          <footer class="footline">
+          </footer>
+        </main>
+<hr> 
+
+<i>想学习 Nightingale 更多最佳实践？听到 Nightingale 代码层面的分享？生产环境出了问题希望得到夜莺研发团队及时支援？有更多监控/稳定性相关产品需求？欢迎联系电话或微信：18612185520 注明「商务合作」</i>
+
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/grafana-agent/integrations/process-exporter-config/" title="Process Exporter"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/grafana-agent/integrations/statsd-exporter-config/" title="Statsd Exporter"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1649316325"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1649316325"></script>
+    <script src="/js/featherlight.min.js?1649316325"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1649316325"></script>
+    <script src="/js/mermaid.min.js?1649316325"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1649316325"></script>
+  </body>
+</html>
