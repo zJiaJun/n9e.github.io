@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/</loc>
+  </url>
+  <url>
     <loc>https://n9e.github.io/quickstart/compose/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/scrape_exporters/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/quickstart/standalone/</loc>
@@ -13,7 +19,16 @@
     <loc>https://n9e.github.io/quickstart/telegraf/</loc>
   </url>
   <url>
+    <loc>https://n9e.github.io/grafana-agent/k8s_metrics/</loc>
+  </url>
+  <url>
     <loc>https://n9e.github.io/quickstart/victoriametrics/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/k8s_logs/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/k8s_traces/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/quickstart/multitsdb/</loc>
@@ -79,10 +94,58 @@
     <loc>https://n9e.github.io/usecase/</loc>
   </url>
   <url>
+    <loc>https://n9e.github.io/grafana-agent/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/cadvisor-config/</loc>
+  </url>
+  <url>
     <loc>https://n9e.github.io/categories/</loc>
   </url>
   <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/consul-exporter-config/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/dnsmasq-exporter-config/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/elasticsearch-exporter-config/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/github-exporter-config/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/kafka-exporter-config/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/memcached-exporter-config/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/mongodb-exporter-config/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/mysqld-exporter-config/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/node-exporter-config/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/postgres-exporter-config/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/process-exporter-config/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/redis-exporter-config/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/statsd-exporter-config/</loc>
+  </url>
+  <url>
     <loc>https://n9e.github.io/tags/</loc>
+  </url>
+  <url>
+    <loc>https://n9e.github.io/grafana-agent/integrations/windows-exporter-config/</loc>
   </url>
   <url>
     <loc>https://n9e.github.io/</loc>

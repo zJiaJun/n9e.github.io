@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.92.2" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>Statsd Exporter :: N9E</title>
+    <link href="/css/nucleus.css?1649316325" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1649316325" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1649316325" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1649316325" rel="stylesheet">
+    <link href="/css/auto-complete.css?1649316325" rel="stylesheet">
+    <link href="/css/theme.css?1649316325" rel="stylesheet">
+    <link href="/css/theme-blue.css?1649316325" rel="stylesheet">
+    <link href="/css/variant.css?1649316325" rel="stylesheet">
+    <link href="/css/print.css?1649316325" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1649316325"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/grafana-agent/integrations/statsd-exporter-config/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+
+<a href="/" style="font-weight: 900;font-size: 24px;color: #fff;">Nightingale</a>
+<div style="color:#eee;line-height: 24px;padding-top: 8px;font-size: 12px;"><i>Version 5.0</i></div>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1649316325"></script>
+        <script src="/js/auto-complete.js?1649316325"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1649316325"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker快速启动测试" class="dd-item"><a href="/quickstart/compose/">使用Docker快速启动测试<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="使用二进制部署单机版服务端" class="dd-item"><a href="/quickstart/standalone/">使用二进制部署单机版服务端<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/grafana/" title="对接Grafana" class="dd-item"><a href="/usage/grafana/">对接Grafana<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/linux/" title="监控Linux" class="dd-item"><a href="/usage/linux/">监控Linux<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/windows/" title="监控Windows" class="dd-item"><a href="/usage/windows/">监控Windows<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/snmp/" title="监控网络设备" class="dd-item"><a href="/usage/snmp/">监控网络设备<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/promapm/" title="埋点监控之PromSDK" class="dd-item"><a href="/usage/promapm/">埋点监控之PromSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/statsd/" title="埋点监控之StatsdSDK" class="dd-item"><a href="/usage/statsd/">埋点监控之StatsdSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/http_response/" title="监控URL" class="dd-item"><a href="/usage/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mtail/" title="监控日志" class="dd-item"><a href="/usage/mtail/">监控日志<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mysql/" title="监控MySQL" class="dd-item"><a href="/usage/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/redis/" title="监控Redis" class="dd-item"><a href="/usage/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/api/read/" title="读取监控数据" class="dd-item"><a href="/api/read/">读取监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/opentsdb/" title="推送监控数据（OpenTSDB协议）" class="dd-item"><a href="/api/opentsdb/">推送监控数据（OpenTSDB协议）<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/webapi/" title="调用webapi的接口" class="dd-item"><a href="/api/webapi/">调用webapi的接口<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/grafana-agent/" title="使用Grafana-agent采集监控数据" class="dd-item parent"><a href="/grafana-agent/">使用Grafana-agent采集监控数据<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/" title="grafana-agent采集常用exporter" class="dd-item parent alwaysopen"><a href="/grafana-agent/integrations/">grafana-agent采集常用exporter<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/cadvisor-config/" title="cAdvisor Exporter" class="dd-item"><a href="/grafana-agent/integrations/cadvisor-config/">cAdvisor Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/consul-exporter-config/" title="Consul Exporter" class="dd-item"><a href="/grafana-agent/integrations/consul-exporter-config/">Consul Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/dnsmasq-exporter-config/" title="dnsmasq Exporter" class="dd-item"><a href="/grafana-agent/integrations/dnsmasq-exporter-config/">dnsmasq Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/elasticsearch-exporter-config/" title="Elasticsearch Exporter" class="dd-item"><a href="/grafana-agent/integrations/elasticsearch-exporter-config/">Elasticsearch Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/github-exporter-config/" title="Github Exporter" class="dd-item"><a href="/grafana-agent/integrations/github-exporter-config/">Github Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/kafka-exporter-config/" title="Kafka Exporter" class="dd-item"><a href="/grafana-agent/integrations/kafka-exporter-config/">Kafka Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/memcached-exporter-config/" title="Memcached Exporter" class="dd-item"><a href="/grafana-agent/integrations/memcached-exporter-config/">Memcached Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mongodb-exporter-config/" title="Mongodb Exporter" class="dd-item"><a href="/grafana-agent/integrations/mongodb-exporter-config/">Mongodb Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mysqld-exporter-config/" title="MySQLd Exporter" class="dd-item"><a href="/grafana-agent/integrations/mysqld-exporter-config/">MySQLd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/node-exporter-config/" title="Node Exporter" class="dd-item"><a href="/grafana-agent/integrations/node-exporter-config/">Node Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/postgres-exporter-config/" title="Postgres Exporter" class="dd-item"><a href="/grafana-agent/integrations/postgres-exporter-config/">Postgres Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/process-exporter-config/" title="Process Exporter" class="dd-item"><a href="/grafana-agent/integrations/process-exporter-config/">Process Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/redis-exporter-config/" title="Redis Exporter" class="dd-item"><a href="/grafana-agent/integrations/redis-exporter-config/">Redis Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/statsd-exporter-config/" title="Statsd Exporter" class="dd-item active"><a href="/grafana-agent/integrations/statsd-exporter-config/">Statsd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/windows-exporter-config/" title="Windows Exporter" class="dd-item"><a href="/grafana-agent/integrations/windows-exporter-config/">Windows Exporter<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/grafana-agent/scrape_exporters/" title="grafana-agent收集三方exporter" class="dd-item"><a href="/grafana-agent/scrape_exporters/">grafana-agent收集三方exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_metrics/" title="在K8s中运行grafana-agent收集metrics" class="dd-item"><a href="/grafana-agent/k8s_metrics/">在K8s中运行grafana-agent收集metrics<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_logs/" title="在K8s中运行grafana-agent收集log" class="dd-item"><a href="/grafana-agent/k8s_logs/">在K8s中运行grafana-agent收集log<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_traces/" title="在K8s中运行grafana-agent收集trace" class="dd-item"><a href="/grafana-agent/k8s_traces/">在K8s中运行grafana-agent收集trace<i class="fas fa-check read-icon"></i></a></li></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> 代码仓库</a></li>
+            <li><a class="padding" href="https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"><i class='fas fa-fw fa-book'></i> 视频教程</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/grafana-agent/integrations/statsd-exporter-config.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="4" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/grafana-agent/"><span itemprop="name">使用Grafana-agent采集监控数据</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/grafana-agent/integrations/"><span itemprop="name">grafana-agent采集常用exporter</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/grafana-agent/integrations/statsd-exporter-config/" aria-disabled="true"><span itemprop="name">Statsd Exporter</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents"></nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>Statsd Exporter</h1>
+
+<p>The <code>statsd_exporter_config</code> block configures the <code>statsd_exporter</code>
+integration, which is an embedded version of
+<a href="https://github.com/prometheus/statsd_exporter"><code>statsd_exporter</code></a>. This allows
+for the collection of statsd metrics and exposing them as Prometheus metrics.</p>
+<p>Full reference of options:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">  <span style="color:#78787e"># Enables the statsd_exporter integration, allowing the Agent to automatically</span>
+  <span style="color:#78787e"># collect system metrics from the configured statsd server address</span>
+  [enabled<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>boolean<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff6ac1">false</span>]
+
+  <span style="color:#78787e"># Sets an explicit value for the instance label when the integration is</span>
+  <span style="color:#78787e"># self-scraped. Overrides inferred values.</span>
+  <span style="color:#78787e">#</span>
+  <span style="color:#78787e"># The default value for this integration is inferred from the agent hostname</span>
+  <span style="color:#78787e"># and HTTP listen port, delimited by a colon.</span>
+  [instance<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>string<span style="color:#ff5c57">&gt;</span>]
+
+  <span style="color:#78787e"># Automatically collect metrics from this integration. If disabled,</span>
+  <span style="color:#78787e"># the statsd_exporter integration will be run but not scraped and thus not</span>
+  <span style="color:#78787e"># remote-written. Metrics for the integration will be exposed at</span>
+  <span style="color:#78787e"># /integrations/statsd_exporter/metrics and can be scraped by an external</span>
+  <span style="color:#78787e"># process.</span>
+  [scrape_integration<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>boolean<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff5c57">&lt;</span>integrations_config.scrape_integrations<span style="color:#ff5c57">&gt;</span>]
+
+  <span style="color:#78787e"># How often should the metrics be collected? Defaults to</span>
+  <span style="color:#78787e"># prometheus.global.scrape_interval.</span>
+  [scrape_interval<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>duration<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff5c57">&lt;</span>global_config.scrape_interval<span style="color:#ff5c57">&gt;</span>]
+
+  <span style="color:#78787e"># The timeout before considering the scrape a failure. Defaults to</span>
+  <span style="color:#78787e"># prometheus.global.scrape_timeout.</span>
+  [scrape_timeout<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>duration<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff5c57">&lt;</span>global_config.scrape_timeout<span style="color:#ff5c57">&gt;</span>]
+
+  <span style="color:#78787e"># Allows for relabeling labels on the target.</span>
+  relabel_configs<span style="color:#ff5c57">:</span>
+    [- <span style="color:#ff5c57">&lt;</span>relabel_config<span style="color:#ff5c57">&gt;</span> ... ]
+
+  <span style="color:#78787e"># Relabel metrics coming from the integration, allowing to drop series</span>
+  <span style="color:#78787e"># from the integration that you don&#39;t care about.</span>
+  metric_relabel_configs<span style="color:#ff5c57">:</span>
+    [ - <span style="color:#ff5c57">&lt;</span>relabel_config<span style="color:#ff5c57">&gt;</span> ... ]
+
+  <span style="color:#78787e"># How frequent to truncate the WAL for this integration.</span>
+  [wal_truncate_frequency<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>duration<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#5af78e">&#34;60m&#34;</span>]
+
+  <span style="color:#78787e"># Monitor the exporter itself and include those metrics in the results.</span>
+  [include_exporter_metrics<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>bool<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff6ac1">false</span>]
+
+  <span style="color:#78787e">#</span>
+  <span style="color:#78787e"># Exporter-specific configuration options</span>
+  <span style="color:#78787e">#</span>
+
+  <span style="color:#78787e"># The UDP address on which to receive statsd metric lines. An empty string</span>
+  <span style="color:#78787e"># will disable UDP collection.</span>
+  [listen_udp<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>string<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#5af78e">&#34;:9125&#34;</span>]
+
+  <span style="color:#78787e"># The TCP address on which to receive statsd metric lines. An empty string</span>
+  <span style="color:#78787e"># will disable TCP collection.</span>
+  [listen_tcp<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>string<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#5af78e">&#34;:9125&#34;</span>]
+
+  <span style="color:#78787e"># The Unixgram socket path to receive statsd metric lines. An empty string</span>
+  <span style="color:#78787e"># will disable unixgram collection.</span>
+  [listen_unixgram<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>string<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#5af78e">&#34;&#34;</span>]
+
+  <span style="color:#78787e"># The permission mode of the unixgram socket, when enabled.</span>
+  [unix_socket_mode<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>string<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#5af78e">&#34;755&#34;</span>]
+
+  <span style="color:#78787e"># An optional mapping config that can translate dot-separated StatsD metrics</span>
+  <span style="color:#78787e"># into labeled Prometheus metrics. For full instructions on how to write this</span>
+  <span style="color:#78787e"># object, see the official documentation from the statsd_exporter:</span>
+  <span style="color:#78787e">#</span>
+  <span style="color:#78787e"># https://github.com/prometheus/statsd_exporter#metric-mapping-and-configuration</span>
+  <span style="color:#78787e">#</span>
+  <span style="color:#78787e"># Note that a SIGHUP will not reload this config.</span>
+  [mapping_config<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>statsd_exporter.mapping_config<span style="color:#ff5c57">&gt;</span>]
+
+  <span style="color:#78787e"># Size (in bytes) of the operating system&#39;s transmit read buffer associated</span>
+  <span style="color:#78787e"># with the UDP or unixgram connection. Please make sure the kernel parameters</span>
+  <span style="color:#78787e"># net.core.rmem_max is set to a value greater than the value specified.</span>
+  [read_buffer<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>int<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff9f43">0</span>]
+
+  <span style="color:#78787e"># Maximum size of your metric mapping cache. Relies on least recently used</span>
+  <span style="color:#78787e"># replacement policy if max size is reached.</span>
+  [cache_size<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>int<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff9f43">1000</span>]
+
+  <span style="color:#78787e"># Metric mapping cache type. Valid values are &#34;lru&#34; and &#34;random&#34;.</span>
+  [cache_type<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>string<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#5af78e">&#34;lru&#34;</span>]
+
+  <span style="color:#78787e"># Size of internal queue for processing events.</span>
+  [event_queue_size<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>int<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff9f43">10000</span>]
+
+  <span style="color:#78787e"># Number of events to hold in queue before flushing.</span>
+  [event_flush_threshold<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>int<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff9f43">1000</span>]
+
+  <span style="color:#78787e"># Number of events to hold in queue before flushing.</span>
+  [event_flush_interval<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>duration<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#5af78e">&#34;200ms&#34;</span>]
+
+  <span style="color:#78787e"># Parse DogStatsd style tags.</span>
+  [parse_dogstatsd_tags<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>bool<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff6ac1">true</span>]
+
+  <span style="color:#78787e"># Parse InfluxDB style tags.</span>
+  [parse_influxdb_tags<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>bool<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff6ac1">true</span>]
+
+  <span style="color:#78787e"># Parse Librato style tags.</span>
+  [parse_librato_tags<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>bool<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff6ac1">true</span>]
+
+  <span style="color:#78787e"># Parse SignalFX style tags.</span>
+  [parse_signalfx_tags<span style="color:#ff5c57">:</span> <span style="color:#ff5c57">&lt;</span>bool<span style="color:#ff5c57">&gt;</span> <span style="color:#ff5c57">|</span> default = <span style="color:#ff6ac1">true</span>]
+</code></pre></div>
+          <footer class="footline">
+          </footer>
+        </main>
+<hr> 
+
+<i>想学习 Nightingale 更多最佳实践？听到 Nightingale 代码层面的分享？生产环境出了问题希望得到夜莺研发团队及时支援？有更多监控/稳定性相关产品需求？欢迎联系电话或微信：18612185520 注明「商务合作」</i>
+
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/grafana-agent/integrations/redis-exporter-config/" title="Redis Exporter"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/grafana-agent/integrations/windows-exporter-config/" title="Windows Exporter"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1649316325"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1649316325"></script>
+    <script src="/js/featherlight.min.js?1649316325"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1649316325"></script>
+    <script src="/js/mermaid.min.js?1649316325"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1649316325"></script>
+  </body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.92.2" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>Mongodb Exporter :: N9E</title>
+    <link href="/css/nucleus.css?1649316325" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1649316325" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1649316325" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1649316325" rel="stylesheet">
+    <link href="/css/auto-complete.css?1649316325" rel="stylesheet">
+    <link href="/css/theme.css?1649316325" rel="stylesheet">
+    <link href="/css/theme-blue.css?1649316325" rel="stylesheet">
+    <link href="/css/variant.css?1649316325" rel="stylesheet">
+    <link href="/css/print.css?1649316325" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1649316325"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/grafana-agent/integrations/mongodb-exporter-config/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+
+<a href="/" style="font-weight: 900;font-size: 24px;color: #fff;">Nightingale</a>
+<div style="color:#eee;line-height: 24px;padding-top: 8px;font-size: 12px;"><i>Version 5.0</i></div>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1649316325"></script>
+        <script src="/js/auto-complete.js?1649316325"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1649316325"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker快速启动测试" class="dd-item"><a href="/quickstart/compose/">使用Docker快速启动测试<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="使用二进制部署单机版服务端" class="dd-item"><a href="/quickstart/standalone/">使用二进制部署单机版服务端<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/grafana/" title="对接Grafana" class="dd-item"><a href="/usage/grafana/">对接Grafana<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/linux/" title="监控Linux" class="dd-item"><a href="/usage/linux/">监控Linux<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/windows/" title="监控Windows" class="dd-item"><a href="/usage/windows/">监控Windows<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/snmp/" title="监控网络设备" class="dd-item"><a href="/usage/snmp/">监控网络设备<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/promapm/" title="埋点监控之PromSDK" class="dd-item"><a href="/usage/promapm/">埋点监控之PromSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/statsd/" title="埋点监控之StatsdSDK" class="dd-item"><a href="/usage/statsd/">埋点监控之StatsdSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/http_response/" title="监控URL" class="dd-item"><a href="/usage/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mtail/" title="监控日志" class="dd-item"><a href="/usage/mtail/">监控日志<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mysql/" title="监控MySQL" class="dd-item"><a href="/usage/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/redis/" title="监控Redis" class="dd-item"><a href="/usage/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/api/read/" title="读取监控数据" class="dd-item"><a href="/api/read/">读取监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/opentsdb/" title="推送监控数据（OpenTSDB协议）" class="dd-item"><a href="/api/opentsdb/">推送监控数据（OpenTSDB协议）<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/webapi/" title="调用webapi的接口" class="dd-item"><a href="/api/webapi/">调用webapi的接口<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/grafana-agent/" title="使用Grafana-agent采集监控数据" class="dd-item parent"><a href="/grafana-agent/">使用Grafana-agent采集监控数据<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/" title="grafana-agent采集常用exporter" class="dd-item parent alwaysopen"><a href="/grafana-agent/integrations/">grafana-agent采集常用exporter<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/cadvisor-config/" title="cAdvisor Exporter" class="dd-item"><a href="/grafana-agent/integrations/cadvisor-config/">cAdvisor Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/consul-exporter-config/" title="Consul Exporter" class="dd-item"><a href="/grafana-agent/integrations/consul-exporter-config/">Consul Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/dnsmasq-exporter-config/" title="dnsmasq Exporter" class="dd-item"><a href="/grafana-agent/integrations/dnsmasq-exporter-config/">dnsmasq Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/elasticsearch-exporter-config/" title="Elasticsearch Exporter" class="dd-item"><a href="/grafana-agent/integrations/elasticsearch-exporter-config/">Elasticsearch Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/github-exporter-config/" title="Github Exporter" class="dd-item"><a href="/grafana-agent/integrations/github-exporter-config/">Github Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/kafka-exporter-config/" title="Kafka Exporter" class="dd-item"><a href="/grafana-agent/integrations/kafka-exporter-config/">Kafka Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/memcached-exporter-config/" title="Memcached Exporter" class="dd-item"><a href="/grafana-agent/integrations/memcached-exporter-config/">Memcached Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mongodb-exporter-config/" title="Mongodb Exporter" class="dd-item active"><a href="/grafana-agent/integrations/mongodb-exporter-config/">Mongodb Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mysqld-exporter-config/" title="MySQLd Exporter" class="dd-item"><a href="/grafana-agent/integrations/mysqld-exporter-config/">MySQLd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/node-exporter-config/" title="Node Exporter" class="dd-item"><a href="/grafana-agent/integrations/node-exporter-config/">Node Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/postgres-exporter-config/" title="Postgres Exporter" class="dd-item"><a href="/grafana-agent/integrations/postgres-exporter-config/">Postgres Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/process-exporter-config/" title="Process Exporter" class="dd-item"><a href="/grafana-agent/integrations/process-exporter-config/">Process Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/redis-exporter-config/" title="Redis Exporter" class="dd-item"><a href="/grafana-agent/integrations/redis-exporter-config/">Redis Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/statsd-exporter-config/" title="Statsd Exporter" class="dd-item"><a href="/grafana-agent/integrations/statsd-exporter-config/">Statsd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/windows-exporter-config/" title="Windows Exporter" class="dd-item"><a href="/grafana-agent/integrations/windows-exporter-config/">Windows Exporter<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/grafana-agent/scrape_exporters/" title="grafana-agent收集三方exporter" class="dd-item"><a href="/grafana-agent/scrape_exporters/">grafana-agent收集三方exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_metrics/" title="在K8s中运行grafana-agent收集metrics" class="dd-item"><a href="/grafana-agent/k8s_metrics/">在K8s中运行grafana-agent收集metrics<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_logs/" title="在K8s中运行grafana-agent收集log" class="dd-item"><a href="/grafana-agent/k8s_logs/">在K8s中运行grafana-agent收集log<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_traces/" title="在K8s中运行grafana-agent收集trace" class="dd-item"><a href="/grafana-agent/k8s_traces/">在K8s中运行grafana-agent收集trace<i class="fas fa-check read-icon"></i></a></li></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> 代码仓库</a></li>
+            <li><a class="padding" href="https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"><i class='fas fa-fw fa-book'></i> 视频教程</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/grafana-agent/integrations/mongodb-exporter-config.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="4" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/grafana-agent/"><span itemprop="name">使用Grafana-agent采集监控数据</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/grafana-agent/integrations/"><span itemprop="name">grafana-agent采集常用exporter</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/grafana-agent/integrations/mongodb-exporter-config/" aria-disabled="true"><span itemprop="name">Mongodb Exporter</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents"></nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>Mongodb Exporter</h1>
+
+<p>grafana-agent内置了<a href="https://github.com/percona/mongodb_exporter"><code>mongodb_exporter</code></a>，可以采集mongodb的metrics。</p>
+<p>该mongodb_exporter，不支持同时配置多个mongodb node，目前只支持配置一个mongodb node，对其进行数据采集。此外您需要通过<code>relabel_configs</code>对label做自定义处理，一个是<code>service_name</code>，用来标识mongodb node（例如ReplicaSet1-Node1）；另一个是<code>mongodb_cluster</code>，标识该mongodb cluster（比如prod-cluster）</p>
+<p>一个relabel_configs的例子：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff6ac1">relabel_configs</span>:
+    - <span style="color:#ff6ac1">source_labels</span>: [__address__]
+      <span style="color:#ff6ac1">target_label</span>: service_name
+      <span style="color:#ff6ac1">replacement</span>: <span style="color:#5af78e">&#39;replicaset1-node1&#39;</span>
+    - <span style="color:#ff6ac1">source_labels</span>: [__address__]
+      <span style="color:#ff6ac1">target_label</span>: mongodb_cluster
+      <span style="color:#ff6ac1">replacement</span>: <span style="color:#5af78e">&#39;prod-cluster&#39;</span>
+</code></pre></div><p>强烈推荐您为grafana-agent设置一个单独的账号来访问您的mongodb，以避免过度授权带来的安全隐患，具体可以参考<a href="https://github.com/percona/mongodb_exporter#permissions">official documentation</a>。</p>
+<h1 id="配置并启用mongodb_exporter">配置并启用mongodb_exporter</h1>
+<pre tabindex="0"><code># grafana-agent 本身的配置
+server:
+  log_level: info
+  http_listen_port: 12345
+
+# grafana-agent 抓取 metrics 的相关配置（类似于prometheus的scrape_configs）
+metrics:
+  global:
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    remote_write:
+      - url: https://n9e-server:19000/prometheus/v1/write
+        basic_auth:
+          username: &lt;string&gt;
+          password: &lt;string&gt;
+
+integrations:
+  mongodb_exporter:
+    enabled: true
+</code></pre><h1 id="采集的关键指标列表">采集的关键指标列表</h1>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#78787e"># Whether MongoDB is up.</span>
+<span style="color:#78787e"># 实例是否存活</span>
+<span style="color:#78787e"># Gauge</span>
+mongodb_up
+
+<span style="color:#78787e"># The number of seconds that the current MongoDB process has been active</span>
+<span style="color:#78787e"># 实例启动累计时间（秒）</span>
+<span style="color:#78787e"># Counter</span>
+mongodb_instance_uptime_seconds
+
+<span style="color:#78787e"># The amount of memory, in mebibyte (MiB), currently used by the database process</span>
+<span style="color:#78787e"># 内存占用（MiB）</span>
+<span style="color:#78787e"># Gauge</span>
+<span style="color:#78787e"># mongodb_memory</span>
+
+<span style="color:#78787e"># The total combined latency in microseconds</span>
+<span style="color:#78787e"># 累计操作耗时（毫秒）</span>
+mongodb_mongod_op_latencies_latency_total
+
+<span style="color:#78787e"># The total number of operations performed since startup</span>
+<span style="color:#78787e"># 累计操作次数</span>
+<span style="color:#78787e"># Counter</span>
+mongodb_mongod_op_latencies_ops_total
+
+<span style="color:#78787e"># The total number of operations received since the mongod instance last started </span>
+<span style="color:#78787e"># 累计接收的操作请求次数（即使操作不成功也会增加）</span>
+<span style="color:#78787e"># Counter</span>
+mongodb_op_counters_total
+
+<span style="color:#78787e"># The number of incoming connections from clients to the database server. This number includes the current shell session</span>
+<span style="color:#78787e"># 连接数</span>
+<span style="color:#78787e"># Gauge</span>
+<span style="color:#78787e"># mongodb_connections</span>
+
+<span style="color:#78787e"># The number of open cursors</span>
+<span style="color:#78787e"># 打开游标数量</span>
+<span style="color:#78787e"># Gauge</span>
+mongodb_mongod_metrics_cursor_open
+
+<span style="color:#78787e"># The total number of document access and modification patterns</span>
+<span style="color:#78787e"># 累计文档操作次数</span>
+<span style="color:#78787e"># Counter</span>
+mongodb_mongod_metrics_document_total
+
+<span style="color:#78787e"># The total number of operations queued waiting for the lock</span>
+<span style="color:#78787e"># 当前排队等待获取锁的操作个数</span>
+<span style="color:#78787e"># Gauge</span>
+mongodb_mongod_global_lock_current_queue
+
+<span style="color:#78787e"># The total number of (index or document) items scanned during queries and query-plan evaluation</span>
+<span style="color:#78787e"># 查询和查询计划评估过程扫描的（索引或文档）条目总数</span>
+<span style="color:#78787e"># Counter </span>
+mongodb_mongod_metrics_query_executor_total
+
+<span style="color:#78787e"># The number of assertions raised since the MongoDB process started</span>
+<span style="color:#78787e"># 累计断言错误次数</span>
+<span style="color:#78787e"># Counter</span>
+mongodb_asserts_total
+
+<span style="color:#78787e"># The total number of getLastError operations with a specified write concern (i.e. w) that wait for one or more members of a replica set to acknowledge the write operation (i.e. a w value greater than 1.)</span>
+<span style="color:#78787e"># 累计getLastError操作数量</span>
+<span style="color:#78787e"># Counter</span>
+mongodb_mongod_metrics_get_last_error_wtime_num_total
+
+<span style="color:#78787e"># The number of times that write concern operations have timed out as a result of the wtimeout threshold to getLastError. This number increments for both default and non-default write concern specifications.</span>
+<span style="color:#78787e"># 累计getLastError超时操作数量</span>
+<span style="color:#78787e"># Counter</span>
+mongodb_mongod_metrics_get_last_error_wtimeouts_total
+
+<span style="color:#78787e"># Size in byte of the data currently in cache</span>
+<span style="color:#78787e"># 当前缓存数据大小（byte）</span>
+<span style="color:#78787e"># Gauge</span>
+mongodb_mongod_wiredtiger_cache_bytes
+
+<span style="color:#78787e"># Size in byte of the data read into or write from cache </span>
+<span style="color:#78787e"># 写入或读取的缓存数据大小（byte）</span>
+<span style="color:#78787e"># Counter</span>
+mongodb_mongod_wiredtiger_cache_bytes_total
+
+<span style="color:#78787e"># Number of pages currently held in the cache</span>
+<span style="color:#78787e"># 当前缓存页数量</span>
+<span style="color:#78787e"># Gauge</span>
+mongodb_mongod_wiredtiger_cache_pages
+
+<span style="color:#78787e"># The total number of pages (modified or unmodified) evicted</span>
+<span style="color:#78787e"># 累计缓存移除页数量</span>
+<span style="color:#78787e"># Counter</span>
+mongodb_mongod_wiredtiger_cache_evicted_total
+
+<span style="color:#78787e"># The total number of page faults</span>
+<span style="color:#78787e"># 累计缺页中断次数</span>
+<span style="color:#78787e"># Counter</span>
+mongodb_extra_info_page_faults_total
+
+<span style="color:#78787e"># The total number of bytes that the server has sent over network connections initiated by clients or other mongod or mongos instances.</span>
+<span style="color:#78787e"># 累计发送网络流量（byte）</span>
+<span style="color:#78787e"># Counter</span>
+mongodb_ss_network_bytesOut
+
+<span style="color:#78787e"># The total number of bytes that the server has received over network connections initiated by clients or other mongod or mongos instances</span>
+<span style="color:#78787e"># 累计接收网络流量（byte）</span>
+<span style="color:#78787e"># Counter</span>
+mongodb_ss_network_bytesIn
+
+<span style="color:#78787e"># The timestamp the node was elected as replica leader</span>
+<span style="color:#78787e"># 副本集选主时间</span>
+<span style="color:#78787e"># Gauge</span>
+mongodb_mongod_replset_member_election_date
+
+<span style="color:#78787e"># The replication lag that this member has with the primary</span>
+<span style="color:#78787e"># 副本集成员主从延迟（秒）</span>
+<span style="color:#78787e"># Gauge</span>
+mongodb_mongod_replset_member_replication_lag
+
+</code></pre></div><h1 id="完整地配置项说明">完整地配置项说明</h1>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#78787e"># Enables the mongodb_exporter integration</span>
+  <span style="color:#ff6ac1">[enabled</span>: &lt;boolean&gt; | default = false]
+
+  <span style="color:#78787e"># Sets an explicit value for the instance label when the integration is</span>
+  <span style="color:#78787e"># self-scraped. Overrides inferred values.</span>
+  <span style="color:#78787e">#</span>
+  <span style="color:#78787e"># The default value for this integration is inferred from the hostname</span>
+  <span style="color:#78787e"># portion of the mongodb_uri field.</span>
+  <span style="color:#ff6ac1">[instance</span>: &lt;string&gt;]
+
+  <span style="color:#78787e"># Automatically collect metrics from this integration. If disabled,</span>
+  <span style="color:#78787e"># the mongodb_exporter integration will be run but not scraped and thus not</span>
+  <span style="color:#78787e"># remote-written. Metrics for the integration will be exposed at</span>
+  <span style="color:#78787e"># /integrations/mongodb_exporter/metrics and can be scraped by an external</span>
+  <span style="color:#78787e"># process.</span>
+  <span style="color:#ff6ac1">[scrape_integration</span>: &lt;boolean&gt; | default = &lt;integrations_config.scrape_integrations&gt;]
+
+  <span style="color:#78787e"># How often should the metrics be collected? Defaults to</span>
+  <span style="color:#78787e"># metrics.global.scrape_interval.</span>
+  <span style="color:#ff6ac1">[scrape_interval</span>: &lt;duration&gt; | default = &lt;global_config.scrape_interval&gt;]
+
+  <span style="color:#78787e"># The timeout before considering the scrape a failure. Defaults to</span>
+  <span style="color:#78787e"># metrics.global.scrape_timeout.</span>
+  <span style="color:#ff6ac1">[scrape_timeout</span>: &lt;duration&gt; | default = &lt;global_config.scrape_timeout&gt;]
+
+  <span style="color:#78787e"># Allows for relabeling labels on the target.</span>
+  <span style="color:#ff6ac1">relabel_configs</span>:
+    [- &lt;relabel_config&gt; ... ]
+
+  <span style="color:#78787e"># Relabel metrics coming from the integration, allowing to drop series</span>
+  <span style="color:#78787e"># from the integration that you don&#39;t care about.</span>
+  <span style="color:#ff6ac1">metric_relabel_configs</span>:
+    [ - &lt;relabel_config&gt; ... ]
+
+  <span style="color:#78787e"># How frequent to truncate the WAL for this integration.</span>
+  <span style="color:#ff6ac1">[wal_truncate_frequency</span>: &lt;duration&gt; | default = &#34;60m&#34;]
+
+  <span style="color:#78787e"># Monitor the exporter itself and include those metrics in the results.</span>
+  <span style="color:#ff6ac1">[include_exporter_metrics</span>: &lt;bool&gt; | default = false]
+
+  <span style="color:#78787e">#</span>
+  <span style="color:#78787e"># Exporter-specific configuration options</span>
+  <span style="color:#78787e">#</span>
+
+  <span style="color:#78787e"># MongoDB node connection URL, which must be in the [`Standard Connection String Format`](https://docs.mongodb.com/manual/reference/connection-string/#std-label-connections-standard-connection-string-format)</span>
+  <span style="color:#ff6ac1">[mongodb_uri</span>: &lt;string&gt;]
+</code></pre></div>
+          <footer class="footline">
+          </footer>
+        </main>
+<hr> 
+
+<i>想学习 Nightingale 更多最佳实践？听到 Nightingale 代码层面的分享？生产环境出了问题希望得到夜莺研发团队及时支援？有更多监控/稳定性相关产品需求？欢迎联系电话或微信：18612185520 注明「商务合作」</i>
+
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/grafana-agent/integrations/memcached-exporter-config/" title="Memcached Exporter"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/grafana-agent/integrations/mysqld-exporter-config/" title="MySQLd Exporter"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1649316325"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1649316325"></script>
+    <script src="/js/featherlight.min.js?1649316325"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1649316325"></script>
+    <script src="/js/mermaid.min.js?1649316325"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1649316325"></script>
+  </body>
+</html>

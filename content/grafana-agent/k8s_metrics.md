@@ -2,22 +2,19 @@
 title: "在K8s中运行grafana-agent收集metrics"
 weight: 3
 ---
-在本文档中，介绍如何以Deployment或者Daemonset的方式部署grafana-agent到您的k8s集群中，抓取宿主机上`kubelet`和`cAdvisor`的metrics指标，并把抓取到的数据，以remote_write的方式推送到Flashcat云平台。
+在本文档中，介绍如何以Deployment或者Daemonset的方式部署grafana-agent到您的k8s集群中，抓取宿主机上`kubelet`和`cAdvisor`的metrics指标，并把抓取到的数据，以remote_write的方式推送到Nightingale.
 
 **通过本文档，我们预期达成以下目标：**
 1. 部署grafana-agent到您的K8s集群中；
 2. 配置grafana-agent抓取kubelet和cAdvisor的metrics；
-3. 开通Flashcat云平台账号，并推送抓取到的数据到Flashcat云平台；
-4. 在Flashcat云平台，配置好dashboard和alert策略；
 
 
-K8s是开源的容器编排系统，自动化管理容器的部署、扩缩容等工作。K8s默认会暴露Node和控制面的若干metrics接口，这些接口兼容Prometheus的metrics规范。我们可以部署grafana-agent来收集Node的cAdvisor和kubelet metrics，并以remote_write的方式发送到Flashcat云平台。此外，grafana-agent也支持收集logs、traces等数据并发送到Flashcat云平台。
+K8s是开源的容器编排系统，自动化管理容器的部署、扩缩容等工作。K8s默认会暴露Node和控制面的若干metrics接口，这些接口兼容Prometheus的metrics规范。我们可以部署grafana-agent来收集Node的cAdvisor和kubelet metrics，并以remote_write的方式发送到Nightingale.
 
 
 ## 前置依赖
 1. 一个开启RBAC（role-based access control）的Kubernetes集群；
 1. 安装并配置好了kubectl命令行工具；
-1. 一个Flashcat云平台账号，您需要创建一个`flashcat apikey`，用于推送数据时的鉴权；
 
 ## 步骤一：创建 `ServiceAcount`、`ClusterRole`、`ClusterRoleBinding`
 ```bash
@@ -31,7 +28,7 @@ curl -fsSL $MANIFEST_URL | envsubst |  kubectl apply -f -
 export NAMESPACE=default
 export CLUSTER_NAME=kubernetes
 export FC_REMOTE_WRITE_URL=http://10.206.0.16:8480/insert/0/prometheus/api/v1/write
-#export FC_REMOTE_WRITE_URL=https://flashc.at/api/v1/prom/write
+#export FC_REMOTE_WRITE_URL=https://n9e-server:19000/prometheus/v1/write
 #export FC_REMOTE_WRITE_USERNAME=fc_laiwei
 #export FC_REMOTE_WRITE_PASSWORD=fc_laiweisecret
 

@@ -57,5 +57,13 @@
       <guid>https://n9e.github.io/usecase/</guid>
       <description> Telegraf Windows版本的安装，保姆级教程 - by SL Telegraf Linux版本的安装，保姆级教程 - by SL 弃用Prometheus，搭建单机版本的VictoriaMetrics - by SL 一键部署夜莺到Kubernetes - by 陶柒 使用Telegraf做夜莺5.0的数据采集，样例包含Linux基本信息采集、MySQL、Redis的采集 - by 柴今栋@艾派 telegraf常用中间件采集 修改notify.py为夜莺增加短信通知能力 - by 柴今栋@艾派 使用notify.py接入阿里云语音通知 - by 果 Oracle的简单监控实现 - by 柴今栋@艾派 RocketMQ简单监控的实现 - by 柴今栋@艾派 手把手教你接入钉钉告警 一文说透MySQL监控，使用Prometheus生态的Exporter Vsphere-monitor数据上报夜莺V5监控 使用pg作为数据库替换MySQL  </description>
     </item>
+    <item>
+      <title>使用Grafana-agent采集监控数据</title>
+      <link>https://n9e.github.io/grafana-agent/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/</guid>
+      <description>Acknowledgement: Grafana Agent is a lightweight telemetry collector based on Prometheus that only performs its scraping and remote_write functions. Agent can also collect metrics, logs, and traces for storage in Grafana Cloud and Grafana Enterprise, as well as OSS deployments of Loki (logs), and Tempo (traces), Prometheus (metrics), and Cortex (metrics). Grafana Agent also contains several integrations (embedded metrics exporters) like node-exporter, a MySQL exporter, and many more.
+ 如果您使用和管理着Kubernetes集群以及您的应用运行在Kubernetes之上，请参考 在K8s中使用grafana-agent。</description>
+    </item>
   </channel>
 </rss>

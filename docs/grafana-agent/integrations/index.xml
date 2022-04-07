@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>grafana-agent采集常用exporter on N9E</title>
+    <link>https://n9e.github.io/grafana-agent/integrations/</link>
+    <description>Recent content in grafana-agent采集常用exporter on N9E</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language><atom:link href="https://n9e.github.io/grafana-agent/integrations/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cAdvisor Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/cadvisor-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/cadvisor-config/</guid>
+      <description>grafana-agent 内置了 cadvisor, 可以支持采集容器的各项指标。不过 cadvisor 针对宿主机需要设置相关的权限，具体可以参考 cAdvisor docs.
+配置并启用cadvisor_exporter 生成grafana-agent-cfg.yaml 配置文件，其中开启cadvisor integration，配置文件具体举例如下：
+cat &amp;lt;&amp;lt;EOF &amp;gt; /tmp/grafana-agent-cfg.yaml server: log_level: info http_listen_port: 12345 metrics: global: scrape_interval: 15s remote_write: - url: &amp;#39;https://n9e-server:19000/prometheus/v1/write&amp;#39; basic_auth: username: ${FC_USERNAME} password: ${FC_PASSWORD} integrations: cadvisor: enabled: true EOF 在docker中启动 grafana-agent，同时映射相关目录 docker run \  -v /tmp/agent:/etc/agent/data \  -v /tmp/grafana-agent-cfg.yaml:/etc/agent/agent.yaml \  -p 12345:12345 \  -d \  --privileged \  grafana/agent:latest \  --config.file=/etc/agent/agent.yaml \  --metrics.wal-directory=/etc/agent/data 执行 curl http://localhost:12345/agent/api/v1/targets |jq,输出结果中预期应该包含 integrations/cadvisor 字段，如下：</description>
+    </item>
+    <item>
+      <title>Consul Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/consul-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/consul-exporter-config/</guid>
+      <description>The consul_exporter_config block configures the consul_exporter integration, which is an embedded version of consul_exporter. This allows for the collection of consul metrics and exposing them as Prometheus metrics.
+Full reference of options:
+# Enables the consul_exporter integration, allowing the Agent to automatically # collect system metrics from the configured consul server address [enabled: &amp;lt;boolean&amp;gt; | default = false] # Sets an explicit value for the instance label when the integration is # self-scraped.</description>
+    </item>
+    <item>
+      <title>dnsmasq Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/dnsmasq-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/dnsmasq-exporter-config/</guid>
+      <description>The dnsmasq_exporter_config block configures the dnsmasq_exporter integration, which is an embedded version of dnsmasq_exporter. This allows for the collection of metrics from dnsmasq servers.
+Note that currently, an Agent can only collect metrics from a single dnsmasq server. If you want to collect metrics from multiple servers, you can run multiple Agents and add labels using relabel_configs to differentiate between the servers:
+dnsmasq_exporter: enabled: true dnsmasq_address: dnsmasq-a:53 relabel_configs: - source_labels: [__address__] target_label: instance replacement: dnsmasq-a Full reference of options:</description>
+    </item>
+    <item>
+      <title>Elasticsearch Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/elasticsearch-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/elasticsearch-exporter-config/</guid>
+      <description>grafana-agent内置了elasticsearch_exporter，可以采集Elasticsearch的运行指标。
+目前grafana-agent不支持配置多个elasticsearch的地址，只能配置一个ElasticSearch地址对其进行metrics的采集。
+我们强烈推荐您使用独立的账号运行grafana-agent，并做好访问elasticsearch实例的最小化授权，避免过度授权带来的安全隐患，更多可以参考official documentation。
+配置并启用elasticsearch_exporter elasticsearch_exporter: enabled: true address: &amp;#34;http://localhost:9200&amp;#34; 采集的关键指标列表 # Estimated size in bytes of breaker # 断路器预估内存大小 # Gauge elasticsearch_breakers_estimated_size_bytes # Limit size in bytes for breaker # 断路器设置内存限制 # Gauge elasticsearch_breakers_limit_size_bytes # tripped for breaker # 断路器累计阻断此时 # Counter  elasticsearch_breakers_tripped # The number of primary shards in your cluster. This is an aggregate total across all indices # 集群主分片数量 # Gauge elasticsearch_cluster_health_active_primary_shards # Aggregate total of all shards across all indices, which includes replica shards.</description>
+    </item>
+    <item>
+      <title>Github Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/github-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/github-exporter-config/</guid>
+      <description>The github_exporter_config block configures the github_exporter integration, which is an embedded version of github_exporter. This allows for the collection of metrics from the github api.
+We strongly recommend that you configure a separate authentication token for the Agent, and give it only the strictly mandatory security privileges necessary for monitoring your repositories, as per the official documentation. We also recommend that you use api_token_file parameter, to avoid setting the authentication token directly on the Agent config file.</description>
+    </item>
+    <item>
+      <title>Kafka Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/kafka-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/kafka-exporter-config/</guid>
+      <description>grafana-agent内置了kafka_exporter，来采集kafka的metrics指标。
+我们强烈推荐您使用独立的账号运行grafana-agent，并做好访问kafka实例的最小化授权，避免过度授权带来的安全隐患，更多可以参考documentation。
+配置并启用kafka_exporter kafka_exporter: enabled: true # Address array (host:port) of Kafka server kafka_uris: [&amp;#39;xxx&amp;#39;,&amp;#39;yyy&amp;#39;] 采集的关键指标列表 kafka_brokers: count of kafka_brokers (gauge) kafka_topic_partitions: Number of partitions for this Topic (gauge) kafka_topic_partition_current_offset: Current Offset of a Broker at Topic/Partition (gauge) kafka_consumergroup_current_offset: Current Offset of a ConsumerGroup at Topic/Partition (gauge) kafka_consumer_lag_millis: Current approximation of consumer lag for a ConsumerGroup at Topic/Partition (gauge) kafka_topic_partition_under_replicated_partition: 1 if Topic/Partition is under Replicated 完整地配置项说明 # Enables the kafka_exporter integration, allowing the Agent to automatically # collect system metrics from the configured dnsmasq server address [enabled: &amp;lt;boolean&amp;gt; | default = false] # Sets an explicit value for the instance label when the integration is # self-scraped.</description>
+    </item>
+    <item>
+      <title>Memcached Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/memcached-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/memcached-exporter-config/</guid>
+      <description>grafana-agent内置了memcached_exporter，来采集memcached的运行指标。
+当前grafana-agent只支持配置一个memcached的地址来采集其metrics数据。如果您需要采集多个memcached的metrics指标，那么需要启动多个grafana-agent实例，并通过relabel_configs来区分来自不同memcached server的metrics。
+配置并启用memcached_exporter memcached_exporter: enabled: true memcached_address: memcached-a:53 relabel_configs: - source_labels: [__address__] target_label: instance replacement: memcached-a 采集的关键指标列表 memcached_commands_total : sum (memcached_commands_total{instance=~&amp;#34;$node&amp;#34;, command=&amp;#34;set&amp;#34;}) / sum (memcached_commands_total{instance=~&amp;#34;$node&amp;#34;, command=&amp;#34;get&amp;#34;}) memcached_commands_total : sum (memcached_commands_total{instance=~&amp;#34;$node&amp;#34;, status=&amp;#34;miss&amp;#34;}) / sum (memcached_commands_total{instance=~&amp;#34;$node&amp;#34;}) memcached_commands_total : sum (memcached_commands_total{instance=~&amp;#34;$node&amp;#34;}) by (command) memcached_current_bytes : sum(memcached_current_bytes{instance=~&amp;#34;$node&amp;#34;}) / sum(memcached_limit_bytes{instance=~&amp;#34;$node&amp;#34;}) memcached_current_connections : sum (memcached_current_connections{instance=~&amp;#34;$node&amp;#34;}) by (instance) memcached_current_items : sum (memcached_current_items{instance=~&amp;#34;$node&amp;#34;}) memcached_items_evicted_total : sum(memcached_items_evicted_total{instance=~&amp;#34;$node&amp;#34;}) memcached_items_reclaimed_total : sum(memcached_items_reclaimed_total{instance=~&amp;#34;$node&amp;#34;}) memcached_read_bytes_total : sum(irate(memcached_read_bytes_total{instance=~&amp;#34;$node&amp;#34;}[5m])) memcached_written_bytes_total : irate(memcached_written_bytes_total{instance=~&amp;#34;$node&amp;#34;}[10m]) 完整地配置项说明 # Enables the memcached_exporter integration, allowing the Agent to automatically # collect system metrics from the configured memcached server address [enabled: &amp;lt;boolean&amp;gt; | default = false] # Sets an explicit value for the instance label when the integration is # self-scraped.</description>
+    </item>
+    <item>
+      <title>Mongodb Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/mongodb-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/mongodb-exporter-config/</guid>
+      <description>grafana-agent内置了mongodb_exporter，可以采集mongodb的metrics。
+该mongodb_exporter，不支持同时配置多个mongodb node，目前只支持配置一个mongodb node，对其进行数据采集。此外您需要通过relabel_configs对label做自定义处理，一个是service_name，用来标识mongodb node（例如ReplicaSet1-Node1）；另一个是mongodb_cluster，标识该mongodb cluster（比如prod-cluster）
+一个relabel_configs的例子：
+relabel_configs: - source_labels: [__address__] target_label: service_name replacement: &amp;#39;replicaset1-node1&amp;#39; - source_labels: [__address__] target_label: mongodb_cluster replacement: &amp;#39;prod-cluster&amp;#39; 强烈推荐您为grafana-agent设置一个单独的账号来访问您的mongodb，以避免过度授权带来的安全隐患，具体可以参考official documentation。
+配置并启用mongodb_exporter # grafana-agent 本身的配置 server: log_level: info http_listen_port: 12345 # grafana-agent 抓取 metrics 的相关配置（类似于prometheus的scrape_configs） metrics: global: scrape_interval: 15s scrape_timeout: 10s remote_write: - url: https://n9e-server:19000/prometheus/v1/write basic_auth: username: &amp;lt;string&amp;gt; password: &amp;lt;string&amp;gt; integrations: mongodb_exporter: enabled: true 采集的关键指标列表 # Whether MongoDB is up. # 实例是否存活 # Gauge mongodb_up # The number of seconds that the current MongoDB process has been active # 实例启动累计时间（秒） # Counter mongodb_instance_uptime_seconds # The amount of memory, in mebibyte (MiB), currently used by the database process # 内存占用（MiB） # Gauge # mongodb_memory # The total combined latency in microseconds # 累计操作耗时（毫秒） mongodb_mongod_op_latencies_latency_total # The total number of operations performed since startup # 累计操作次数 # Counter mongodb_mongod_op_latencies_ops_total # The total number of operations received since the mongod instance last started  # 累计接收的操作请求次数（即使操作不成功也会增加） # Counter mongodb_op_counters_total # The number of incoming connections from clients to the database server.</description>
+    </item>
+    <item>
+      <title>MySQLd Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/mysqld-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/mysqld-exporter-config/</guid>
+      <description>grafana-agent 内置集成了 mysqld_exporter， 来收集MySQL Server的metrics指标。
+目前一个grafana-agent实例，只能配置和采集一个MySQL server的metrics，因此如果您想要配置采集多个MySQL server的指标，那么需要启动多个grafana-agent实例，并使用 relabel_configs 机制来给不同的MySQL server的metrics数据做区分。
+配置并启用mysqld_exporter 下面是开启了mysqld_exporter的配置文件示例:
+mysqld_exporter: enabled: true data_source_name: root@(server-a:3306)/ relabel_configs: - source_labels: [__address__] target_label: instance replacement: server-a 为了安全起见，推荐您为grafana-agent mysqld_exporter 配置一个单独的数据库账号，并授予合适的权限，需要的权限配置详情可以参考 MySQL Expoter 官方文档.
+采集的关键指标列表 mysql_global_status_uptime: The number of seconds that the server has been up.(Gauge) mysql_global_status_uptime_since_flush_status: The number of seconds since the most recent FLUSH STATUS statement.(Gauge) mysql_global_status_queries: The number of statements executed by the server. This variable includes statements executed within stored programs, unlike the Questions variable.</description>
+    </item>
+    <item>
+      <title>Node Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/node-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/node-exporter-config/</guid>
+      <description>grafana-agent 内置了 node_exporter, 可以通过在配置文件中 integrations 部分定义 node_exporter_config 来开启该功能。
+配置并启用node_exporter 下面是开启了node_exporter的配置文件示例，生成的配置文件保存为 ./grafana-agent-cfg.yaml:
+cat &amp;lt;&amp;lt;EOF &amp;gt; ./grafana-agent-cfg.yaml # grafana-agent 本身的配置 server: log_level: info http_listen_port: 12345 # grafana-agent 抓取 metrics 的相关配置（类似于prometheus的scrape_configs） metrics: global: scrape_interval: 15s scrape_timeout: 10s remote_write: - url: https://n9e-server:19000/prometheus/v1/write basic_auth: username: &amp;lt;string&amp;gt; password: &amp;lt;string&amp;gt; integrations: node_exporter: enabled: true EOF 注意： remote_write 可以配置在 global 部分，也可以针对每个 integration 单独配置不同的remote_write 地址。
+重启grafana-agent后，通过以下两个命令，验证 node_exporter 工作是否符合预期。
+curl http://localhost:12345/integrations/node_exporter/metrics ，预期输出如下内容：
+node_boot_time_seconds 1.643256088e+09 node_context_switches_total 1.5136425575e+10 node_cooling_device_cur_state{name=&amp;#34;0&amp;#34;,type=&amp;#34;Processor&amp;#34;} 0 node_cooling_device_cur_state{name=&amp;#34;1&amp;#34;,type=&amp;#34;Processor&amp;#34;} 0 node_cooling_device_cur_state{name=&amp;#34;2&amp;#34;,type=&amp;#34;Processor&amp;#34;} 0 node_cooling_device_cur_state{name=&amp;#34;3&amp;#34;,type=&amp;#34;Processor&amp;#34;} 0 node_cooling_device_max_state{name=&amp;#34;0&amp;#34;,type=&amp;#34;Processor&amp;#34;} 0 node_cooling_device_max_state{name=&amp;#34;1&amp;#34;,type=&amp;#34;Processor&amp;#34;} 0 node_cooling_device_max_state{name=&amp;#34;2&amp;#34;,type=&amp;#34;Processor&amp;#34;} 0 node_cooling_device_max_state{name=&amp;#34;3&amp;#34;,type=&amp;#34;Processor&amp;#34;} 0 node_cpu_seconds_total{cpu=&amp;#34;0&amp;#34;,mode=&amp;#34;idle&amp;#34;} 1.</description>
+    </item>
+    <item>
+      <title>Postgres Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/postgres-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/postgres-exporter-config/</guid>
+      <description>grafana-agent内置了postgres_exporter，来采集Postgres Server的metrics采集。
+我们强烈推荐您分配独立的账号，供grafana-agent来连接到Postgres server，以避免过度授权带来的安全性问题，具体可以餐你考postgres exporter官方文档.
+配置并启用cadvisor_exporter server: log_level: info http_listen_port: 12345 metrics: global: scrape_interval: 15s remote_write: - url: &amp;#39;https://n9e-server:19000/prometheus/v1/write&amp;#39; basic_auth: username: ${FC_USERNAME} password: ${FC_PASSWORD} integrations: postgres_exporter: enabled: true EOF 采集的关键指标列表 pg_locks_count : pg_locks_count{datname=~&amp;#34;$datname&amp;#34;, instance=~&amp;#34;$instance&amp;#34;, mode=~&amp;#34;$mode&amp;#34;} != 0 pg_postmaster_start_time_seconds : pg_postmaster_start_time_seconds{release=&amp;#34;$release&amp;#34;, instance=&amp;#34;$instance&amp;#34;} * 1000 pg_settings_effective_cache_size_bytes : pg_settings_effective_cache_size_bytes{instance=&amp;#34;$instance&amp;#34;} pg_settings_maintenance_work_mem_bytes : pg_settings_maintenance_work_mem_bytes{instance=&amp;#34;$instance&amp;#34;} pg_settings_max_connections : pg_settings_max_connections{release=&amp;#34;$release&amp;#34;, instance=&amp;#34;$instance&amp;#34;} pg_settings_max_parallel_workers : pg_settings_max_parallel_workers{instance=&amp;#34;$instance&amp;#34;} pg_settings_max_wal_size_bytes : pg_settings_max_wal_size_bytes{instance=&amp;#34;$instance&amp;#34;} pg_settings_max_worker_processes : pg_settings_max_worker_processes{instance=&amp;#34;$instance&amp;#34;} pg_settings_random_page_cost : pg_settings_random_page_cost{instance=&amp;#34;$instance&amp;#34;} pg_settings_seq_page_cost : pg_settings_seq_page_cost pg_settings_shared_buffers_bytes : pg_settings_shared_buffers_bytes{instance=&amp;#34;$instance&amp;#34;} pg_settings_work_mem_bytes : pg_settings_work_mem_bytes{instance=&amp;#34;$instance&amp;#34;} pg_stat_activity_count : pg_stat_activity_count{datname=~&amp;#34;$datname&amp;#34;, instance=~&amp;#34;$instance&amp;#34;, state=&amp;#34;active&amp;#34;} !</description>
+    </item>
+    <item>
+      <title>Process Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/process-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/process-exporter-config/</guid>
+      <description>grafana-agent内置集成了process-exporter，基于/proc的文件分析结果，来收集Linux系统进程相关的指标（注意，非Linux系统开启该exporter不起作用）。
+如果grafana-agent运行在container中，那么在容器的启动命令中，要做以下调整，即将宿主机的/proc目录映射到容器中相应的位置。
+docker run \  -v &amp;#34;/proc:/proc:ro&amp;#34; \  -v /tmp/agent:/etc/agent \  -v /path/to/config.yaml:/etc/agent-config/agent.yaml \  grafana/agent \  --config.file=/etc/agent-config/agent.yaml 注意，将/path/to/config.yaml替换成您自己相应的配置文件。
+如果grafana-agent运行在Kubernetes中，那么同样的需要在manifest文件中，做如下调整，即将宿主机的/proc目录映射到容器中相应的位置。
+apiVersion: v1 kind: Pod metadata: name: grafana-agent spec: containers: - image: grafana/agent name: agent args: - --config.file=/etc/agent-config/agent.yaml volumeMounts: - name: procfs mountPath: /proc readOnly: true volumes: - name: procfs hostPath: path: /proc 配置并启用process_exporter 如下的配置，将会开启process_exporter，并追踪系统中的所有进程。
+process_exporter: enabled: true process_names: - name: &amp;#34;{{.Comm}}&amp;#34; cmdline: - &amp;#39;.+&amp;#39; 采集的指标列表 # Context switches # 上下文切换数量 # Counter namedprocess_namegroup_context_switches_total # Cpu user/system usage in seconds # CPU 时间（秒） # Counter namedprocess_namegroup_cpu_seconds_total # Major page faults # 主要页缺失次数 # Counter namedprocess_namegroup_major_page_faults_total # Minor page faults # 次要页缺失次数 # Counter namedprocess_namegroup_minor_page_faults_total # number of bytes of memory in use # 内存占用（byte） # Gauge namedprocess_namegroup_memory_bytes # number of processes in this group # 同名进程数量 # Gauge namedprocess_namegroup_num_procs # Number of processes in states Running, Sleeping, Waiting, Zombie, or Other # 同名进程状态分布 # Gauge namedprocess_namegroup_states # Number of threads # 线程数量 # Gauge namedprocess_namegroup_num_threads # start time in seconds since 1970/01/01 of oldest process in group # 启动时间戳 # Gauge namedprocess_namegroup_oldest_start_time_seconds # number of open file descriptors for this group # 打开文件描述符数量 # Gauge namedprocess_namegroup_open_filedesc # the worst (closest to 1) ratio between open fds and max fds among all procs in this group # 打开文件数 / 允许打开文件数 # Gauge namedprocess_namegroup_worst_fd_ratio # number of bytes read by this group # 读数据量（byte） # Counter namedprocess_namegroup_read_bytes_total # number of bytes written by this group # 写数据量（byte） # Counter namedprocess_namegroup_write_bytes_total # Number of threads in this group waiting on each wchan # 内核wchan等待线程数量 # Gauge namedprocess_namegroup_threads_wchan process_exporter的详细配置项说明 # Enables the process_exporter integration, allowing the Agent to automatically # collect system metrics from the host UNIX system.</description>
+    </item>
+    <item>
+      <title>Redis Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/redis-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/redis-exporter-config/</guid>
+      <description>grafana-agent内置了redis_exporter，可以采集Redis server的运行指标。
+目前grafana-agent，只支持配置一个Redis server地址，对其进行数据采集。如果您希望采集多个redis实例的metrics数据，那么需要启动多个grafana-agent实例，并通过relabel_configs来区分来自不同redis实例的数据。
+配置并启用redis_exporter redis_exporter: enabled: true redis_addr: &amp;#34;redis-2:6379&amp;#34; relabel_configs: - source_labels: [__address__] target_label: instance replacement: redis-2 我们强烈推荐您使用独立的账号运行grafana-agent，并做好访问redis实例的最小化授权，避免过度授权带来的安全隐患，更多可以参考official documentation。
+采集的关键指标列表 redis_active_defrag_running: When activedefrag is enabled, this indicates whether defragmentation is currently active, and the CPU percentage it intends to utilize. redis_allocator_active_bytes: Total bytes in the allocator active pages, this includes external-fragmentation. redis_allocator_allocated_bytes: Total bytes allocated form the allocator, including internal-fragmentation. Normally the same as used_memory. redis_allocator_frag_bytes: Delta between allocator_active and allocator_allocated.</description>
+    </item>
+    <item>
+      <title>Statsd Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/statsd-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/statsd-exporter-config/</guid>
+      <description>The statsd_exporter_config block configures the statsd_exporter integration, which is an embedded version of statsd_exporter. This allows for the collection of statsd metrics and exposing them as Prometheus metrics.
+Full reference of options:
+# Enables the statsd_exporter integration, allowing the Agent to automatically # collect system metrics from the configured statsd server address [enabled: &amp;lt;boolean&amp;gt; | default = false] # Sets an explicit value for the instance label when the integration is # self-scraped.</description>
+    </item>
+    <item>
+      <title>Windows Exporter</title>
+      <link>https://n9e.github.io/grafana-agent/integrations/windows-exporter-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/integrations/windows-exporter-config/</guid>
+      <description>grafana-agent内置了windows_exporter的实现，可以采集到windows平台的指标。
+配置并启用windows_exporter # grafana-agent 本身的配置 server: log_level: info http_listen_port: 12345 # grafana-agent 抓取 metrics 的相关配置（类似于prometheus的scrape_configs） metrics: global: scrape_interval: 15s scrape_timeout: 10s remote_write: - url: https://n9e-server:19000/prometheus/v1/write basic_auth: username: &amp;lt;string&amp;gt; password: &amp;lt;string&amp;gt; integrations: windows_exporter: enabled: true 采集的关键指标列表 windows_cpu_clock_interrupts_total: Total number of received and serviced clock tick interrupts(counter) windows_cpu_core_frequency_mhz: Core frequency in megahertz(gauge) windows_cpu_cstate_seconds_total: Time spent in low-power idle state(counter) windows_cpu_dpcs_total: Total number of received and serviced deferred procedure calls (DPCs)(counter) windows_cpu_idle_break_events_total: Total number of time processor was woken from idle(counter) windows_cpu_interrupts_total: Total number of received and serviced hardware interrupts(counter) windows_cpu_parking_status: Parking Status represents whether a processor is parked or not(gauge) windows_cpu_processor_performance: Processor Performance is the average performance of the processor while it is executing instructions, as a percentage of the nominal performance of the processor.</description>
+    </item>
+  </channel>
+</rss>

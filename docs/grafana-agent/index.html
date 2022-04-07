@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.92.2" />
+    <link rel="alternate" type="application/rss&#43;xml" href="/grafana-agent/index.xml" title="N9E" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>使用Grafana-agent采集监控数据 :: N9E</title>
+    <link href="/css/nucleus.css?1649316325" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1649316325" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1649316325" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1649316325" rel="stylesheet">
+    <link href="/css/auto-complete.css?1649316325" rel="stylesheet">
+    <link href="/css/theme.css?1649316325" rel="stylesheet">
+    <link href="/css/theme-blue.css?1649316325" rel="stylesheet">
+    <link href="/css/variant.css?1649316325" rel="stylesheet">
+    <link href="/css/print.css?1649316325" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1649316325"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/grafana-agent/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+
+<a href="/" style="font-weight: 900;font-size: 24px;color: #fff;">Nightingale</a>
+<div style="color:#eee;line-height: 24px;padding-top: 8px;font-size: 12px;"><i>Version 5.0</i></div>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1649316325"></script>
+        <script src="/js/auto-complete.js?1649316325"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1649316325"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker快速启动测试" class="dd-item"><a href="/quickstart/compose/">使用Docker快速启动测试<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="使用二进制部署单机版服务端" class="dd-item"><a href="/quickstart/standalone/">使用二进制部署单机版服务端<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/grafana/" title="对接Grafana" class="dd-item"><a href="/usage/grafana/">对接Grafana<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/linux/" title="监控Linux" class="dd-item"><a href="/usage/linux/">监控Linux<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/windows/" title="监控Windows" class="dd-item"><a href="/usage/windows/">监控Windows<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/snmp/" title="监控网络设备" class="dd-item"><a href="/usage/snmp/">监控网络设备<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/promapm/" title="埋点监控之PromSDK" class="dd-item"><a href="/usage/promapm/">埋点监控之PromSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/statsd/" title="埋点监控之StatsdSDK" class="dd-item"><a href="/usage/statsd/">埋点监控之StatsdSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/http_response/" title="监控URL" class="dd-item"><a href="/usage/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mtail/" title="监控日志" class="dd-item"><a href="/usage/mtail/">监控日志<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mysql/" title="监控MySQL" class="dd-item"><a href="/usage/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/redis/" title="监控Redis" class="dd-item"><a href="/usage/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/api/read/" title="读取监控数据" class="dd-item"><a href="/api/read/">读取监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/opentsdb/" title="推送监控数据（OpenTSDB协议）" class="dd-item"><a href="/api/opentsdb/">推送监控数据（OpenTSDB协议）<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/webapi/" title="调用webapi的接口" class="dd-item"><a href="/api/webapi/">调用webapi的接口<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/grafana-agent/" title="使用Grafana-agent采集监控数据" class="dd-item active parent"><a href="/grafana-agent/">使用Grafana-agent采集监控数据<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/" title="grafana-agent采集常用exporter" class="dd-item alwaysopen"><a href="/grafana-agent/integrations/">grafana-agent采集常用exporter<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/cadvisor-config/" title="cAdvisor Exporter" class="dd-item"><a href="/grafana-agent/integrations/cadvisor-config/">cAdvisor Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/consul-exporter-config/" title="Consul Exporter" class="dd-item"><a href="/grafana-agent/integrations/consul-exporter-config/">Consul Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/dnsmasq-exporter-config/" title="dnsmasq Exporter" class="dd-item"><a href="/grafana-agent/integrations/dnsmasq-exporter-config/">dnsmasq Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/elasticsearch-exporter-config/" title="Elasticsearch Exporter" class="dd-item"><a href="/grafana-agent/integrations/elasticsearch-exporter-config/">Elasticsearch Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/github-exporter-config/" title="Github Exporter" class="dd-item"><a href="/grafana-agent/integrations/github-exporter-config/">Github Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/kafka-exporter-config/" title="Kafka Exporter" class="dd-item"><a href="/grafana-agent/integrations/kafka-exporter-config/">Kafka Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/memcached-exporter-config/" title="Memcached Exporter" class="dd-item"><a href="/grafana-agent/integrations/memcached-exporter-config/">Memcached Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mongodb-exporter-config/" title="Mongodb Exporter" class="dd-item"><a href="/grafana-agent/integrations/mongodb-exporter-config/">Mongodb Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mysqld-exporter-config/" title="MySQLd Exporter" class="dd-item"><a href="/grafana-agent/integrations/mysqld-exporter-config/">MySQLd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/node-exporter-config/" title="Node Exporter" class="dd-item"><a href="/grafana-agent/integrations/node-exporter-config/">Node Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/postgres-exporter-config/" title="Postgres Exporter" class="dd-item"><a href="/grafana-agent/integrations/postgres-exporter-config/">Postgres Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/process-exporter-config/" title="Process Exporter" class="dd-item"><a href="/grafana-agent/integrations/process-exporter-config/">Process Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/redis-exporter-config/" title="Redis Exporter" class="dd-item"><a href="/grafana-agent/integrations/redis-exporter-config/">Redis Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/statsd-exporter-config/" title="Statsd Exporter" class="dd-item"><a href="/grafana-agent/integrations/statsd-exporter-config/">Statsd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/windows-exporter-config/" title="Windows Exporter" class="dd-item"><a href="/grafana-agent/integrations/windows-exporter-config/">Windows Exporter<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/grafana-agent/scrape_exporters/" title="grafana-agent收集三方exporter" class="dd-item"><a href="/grafana-agent/scrape_exporters/">grafana-agent收集三方exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_metrics/" title="在K8s中运行grafana-agent收集metrics" class="dd-item"><a href="/grafana-agent/k8s_metrics/">在K8s中运行grafana-agent收集metrics<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_logs/" title="在K8s中运行grafana-agent收集log" class="dd-item"><a href="/grafana-agent/k8s_logs/">在K8s中运行grafana-agent收集log<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_traces/" title="在K8s中运行grafana-agent收集trace" class="dd-item"><a href="/grafana-agent/k8s_traces/">在K8s中运行grafana-agent收集trace<i class="fas fa-check read-icon"></i></a></li></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> 代码仓库</a></li>
+            <li><a class="padding" href="https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"><i class='fas fa-fw fa-book'></i> 视频教程</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/grafana-agent/_index.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/grafana-agent/" aria-disabled="true"><span itemprop="name">使用Grafana-agent采集监控数据</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-生成-grafana-agent-的配置文件">1. 生成 grafana-agent 的配置文件</a></li>
+    <li><a href="#2-启动-grafana-agent-容器">2. 启动 grafana-agent 容器</a></li>
+    <li><a href="#3-验证-grafana-agent-是否正常工作">3. 验证 grafana-agent 是否正常工作</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1-下载预先编译好的二进制包">1. 下载预先编译好的二进制包</a></li>
+    <li><a href="#2-生成-grafana-agent-的配置文件">2. 生成 grafana-agent 的配置文件</a></li>
+    <li><a href="#3-启动-grafana-agent">3. 启动 grafana-agent</a></li>
+    <li><a href="#4-验证-grafana-agent-是否正常工作">4. 验证 grafana-agent 是否正常工作</a></li>
+  </ul>
+</nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>使用Grafana-agent采集监控数据</h1>
+
+<blockquote>
+<p>Acknowledgement: <a href="https://github.com/grafana/agent">Grafana Agent</a> is a lightweight telemetry collector based on Prometheus that only performs its scraping and remote_write functions. Agent can also collect metrics, logs, and traces for storage in Grafana Cloud and Grafana Enterprise, as well as OSS deployments of Loki (logs), and Tempo (traces), Prometheus (metrics), and Cortex (metrics). Grafana Agent also contains several integrations (embedded metrics exporters) like node-exporter, a MySQL exporter, and many more.</p>
+</blockquote>
+<p>如果您使用和管理着Kubernetes集群以及您的应用运行在Kubernetes之上，请参考 <a href="./k8s_metrics">在K8s中使用grafana-agent</a>。</p>
+<h1 id="在windows环境安装和运行grafana-agent">在Windows环境安装和运行grafana-agent</h1>
+<ol>
+<li>从<a href="https://github.com/grafana/agent/releases">Grafana github releases</a>下载Windows安装文件；</li>
+<li>运行安装文件后，会对grafana-agent进行配置，并注册为Windows服务；</li>
+<li>更详细的配置文档，可以参考<a href="https://grafana.com/docs/agent/latest/getting-started/install-agent-on-windows/">Windows Guide</a>；</li>
+</ol>
+<h1 id="在docker中运行grafana-agent">在Docker中运行grafana-agent</h1>
+<p>如果您的宿主机上运行有<code>docker</code>服务，那么使用<code>docker</code>运行<code>grafana-agent</code> 是最快捷的方式。在命令行终端运行以下命令，即可在容器中启动<code>grafana-agent</code>：</p>
+<h2 id="1-生成-grafana-agent-的配置文件">1. 生成 grafana-agent 的配置文件</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">cat &lt;&lt;EOF &gt; /tmp/grafana-agent-config.yaml
+<span style="color:#ff6ac1">server</span>:
+  <span style="color:#ff6ac1">log_level</span>: info
+  <span style="color:#ff6ac1">http_listen_port</span>: <span style="color:#ff9f43">12345</span>
+
+<span style="color:#ff6ac1">metrics</span>:
+  <span style="color:#ff6ac1">global</span>:
+    <span style="color:#ff6ac1">scrape_interval</span>: 15s
+    <span style="color:#ff6ac1">scrape_timeout</span>: 10s
+  <span style="color:#ff6ac1">configs</span>:
+    - <span style="color:#ff6ac1">name</span>: flashtest
+      <span style="color:#ff6ac1">host_filter</span>: <span style="color:#ff6ac1">false</span>
+      <span style="color:#ff6ac1">scrape_configs</span>:
+        - <span style="color:#ff6ac1">job_name</span>: local_scrape
+          <span style="color:#ff6ac1">static_configs</span>:
+            - <span style="color:#ff6ac1">targets</span>: [<span style="color:#5af78e">&#39;127.0.0.1:12345&#39;</span>]
+              <span style="color:#ff6ac1">labels</span>:
+                <span style="color:#ff6ac1">cluster</span>: <span style="color:#5af78e">&#39;mymac&#39;</span>
+      <span style="color:#ff6ac1">remote_write</span>:
+        - <span style="color:#ff6ac1">url</span>: https://n9e-server:19000/prometheus/v1/write
+          <span style="color:#ff6ac1">basic_auth</span>:
+            <span style="color:#ff6ac1">username</span>: &lt;string&gt;
+            <span style="color:#ff6ac1">password</span>: &lt;string&gt;
+EOF
+</code></pre></div><h2 id="2-启动-grafana-agent-容器">2. 启动 grafana-agent 容器</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run <span style="color:#5af78e">\
+</span><span style="color:#5af78e"></span>  -v /tmp/agent:/etc/agent/data <span style="color:#5af78e">\
+</span><span style="color:#5af78e"></span>  -v /tmp/grafana-agent-config.yaml:/etc/agent/agent.yaml <span style="color:#5af78e">\
+</span><span style="color:#5af78e"></span>  -p 12345:12345 <span style="color:#5af78e">\
+</span><span style="color:#5af78e"></span>  -d <span style="color:#5af78e">\
+</span><span style="color:#5af78e"></span>  grafana/agent <span style="color:#5af78e">\
+</span><span style="color:#5af78e"></span>  --config.file<span style="color:#ff6ac1">=</span>/etc/agent/agent.yaml <span style="color:#5af78e">\
+</span><span style="color:#5af78e"></span>  --prometheus.wal-directory<span style="color:#ff6ac1">=</span>/etc/agent/data
+</code></pre></div><p><strong>或者您也可以从 Dockerfile 在本地 build 镜像之后再运行：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -sO https://raw.githubusercontent.com/grafana/agent/main/cmd/agent/Dockerfile
+docker build -t grafana/agent:latest -f ./Dockerfile
+</code></pre></div><p>上述步骤中，几个需要注意的点：</p>
+<ul>
+<li><code>remote_write</code> 和 <code>basic_auth</code> ，请根据自己的实际情况填写；</li>
+<li><code>-p</code> 把容器中的端口12345映射到主机，<code>-d</code> 把容器进程放到后台运行；</li>
+<li><code>-v /tmp/agent:/etc/agent/data</code> 是把宿主机的目录 <code>/tmp/agent</code> 映射到容器中 <code>/etc/agent/data</code>，用于 <code>grafana-agent</code> 持久化保存其 <code>WAL</code>(Write Ahead Log) ；</li>
+<li><code>-v /tmp/grafana-agent-config.yaml:/etc/agent/agent.yaml</code> 是把 <code>grafana-agent</code> 的配置文件，放置到容器指定的位置，即 <code>/etc/agent/agent.yaml</code></li>
+</ul>
+<h2 id="3-验证-grafana-agent-是否正常工作">3. 验证 grafana-agent 是否正常工作</h2>
+<p>您可以通过直接 <code>curl http://localhost:12345/metrics</code> 来验证数据的产生是否符合预期，正常情况下会显示如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">agent_build_info{branch=&#34;HEAD&#34;,goversion=&#34;go1.17.6&#34;,revision=&#34;36b8ca75&#34;,version=&#34;v0.23.0&#34;} 1
+agent_inflight_requests{method=&#34;GET&#34;,route=&#34;metrics&#34;} 1
+agent_metrics_active_configs 1
+agent_metrics_active_instances 1
+agent_tcp_connections{protocol=&#34;grpc&#34;} 0
+agent_tcp_connections{protocol=&#34;http&#34;} 2
+go_gc_duration_seconds_sum 0.0040902
+go_gc_duration_seconds_count 6
+go_goroutines 50
+log_messages_total{level=&#34;debug&#34;} 44
+log_messages_total{level=&#34;error&#34;} 0
+log_messages_total{level=&#34;info&#34;} 13
+log_messages_total{level=&#34;warn&#34;} 0
+loki_logql_querystats_duplicates_total 0
+loki_logql_querystats_ingester_sent_lines_total 0
+net_conntrack_dialer_conn_attempted_total{dialer_name=&#34;local_scrape&#34;} 1
+net_conntrack_dialer_conn_attempted_total{dialer_name=&#34;remote_storage_write_client&#34;} 1
+net_conntrack_dialer_conn_closed_total{dialer_name=&#34;local_scrape&#34;} 0
+net_conntrack_dialer_conn_closed_total{dialer_name=&#34;remote_storage_write_client&#34;} 0
+net_conntrack_dialer_conn_established_total{dialer_name=&#34;local_scrape&#34;} 1
+net_conntrack_dialer_conn_established_total{dialer_name=&#34;remote_storage_write_client&#34;} 1
+process_cpu_seconds_total 11.53
+process_max_fds 1.048576e+06
+process_open_fds 17
+process_resident_memory_bytes 9.4773248e+07
+process_start_time_seconds 1.64499076013e+09
+process_virtual_memory_bytes 1.356931072e+09
+process_virtual_memory_max_bytes 1.8446744073709552e+19
+prometheus_interner_num_strings 275
+prometheus_interner_string_interner_zero_reference_releases_total 0
+prometheus_sd_consulagent_rpc_duration_seconds_sum{call=&#34;services&#34;,endpoint=&#34;agent&#34;} 0
+prometheus_sd_consulagent_rpc_duration_seconds_count{call=&#34;services&#34;,endpoint=&#34;agent&#34;} 0
+prometheus_sd_consulagent_rpc_failures_total 0
+prometheus_sd_dns_lookup_failures_total 0
+prometheus_sd_dns_lookups_total 0
+prometheus_sd_file_read_errors_total 0
+prometheus_sd_file_scan_duration_seconds{quantile=&#34;0.5&#34;} NaN
+...
+</code></pre></div><p>您也可以通过访问 <code>grafana-agent</code> 所暴露的 <code>API</code>，获取到 <code>targets</code> 列表来确认是否符合预期：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#ff5c57">curl</span> <span style="color:#ff5c57">http:</span><span style="color:#78787e">//localhost:12345/agent/api/v1/targets |jq
+</span><span style="color:#78787e"></span>
+{
+  <span style="color:#ff6ac1">&#34;status&#34;</span>: <span style="color:#5af78e">&#34;success&#34;</span>,
+  <span style="color:#ff6ac1">&#34;data&#34;</span>: [
+    {
+      <span style="color:#ff6ac1">&#34;instance&#34;</span>: <span style="color:#5af78e">&#34;7f383657f506f53a739e2df61be58891&#34;</span>,
+      <span style="color:#ff6ac1">&#34;target_group&#34;</span>: <span style="color:#5af78e">&#34;local_scrape&#34;</span>,
+      <span style="color:#ff6ac1">&#34;endpoint&#34;</span>: <span style="color:#5af78e">&#34;http://127.0.0.1:12345/metrics&#34;</span>,
+      <span style="color:#ff6ac1">&#34;state&#34;</span>: <span style="color:#5af78e">&#34;up&#34;</span>,
+      <span style="color:#ff6ac1">&#34;labels&#34;</span>: {
+        <span style="color:#ff6ac1">&#34;cluster&#34;</span>: <span style="color:#5af78e">&#34;mymac&#34;</span>,
+        <span style="color:#ff6ac1">&#34;instance&#34;</span>: <span style="color:#5af78e">&#34;127.0.0.1:12345&#34;</span>,
+        <span style="color:#ff6ac1">&#34;job&#34;</span>: <span style="color:#5af78e">&#34;local_scrape&#34;</span>
+      },
+      <span style="color:#ff6ac1">&#34;discovered_labels&#34;</span>: {
+        <span style="color:#ff6ac1">&#34;__address__&#34;</span>: <span style="color:#5af78e">&#34;127.0.0.1:12345&#34;</span>,
+        <span style="color:#ff6ac1">&#34;__metrics_path__&#34;</span>: <span style="color:#5af78e">&#34;/metrics&#34;</span>,
+        <span style="color:#ff6ac1">&#34;__scheme__&#34;</span>: <span style="color:#5af78e">&#34;http&#34;</span>,
+        <span style="color:#ff6ac1">&#34;__scrape_interval__&#34;</span>: <span style="color:#5af78e">&#34;15s&#34;</span>,
+        <span style="color:#ff6ac1">&#34;__scrape_timeout__&#34;</span>: <span style="color:#5af78e">&#34;10s&#34;</span>,
+        <span style="color:#ff6ac1">&#34;cluster&#34;</span>: <span style="color:#5af78e">&#34;mymac&#34;</span>,
+        <span style="color:#ff6ac1">&#34;job&#34;</span>: <span style="color:#5af78e">&#34;local_scrape&#34;</span>
+      },
+      <span style="color:#ff6ac1">&#34;last_scrape&#34;</span>: <span style="color:#5af78e">&#34;2022-02-16T07:18:55.6221085Z&#34;</span>,
+      <span style="color:#ff6ac1">&#34;scrape_duration_ms&#34;</span>: <span style="color:#ff9f43">6</span>,
+      <span style="color:#ff6ac1">&#34;scrape_error&#34;</span>: <span style="color:#5af78e">&#34;&#34;</span>
+    }
+  ]
+}
+</code></pre></div><h1 id="在本机安装运行grafana-agent">在本机安装运行grafana-agent</h1>
+<p>如果您的主机上没有<code>docker</code>或者您希望直接把<code>grafana-agent</code>运行在宿主机上，可以依照以下步骤：</p>
+<h2 id="1-下载预先编译好的二进制包">1. 下载预先编译好的二进制包</h2>
+<p><strong><a href="https://github.com/grafana/agent/releases">下载地址为</a></strong>:
+<code>https://github.com/grafana/agent/releases/download/${version}/agent-${platform}-${arch}.zip</code></p>
+<ul>
+<li>其中，<code>version</code>当前为<code>v0.23.0</code></li>
+<li>其中，可下载的<code>platform</code>和<code>arch</code>列表如下：
+<ul>
+<li>linux/amd64</li>
+<li>linux/arm64</li>
+<li>linux/armv7</li>
+<li>linux/armv6</li>
+<li>darwin/amd64</li>
+<li>darwin/arm64</li>
+<li>windows/amd64</li>
+<li>linux/mipsle</li>
+<li>freebsd/amd64</li>
+</ul>
+</li>
+</ul>
+<p>比如，我们现在的操作系统为<code>Linux</code>，架构为<code>Amd64</code>， 那么<code>grafana-agent</code>的二进制包下载命令如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#78787e"># download the binary</span>
+curl -SOL <span style="color:#5af78e">&#34;https://github.com/grafana/agent/releases/download/v0.23.0/agent-linux-amd64.zip&#34;</span>
+
+<span style="color:#78787e"># extract the binary</span>
+gunzip ./agent-linux-amd64.zip
+
+<span style="color:#78787e"># make sure it is executable</span>
+chmod a+x <span style="color:#5af78e">&#34;agent-linux-amd64&#34;</span>
+</code></pre></div><h2 id="2-生成-grafana-agent-的配置文件">2. 生成 grafana-agent 的配置文件</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">cat &lt;&lt;EOF &gt; ./agent-cfg.yaml
+<span style="color:#ff6ac1">server</span>:
+  <span style="color:#ff6ac1">log_level</span>: info
+  <span style="color:#ff6ac1">http_listen_port</span>: <span style="color:#ff9f43">12345</span>
+
+<span style="color:#ff6ac1">metrics</span>:
+  <span style="color:#ff6ac1">global</span>:
+    <span style="color:#ff6ac1">scrape_interval</span>: 15s
+    <span style="color:#ff6ac1">scrape_timeout</span>: 10s
+    <span style="color:#ff6ac1">remote_write</span>:
+      - <span style="color:#ff6ac1">url</span>: https://n9e-server:19000/prometheus/v1/write
+        <span style="color:#ff6ac1">basic_auth</span>:
+          <span style="color:#ff6ac1">username</span>: &lt;string&gt;
+          <span style="color:#ff6ac1">password</span>: &lt;string&gt;
+
+<span style="color:#ff6ac1">integrations</span>:
+  <span style="color:#ff6ac1">agent</span>:
+    <span style="color:#ff6ac1">enabled</span>: <span style="color:#ff6ac1">true</span>
+
+  <span style="color:#ff6ac1">node_exporter</span>:
+    <span style="color:#ff6ac1">enabled</span>: <span style="color:#ff6ac1">true</span>
+    <span style="color:#ff6ac1">include_exporter_metrics</span>: <span style="color:#ff6ac1">true</span>
+EOF
+</code></pre></div><h2 id="3-启动-grafana-agent">3. 启动 grafana-agent</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nohup ./agent-linux-amd64 <span style="color:#5af78e">\
+</span><span style="color:#5af78e"></span>  -config.file ./agent-cfg.yaml <span style="color:#5af78e">\
+</span><span style="color:#5af78e"></span>  -metrics.wal-directory ./data <span style="color:#5af78e">\
+</span><span style="color:#5af78e"></span>  &amp;&gt; grafana-agent.log &amp;
+</code></pre></div><h2 id="4-验证-grafana-agent-是否正常工作">4. 验证 grafana-agent 是否正常工作</h2>
+<ul>
+<li>您可以通过直接 <code>curl http://localhost:12345/metrics</code> 来验证数据的产生是否符合预期；</li>
+<li>您也可以通过访问 <code>grafana-agent</code> 所暴露的 <code>API</code> ，获取到 <code>targets</code> 列表来确认是否符合预期，操作命令为 <code>curl http://localhost:12345/agent/api/v1/targets</code>；</li>
+</ul>
+<p>至此，我们已经成功的将 grafana-agent 运行起来，并且开始收集 grafana-agent 自身的 metrics 指标。下一步，我们讲述如何通过 grafana-agent 的内嵌的各种 exporter 来采集主机、进程、MySQL等监控指标。</p>
+
+          <footer class=" footline">
+          </footer>
+        </main>
+<hr> 
+
+<i>想学习 Nightingale 更多最佳实践？听到 Nightingale 代码层面的分享？生产环境出了问题希望得到夜莺研发团队及时支援？有更多监控/稳定性相关产品需求？欢迎联系电话或微信：18612185520 注明「商务合作」</i>
+
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/usecase/" title="社区用户实践分享"><i class="fa fa-chevron-left"></i></a>
+        <a class="nav nav-next" href="/grafana-agent/integrations/" title="grafana-agent采集常用exporter"><i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.min.js?1649316325"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1649316325"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1649316325"></script>
+    <script src="/js/featherlight.min.js?1649316325"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1649316325"></script>
+    <script src="/js/mermaid.min.js?1649316325"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1649316325"></script>
+  </body>
+</html>
