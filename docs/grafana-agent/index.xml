@@ -44,5 +44,12 @@
       <guid>https://n9e.github.io/grafana-agent/k8s_traces/</guid>
       <description>在本文档中，介绍如何以 Deployment 的形式部署grafana-agent到您的K8s集群中，收集您的K8s集群中应用的trace数据，并将其推送到Nightingale.</description>
     </item>
+    <item>
+      <title>监控K8s集群和应用</title>
+      <link>https://n9e.github.io/grafana-agent/how-to-monitoring-k8s/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://n9e.github.io/grafana-agent/how-to-monitoring-k8s/</guid>
+      <description>Acknowledgement: grafana-agent is powered by Grafana Agent. Grafana Agent is a lightweight telemetry collector based on Prometheus that only performs its scraping and remote_write functions. Agent can also collect metrics, logs, and traces for storage in Grafana Cloud and Grafana Enterprise, as well as OSS deployments of Loki (logs), and Tempo (traces), Prometheus (metrics), and Cortex (metrics). Grafana Agent also contains several integrations (embedded metrics exporters) like node-exporter, a MySQL exporter, and many more.</description>
+    </item>
   </channel>
 </rss>
