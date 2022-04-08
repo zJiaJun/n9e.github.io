@@ -139,6 +139,31 @@ n9e-webapi 的安装、配置和启动，请参考 [这里]({{%relref "standalon
 	>m3db架构设计上更高级，实现难度高，m3db在时序数据功能之后，重点解决了自动扩缩容，数据自动平衡等运维难题。但是因此也更复杂，可靠性目前也更难保证。VictoriaMetrics架构设计上的tradeoff 更倾向于简单可靠，重点优化了单机版的性能，强调垂直扩展，同时和prometheus 生态做到兼容，甚至于在很多的点上做到了加强。但是 VictoriaMetrics 对于时序数据downsample，节点的自动扩缩容，数据自动再平衡等高级功能和分布式能力，是有缺失的。
 
 
+{{% notice info %}}
+如果您使用的是VictoriaMetrics单机版，nightingale 的配置文件需要做如下调整：
+{{% /notice %}}
+
+```toml
+# Reader部分修改为：
+[Reader]
+Url = "http://127.0.0.1:8428"
+```
+
+```toml
+# Writers部分修改为：
+[[Writers]]
+Url = "http://127.0.0.1:8428/api/v1/write"
+```
+
+```toml
+# Clusters部分修改为：
+[[Clusters]]
+# Prometheus cluster name
+Name = "Default"
+# Prometheus APIs base url
+Prom = "http://127.0.0.1:8428"
+```
+
 ## 相关资料
 - [使用 Docker Compose 快速部署 VictoriaMetrics](https://docs.victoriametrics.com/Single-server-VictoriaMetrics.html#start-with-docker-compose)。
 - [使用 Helm Chart 快速在 Kubernetes中部署 VictoriaMetrics](https://github.com/VictoriaMetrics/helm-charts)。
