@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.92.2" />
+    <meta name="description" content="Documentation for nightingale">
+    
+    <title>监控K8s集群和应用 :: N9E</title>
+    <link href="/css/nucleus.css?1649397882" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1649397882" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1649397882" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1649397882" rel="stylesheet">
+    <link href="/css/auto-complete.css?1649397882" rel="stylesheet">
+    <link href="/css/theme.css?1649397882" rel="stylesheet">
+    <link href="/css/theme-blue.css?1649397882" rel="stylesheet">
+    <link href="/css/variant.css?1649397882" rel="stylesheet">
+    <link href="/css/print.css?1649397882" rel="stylesheet" media="print">
+    <script src="/js/jquery.min.js?1649397882"></script>
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+        display:none !important;
+      }
+    </style>
+  </head>
+  <body class="" data-url="/grafana-agent/how-to-monitoring-k8s/">
+    <script>
+      var index_url="/index.json";
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+    </script>
+    <nav id="sidebar" class="showVisitedLinks">
+      <div id="header-wrapper">
+        <div id="header">
+
+<a href="/" style="font-weight: 900;font-size: 24px;color: #fff;">Nightingale</a>
+<div style="color:#eee;line-height: 24px;padding-top: 8px;font-size: 12px;"><i>Version 5.0</i></div>
+        </div>
+        <div class="searchbox">
+          <label for="search-by"><i class="fas fa-search"></i></label>
+          <input data-search-input id="search-by" type="search" placeholder="Search...">
+          <span data-search-clear=""><i class="fas fa-times"></i></span>
+        </div>
+        <script src="/js/lunr.min.js?1649397882"></script>
+        <script src="/js/auto-complete.js?1649397882"></script>
+        <!-- hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic: -->
+        <!-- https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72 -->
+        <script src="/js/search.js?1649397882"></script>
+      </div>
+      <div class="highlightable">
+        <ul class="topics">
+          <li data-nav-id="/quickstart/" title="安装部署" class="dd-item"><a href="/quickstart/">安装部署<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/quickstart/compose/" title="使用Docker快速启动测试" class="dd-item"><a href="/quickstart/compose/">使用Docker快速启动测试<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/standalone/" title="使用二进制部署单机版服务端" class="dd-item"><a href="/quickstart/standalone/">使用二进制部署单机版服务端<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/telegraf/" title="使用Telegraf采集监控数据" class="dd-item"><a href="/quickstart/telegraf/">使用Telegraf采集监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/victoriametrics/" title="使用VictoriaMetrics作为时序库" class="dd-item"><a href="/quickstart/victoriametrics/">使用VictoriaMetrics作为时序库<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/multitsdb/" title="接入多个Prom/VM/M3DB集群" class="dd-item"><a href="/quickstart/multitsdb/">接入多个Prom/VM/M3DB集群<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/clusters/" title="生产环境部署高可用集群版" class="dd-item"><a href="/quickstart/clusters/">生产环境部署高可用集群版<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/ibex/" title="告警自愈依赖的脚本下发执行模块" class="dd-item"><a href="/quickstart/ibex/">告警自愈依赖的脚本下发执行模块<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/quickstart/compile/" title="源码编译夜莺前后端及告警自愈模块" class="dd-item"><a href="/quickstart/compile/">源码编译夜莺前后端及告警自愈模块<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/usage/" title="功能介绍" class="dd-item"><a href="/usage/">功能介绍<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/usage/grafana/" title="对接Grafana" class="dd-item"><a href="/usage/grafana/">对接Grafana<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/linux/" title="监控Linux" class="dd-item"><a href="/usage/linux/">监控Linux<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/windows/" title="监控Windows" class="dd-item"><a href="/usage/windows/">监控Windows<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/snmp/" title="监控网络设备" class="dd-item"><a href="/usage/snmp/">监控网络设备<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/promapm/" title="埋点监控之PromSDK" class="dd-item"><a href="/usage/promapm/">埋点监控之PromSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/statsd/" title="埋点监控之StatsdSDK" class="dd-item"><a href="/usage/statsd/">埋点监控之StatsdSDK<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/http_response/" title="监控URL" class="dd-item"><a href="/usage/http_response/">监控URL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mtail/" title="监控日志" class="dd-item"><a href="/usage/mtail/">监控日志<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/mysql/" title="监控MySQL" class="dd-item"><a href="/usage/mysql/">监控MySQL<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/usage/redis/" title="监控Redis" class="dd-item"><a href="/usage/redis/">监控Redis<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/api/" title="API" class="dd-item"><a href="/api/">API<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/api/read/" title="读取监控数据" class="dd-item"><a href="/api/read/">读取监控数据<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/opentsdb/" title="推送监控数据（OpenTSDB协议）" class="dd-item"><a href="/api/opentsdb/">推送监控数据（OpenTSDB协议）<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/api/webapi/" title="调用webapi的接口" class="dd-item"><a href="/api/webapi/">调用webapi的接口<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/faq/" title="FAQ" class="dd-item"><a href="/faq/">FAQ<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/usecase/" title="社区用户实践分享" class="dd-item"><a href="/usecase/">社区用户实践分享<i class="fas fa-check read-icon"></i></a><ul></ul></li>
+          <li data-nav-id="/grafana-agent/" title="使用Grafana-agent采集监控数据" class="dd-item parent"><a href="/grafana-agent/">使用Grafana-agent采集监控数据<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/" title="grafana-agent采集常用exporter" class="dd-item alwaysopen"><a href="/grafana-agent/integrations/">grafana-agent采集常用exporter<i class="fas fa-check read-icon"></i></a><ul>
+          <li data-nav-id="/grafana-agent/integrations/cadvisor-config/" title="cAdvisor Exporter" class="dd-item"><a href="/grafana-agent/integrations/cadvisor-config/">cAdvisor Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/consul-exporter-config/" title="Consul Exporter" class="dd-item"><a href="/grafana-agent/integrations/consul-exporter-config/">Consul Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/dnsmasq-exporter-config/" title="dnsmasq Exporter" class="dd-item"><a href="/grafana-agent/integrations/dnsmasq-exporter-config/">dnsmasq Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/elasticsearch-exporter-config/" title="Elasticsearch Exporter" class="dd-item"><a href="/grafana-agent/integrations/elasticsearch-exporter-config/">Elasticsearch Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/github-exporter-config/" title="Github Exporter" class="dd-item"><a href="/grafana-agent/integrations/github-exporter-config/">Github Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/kafka-exporter-config/" title="Kafka Exporter" class="dd-item"><a href="/grafana-agent/integrations/kafka-exporter-config/">Kafka Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/memcached-exporter-config/" title="Memcached Exporter" class="dd-item"><a href="/grafana-agent/integrations/memcached-exporter-config/">Memcached Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mongodb-exporter-config/" title="Mongodb Exporter" class="dd-item"><a href="/grafana-agent/integrations/mongodb-exporter-config/">Mongodb Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/mysqld-exporter-config/" title="MySQLd Exporter" class="dd-item"><a href="/grafana-agent/integrations/mysqld-exporter-config/">MySQLd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/node-exporter-config/" title="Node Exporter" class="dd-item"><a href="/grafana-agent/integrations/node-exporter-config/">Node Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/postgres-exporter-config/" title="Postgres Exporter" class="dd-item"><a href="/grafana-agent/integrations/postgres-exporter-config/">Postgres Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/process-exporter-config/" title="Process Exporter" class="dd-item"><a href="/grafana-agent/integrations/process-exporter-config/">Process Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/redis-exporter-config/" title="Redis Exporter" class="dd-item"><a href="/grafana-agent/integrations/redis-exporter-config/">Redis Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/statsd-exporter-config/" title="Statsd Exporter" class="dd-item"><a href="/grafana-agent/integrations/statsd-exporter-config/">Statsd Exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/integrations/windows-exporter-config/" title="Windows Exporter" class="dd-item"><a href="/grafana-agent/integrations/windows-exporter-config/">Windows Exporter<i class="fas fa-check read-icon"></i></a></li></ul></li>
+          <li data-nav-id="/grafana-agent/scrape_exporters/" title="grafana-agent收集三方exporter" class="dd-item"><a href="/grafana-agent/scrape_exporters/">grafana-agent收集三方exporter<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_metrics/" title="在K8s中运行grafana-agent收集metrics" class="dd-item"><a href="/grafana-agent/k8s_metrics/">在K8s中运行grafana-agent收集metrics<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_logs/" title="在K8s中运行grafana-agent收集log" class="dd-item"><a href="/grafana-agent/k8s_logs/">在K8s中运行grafana-agent收集log<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/k8s_traces/" title="在K8s中运行grafana-agent收集trace" class="dd-item"><a href="/grafana-agent/k8s_traces/">在K8s中运行grafana-agent收集trace<i class="fas fa-check read-icon"></i></a></li>
+          <li data-nav-id="/grafana-agent/how-to-monitoring-k8s/" title="监控K8s集群和应用" class="dd-item active"><a href="/grafana-agent/how-to-monitoring-k8s/">监控K8s集群和应用<i class="fas fa-check read-icon"></i></a></li></ul></li>
+        </ul>
+        <div id="shortcuts">
+          <div class="nav-title">More</div>
+          <ul>
+            <li><a class="padding" href="https://github.com/didi/nightingale"><i class='fab fa-fw fa-github'></i> 代码仓库</a></li>
+            <li><a class="padding" href="https://space.bilibili.com/442531657/channel/seriesdetail?sid=571645"><i class='fas fa-fw fa-book'></i> 视频教程</a></li>
+          </ul>
+        </div>
+        <div id="prefooter">
+          <hr/>
+          <ul>
+            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+          </ul>
+        </div>
+        <div id="footer">
+          <a class="github-button" href="https://github.com/didi/nightingale" data-icon="octicon-star" data-show-count="true" aria-label="Star nightingale on GitHub">Star</a>
+          <a class="github-button" href="https://github.com/didi/nightingale/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork nightingale on GitHub">Fork</a>
+          <p>Built with <a href="https://github.com/didi/nightingale"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+        </div>
+      </div>
+    </nav>
+    <div id="body">
+      <div id="overlay"></div>
+      <div class="padding highlightable">
+        <div id="top-bar">
+          <div id="top-github-link">
+            <a class="github-link" title='Edit this page' href="https://github.com/n9e/n9e.github.io/tree/master/content/grafana-agent/how-to-monitoring-k8s.md" target="blank">
+              <i class="fas fa-code-branch"></i>
+              <span id="top-github-link-text">Edit this page</span>
+            </a>
+          </div>
+          <div id="breadcrumbs">
+            <span id="sidebar-toggle-span">
+              <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                <i class="fas fa-bars"></i>
+              </a>
+            </span>
+            <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+            <ol class="links" itemscope itemtype="http://schema.org/BreadcrumbList">
+              <meta itemprop="itemListOrder" content="Descending" />
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="3" /><a itemprop="item" href="/"><span itemprop="name">夜莺手册</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="2" /><a itemprop="item" href="/grafana-agent/"><span itemprop="name">使用Grafana-agent采集监控数据</span></a> > </li>
+                <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><meta itemprop="position" content="1" /><a itemprop="item" href="/grafana-agent/how-to-monitoring-k8s/" aria-disabled="true"><span itemprop="name">监控K8s集群和应用</span></a></li>
+            </ol>
+          </div>
+            <div class="progress">
+              <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#方案一直接访问kubelet来获取节点状态指标数据">方案一：直接访问kubelet来获取节点状态指标数据</a></li>
+    <li><a href="#方案二通过kube-apiserver提供的api间接获取kubelet的指标数据">方案二：通过kube-apiserver提供的API间接获取kubelet的指标数据</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#方案一直接访问kubelet的metricscadvisor地址需要跳过ca证书认证">方案一：直接访问kubelet的/metrics/cadvisor地址，需要跳过ca证书认证</a></li>
+    <li><a href="#方案二通过api-server提供的代理地址访问kubelet的metricscadvisor地址">方案二：通过api-server提供的代理地址访问kubelet的/metrics/cadvisor地址</a></li>
+  </ul>
+</nav>
+              </div>
+            </div>
+        </div>
+        <div id="head-tags">
+        </div>
+        <main id="body-inner">
+          <h1>监控K8s集群和应用</h1>
+
+<blockquote>
+<p>Acknowledgement: grafana-agent is powered by <a href="https://github.com/grafana/agent">Grafana Agent</a>. Grafana Agent is a lightweight telemetry collector based on Prometheus that only performs its scraping and remote_write functions. Agent can also collect metrics, logs, and traces for storage in Grafana Cloud and Grafana Enterprise, as well as OSS deployments of Loki (logs), and Tempo (traces), Prometheus (metrics), and Cortex (metrics). Grafana Agent also contains several integrations (embedded metrics exporters) like node-exporter, a MySQL exporter, and many more.</p>
+<p>The Grafana Agent uses the same code as Prometheus, but tackles these issues by only using the most relevant parts of Prometheus for interaction with hosted metrics:</p>
+<ul>
+<li>Service Discovery</li>
+<li>Scraping</li>
+<li>Write Ahead Log (WAL)</li>
+<li>Remote Write</li>
+</ul>
+</blockquote>
+<p><strong>对于Kubernetes集群及其上应用，我们推荐从以下几个方面，建立起完整的kubernetes指标监控体系：</strong></p>
+<h1 id="前置依赖">前置依赖</h1>
+<ol>
+<li>如何在K8s中运行和启动grafana-agent，请参考<a href="/grafana-agent/k8s_metrics">在kubernetes中运行grafana-agent收集</a>。</li>
+<li>推荐您以daemonset，在每个节点上启动一个grafana-agent实例。</li>
+</ol>
+<h1 id="通过kubelet来了解和监控k8s节点的基本运行状态数据">通过kubelet来了解和监控k8s节点的基本运行状态数据</h1>
+<h2 id="方案一直接访问kubelet来获取节点状态指标数据">方案一：直接访问kubelet来获取节点状态指标数据</h2>
+<p>Kubelet组件运行在Kubernetes集群的各个节点中，其负责维护和管理节点上Pod的运行状态。kubelet组件的正常运行直接关系到该节点是否能够正常的被Kubernetes集群正常使用。</p>
+<p>基于<a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config">Prometheus在K8s环境下的服务发现能力</a>，在Node模式，grafana-agent会自动发现Kubernetes中所有Node节点的信息并作为监控的目标Target。 而这些Target的访问地址实际上就是Kubelet的访问地址。</p>
+<blockquote>
+<p><strong>创建ConfigMap，其中包含grafana-agent的配置文件如下</strong></p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">export NAMESPACE=default
+export CLUSTER_NAME=kubernetes
+export REMOTE_WRITE_URL=http://n9e-server:19000/prometheus/v1/write
+export REMOTE_WRITE_USERNAME=fc_laiwei
+export REMOTE_WRITE_PASSWORD=fc_laiweisecret
+
+cat &lt;&lt;EOF |
+<span style="color:#ff6ac1">kind</span>: ConfigMap
+<span style="color:#ff6ac1">metadata</span>:
+  <span style="color:#ff6ac1">name</span>: grafana-agent
+<span style="color:#ff6ac1">apiVersion</span>: v1
+<span style="color:#ff6ac1">data</span>:
+  <span style="color:#ff6ac1">agent.yaml</span>: |<span style="color:#5af78e">
+</span><span style="color:#5af78e">    server:
+</span><span style="color:#5af78e">      http_listen_port: 12345
+</span><span style="color:#5af78e">    metrics:
+</span><span style="color:#5af78e">      wal_directory: /tmp/grafana-agent-wal
+</span><span style="color:#5af78e">      global:
+</span><span style="color:#5af78e">        scrape_interval: 15s
+</span><span style="color:#5af78e">        scrape_timeout: 10s
+</span><span style="color:#5af78e">        external_labels:
+</span><span style="color:#5af78e">          cluster: ${CLUSTER_NAME}
+</span><span style="color:#5af78e">      configs:
+</span><span style="color:#5af78e">      - name: fc_k8s_scrape
+</span><span style="color:#5af78e">        remote_write:
+</span><span style="color:#5af78e">        - url: ${REMOTE_WRITE_URL}
+</span><span style="color:#5af78e">          basic_auth:
+</span><span style="color:#5af78e">            username: ${REMOTE_WRITE_USERNAME}
+</span><span style="color:#5af78e">            password: ${REMOTE_WRITE_PASSWORD}
+</span><span style="color:#5af78e">        scrape_configs:
+</span><span style="color:#5af78e">        - job_name: integrations/kubernetes/kubelet
+</span><span style="color:#5af78e">          scheme: https
+</span><span style="color:#5af78e">          tls_config:
+</span><span style="color:#5af78e">              ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+</span><span style="color:#5af78e">              insecure_skip_verify: true
+</span><span style="color:#5af78e">          bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+</span><span style="color:#5af78e">          kubernetes_sd_configs:
+</span><span style="color:#5af78e">          - role: node
+</span><span style="color:#5af78e">          relabel_configs:
+</span><span style="color:#5af78e">          - action: labelmap
+</span><span style="color:#5af78e">            regex: __meta_kubernetes_node_label_(.+)</span>    
+EOF
+
+envsubst | kubectl apply -n $NAMESPACE -f -
+</code></pre></div><blockquote>
+<p><strong>重建grafana-agent实例</strong></p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl rollout restart daemonset/grafana-agent
+</code></pre></div><p>这里使用Node模式自动发现集群中所有Kubelet作为监控的数据采集目标，同时通过<code>labelmap</code>步骤，将Node节点上的标签，作为样本的标签保存到时间序列当中。
+重新加载grafana-agent的配置文件，并重建grafana-agent的Pod实例后，在nightingale dashboard中搜索<code>{job=&quot;integrations/kubernetes/kubelet&quot;}</code>，即可看到相应的时序数据了。</p>
+<h2 id="方案二通过kube-apiserver提供的api间接获取kubelet的指标数据">方案二：通过kube-apiserver提供的API间接获取kubelet的指标数据</h2>
+<p>不同于上面第一种方法，其直接通过kubelet的metrics服务采集监控数据，方法二通过Kubernetes的api-server提供的代理API访问各个节点中kubelet的metrics服务。</p>
+<blockquote>
+<p><strong>创建ConfigMap，其中包含grafana-agent的配置文件如下</strong></p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">export NAMESPACE=default
+export CLUSTER_NAME=kubernetes
+export REMOTE_WRITE_URL=http://10.206.0.16:8480/insert/0/prometheus/api/v1/write
+export REMOTE_WRITE_URL=http://n9e-server:19000/prometheus/v1/write
+export REMOTE_WRITE_USERNAME=fc_laiwei
+export REMOTE_WRITE_PASSWORD=fc_laiweisecret
+
+cat &lt;&lt;EOF |
+<span style="color:#ff6ac1">kind</span>: ConfigMap
+<span style="color:#ff6ac1">metadata</span>:
+  <span style="color:#ff6ac1">name</span>: grafana-agent
+<span style="color:#ff6ac1">apiVersion</span>: v1
+<span style="color:#ff6ac1">data</span>:
+  <span style="color:#ff6ac1">agent.yaml</span>: |<span style="color:#5af78e">
+</span><span style="color:#5af78e">    server:
+</span><span style="color:#5af78e">      http_listen_port: 12345
+</span><span style="color:#5af78e">    metrics:
+</span><span style="color:#5af78e">      wal_directory: /tmp/grafana-agent-wal
+</span><span style="color:#5af78e">      global:
+</span><span style="color:#5af78e">        scrape_interval: 15s
+</span><span style="color:#5af78e">        scrape_timeout: 10s
+</span><span style="color:#5af78e">        external_labels:
+</span><span style="color:#5af78e">          cluster: ${CLUSTER_NAME}
+</span><span style="color:#5af78e">      configs:
+</span><span style="color:#5af78e">      - name: fc_k8s_scrape
+</span><span style="color:#5af78e">        remote_write:
+</span><span style="color:#5af78e">        - url: ${REMOTE_WRITE_URL}
+</span><span style="color:#5af78e">          basic_auth:
+</span><span style="color:#5af78e">            username: ${REMOTE_WRITE_USERNAME}
+</span><span style="color:#5af78e">            password: ${REMOTE_WRITE_PASSWORD}
+</span><span style="color:#5af78e">        scrape_configs:
+</span><span style="color:#5af78e">        - job_name: &#39;integrations/kubernetes/kubelet&#39;
+</span><span style="color:#5af78e">          scheme: https
+</span><span style="color:#5af78e">          tls_config:
+</span><span style="color:#5af78e">            ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+</span><span style="color:#5af78e">          bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+</span><span style="color:#5af78e">          kubernetes_sd_configs:
+</span><span style="color:#5af78e">          - role: node
+</span><span style="color:#5af78e">          relabel_configs:
+</span><span style="color:#5af78e">          - action: labelmap
+</span><span style="color:#5af78e">            regex: __meta_kubernetes_node_label_(.+)
+</span><span style="color:#5af78e">          - target_label: __address__
+</span><span style="color:#5af78e">            replacement: kubernetes.default.svc:443
+</span><span style="color:#5af78e">          - source_labels: [__meta_kubernetes_node_name]
+</span><span style="color:#5af78e">            regex: (.+)
+</span><span style="color:#5af78e">            target_label: __metrics_path__
+</span><span style="color:#5af78e">            replacement: /api/v1/nodes/\${1}/proxy/metrics</span>    
+EOF
+
+envsubst | kubectl apply -n $NAMESPACE -f -
+</code></pre></div><p>通过relabeling，将从Kubernetes获取到的默认地址<code>__address__</code>替换为<code>kubernetes.default.svc:443</code>。同时将<code>__metrics_path__</code>替换为api-server的代理地址<code>/api/v1/nodes/${1}/proxy/metrics</code>。</p>
+<p>通过获取各个节点中kubelet的监控指标，您可以评估集群中各节点的性能表现。例如:</p>
+<p><strong>1. 通过指标<code>kubelet_pod_start_duration_seconds</code>可以获得当前节点中Pod启动时间相关的统计数据。</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">kubelet_pod_start_duration_seconds{quantile=&#34;0.99&#34;}
+</code></pre></div><p><strong>2. Pod平均启动时间（包含镜像下载时间）：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">kubelet_pod_start_duration_seconds_sum / kubelet_pod_start_duration_seconds_count
+</code></pre></div><p>除此以外，监控指标<code>kubelet_docker_*</code>还可以体现出kubelet与当前节点的docker服务的调用情况，从而可以反映出docker本身是否会影响kubelet的性能表现等问题。</p>
+<h1 id="通过cadvisor来了解和监控节点中的容器运行状态">通过cAdvisor来了解和监控节点中的容器运行状态</h1>
+<p>各节点的kubelet组件中除了包含自身的监控指标信息以外，kubelet组件还内置了对cAdvisor的支持。cAdvisor能够获取当前节点上运行的所有容器的资源使用情况，通过访问kubelet的/metrics/cadvisor地址可以获取到cadvisor的监控指标，因此和获取kubelet监控指标类似，这里同样通过node模式自动发现所有的kubelet信息，并通过适当的relabel过程，修改监控采集任务的配置。 与采集kubelet自身监控指标相似，这里也有两种方式采集cadvisor中的监控指标：</p>
+<h2 id="方案一直接访问kubelet的metricscadvisor地址需要跳过ca证书认证">方案一：直接访问kubelet的/metrics/cadvisor地址，需要跳过ca证书认证</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">export NAMESPACE=default
+export CLUSTER_NAME=kubernetes
+export REMOTE_WRITE_URL=http://10.206.0.16:8480/insert/0/prometheus/api/v1/write
+export REMOTE_WRITE_URL=http://n9e-server:19000/prometheus/v1/write
+export REMOTE_WRITE_USERNAME=fc_laiwei
+export REMOTE_WRITE_PASSWORD=fc_laiweisecret
+
+cat &lt;&lt;EOF |
+<span style="color:#ff6ac1">kind</span>: ConfigMap
+<span style="color:#ff6ac1">metadata</span>:
+  <span style="color:#ff6ac1">name</span>: grafana-agent
+<span style="color:#ff6ac1">apiVersion</span>: v1
+<span style="color:#ff6ac1">data</span>:
+  <span style="color:#ff6ac1">agent.yaml</span>: |<span style="color:#5af78e">
+</span><span style="color:#5af78e">    server:
+</span><span style="color:#5af78e">      http_listen_port: 12345
+</span><span style="color:#5af78e">    metrics:
+</span><span style="color:#5af78e">      wal_directory: /tmp/grafana-agent-wal
+</span><span style="color:#5af78e">      global:
+</span><span style="color:#5af78e">        scrape_interval: 15s
+</span><span style="color:#5af78e">        scrape_timeout: 10s
+</span><span style="color:#5af78e">        external_labels:
+</span><span style="color:#5af78e">          cluster: ${CLUSTER_NAME}
+</span><span style="color:#5af78e">      configs:
+</span><span style="color:#5af78e">      - name: fc_k8s_scrape
+</span><span style="color:#5af78e">        remote_write:
+</span><span style="color:#5af78e">        - url: ${REMOTE_WRITE_URL}
+</span><span style="color:#5af78e">          basic_auth:
+</span><span style="color:#5af78e">            username: ${REMOTE_WRITE_USERNAME}
+</span><span style="color:#5af78e">            password: ${REMOTE_WRITE_PASSWORD}
+</span><span style="color:#5af78e">        scrape_configs:
+</span><span style="color:#5af78e">        - job_name: &#39;integrations/kubernetes/cadvisor&#39;
+</span><span style="color:#5af78e">          scheme: https
+</span><span style="color:#5af78e">          tls_config:
+</span><span style="color:#5af78e">            ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+</span><span style="color:#5af78e">            insecure_skip_verify: true
+</span><span style="color:#5af78e">          bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+</span><span style="color:#5af78e">          kubernetes_sd_configs:
+</span><span style="color:#5af78e">          - role: node
+</span><span style="color:#5af78e">          relabel_configs:
+</span><span style="color:#5af78e">          - source_labels: [__meta_kubernetes_node_name]
+</span><span style="color:#5af78e">            regex: (.+)
+</span><span style="color:#5af78e">            target_label: __metrics_path__
+</span><span style="color:#5af78e">            replacement: metrics/cadvisor
+</span><span style="color:#5af78e">          - action: labelmap
+</span><span style="color:#5af78e">            regex: __meta_kubernetes_node_label_(.+)</span>    
+EOF
+
+envsubst | kubectl apply -n $NAMESPACE -f -
+</code></pre></div><h2 id="方案二通过api-server提供的代理地址访问kubelet的metricscadvisor地址">方案二：通过api-server提供的代理地址访问kubelet的/metrics/cadvisor地址</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">export NAMESPACE=default
+export CLUSTER_NAME=kubernetes
+export REMOTE_WRITE_URL=http://10.206.0.16:8480/insert/0/prometheus/api/v1/write
+export REMOTE_WRITE_URL=http://n9e-server:19000/prometheus/v1/write
+export REMOTE_WRITE_USERNAME=fc_laiwei
+export REMOTE_WRITE_PASSWORD=fc_laiweisecret
+
+cat &lt;&lt;EOF |
+<span style="color:#ff6ac1">kind</span>: ConfigMap
+<span style="color:#ff6ac1">metadata</span>:
+  <span style="color:#ff6ac1">name</span>: grafana-agent
+<span style="color:#ff6ac1">apiVersion</span>: v1
+<span style="color:#ff6ac1">data</span>:
+  <span style="color:#ff6ac1">agent.yaml</span>: |<span style="color:#5af78e">
+</span><span style="color:#5af78e">    server:
+</span><span style="color:#5af78e">      http_listen_port: 12345
+</span><span style="color:#5af78e">    metrics:
+</span><span style="color:#5af78e">      wal_directory: /tmp/grafana-agent-wal
+</span><span style="color:#5af78e">      global:
+</span><span style="color:#5af78e">        scrape_interval: 15s
+</span><span style="color:#5af78e">        scrape_timeout: 10s
+</span><span style="color:#5af78e">        external_labels:
+</span><span style="color:#5af78e">          cluster: ${CLUSTER_NAME}
+</span><span style="color:#5af78e">      configs:
+</span><span style="color:#5af78e">      - name: fc_k8s_scrape
+</span><span style="color:#5af78e">        remote_write:
+</span><span style="color:#5af78e">        - url: ${REMOTE_WRITE_URL}
+</span><span style="color:#5af78e">          basic_auth:
+</span><span style="color:#5af78e">            username: ${REMOTE_WRITE_USERNAME}
+</span><span style="color:#5af78e">            password: ${REMOTE_WRITE_PASSWORD}
+</span><span style="color:#5af78e">        scrape_configs:
+</span><span style="color:#5af78e">        - job_name: &#39;integrations/kubernetes/cadvisor&#39;
+</span><span style="color:#5af78e">          scheme: https
+</span><span style="color:#5af78e">          tls_config:
+</span><span style="color:#5af78e">            ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+</span><span style="color:#5af78e">          bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+</span><span style="color:#5af78e">          kubernetes_sd_configs:
+</span><span style="color:#5af78e">          - role: node
+</span><span style="color:#5af78e">          relabel_configs:
+</span><span style="color:#5af78e">          - target_label: __address__
+</span><span style="color:#5af78e">            replacement: kubernetes.default.svc:443
+</span><span style="color:#5af78e">          - source_labels: [__meta_kubernetes_node_name]
+</span><span style="color:#5af78e">            regex: (.+)
+</span><span style="color:#5af78e">            target_label: __metrics_path__
+</span><span style="color:#5af78e">            replacement: /api/v1/nodes/${1}/proxy/metrics/cadvisor
+</span><span style="color:#5af78e">          - action: labelmap
+</span><span style="color:#5af78e">            regex: __meta_kubernetes_node_label_(.+)</span>    
+</code></pre></div><h1 id="使用nodeexporter监控节点资源使用情况">使用NodeExporter监控节点资源使用情况</h1>
+<p>为了能够采集集群中各个节点的资源使用情况，我们可以借助grafana-agent内置的NodeExporter。具体的步骤可以参考：<a href="/grafana-agent/integrations/node-exporter-config">grafana-agent node_exporter</a>。</p>
+<h1 id="通过kube-apiserver来了解整个k8s集群的详细运行状态">通过kube-apiserver来了解整个K8s集群的详细运行状态</h1>
+<p><code>kube-apiserver</code>扮演了整个Kubernetes集群管理的入口的角色，负责对外暴露Kubernetes API。kube-apiserver组件一般是独立部署在集群外的，为了能够让部署在集群内的应用（kubernetes插件或者用户应用）能够与kube-apiserver交互，Kubernetes会默认在命名空间下创建一个名为kubernetes的服务，如下所示：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get svc kubernetes -o wide
+NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span style="color:#ff6ac1">(</span>S<span style="color:#ff6ac1">)</span>          AGE       SELECTOR
+kubernetes            ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP          166d      &lt;none&gt;
+</code></pre></div><p>而该kubernetes服务代理的后端实际地址通过endpoints进行维护，如下所示：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get endpoints kubernetes
+NAME         ENDPOINTS        AGE
+kubernetes   10.0.2.15:8443   166d
+</code></pre></div><p>通过这种方式集群内的应用或者系统主机就可以通过集群内部的DNS域名kubernetes.default.svc访问到部署外部的kube-apiserver实例。</p>
+<p>因此，如果我们想要监控kube-apiserver相关的指标，只需要通过endpoints资源找到kubernetes对应的所有后端地址即可。</p>
+<p>如下所示，创建监控任务kubernetes-apiservers，这里指定了服务发现模式为endpoints。grafana-agent会查找当前集群中所有的endpoints配置，并通过relabel进行判断是否为apiserver对应的访问地址：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">    - <span style="color:#ff6ac1">job_name</span>: <span style="color:#5af78e">&#39;kubernetes-apiservers&#39;</span>
+      <span style="color:#ff6ac1">kubernetes_sd_configs</span>:
+      - <span style="color:#ff6ac1">role</span>: endpoints
+      <span style="color:#ff6ac1">scheme</span>: https
+      <span style="color:#ff6ac1">tls_config</span>:
+        <span style="color:#ff6ac1">ca_file</span>: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      <span style="color:#ff6ac1">bearer_token_file</span>: /var/run/secrets/kubernetes.io/serviceaccount/token
+      <span style="color:#ff6ac1">relabel_configs</span>:
+      - <span style="color:#ff6ac1">source_labels</span>: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+        <span style="color:#ff6ac1">action</span>: keep
+        <span style="color:#ff6ac1">regex</span>: default;kubernetes;https
+      - <span style="color:#ff6ac1">target_label</span>: __address__
+        <span style="color:#ff6ac1">replacement</span>: kubernetes.default.svc:443
+</code></pre></div><p>在relabel_configs配置中第一步用于判断当前endpoints是否为kube-apiserver对用的地址。第二步，替换监控采集地址到kubernetes.default.svc:443即可。重新加载配置文件，重建grafana-agent实例，用以下<code>promql</code> <code>{service=&quot;kubernetes&quot;, job=&quot;apiserver&quot;}</code>即可在nightingale dashboard中得到kube-apiserver相关的metrics数据。</p>
+<h1 id="通过blackboxexporter了解和监控k8s集群中的网络连通状况">通过BlackboxExporter了解和监控K8s集群中的网络连通状况</h1>
+<p>为了能够对Ingress和Service进行探测，我们需要在K8s集群部署<code>Blackbox Exporter</code>实例。 如下所示，创建blackbox-exporter.yaml用于描述部署相关的内容:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">cat &lt;&lt; EOF |
+<span style="color:#ff6ac1">apiVersion</span>: v1
+<span style="color:#ff6ac1">kind</span>: Service
+<span style="color:#ff6ac1">metadata</span>:
+  <span style="color:#ff6ac1">labels</span>:
+    <span style="color:#ff6ac1">app</span>: blackbox-exporter
+  <span style="color:#ff6ac1">name</span>: blackbox-exporter
+<span style="color:#ff6ac1">spec</span>:
+  <span style="color:#ff6ac1">ports</span>:
+  - <span style="color:#ff6ac1">name</span>: blackbox
+    <span style="color:#ff6ac1">port</span>: <span style="color:#ff9f43">9115</span>
+    <span style="color:#ff6ac1">protocol</span>: TCP
+  <span style="color:#ff6ac1">selector</span>:
+    <span style="color:#ff6ac1">app</span>: blackbox-exporter
+  <span style="color:#ff6ac1">type</span>: ClusterIP
+---
+<span style="color:#ff6ac1">apiVersion</span>: extensions/v1beta1
+<span style="color:#ff6ac1">kind</span>: Deployment
+<span style="color:#ff6ac1">metadata</span>:
+  <span style="color:#ff6ac1">labels</span>:
+    <span style="color:#ff6ac1">app</span>: blackbox-exporter
+  <span style="color:#ff6ac1">name</span>: blackbox-exporter
+<span style="color:#ff6ac1">spec</span>:
+  <span style="color:#ff6ac1">replicas</span>: <span style="color:#ff9f43">1</span>
+  <span style="color:#ff6ac1">selector</span>:
+    <span style="color:#ff6ac1">matchLabels</span>:
+      <span style="color:#ff6ac1">app</span>: blackbox-exporter
+  <span style="color:#ff6ac1">template</span>:
+    <span style="color:#ff6ac1">metadata</span>:
+      <span style="color:#ff6ac1">labels</span>:
+        <span style="color:#ff6ac1">app</span>: blackbox-exporter
+    <span style="color:#ff6ac1">spec</span>:
+      <span style="color:#ff6ac1">containers</span>:
+      - <span style="color:#ff6ac1">image</span>: prom/blackbox-exporter
+        <span style="color:#ff6ac1">imagePullPolicy</span>: IfNotPresent
+        <span style="color:#ff6ac1">name</span>: blackbox-exporter
+EOF
+kubectl apply -f -
+</code></pre></div><p>通过以上命令，将在K8s集群中部署了一个<code>Blackbox Exporter</code>的Pod实例，同时通过服务blackbox-exporter在集群内暴露访问地址blackbox-exporter.default.svc.cluster.local，对于集群内的任意服务都可以通过该内部DNS域名访问Blackbox Exporter实例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get pods
+NAME                                        READY     STATUS        RESTARTS   AGE
+blackbox-exporter-f77fc78b6-72bl5           1/1       Running       <span style="color:#ff9f43">0</span>          4s
+
+$ kubectl get svc
+NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff6ac1">(</span>S<span style="color:#ff6ac1">)</span>          AGE
+blackbox-exporter           ClusterIP   10.109.144.192   &lt;none&gt;        9115/TCP         3m
+</code></pre></div><p>为了能够让grafana-agent能够自动的对Service进行探测，我们需要通过服务发现自动找到所有的Service信息。 如下所示，在grafana-agent的配置文件中添加名为kubernetes-services的监控采集任务：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">    - <span style="color:#ff6ac1">job_name</span>: <span style="color:#5af78e">&#39;kubernetes-services&#39;</span>
+      <span style="color:#ff6ac1">metrics_path</span>: /probe
+      <span style="color:#ff6ac1">params</span>:
+        <span style="color:#ff6ac1">module</span>: [http_2xx]
+      <span style="color:#ff6ac1">kubernetes_sd_configs</span>:
+      - <span style="color:#ff6ac1">role</span>: service
+      <span style="color:#ff6ac1">relabel_configs</span>:
+      - <span style="color:#ff6ac1">source_labels</span>: [__meta_kubernetes_service_annotation_prometheus_io_probe]
+        <span style="color:#ff6ac1">action</span>: keep
+        <span style="color:#ff6ac1">regex</span>: <span style="color:#ff6ac1">true</span>
+      - <span style="color:#ff6ac1">source_labels</span>: [__address__]
+        <span style="color:#ff6ac1">target_label</span>: __param_target
+      - <span style="color:#ff6ac1">target_label</span>: __address__
+        <span style="color:#ff6ac1">replacement</span>: blackbox-exporter.default.svc.cluster.local:9115
+      - <span style="color:#ff6ac1">source_labels</span>: [__param_target]
+        <span style="color:#ff6ac1">target_label</span>: instance
+      - <span style="color:#ff6ac1">action</span>: labelmap
+        <span style="color:#ff6ac1">regex</span>: __meta_kubernetes_service_label_(.+)
+      - <span style="color:#ff6ac1">source_labels</span>: [__meta_kubernetes_namespace]
+        <span style="color:#ff6ac1">target_label</span>: kubernetes_namespace
+      - <span style="color:#ff6ac1">source_labels</span>: [__meta_kubernetes_service_name]
+        <span style="color:#ff6ac1">target_label</span>: kubernetes_name
+</code></pre></div><p>在该任务配置中，通过指定kubernetes_sd_config的role为service指定服务发现模式：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#ff6ac1">kubernetes_sd_configs</span>:
+    - <span style="color:#ff6ac1">role</span>: service
+</code></pre></div><p>为了区分集群中需要进行探测的Service实例，我们通过标签‘prometheus.io/probe: true’进行判断，从而过滤出需要探测的所有Service实例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">      - <span style="color:#ff6ac1">source_labels</span>: [__meta_kubernetes_service_annotation_prometheus_io_probe]
+        <span style="color:#ff6ac1">action</span>: keep
+        <span style="color:#ff6ac1">regex</span>: <span style="color:#ff6ac1">true</span>
+</code></pre></div><p>并且将通过服务发现获取到的Service实例地址<code>__address__</code>转换为获取监控数据的请求参数。同时将<code>__address</code>执行Blackbox Exporter实例的访问地址，并且重写了标签instance的内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">      - <span style="color:#ff6ac1">source_labels</span>: [__address__]
+        <span style="color:#ff6ac1">target_label</span>: __param_target
+      - <span style="color:#ff6ac1">target_label</span>: __address__
+        <span style="color:#ff6ac1">replacement</span>: blackbox-exporter.default.svc.cluster.local:9115
+      - <span style="color:#ff6ac1">source_labels</span>: [__param_target]
+        <span style="color:#ff6ac1">target_label</span>: instance
+</code></pre></div><p>最后，为监控样本添加了额外的标签信息：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">      - <span style="color:#ff6ac1">action</span>: labelmap
+        <span style="color:#ff6ac1">regex</span>: __meta_kubernetes_service_label_(.+)
+      - <span style="color:#ff6ac1">source_labels</span>: [__meta_kubernetes_namespace]
+        <span style="color:#ff6ac1">target_label</span>: kubernetes_namespace
+      - <span style="color:#ff6ac1">source_labels</span>: [__meta_kubernetes_service_name]
+        <span style="color:#ff6ac1">target_label</span>: kubernetes_name
+</code></pre></div><p>对于Ingress而言，也是一个相对类似的过程，这里给出对Ingress探测的grafana-agent任务配置作为参考：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">    - <span style="color:#ff6ac1">job_name</span>: <span style="color:#5af78e">&#39;kubernetes-ingresses&#39;</span>
+      <span style="color:#ff6ac1">metrics_path</span>: /probe
+      <span style="color:#ff6ac1">params</span>:
+        <span style="color:#ff6ac1">module</span>: [http_2xx]
+      <span style="color:#ff6ac1">kubernetes_sd_configs</span>:
+      - <span style="color:#ff6ac1">role</span>: ingress
+      <span style="color:#ff6ac1">relabel_configs</span>:
+      - <span style="color:#ff6ac1">source_labels</span>: [__meta_kubernetes_ingress_annotation_prometheus_io_probe]
+        <span style="color:#ff6ac1">action</span>: keep
+        <span style="color:#ff6ac1">regex</span>: <span style="color:#ff6ac1">true</span>
+      - <span style="color:#ff6ac1">source_labels</span>: [__meta_kubernetes_ingress_scheme,__address__,__meta_kubernetes_ingress_path]
+        <span style="color:#ff6ac1">regex</span>: (.+);(.+);(.+)
+        <span style="color:#ff6ac1">replacement</span>: ${1}://${2}${3}
+        <span style="color:#ff6ac1">target_label</span>: __param_target
+      - <span style="color:#ff6ac1">target_label</span>: __address__
+        <span style="color:#ff6ac1">replacement</span>: blackbox-exporter.default.svc.cluster.local:9115
+      - <span style="color:#ff6ac1">source_labels</span>: [__param_target]
+        <span style="color:#ff6ac1">target_label</span>: instance
+      - <span style="color:#ff6ac1">action</span>: labelmap
+        <span style="color:#ff6ac1">regex</span>: __meta_kubernetes_ingress_label_(.+)
+      - <span style="color:#ff6ac1">source_labels</span>: [__meta_kubernetes_namespace]
+        <span style="color:#ff6ac1">target_label</span>: kubernetes_namespace
+      - <span style="color:#ff6ac1">source_labels</span>: [__meta_kubernetes_ingress_name]
+        <span style="color:#ff6ac1">target_label</span>: kubernetes_name
+</code></pre></div><h1 id="通过kube-state-metrics了解和监控k8s集群自身和应用的运行状态">通过kube-state-metrics了解和监控K8s集群自身和应用的运行状态</h1>
+<p>kube-state-metrics重点回答以下方面的问题：</p>
+<ul>
+<li>我调度了多少个replicas？现在可用的有几个？</li>
+<li>多少个Pod是running/stopped/terminated状态？</li>
+<li>Pod重启了多少次？</li>
+<li>我有多少job在运行中？</li>
+</ul>
+<p>kube-state-metrics基于client-go开发，轮询Kubernetes API，并将Kubernetes的结构化信息转换为metrics。他所支持的指标包括：</p>
+<ul>
+<li>CronJob Metrics</li>
+<li>DaemonSet Metrics</li>
+<li>Deployment Metrics</li>
+<li>Job Metrics</li>
+<li>LimitRange Metrics</li>
+<li>Node Metrics</li>
+<li>PersistentVolume Metrics</li>
+<li>PersistentVolumeClaim Metrics</li>
+<li>Pod Metrics</li>
+<li>Pod Disruption Budget Metrics</li>
+<li>ReplicaSet Metrics</li>
+<li>ReplicationController Metrics</li>
+<li>ResourceQuota Metrics</li>
+<li>Service Metrics</li>
+<li>StatefulSet Metrics</li>
+<li>Namespace Metrics</li>
+<li>Horizontal Pod Autoscaler Metrics</li>
+<li>Endpoint Metrics</li>
+<li>Secret Metrics</li>
+<li>ConfigMap Metrics</li>
+</ul>
+<p>以Pod为例：</p>
+<ul>
+<li>kube_pod_info</li>
+<li>kube_pod_owner</li>
+<li>kube_pod_status_phase</li>
+<li>kube_pod_status_ready</li>
+<li>kube_pod_status_scheduled</li>
+<li>kube_pod_container_status_waiting</li>
+<li>kube_pod_container_status_terminated_reason</li>
+<li>&hellip;</li>
+</ul>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/tree/master/examples/standard">部署清单</a>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">    ├── cluster-role-binding.yaml
+    ├── cluster-role.yaml
+    ├── deployment.yaml
+    ├── service-account.yaml
+    ├── service.yaml
+</code></pre></div><p>主要镜像有：</p>
+<ul>
+<li>image: quay.io/coreos/kube-state-metrics:v2.4.2</li>
+</ul>
+<p>对于pod的资源限制，一般情况下：</p>
+<pre tabindex="0"><code>200MiB memory
+0.1 cores
+</code></pre><p>超过100节点的集群：</p>
+<pre tabindex="0"><code>2MiB memory per node
+0.001 cores per node
+</code></pre><p>因为kube-state-metrics-service.yaml中有<code>prometheus.io/scrape: 'true'</code>标识，因此会将metric暴露给grafana-agent，而grafana-agent会在kubernetes-service-endpoints这个job下自动发现kube-state-metrics，并开始拉取metrics，无需其他配置。</p>
+<p><strong>使用kube-state-metrics后的常用场景有</strong>：</p>
+<ul>
+<li>存在执行失败的Job: kube_job_status_failed{job=&ldquo;kubernetes-service-endpoints&rdquo;,k8s_app=&ldquo;kube-state-metrics&rdquo;}==1</li>
+<li>集群节点状态错误: kube_node_status_condition{condition=&ldquo;Ready&rdquo;,status!=&ldquo;true&rdquo;}==1</li>
+<li>集群中存在启动失败的Pod：kube_pod_status_phase{phase=~&ldquo;Failed|Unknown&rdquo;}==1</li>
+<li>最近30分钟内有Pod容器重启: changes(kube_pod_container_status_restarts[30m])&gt;0</li>
+</ul>
+<blockquote>
+<p>参考资料</p>
+</blockquote>
+<ul>
+<li><a href="https://yunlzheng.gitbook.io/prometheus-book/part-ii-prometheus-jin-jie/sd/why-need-service-discovery">Prometheus与服务发现</a></li>
+<li><a href="https://yunlzheng.gitbook.io/prometheus-book/part-ii-prometheus-jin-jie/sd/service-discovery-with-file">基于文件的服务发现</a></li>
+<li><a href="https://yunlzheng.gitbook.io/prometheus-book/part-ii-prometheus-jin-jie/sd/service-discovery-with-consul">基于Consul的服务发现</a></li>
+<li><a href="https://yunlzheng.gitbook.io/prometheus-book/part-ii-prometheus-jin-jie/sd/service-discovery-with-relabel">服务发现与Relabel</a></li>
+<li><a href="https://yunlzheng.gitbook.io/prometheus-book/part-iii-prometheus-shi-zhan/readmd/service-discovery-with-kubernetes">Kubernetes下的服务发现</a></li>
+<li><a href="https://yunlzheng.gitbook.io/prometheus-book/part-iii-prometheus-shi-zhan/readmd/use-prometheus-monitor-kubernetes">监控Kubernetes集群</a></li>
+<li><a href="https://github.com/kubernetes/kube-state-metrics">kube-state-metrics</a></li>
+<li><a href="https://yasongxu.gitbook.io/container-monitor/yi-.-kai-yuan-fang-an/di-1-zhang-cai-ji/kube-state-metrics">kube-state-metrics deoplyment</a></li>
+</ul>
+<blockquote>
+<p><em>Acknowledgement:本文档在<a href="https://yunlzheng.gitbook.io/prometheus-book/part-iii-prometheus-shi-zhan/readmd/use-prometheus-monitor-kubernetes">yunlzheng 监控Kubernetes集群</a>的基础上修改和补充而成，相关文字的版权归属<a href="https://github.com/yunlzheng">原作者yunlzheng</a>所有，并致以谢意。</em></p>
+</blockquote>
+
+          <footer class="footline">
+          </footer>
+        </main>
+<hr> 
+
+<i>想学习 Nightingale 更多最佳实践？听到 Nightingale 代码层面的分享？生产环境出了问题希望得到夜莺研发团队及时支援？有更多监控/稳定性相关产品需求？欢迎联系电话或微信：18612185520 注明「商务合作」</i>
+
+      </div>
+      <div id="navigation">
+        <a class="nav nav-prev" href="/grafana-agent/k8s_traces/" title="在K8s中运行grafana-agent收集trace"><i class="fa fa-chevron-left"></i></a>
+      </div>
+    </div>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1649397882"></script>
+    <script src="/js/perfect-scrollbar.min.js?1649397882"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1649397882"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1649397882"></script>
+    <script src="/js/featherlight.min.js?1649397882"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1649397882"></script>
+    <script src="/js/mermaid.min.js?1649397882"></script>
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        mermaid.mermaidAPI.initialize( Object.assign( { "securityLevel": "antiscript" }, JSON.parse("{ \"startOnLoad\": true }"), { startOnLoad: false } ) );
+      }
+    </script>
+    <script src="/js/relearn.js?1649397882"></script>
+  </body>
+</html>
