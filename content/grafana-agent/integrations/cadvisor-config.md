@@ -38,7 +38,7 @@ docker run \
   -p 12345:12345 \
   -d \
   --privileged \
-  grafana/agent:latest \
+  grafana/agent:v0.23.0 \
   --config.file=/etc/agent/agent.yaml \
   --metrics.wal-directory=/etc/agent/data
 ```

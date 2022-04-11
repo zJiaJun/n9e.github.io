@@ -128,7 +128,7 @@ docker run \
   -v "/proc:/host/proc:ro" \
   -v /tmp/grafana-agent:/etc/agent/data \
   -v /tmp/grafana-agent-config.yaml:/etc/agent/agent.yaml \
-  grafana/agent \
+  grafana/agent:v0.23.0 \
   --config.file=/etc/agent/agent.yaml \
   --metrics.wal-directory=/etc/agent/data
 ```
@@ -207,7 +207,7 @@ metadata:
   namespace: ${NAMESPACE}
 spec:
   containers:
-  - image: grafana/agent
+  - image: grafana/agent:v0.23.0
     name: grafana-agent
     args:
     - --config.file=/fcetc/agent.yaml

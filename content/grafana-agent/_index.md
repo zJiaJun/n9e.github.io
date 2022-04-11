@@ -52,7 +52,7 @@ docker run \
   -v /tmp/grafana-agent-config.yaml:/etc/agent/agent.yaml \
   -p 12345:12345 \
   -d \
-  grafana/agent \
+  grafana/agent:v0.23.0 \
   --config.file=/etc/agent/agent.yaml \
   --prometheus.wal-directory=/etc/agent/data
 ```
@@ -60,7 +60,7 @@ docker run \
 **或者您也可以从 Dockerfile 在本地 build 镜像之后再运行：**
 ```bash
 curl -sO https://raw.githubusercontent.com/grafana/agent/main/cmd/agent/Dockerfile
-docker build -t grafana/agent:latest -f ./Dockerfile
+docker build -t grafana/agent:v0.23.0 -f ./Dockerfile
 ```
 
 上述步骤中，几个需要注意的点：
