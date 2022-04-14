@@ -18,6 +18,16 @@ title: "功能介绍"
 - [11-夜莺v5如何接入多个时序存储](https://mp.weixin.qq.com/s/ThFjha8ocjdz3sqI1Pjwjg)
 - [12-讲解夜莺v5配置文件](https://mp.weixin.qq.com/s/t0bTahPYoLsi_bGvNFspkw)
 
+使用 Telegraf 采集监控数据，可以参考如下调研笔记：
+
+- [Telegraf监控客户端调研笔记（1）-介绍、安装、初步测试](https://mp.weixin.qq.com/s/JeBa_YOJdsv_QOlCVDHdtw)
+- [Telegraf监控客户端调研笔记（2）-CPU、MEM、DISK、IO相关指标采集](https://mp.weixin.qq.com/s/alvO9k73wGHJFy5XjvMMsQ)
+- [Telegraf监控客户端调研笔记（3）-kernel、system、processes相关指标采集](https://mp.weixin.qq.com/s/PRZ_1EWD25QVuHKPvhD0oQ)
+- [Telegraf监控客户端调研笔记（4）-exec、net、netstat相关指标采集](https://mp.weixin.qq.com/s/bd3ml0KgWzfQVhYP162htQ)
+- [Telegraf监控客户端调研笔记（5）-本地端口监控&远程TCP探测](https://mp.weixin.qq.com/s/3z7rDNMZ-Gmub0fox0iMYg)
+- [Telegraf监控客户端调研笔记（6）-PING监控、进程监控](https://mp.weixin.qq.com/s/QJOaETU7r1silkj5RwuZbw)
+
+
 如果仍然有使用问题，可以联系我们，联系方式如下，公众号：
 
 ![](/cloudmon.png?width=200px)
