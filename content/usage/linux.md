@@ -14,6 +14,6 @@ title: "监控Linux"
 ## node_exporter
 
 - 部署方式：[https://github.com/prometheus/node_exporter](https://github.com/prometheus/node_exporter)
-- 告警规则：[https://github.com/didi/nightingale/blob/main/etc/alerts/node_by_exporter.json](https://github.com/didi/nightingale/blob/main/etc/alerts/node_by_exporter.json)
-- 监控大盘：[https://github.com/didi/nightingale/blob/main/etc/dashboards/node_by_exporter.json](https://github.com/didi/nightingale/blob/main/etc/dashboards/node_by_exporter.json)
+- 告警规则：[https://github.com/didi/nightingale/blob/main/etc/alerts/linux_by_exporter.json](https://github.com/didi/nightingale/blob/main/etc/alerts/linux_by_exporter.json)
+- 监控大盘：[https://github.com/didi/nightingale/blob/main/etc/dashboards/linux_by_exporter.json](https://github.com/didi/nightingale/blob/main/etc/dashboards/linux_by_exporter.json)
 
